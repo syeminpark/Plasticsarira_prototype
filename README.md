@@ -1,2 +1,4 @@
 # water_dweller
-물사이 팀의 그린버스 프로젝트 
+A project by the Water-Dweller Team(Choi Seung Hee, Park Syemin)
+Will be presented in the "GreenVerse" an online platform. 
+
