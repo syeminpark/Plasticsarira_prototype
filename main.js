@@ -1,25 +1,20 @@
-//전역 변수 이름공간
-const syemin = {
-    //카메라 렌더링 라이트 등등
-    threeSystem: 0,
-    //사리 생성 및 미세플라스틱과 연관된 클래스 관리 
-    bodySystem: 0
-}
+//사리생성장면과 가상환경 장면의 카메라, 렌더링, 등을 총괄하는 클라스 
+let threeSystemController
 
 setup()
 draw()
 
 function setup() {
-    syemin.threeSystem = new ThreeSystem()
-    syemin.threeSystem.init()
+    threeSystemController = new ThreeSystemController()
+    threeSystemController.init()
     createCube()
-
 }
 
 function draw() {
 
     requestAnimationFrame(draw);
-    syemin.threeSystem.update()
+    threeSystemController.update()
+
 
 }
 
@@ -29,8 +24,10 @@ function createCube() {
         color: '#8AC'
     });
     const cube = new THREE.Mesh(geometry, material);
+    const cube2 = new THREE.Mesh(geometry, material);
     cube.position.set(0, 0, 0)
-    syemin.threeSystem.addToScene(cube)
+    threeSystemController.addToSariraScene(cube)
+    threeSystemController.addToWorldScene(cube2)
 }
 
 ///코딩 할일 우선순위
