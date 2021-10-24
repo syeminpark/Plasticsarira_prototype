@@ -1,8 +1,12 @@
 class ThreeSystem {
 
-    constructor(sceneInfo, windowSizeDivideFactor) {
+    constructor( windowSizeDivideFactor) {
 
         this.windowSizeDivideFactor = windowSizeDivideFactor
+   
+        this.container = document.getElementById('c');
+
+        
     }
 
     init(cameraPositionList, cameraLookPositionList) {
@@ -15,7 +19,9 @@ class ThreeSystem {
         this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10000);
 
         //create Renderer
+       
         this.renderer = new THREE.WebGLRenderer({
+        
             antialias: true
         });
 
@@ -36,6 +42,7 @@ class ThreeSystem {
     update() {
         this.controls.update();
         this.renderer.render(this.scene, this.camera);
+
     }
 
 
@@ -50,9 +57,12 @@ class ThreeSystem {
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         this.renderer.setPixelRatio(window.devicePixelRatio)
         this.renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(this.renderer.domElement);
+        this.container.appendChild(this.renderer.domElement);
         console.log(this.renderer.domElement)
+       
+
     }
+
 
     setOrbitcontrols() {
         this.controls.listenToKeyEvents(window); // use arrow keys to move camera
