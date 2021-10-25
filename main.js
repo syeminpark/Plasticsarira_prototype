@@ -7,28 +7,29 @@ draw()
 function setup() {
     threeSystemController = new ThreeSystemController()
     threeSystemController.init()
-    createCube()
+
+    ///장면에 요소를 추가하기 위한 예시.
+    threeSystemController.addToSariraScene(createCube())
+    threeSystemController.addToWorldScene(createCube())
 }
 
 function draw() {
 
     requestAnimationFrame(draw);
+    //매 프레임 실행되는 부분
     threeSystemController.update()
-
-
 }
 
+//------------------------------------------------------------------
+
+//예시 큐브 
 function createCube() {
     const geometry = new THREE.BoxGeometry(10, 10, 10);
     const material = new THREE.MeshPhongMaterial({
         color: '#8AC'
     });
     const cube = new THREE.Mesh(geometry, material);
-    const cube2 = new THREE.Mesh(geometry, material);
     cube.position.set(0, 0, 0)
-    threeSystemController.addToSariraScene(cube)
-    threeSystemController.addToWorldScene(cube2)
+    return cube
 }
 
-///코딩 할일 우선순위
-// 두개 윈도우 렌더링하기 
