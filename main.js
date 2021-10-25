@@ -1,12 +1,14 @@
 //사리생성장면과 가상환경 장면의 카메라, 렌더링, 등을 총괄하는 클라스 
 let threeSystemController
+let BodySystem;
 
 setup()
 draw()
 
 function setup() {
     threeSystemController = new ThreeSystemController()
-    threeSystemController.init()
+    
+
 
     ///장면에 요소를 추가하기 위한 예시.
     threeSystemController.addToSariraScene(createCube())
