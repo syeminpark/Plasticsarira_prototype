@@ -11,6 +11,8 @@ class ThreeSystemController {
         //다른 매개변수들 추가 
 
 
+        ///
+        this.init();
     }
 
     //---------------------------------------------------------------------------------------
@@ -18,15 +20,12 @@ class ThreeSystemController {
 
         //-----------------------------------------------------------------------------
         //가상현실 생성 장면 시스템 
-        this.worldThreeSystem = new ThreeSystem(document.querySelector('#world'))
+        this.worldThreeSystem = new ThreeSystem(document.querySelector('#world'), this.cameraPositionList, this.cameraLookPositionList)
         //사리 생성 장면 시스템 
-        this.sariaThreeSystem = new ThreeSystem(document.querySelector('#sarira'))
-
-         //카메라 생성, 렌더러 설정, 마우스 이동 가능(orbitcontrols), 빛 두개(ambient,directional)생성 
-         this.sariaThreeSystem.init(this.cameraPositionList, this.cameraLookPositionList)
-         this.worldThreeSystem.init(this.cameraPositionList, this.cameraLookPositionList)
-         this.systemList = [this.sariaThreeSystem, this.worldThreeSystem]
-          //-----------------------------------------------------------------------------
+        //카메라 생성, 렌더러 설정, 마우스 이동 가능(orbitcontrols), 빛 두개(ambient,directional)생성 
+        this.sariaThreeSystem = new ThreeSystem(document.querySelector('#sarira'), this.cameraPositionList, this.cameraLookPositionList)
+        this.systemList = [this.sariaThreeSystem, this.worldThreeSystem]
+        //-----------------------------------------------------------------------------
 
         //css와 연관된, 렌더러가 렌더링하는 캔버스 명 
         this.canvas = document.querySelector('#c');
@@ -46,7 +45,7 @@ class ThreeSystemController {
 
         //매 프레임 렌더링하기 
         this.render()
-    
+
     }
 
     //장면에 요소를 추가하기 위한 메서드 
@@ -59,9 +58,9 @@ class ThreeSystemController {
     }
 
     //화면 크기 조정 
-     //---------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------
 
-     refreshWindowSize() {
+    refreshWindowSize() {
 
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         for (let system of this.systemList) {
@@ -70,7 +69,7 @@ class ThreeSystemController {
         }
     }
     //렌도링 관련된 메서드 
-     //---------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------
 
     initializeRenderer() {
         this.renderer = new THREE.WebGLRenderer({
@@ -143,5 +142,5 @@ class ThreeSystemController {
         return needResize;
     }
 
-   
+
 }
