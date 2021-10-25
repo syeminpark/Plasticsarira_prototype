@@ -1,13 +1,12 @@
 class ThreeSystem {
 
-    constructor(element, windowSizeDivideFactor) {
+    constructor(element) {
 
-        this.element=element
-
-        this.windowSizeDivideFactor = windowSizeDivideFactor
+        //해당하는 css요소명 
+        this.element = element
     }
 
-    init(cameraPositionList, cameraLookPositionList,canvas) {
+    init(cameraPositionList, cameraLookPositionList) {
 
         //createScene
         this.scene = new THREE.Scene();
@@ -15,22 +14,27 @@ class ThreeSystem {
         this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10000);
 
         //orbit controls. move camera by mouse 
-        this.controls = new THREE.OrbitControls(this.camera,this.element);
+        this.controls = new THREE.OrbitControls(this.camera, this.element);
         //lights
         this.ambientLight = new THREE.AmbientLight(0x404040, 1);
         this.directionalLight = new THREE.DirectionalLight(0xffffff, 5);
 
         //--------------------------------------------------------------------------------
         this.setCamera(cameraPositionList, cameraLookPositionList);
-       //this.setRenderer();
+        //this.setRenderer();
         this.setOrbitcontrols();
         this.setLights()
+
+        //프레임 레이트 모니터링 
+        this.stats = new Stats()
+        this.element.appendChild(this.stats.dom)
+        this.stats.dom.style.left = this.element.style.left
+
     }
 
     update() {
         this.controls.update();
-        //this.renderer.render(this.scene, this.camera);
-
+        this.stats.update()
     }
 
     setCamera(cameraPositionList, cameraLookPositionList) {
