@@ -23,8 +23,8 @@ class ThreeSystemController {
         this.worldThreeSystem = new ThreeSystem(document.querySelector('#world'), this.cameraPositionList, this.cameraLookPositionList)
         //사리 생성 장면 시스템 
         //카메라 생성, 렌더러 설정, 마우스 이동 가능(orbitcontrols), 빛 두개(ambient,directional)생성 
-        this.sariaThreeSystem = new ThreeSystem(document.querySelector('#sarira'), this.cameraPositionList, this.cameraLookPositionList)
-        this.systemList = [this.sariaThreeSystem, this.worldThreeSystem]
+        this.sariraThreeSystem = new ThreeSystem(document.querySelector('#sarira'), this.cameraPositionList, this.cameraLookPositionList)
+        this.systemList = [this.sariraThreeSystem, this.worldThreeSystem]
         //-----------------------------------------------------------------------------
 
         //css와 연관된, 렌더러가 렌더링하는 캔버스 명 
@@ -40,7 +40,7 @@ class ThreeSystemController {
     //매 프레임 실행되는 메서드.
     update() {
         //orbit controls, renderer, frame rate 업데이트 
-        this.sariaThreeSystem.update()
+        this.sariraThreeSystem.update()
         this.worldThreeSystem.update()
 
         //매 프레임 렌더링하기 
@@ -50,7 +50,7 @@ class ThreeSystemController {
 
     //장면에 요소를 추가하기 위한 메서드 
     addToSariraScene(element) {
-        this.sariaThreeSystem.scene.add(element)
+        this.sariraThreeSystem.scene.add(element)
     }
     addToWorldScene(element) {
         this.worldThreeSystem.scene.add(element)
@@ -133,9 +133,10 @@ class ThreeSystemController {
         }
     }
     resizeRendererToDisplaySize() {
-        const width = this.canvas.clientWidth;
-        const height = this.canvas.clientHeight;
-        const needResize = this.canvas.width !== width || this.canvas.height !== height;
+      
+        let width = this.canvas.clientWidth;
+        let height = this.canvas.clientHeight;
+        let needResize = this.canvas.width !== width || this.canvas.height !== height;
         if (needResize) {
             this.renderer.setSize(width, height, false);
         }

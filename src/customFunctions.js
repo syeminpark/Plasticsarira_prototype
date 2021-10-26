@@ -22,6 +22,16 @@ function point(positionList,size,color){
   return dot;
 }
 
+//예시 큐브 
+function createCube() {
+  const geometry = new THREE.BoxGeometry(10, 10, 10);
+  const material = new THREE.MeshPhongMaterial({
+      color: '#8AC'
+  });
+  const cube = new THREE.Mesh(geometry, material);
+  cube.position.set(0, 0, 0)
+  return cube
+}
 
 //-----rgb to hex converter 
 function color(r, g, b) {
