@@ -4,12 +4,12 @@ class ThreeSystemController {
     constructor() {
 
         //초기 카메라 위치값 x,y,z
-        this.cameraPositionList = [50, 50, 50]
+        this.worldCameraPositionList = [50, 50, 50]
+        this.sariraCameraPositionList = [50, 50, 50]
         //카메라가 바라보는 시점  x, y, z
         this.cameraLookPositionList = [0, 0, 0]
 
         //다른 매개변수들 추가 
-
 
         ///
         this.init();
@@ -20,10 +20,10 @@ class ThreeSystemController {
 
         //-----------------------------------------------------------------------------
         //가상현실 생성 장면 시스템 
-        this.worldThreeSystem = new ThreeSystem(document.querySelector('#world'), this.cameraPositionList, this.cameraLookPositionList)
+        this.worldThreeSystem = new ThreeSystem(document.querySelector('#world'), this.worldCameraPositionList, this.cameraLookPositionList)
         //사리 생성 장면 시스템 
         //카메라 생성, 렌더러 설정, 마우스 이동 가능(orbitcontrols), 빛 두개(ambient,directional)생성 
-        this.sariraThreeSystem = new ThreeSystem(document.querySelector('#sarira'), this.cameraPositionList, this.cameraLookPositionList)
+        this.sariraThreeSystem = new ThreeSystem(document.querySelector('#sarira'), this.sariraCameraPositionList, this.cameraLookPositionList)
         this.systemList = [this.sariraThreeSystem, this.worldThreeSystem]
         //-----------------------------------------------------------------------------
 

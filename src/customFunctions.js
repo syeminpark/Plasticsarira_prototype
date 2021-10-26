@@ -42,3 +42,15 @@ function componentToHex(c) {
   var hex = c.toString(16);
   return hex.length == 1 ? "0" + hex : hex;
 }
+
+function constrain(num, min, max){
+  const MIN = min
+  const MAX = max
+  const parsed = parseInt(num)
+  return Math.min(Math.max(parsed, MIN), MAX)
+}
+
+function print(...args){
+
+  console.log(...args)
+}
