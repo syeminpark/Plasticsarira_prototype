@@ -24,7 +24,7 @@ class ThreeSystem {
     }
 
     setCamera(cameraPositionList, cameraLookPositionList) {
-        this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10000);
+        this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 10000);
         this.camera.position.set(cameraPositionList[0], cameraPositionList[1], cameraPositionList[2]);
         this.camera.lookAt(cameraLookPositionList[0], cameraLookPositionList[1], cameraLookPositionList[2]);
         this.camera.rotation.order = 'YXZ';

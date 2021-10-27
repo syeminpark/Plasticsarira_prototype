@@ -49,12 +49,11 @@ class ThreeSystemController {
     }
 
     //장면에 요소를 추가하기 위한 메서드 
-    addToSariraScene(element) {
-        this.sariraThreeSystem.scene.add(element)
+    addToSariraScene(...args) {
+        this.sariraThreeSystem.scene.add(...args)
     }
-    addToWorldScene(element) {
-        this.worldThreeSystem.scene.add(element)
-
+    addToWorldScene(...args) {
+        this.worldThreeSystem.scene.add(...args)
     }
 
     //화면 크기 조정 
@@ -62,11 +61,12 @@ class ThreeSystemController {
 
     refreshWindowSize() {
 
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        
         for (let system of this.systemList) {
             system.camera.aspect = window.innerWidth / window.innerHeight;
             system.camera.updateProjectionMatrix();
         }
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
     }
     //렌도링 관련된 메서드 
     //---------------------------------------------------------------------------------------

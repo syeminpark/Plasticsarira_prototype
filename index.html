@@ -1,45 +1,65 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>Plastic Sarira</title>
-		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<link rel="stylesheet" href="style.css">
-	</head>
-	<body>
-		<div id="info">Plastic Sarira</a> </div>
-		
-		<canvas id="c"></canvas>
-		<p>
-			<span id="world" class="diagram left"></span>
+
+<head>
+	<meta charset="utf-8">
+	<title>Plastic Sarira</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" href="style.css">
 	
-			<span id="sarira" class="diagram right"></span>
+</head>
 
-		</p>
+<body>
+	<div id="info">Plastic Sarira</a> </div>
+	<canvas id="c"></canvas>
+	<p>
+		<span id="world" class="diagram left"></span>
+		<span id="sarira" class="diagram right"></span>
+	</p>
 
-		<!-- 라이브러리 영역 -->
-		<script src="library/three.js"></script>
-		<script src="library/OrbitControls.js"></script>
-		<script src="library/stats.min.js"></script>
-		<script src="library/dat.gui.min.js"></script>
-		<script src="library/lodash.js"></script>
-	
+	<!-- shader -->
 
-
-		<!-- 커스텀 스크립트 영역 -->
-		
-		<script  src="/src/BodySystem.js"></script>
-		<script  src="/src/Sarira.js"></script>
-		<script  src="/src/Microplastic.js"></script>
-		<script  src="/src/Core.js"></script>
-		<script  src="/src/customFunctions.js"></script>
-		<script src="/src/ThreeSystem.js"></script>
-		<script src="/src/ThreeSystemController.js"></script>
-		<script  src="main.js "></script>
-		
-		<script>
+	<script type="x-shader/x-vertex" id="vertexshader">
+		attribute float size;
+			varying vec3 vColor;
+			void main() {
+				vColor = color;
+				vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+				gl_PointSize = size * ( 300.0 / -mvPosition.z );
+				gl_Position = projectionMatrix * mvPosition;
+			}
 		</script>
-		
-	</body>
+	<script type="x-shader/x-fragment" id="fragmentshader">
+		uniform sampler2D pointTexture;
+			varying vec3 vColor;
+			void main() {
+				gl_FragColor = vec4( vColor, 1.0 );
+				gl_FragColor = gl_FragColor * texture2D( pointTexture, gl_PointCoord );
+			}
+		</script>
+
+
+	<!-- 라이브러리 영역 -->
+	<script src="library/three.js"></script>
+	<script src="library/OrbitControls.js"></script>
+	<script src="library/stats.min.js"></script>
+
+	<!-- 커스텀 스크립트 영역 -->
 	
+	<script src="/src/Buffer.js"></script>
+	<script src="/src/Shader.js"></script>
+	<script src="/src/BodySystem.js"></script>
+	<script src="/src/Sarira.js"></script>
+	<script src="/src/Microplastic.js"></script>
+	<script src="/src/Core.js"></script>
+	<script src="/src/customFunctions.js"></script>
+	<script src="/src/ThreeSystem.js"></script>
+	<script src="/src/ThreeSystemController.js"></script>
+	<script src="main.js "></script>
+
+
+
+
+</body>
+
 </html>

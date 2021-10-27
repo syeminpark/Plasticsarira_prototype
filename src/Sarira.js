@@ -1,8 +1,9 @@
 class Sarira {
-    constructor() {
+    constructor(bufferGeometry) {
         this.plasticList = []
         this.plasticList.push(new Core())
-        this.plasticList[0].initialize()
+        this.plasticList[0].initialize(bufferGeometry)
+        
     }
 
     addPlastics(micro) {

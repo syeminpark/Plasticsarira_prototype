@@ -1,19 +1,19 @@
 class Core extends Microplastic {
-    constructor(){
+    constructor() {
         super()
-        this.size= 5
-        this.position=new THREE.Vector3(0,0,0)
+        this.size = 5
+        this.position = [0,0,0]
         this.density = 0.92
-        
+
     }
-    initialize() {
-        super.initialize(this.position,this.size)
+    initialize(bufferGeometry) {
+        super.initialize(bufferGeometry,this.position, this.size)
     }
 
     attract(floatingMicro) {
         // Calculate direction of force
-        let force=new THREE.Vector3(0,0,0)
-        force.subVectors(this.positionList, floatingMicro.positionList);
+        let force = new THREE.Vector3(0, 0, 0)
+        force.subVectors(this.positionVector3, floatingMicro.positionVector3);
         // Distance between objects
         let distance = constrain(force.length(), 5, 50);
         // Calculate gravitional force magnitude

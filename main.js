@@ -11,6 +11,7 @@ function setup() {
 
     ///예시 코드 
     threeSystemController.addToWorldScene(createCube())
+    
 }
 
 function draw() {
