@@ -6,7 +6,7 @@ class Shader {
             }
         }
 
-        print("done")
+
         this.shaderMaterial = new THREE.ShaderMaterial({
 
             uniforms: this.uniforms,

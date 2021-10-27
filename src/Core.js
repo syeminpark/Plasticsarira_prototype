@@ -2,13 +2,14 @@ class Core extends Microplastic {
     constructor() {
         super()
         this.size = 5
-        this.position = [0,0,0]
+        this.positionList = [0,0,0]
         this.density = 0.92
+    }
 
+    initialize() {
+        super.initialize(this.positionList, this.size)
     }
-    initialize(bufferGeometry) {
-        super.initialize(bufferGeometry,this.position, this.size)
-    }
+
 
     attract(floatingMicro) {
         // Calculate direction of force

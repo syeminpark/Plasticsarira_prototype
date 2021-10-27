@@ -7,18 +7,14 @@ class Microplastic {
         this.acceleration = new THREE.Vector3(0, 0, 0)
         this.density = 1;
         this.positionVector3 = new THREE.Vector3(0, 0, 0)
-
-
     }
+
     initialize(positionList, size) {
 
         this.positionList = positionList || this.randomPoint()
-
         this.size = size || Math.random() * (50 - 1) + 1
         this.color = [Math.random(), Math.random(), Math.random()]
-
         this.mass = this.density * this.size * 2
-
     }
 
     applyForce(force) {
@@ -35,35 +31,27 @@ class Microplastic {
         this.acceleration.multiplyScalar(0)
     }
     getPosition() {
-
         for (let i = 0; i < 3; i++) {
             this.positionList[i] = this.point.geometry.attributes.position.array[i]
         }
         this.positionVector3.set(this.positionList[0], this.positionList[1], this.positionList[2])
-
     }
 
     updateBuffer(bufferGeometry, index) {
-
-
         for (let i = 0; i < 3; i++) {
             bufferGeometry.attributes.position.array[((index - 1) * 3) + i] = this.positionList[i]
             bufferGeometry.attributes.color.array[((index - 1) * 3) + i] = this.color[i]
         }
         bufferGeometry.attributes.size.array[index] = this.size
-
         bufferGeometry.setDrawRange(0, index);
-
 
         bufferGeometry.attributes.position.needsUpdate = true
         bufferGeometry.attributes.color.needsUpdate = true
         bufferGeometry.attributes.size.needsUpdate = true
-
-
+        print(this.bufferGeometry)
     }
 
     randomPoint() {
-        //console.log(threeSystemController.sariraThreeSystem.controls.object.position)
         let i = Math.round(Math.random() * 5)
         let x = Math.random() * (threeSystemController.sariraThreeSystem.controls.object.position.x + threeSystemController.sariraThreeSystem.controls.object.position.x) - threeSystemController.sariraThreeSystem.controls.object.position.x;
         let y = Math.random() * (threeSystemController.sariraThreeSystem.controls.object.position.y + threeSystemController.sariraThreeSystem.controls.object.position.y) - threeSystemController.sariraThreeSystem.controls.object.position.y;
@@ -75,11 +63,9 @@ class Microplastic {
             //bottom
         } else if (i == 1) {
             randPoint = [x, -threeSystemController.sariraThreeSystem.controls.object.position.y, z]
-
             //left
         } else if (i == 2) {
             randPoint = [-threeSystemController.sariraThreeSystem.controls.object.position.x, y, z]
-
             //right 
         } else if (i == 3) {
             randPoint = [threeSystemController.sariraThreeSystem.controls.object.position.x, y, z]
@@ -91,7 +77,6 @@ class Microplastic {
         //back     
         else {
             randPoint = [x, y, -threeSystemController.sariraThreeSystem.controls.object.position.z]
-
         }
         return randPoint
     }

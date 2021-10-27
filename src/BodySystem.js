@@ -6,7 +6,7 @@ class BodySystem {
         this.floatingPlasticsList = new Array(0)
         this.buffer=new Buffer(this.shader)
         this.buffer.initialize() 
-        this.sarira = new Sarira(this.sariraGeometry)
+        this.sarira = new Sarira(this.buffer.sariraGeometry)
 
         document.addEventListener('mousedown', this.addFloatingPlastics.bind(this), false);
     }
@@ -23,7 +23,6 @@ class BodySystem {
         this.floatingPlasticsList.push(micro)
 
     }
-
 
     moveFloatingPlastics() {
         for (let [index, micro] of this.floatingPlasticsList.entries()) {
