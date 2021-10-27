@@ -1,21 +1,29 @@
-class BodySystem{
-    
-    constructor(){
+class BodySystem {
+
+    constructor() {
+
+        this.shader=new Shader();
         this.floatingPlasticsList = new Array(0)
-        this.sarira = new Sarira()
-        document.addEventListener( 'mousedown', this.addFloatingPlastics.bind(this), false );
+        this.buffer=new Buffer(this.shader)
+        this.buffer.initialize() 
+        this.sarira = new Sarira(this.sariraGeometry)
+
+        document.addEventListener('mousedown', this.addFloatingPlastics.bind(this), false);
     }
 
-    update(){
-        this.updatePosition();
-        this.moveFloatingPlastics()
+    update() {
+        //this.updatePosition();
+        //this.moveFloatingPlastics()
     }
 
     addFloatingPlastics() {
-        let micro=new Microplastic()
+        let micro = new Microplastic()
         micro.initialize()
+        micro.updateBuffer(this.buffer.floatingGeometry, this.floatingPlasticsList.length)
         this.floatingPlasticsList.push(micro)
+
     }
+
 
     moveFloatingPlastics() {
         for (let [index, micro] of this.floatingPlasticsList.entries()) {
@@ -24,8 +32,8 @@ class BodySystem{
             micro.walk()
         }
     }
-    updatePosition(){
-        for (let plastic of this.floatingPlasticsList){
+    updatePosition() {
+        for (let plastic of this.floatingPlasticsList) {
             plastic.getPosition()
         }
     }
