@@ -2,7 +2,7 @@
 let threeSystemController
 let bodySystem;
 
-let microPlastics;
+let particleSystem_microPlastic;
 
 setup()
 draw()
@@ -11,10 +11,10 @@ function setup() {
     threeSystemController = new ThreeSystemController();
     bodySystem= new BodySystem();
 
-    microPlastics = new MicroPlastic_Particles(3000, 50);
+    particleSystem_microPlastic = new ParticleSystem(3000, 50);
 
     ///예시 코드 
-    threeSystemController.addToWorldScene(microPlastics.points);
+    threeSystemController.addToWorldScene(particleSystem_microPlastic.points);
 }
 
 function draw() {
@@ -23,7 +23,7 @@ function draw() {
     threeSystemController.update()
     bodySystem.update()
 
-    microPlastics.update();
+    particleSystem_microPlastic.update();
 }
 
 //------------------------------------------------------------------
