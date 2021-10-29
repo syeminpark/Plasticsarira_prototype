@@ -64,7 +64,7 @@ class Microplastic {
         
         for (let i = 0; i < others.length; i++) {
             let d2 = this.positionVector3.distanceTo(others[i].positionVector3)
-            print(this.size+others[i].size)
+            //print(this.size+others[i].size)
 
             if (d2 <(this.size + others[i].size)){
               // print(true) //+ (this.tensileStrength + others[i].tensileStrength) / 2)) {
