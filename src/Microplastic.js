@@ -48,7 +48,7 @@ class Microplastic {
         bufferGeometry.attributes.position.needsUpdate = true
         bufferGeometry.attributes.color.needsUpdate = true
         bufferGeometry.attributes.size.needsUpdate = true
-        print(this.bufferGeometry)
+ 
     }
 
     randomPoint() {
