@@ -31,3 +31,7 @@ function constrain(num, min, max){
 function print(...args){
   console.log(...args)
 }
+
+function random(min, max) {
+  return Math.random() * (max - min) + min;
+}
