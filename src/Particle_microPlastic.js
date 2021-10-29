@@ -12,12 +12,10 @@ class MicroPlastic {
                                         random(-0.01, 0.01));
       this.acceleration = new THREE.Vector3(0, 0, 0);
   
-      this.angle = 0;
-      this.angleVelocity = 0;
-      this.angleAcceleration = 0;
-  
-      this.size = 0.05;
-  
+      this.angle = new THREE.Vector3(0, 0, 0);
+      this.angleVelocity = new THREE.Vector3(0, 0, 0);
+      this.angleAcceleration = new THREE.Vector3(0, 0, 0);
+    
       this.color = new THREE.Color('white');
       this.opacity = 1.0;
   
@@ -27,7 +25,7 @@ class MicroPlastic {
     update(){
       this.velocity.add(this.acceleration);
       this.position.add(this.velocity);
-      if (this.velocity.length() > 0.01) this.velocity.setLength(0.01);
+      if (this.velocity.length() > 0.05) this.velocity.setLength(0.05);
       this.acceleration.setLength(0);
     }
   
