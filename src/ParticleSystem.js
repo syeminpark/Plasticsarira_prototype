@@ -1,6 +1,6 @@
 class ParticleSystem{
-    constructor(){
-        this.num = 2000;
+    constructor(lifes){
+        this.num = 4000;
         this.size = 100;
 
         this.particles = [];
@@ -13,13 +13,15 @@ class ParticleSystem{
         }
 
         this.display();
+
+        this.lifes = lifes; //array
     }
 
     update(){
         const positions = this.points.geometry.attributes.position.array;
         
         for (let i = 0; i < positions.length; i += 3) {
-            var index = i/3;
+            const index = i/3;
 
             this.particles[index].update();
     
@@ -28,6 +30,10 @@ class ParticleSystem{
             positions[i+2] = this.particles[index].position.z;
 
             this.particles[index].wrap(this.size);
+
+            for (let j = 0; j < this.lifes.length; j++) {
+                this.lifes[j].eat(this.particles[index]);           
+            }
         }
 
         this.points.geometry.attributes.position.needsUpdate = true;

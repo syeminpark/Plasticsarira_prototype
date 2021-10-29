@@ -12,8 +12,8 @@ function setup() {
     threeSystemController = new ThreeSystemController();
     bodySystem= new BodySystem();
 
-    particleSystem_microPlastic = new ParticleSystem();
     lifeSystem = new LifeSystem();
+    particleSystem_microPlastic = new ParticleSystem(lifeSystem.lifes);
 }
 
 function draw() {

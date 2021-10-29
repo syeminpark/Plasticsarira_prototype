@@ -4,7 +4,7 @@ class MicroPlastic {
       this._index = index;
       this.size = size;
 
-      this.velV = 0.05;
+      this.velV = 0.01;
   
       this.position = new THREE.Vector3(
         random(-this.size, this.size), 
@@ -32,7 +32,8 @@ class MicroPlastic {
     update(){
       this.velocity.add(this.acceleration);
       this.position.add(this.velocity);
-      if (this.velocity.length() > 0.5) this.velocity.setLength(0.5);
+      //if (this.velocity.length() > 0.5) this.velocity.setLength(0.5);
+      this.velocity.clampLength(0, 0.5);
       this.acceleration.setLength(0);
     }
   
@@ -46,7 +47,7 @@ class MicroPlastic {
     }
   
     applyForce(force){
-      this.acceleration.add(new THREE.Vector3(force));
+      this.acceleration.add(force);
     }
   
     wrap(size){
@@ -57,14 +58,11 @@ class MicroPlastic {
       } 
     }
   
-    eaten_follow(){
-  
-    }
-  
     eaten_becomeSarira(){
-      //reset position when this particle disappear
-  
+      this.velocity.multiplyScalar(0.5);
+      if (this.velocity.length() < 0.000001) {
+        this.velocity.setLength(0);
+      }
     }
-  
   }
   

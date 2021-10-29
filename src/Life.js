@@ -59,7 +59,8 @@ class Life{
         this.velocity.add(this.acceleration);
         this.position.add(this.velocity);
         this.velocity.multiplyScalar(0.995);
-        if(this.velocity.length() > 0.5) this.velocity.multiplyScalar(0.1);
+        //if(this.velocity.length() > 0.5) this.velocity.multiplyScalar(0.1);
+        this.velocity.clampLength(0, 0.5);
         this.acceleration.setLength(0);
     }
 
@@ -136,8 +137,22 @@ class Life{
         } 
     }
     
-    eat(){
-
+    eat(microPlastic){
+        const randomSariraPos = this.size;
+        const sariraPos = this.position.clone().addVectors(
+            this.position, 
+            new THREE.Vector3(
+                random(-randomSariraPos, randomSariraPos),
+                random(-randomSariraPos, randomSariraPos),
+                random(-randomSariraPos, randomSariraPos)));
+        const distance = sariraPos.distanceTo(microPlastic.position);
+        const lifeSize = this.sizeMax;
+        if (distance < lifeSize){
+            var force = new THREE.Vector3().subVectors(this.position, microPlastic.position);
+            force.setLength(0.1);
+            microPlastic.applyForce(force);
+            microPlastic.eaten_becomeSarira();
+        }
     }
 
     breath(){
@@ -149,6 +164,10 @@ class Life{
     }
 
     make_sarira(){
+
+    }
+
+    eaten(){
 
     }
 }
