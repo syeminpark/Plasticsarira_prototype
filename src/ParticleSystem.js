@@ -1,7 +1,7 @@
 class ParticleSystem{
     constructor(){
-        this.num = 3000;
-        this.size = 50;
+        this.num = 4000;
+        this.size = 100;
 
         this.particles = [];
         this.p_positions = [];
