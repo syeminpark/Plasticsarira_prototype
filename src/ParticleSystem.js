@@ -1,6 +1,6 @@
 class ParticleSystem{
     constructor(){
-        this.num = 4000;
+        this.num = 2000;
         this.size = 100;
 
         this.particles = [];

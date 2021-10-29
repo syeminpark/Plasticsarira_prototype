@@ -1,7 +1,7 @@
 class LifeSystem{
     constructor(){
-        this.num = 5;
-        this.windowSize = 80;
+        this.num = 15;
+        this.windowSize = 110;
 
         this.lifes = [];
 

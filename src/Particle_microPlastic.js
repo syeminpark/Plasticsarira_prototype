@@ -3,13 +3,20 @@ class MicroPlastic {
       //this.type = [PP, PE, PET];
       this._index = index;
       this.size = size;
+
+      this.velV = 0.05;
   
-      this.position = new THREE.Vector3(random(-this.size, this.size), 
-                                        random(-this.size, this.size), 
-                                        random(-this.size, this.size));
-      this.velocity = new THREE.Vector3(random(-0.02, 0.02),
-                                        random(-0.02, 0.02),
-                                        random(-0.02, 0.02));
+      this.position = new THREE.Vector3(
+        random(-this.size, this.size), 
+        random(-this.size, this.size), 
+        random(-this.size, this.size));
+
+      if (this.position.length() > size) this.position.setLength(size);
+      
+        this.velocity = new THREE.Vector3(
+        random(-this.velV, this.velV),
+        random(-this.velV, this.velV),
+        random(-this.velV, this.velV));
       this.acceleration = new THREE.Vector3(0, 0, 0);
   
       this.angle = new THREE.Vector3(0, 0, 0);
@@ -43,21 +50,11 @@ class MicroPlastic {
     }
   
     wrap(size){
-      if (this.position.x > size) {
-        this.position.x = -size;
-      } else if (this.position.x < -size){
-          this.position.x = size - 1;
-      }
-      if (this.position.y > size) {
-          this.position.y = -size;
-      } else if (this.position.y < -size){
-          this.position.y = size - 1;
-      }
-      if (this.position.z > size) {
-          this.position.z = -size;
-      } else if (this.position.z < -size){
-          this.position.z = size - 1;
-      }
+      const distance = this.position.length();
+
+      if (distance > size*1.2){
+        this.velocity.multiplyScalar(-1);
+      } 
     }
   
     eaten_follow(){

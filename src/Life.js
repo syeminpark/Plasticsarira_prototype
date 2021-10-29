@@ -5,12 +5,16 @@ class Life{
 
         this.index = index;
 
-        this.position = new THREE.Vector3(random(-windowSize, windowSize), 
-                                          random(-windowSize, windowSize), 
-                                          random(-windowSize, windowSize));
-        this.velocity = new THREE.Vector3(random(-0.05, 0.05),
-                                          random(-0.05, 0.05),
-                                          random(-0.05, 0.05));
+        this.position = new THREE.Vector3(
+            random(-windowSize, windowSize), 
+            random(-windowSize, windowSize), 
+            random(-windowSize, windowSize));
+
+        if (this.position.length() > windowSize) this.position.setLength(windowSize);
+        
+        this.velocity = new THREE.Vector3(random(-0.01, 0.01),
+                                          random(-0.01, 0.01),
+                                          random(-0.01, 0.01));
         this.acceleration = new THREE.Vector3(0, 0, 0);
 
         this.angle = new THREE.Vector3(random(0, Math.PI * 2), 
@@ -19,8 +23,11 @@ class Life{
         this.angleVelocity = new THREE.Vector3(0, 0, 0);
         this.angleAcceleration = new THREE.Vector3(0, 0, 0);
 
-        this.size = random(0.01, 10);
-        this.sizeMax = 10;
+        this.size = random(0.01, 5);
+        this.sizeMax = random(0.01, 20);
+
+        this.noiseShape = (0.05, 0.2);
+        this.noiseAnimSpeed = random(0.1, 0.5);
         
         this.movement;
 
@@ -57,7 +64,7 @@ class Life{
     }
 
     display(){
-        var geometry = new THREE.SphereGeometry(this.size, 128, 128);
+        var geometry = new THREE.SphereGeometry(this.size, 32, 32);
         // var material = new THREE.MeshNormalMaterial({
         //     transparent:true,
         //     opacity:0.8,
@@ -80,7 +87,10 @@ class Life{
             blending:THREE.AdditiveBlending
         })
         var sprite = new THREE.Sprite(spriteMaterial);
-        sprite.scale.set(this.size*(this.sizeMax-2), this.size*(this.sizeMax-2), 1.0);
+        sprite.scale.set(
+            ((this.size*2) + this.sizeMax)*2, 
+            ((this.size*2) + this.sizeMax)*2, 
+            1.0);
         this.life.add(sprite);
     }
 
@@ -102,8 +112,8 @@ class Life{
             const norm = new THREE.Vector3().fromBufferAttribute(this.n_normal,i);
             const newPos = pos.clone();
 
-            pos.multiplyScalar(0.15);
-            pos.x += elapsedTime * 0.2;
+            pos.multiplyScalar(this.noiseShape);
+            pos.x += elapsedTime * this.noiseAnimSpeed;
             const n = this.perlin.get3(pos) * this.sizeMax;
             //console.log(n);
 
@@ -119,22 +129,12 @@ class Life{
     }
 
     wrap(size){
-        if (this.position.x > size) {
-          this.position.x = -size;
-        } else if (this.position.x < -size){
-            this.position.x = size - 1;
-        }
-        if (this.position.y > size) {
-            this.position.y = -size;
-        } else if (this.position.y < -size){
-            this.position.y = size - 1;
-        }
-        if (this.position.z > size) {
-            this.position.z = -size;
-        } else if (this.position.z < -size){
-            this.position.z = size - 1;
-        }
-      }
+        const distance = this.position.length();
+
+        if (distance > size){
+            this.velocity.multiplyScalar(-1);
+        } 
+    }
     
     eat(){
 
