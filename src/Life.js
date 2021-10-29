@@ -20,7 +20,7 @@ class Life{
         this.angleAcceleration = new THREE.Vector3(0, 0, 0);
 
         this.size = random(0.01, 10);
-        this.sizeMax = 5;
+        this.sizeMax = 10;
         
         this.movement;
 
@@ -77,11 +77,10 @@ class Life{
         var map = new THREE.TextureLoader().load('images/glow.png')
         var spriteMaterial = new THREE.SpriteMaterial({
             map: map,
-            useScreenCoordinates:false,
             blending:THREE.AdditiveBlending
         })
         var sprite = new THREE.Sprite(spriteMaterial);
-        sprite.scale.set(this.size*this.sizeMax, this.size*this.sizeMax, 1.0);
+        sprite.scale.set(this.size*(this.sizeMax-2), this.size*(this.sizeMax-2), 1.0);
         this.life.add(sprite);
     }
 

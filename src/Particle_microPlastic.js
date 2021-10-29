@@ -7,9 +7,9 @@ class MicroPlastic {
       this.position = new THREE.Vector3(random(-this.size, this.size), 
                                         random(-this.size, this.size), 
                                         random(-this.size, this.size));
-      this.velocity = new THREE.Vector3(random(-0.01, 0.01),
-                                        random(-0.01, 0.01),
-                                        random(-0.01, 0.01));
+      this.velocity = new THREE.Vector3(random(-0.02, 0.02),
+                                        random(-0.02, 0.02),
+                                        random(-0.02, 0.02));
       this.acceleration = new THREE.Vector3(0, 0, 0);
   
       this.angle = new THREE.Vector3(0, 0, 0);
@@ -25,7 +25,7 @@ class MicroPlastic {
     update(){
       this.velocity.add(this.acceleration);
       this.position.add(this.velocity);
-      if (this.velocity.length() > 0.05) this.velocity.setLength(0.05);
+      if (this.velocity.length() > 0.5) this.velocity.setLength(0.5);
       this.acceleration.setLength(0);
     }
   
