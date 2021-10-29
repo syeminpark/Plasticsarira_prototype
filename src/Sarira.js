@@ -3,11 +3,19 @@ class Sarira {
         this.plasticList = []
         this.plasticList.push(new Core())
         this.plasticList[0].initialize()
-        this.plasticList[0].updateBuffer(bufferGeometry,this.plasticList.length)
+        this.plasticList[0].updateBuffer(bufferGeometry,this.plasticList.length);
+        
     }
 
     addPlastics(micro) {
         this.plasticList.push(micro)
+    }
+
+    getPosition(bufferGeometry){
+        for (let [index,plastic] of this.plasticList.entries()){
+            plastic.getPosition(bufferGeometry,index);
+        
+        }
     }
 
 }
