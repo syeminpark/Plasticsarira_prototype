@@ -50,36 +50,7 @@ class Microplastic {
         bufferGeometry.setDrawRange(0, index);
     }
 
-<<<<<<< HEAD
-        bufferGeometry.attributes.position.needsUpdate = true
-        bufferGeometry.attributes.color.needsUpdate = true
-        bufferGeometry.attributes.size.needsUpdate = true
- 
-=======
-    deleteBuffer(bufferGeometry, index) {
-     
-        for (let i = 0; i < 3; i++) {
-            bufferGeometry.attributes.position.array[((index - 1) * 3) + i] = 0
-            bufferGeometry.attributes.color.array[((index - 1) * 3) + i] =  0
-        }
-        bufferGeometry.attributes.size.array[index-1] = 0
-        bufferGeometry.setDrawRange(0, index-1);
-    }
-
-    checkStuck(others){
-        
-        for (let i = 0; i < others.length; i++) {
-            let d2 = this.positionVector3.distanceTo(others[i].positionVector3)
-            print(this.size+others[i].size)
-
-            if (d2 <(this.size + others[i].size)){
-              // print(true) //+ (this.tensileStrength + others[i].tensileStrength) / 2)) {
-               return true
-             }
-        }
-        return false
->>>>>>> 7d126eeae0024c3100760091d61369c98c6dec88
-    }
+      
 
     randomPoint() {
         let i = Math.round(Math.random() * 5)
