@@ -2,13 +2,13 @@ class Buffer {
 
     constructor(shader) {
         this.maxPoints = 500;
-        this.shader=shader
+        this.shader = shader
         this.positionsEmptyList = new Float32Array(this.maxPoints * 3);
         this.colorsEmptyList = new Float32Array(this.maxPoints * 3);
         this.sizeEmptyList = new Float32Array(this.maxPoints);
     }
 
-    initialize(){
+    initialize() {
         this.initilaizeBuffer()
         this.initializeMaterial()
         this.setAttribute()
@@ -24,11 +24,11 @@ class Buffer {
 
     }
 
-    initializeMaterial(){
+    initializeMaterial() {
         this.pointMaterial = new THREE.PointsMaterial({
             vertexColors: THREE.VertexColors,
         });
-   
+
     }
     setAttribute() {
         for (let bufferGeometry of this.bufferGeometryList) {
@@ -40,16 +40,17 @@ class Buffer {
 
     makePoint() {
         this.floatingPoint = new THREE.Points(this.floatingGeometry, this.shader.shaderMaterial);
-        this.sariraPoint=new THREE.Points(this.sariraGeometry, this.shader.shaderMaterial);
+        this.sariraPoint = new THREE.Points(this.sariraGeometry, this.shader.shaderMaterial);
 
-        threeSystemController.addToSariraScene(this.floatingPoint,this.sariraPoint)
+        threeSystemController.addToSariraScene(this.floatingPoint, this.sariraPoint)
 
     }
 
-    setDrawCount(){
+    setDrawCount() {
         let drawCount = 1;
         this.floatingGeometry.setDrawRange(0, drawCount);
-        this.sariraGeometry.setDrawRange(0,drawCount)
+        this.sariraGeometry.setDrawRange(0, drawCount)
     }
+
 
 }

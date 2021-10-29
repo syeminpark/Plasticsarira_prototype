@@ -14,7 +14,7 @@ class Microplastic {
         this.positionList = positionList || this.randomPoint()
         this.size = size || Math.random() * (50 - 1) + 1
         this.color = [Math.random(), Math.random(), Math.random()]
-        this.mass = this.density * this.size * 2
+        this.mass = this.density * this.size 
     }
 
     applyForce(force) {
@@ -23,32 +23,55 @@ class Microplastic {
         this.acceleration.add(f);
     }
 
-    walk() {
+    walk(bufferGeometry,index) {
         this.velocity.add(this.acceleration)
-        this.point.geometry.attributes.position.array[0] += this.velocity.x
-        this.point.geometry.attributes.position.array[1] += this.velocity.y
-        this.point.geometry.attributes.position.array[2] = this.velocity.z
+        bufferGeometry.attributes.position.array[index*3] += this.velocity.x
+        bufferGeometry.attributes.position.array[(index*3)+1] += this.velocity.y
+        bufferGeometry.attributes.position.array[(index*3)+2] += this.velocity.z
         this.acceleration.multiplyScalar(0)
     }
-    getPosition() {
+    getPosition(bufferGeometry,index) {
+        bufferGeometry.attributes.position.needsUpdate = true
+        bufferGeometry.attributes.color.needsUpdate = true
+        bufferGeometry.attributes.size.needsUpdate = true
         for (let i = 0; i < 3; i++) {
-            this.positionList[i] = this.point.geometry.attributes.position.array[i]
+            this.positionList[i] = bufferGeometry.attributes.position.array[index*3+i]
         }
         this.positionVector3.set(this.positionList[0], this.positionList[1], this.positionList[2])
     }
 
     updateBuffer(bufferGeometry, index) {
+     
         for (let i = 0; i < 3; i++) {
             bufferGeometry.attributes.position.array[((index - 1) * 3) + i] = this.positionList[i]
             bufferGeometry.attributes.color.array[((index - 1) * 3) + i] = this.color[i]
         }
-        bufferGeometry.attributes.size.array[index] = this.size
+        bufferGeometry.attributes.size.array[index-1] = this.size
         bufferGeometry.setDrawRange(0, index);
+    }
 
-        bufferGeometry.attributes.position.needsUpdate = true
-        bufferGeometry.attributes.color.needsUpdate = true
-        bufferGeometry.attributes.size.needsUpdate = true
-        print(this.bufferGeometry)
+    deleteBuffer(bufferGeometry, index) {
+     
+        for (let i = 0; i < 3; i++) {
+            bufferGeometry.attributes.position.array[((index - 1) * 3) + i] = 0
+            bufferGeometry.attributes.color.array[((index - 1) * 3) + i] =  0
+        }
+        bufferGeometry.attributes.size.array[index-1] = 0
+        bufferGeometry.setDrawRange(0, index-1);
+    }
+
+    checkStuck(others){
+        
+        for (let i = 0; i < others.length; i++) {
+            let d2 = this.positionVector3.distanceTo(others[i].positionVector3)
+            print(this.size+others[i].size)
+
+            if (d2 <(this.size + others[i].size)){
+              // print(true) //+ (this.tensileStrength + others[i].tensileStrength) / 2)) {
+               return true
+             }
+        }
+        return false
     }
 
     randomPoint() {
