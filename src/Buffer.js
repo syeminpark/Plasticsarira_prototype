@@ -27,6 +27,7 @@ class Buffer {
     initializeMaterial() {
         this.pointMaterial = new THREE.PointsMaterial({
             vertexColors: THREE.VertexColors,
+            size:5
         });
 
     }
@@ -39,8 +40,8 @@ class Buffer {
     }
 
     makePoint() {
-        this.floatingPoint = new THREE.Points(this.floatingGeometry, this.shader.shaderMaterial);
-        this.sariraPoint = new THREE.Points(this.sariraGeometry, this.shader.shaderMaterial);
+        this.floatingPoint = new THREE.Points(this.floatingGeometry, this.pointMaterial);
+        this.sariraPoint = new THREE.Points(this.sariraGeometry, this.pointMaterial);
 
         threeSystemController.addToSariraScene(this.floatingPoint, this.sariraPoint)
 

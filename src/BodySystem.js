@@ -13,33 +13,39 @@ class BodySystem {
 
     update() {
         this.moveFloatingPlastics()
-        this.sarira.getPosition(this.buffer.sariraGeometry)
+        this.sarira.update(this.buffer.sariraGeometry)
+
     }
 
     addFloatingPlastics() {
-        let micro = new Microplastic()
-        micro.initialize()
-        micro.updateBuffer(this.buffer.floatingGeometry, this.floatingPlasticsList.length)
-        this.floatingPlasticsList.push(micro)
+        let tempMicro = new Microplastic()
+        tempMicro.initialize()
+        this.floatingPlasticsList.push(tempMicro)
+        tempMicro.updateBuffer(this.buffer.floatingGeometry, this.floatingPlasticsList.length)
 
     }
 
     moveFloatingPlastics() {
         for (let [index, micro] of this.floatingPlasticsList.entries()) {
             let force = this.sarira.plasticList[0].attract(micro);
+       
             micro.getPosition(this.buffer.floatingGeometry, index);
+
             micro.applyForce(force);
             micro.walk(this.buffer.floatingGeometry, index)
-
+  
+       
             if (micro.checkStuck(this.sarira.plasticList)) {
-                //this.sarira.addPlastics(micro)
-                //micro.updateBuffer(this.buffer.sariraGeometry, this.sarira.plasticsList.length)
-                //micro.deleteBuffer(this.buffer.floatingGeometry, this.floatingPlasticsList.length)
-                // nm this.floatingPlasticsList.splice(index, 1);
+                print("init",micro.color)
+                this.sarira.addPlastics(micro)
+                micro.getPosition(this.buffer.floatingGeometry, index)
+        
+                micro.updateBuffer(this.buffer.sariraGeometry, this.sarira.plasticList.length)
+                print("second",micro.color)
+                micro.switch(this.buffer.floatingGeometry, index, this.floatingPlasticsList)
+           
             }
+
         }
     }
-
-
-
 }
