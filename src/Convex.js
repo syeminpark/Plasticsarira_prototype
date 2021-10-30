@@ -1,4 +1,5 @@
-class ConvexHull{
+class Convex{
+
     constructor(){
         
     }
