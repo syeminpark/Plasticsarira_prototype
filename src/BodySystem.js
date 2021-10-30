@@ -9,12 +9,13 @@ class BodySystem {
         this.sarira = new Sarira(this.buffer.sariraGeometry)
 
         document.addEventListener('mousedown', this.addFloatingPlastics.bind(this), false);
+        document.addEventListener('keydown',this.generateConvex.bind(this), false);
     }
 
     update() {
         this.moveFloatingPlastics()
         this.sarira.update(this.buffer.sariraGeometry)
-
+        
     }
 
     addFloatingPlastics() {
@@ -47,5 +48,8 @@ class BodySystem {
             }
 
         }
+    }
+    generateConvex(){
+        this.sarira.generateConvex(this.buffer.sariraGeometry)
     }
 }
