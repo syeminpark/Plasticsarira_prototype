@@ -7,6 +7,7 @@ class Microplastic {
         this.acceleration = new THREE.Vector3(0, 0, 0)
         this.density = 1;
         this.positionVector3 = new THREE.Vector3(0, 0, 0)
+        this.tensileStrength = 4554
     }
 
     initialize(positionList, size) {
@@ -15,6 +16,8 @@ class Microplastic {
         this.size = size || 50 //Math.random() * (50 - 1) + 1
         this.color = [Math.random(), Math.random(), Math.random()]
         this.mass = this.density * this.size
+        this.tensileStrength = map(this.tensileStrength, 4400, 12400, 0,100)
+
     }
 
     applyForce(force) {
@@ -76,8 +79,8 @@ class Microplastic {
 
         for (let i = 0; i < others.length; i++) {
             let d2 = this.positionVector3.distanceTo(others[i].positionVector3)
-            if (d2 < this.size / 10 + others[i].size / 10) {
-                //+ (this.tensileStrength + others[i].tensileStrength) / 2)) {
+            if ((d2 < this.size / 5 + others[i].size / 5) 
+                * (this.tensileStrength + others[i].tensileStrength) / 2) {
                 return true
             }
         }

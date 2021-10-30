@@ -4,6 +4,8 @@ class Core extends Microplastic {
         this.size = 50
         this.positionList = [0,0,0]
         this.density = 0.92
+        this.tensileStrength = 5440
+
     }
 
     initialize() {
