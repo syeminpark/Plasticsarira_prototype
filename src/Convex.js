@@ -3,6 +3,7 @@ class Convex {
     constructor(bufferGeometry) {
 
         this.vertices = []
+
         this.initializeBuffer(bufferGeometry)
         this.initializeMaterial()
         this.initializeMesh()
@@ -23,34 +24,41 @@ class Convex {
     }
 
     updateBuffer(plastic) {
-        
-       this.meshGeometry.dispose()
-       threeSystemController.sariraThreeSystem.scene.remove(this.mesh1);
-       threeSystemController.sariraThreeSystem.scene.remove(this.mesh2);
 
-       this.vertices.push(plastic.positionVector3);
-       this.meshGeometry = new THREE.ConvexGeometry(this.vertices);
-      this.initializeMesh()
-       
+        this.meshGeometry.dispose()
+        threeSystemController.sariraThreeSystem.scene.remove(this.mesh1);
+        threeSystemController.sariraThreeSystem.scene.remove(this.mesh2);
+
+        this.vertices.push(plastic.positionVector3);
+        this.meshGeometry = new THREE.ConvexGeometry(this.vertices);
+        this.initializeMesh()
+
     }
 
     initializeMesh() {
+
         this.mesh1 = new THREE.Mesh(this.meshGeometry, this.material);
         this.mesh1.material.side = THREE.BackSide; // back faces
         this.mesh1.renderOrder = 0;
         this.mesh2 = new THREE.Mesh(this.meshGeometry, this.material.clone());
         this.mesh2.material.side = THREE.FrontSide; // front faces
         this.mesh2.renderOrder = 1;
+
+        this.group = new THREE.Group();
+        this.group.add(this.mesh1, this.mesh2)
         threeSystemController.addToSariraScene(this.mesh1, this.mesh2);
     }
 
 
     initializeMaterial() {
 
-        this.material = new THREE.MeshLambertMaterial({
-            color: 0xffffff,
-            opacity: 0.5,
-            transparent: true
+        this.material = new THREE.MeshPhysicalMaterial({
+            transmission: 0.9,
+            thickness: 0.1,
+            roughness: 0.4,
+
+            clearcoat: 0.5,
+            clearcoatRoughness: 0.12
         });
     }
 

@@ -37,12 +37,15 @@ class ThreeSystem {
     }
 
     setLights() {
-        this.ambientLight = new THREE.AmbientLight(0x404040, 1);
+        this.ambientLight = new THREE.AmbientLight(0x404040, 5);
         this.directionalLight = new THREE.DirectionalLight(0xffffff, 5);
-        this.directionalLight.position.set(25, 100, 10);
+        this.directionalLight.position.set(.5, 0, 0.866);
         this.directionalLight.target.position.set(0, 0, 0);
-        this.directionalLight.castShadow = true;
-        this.scene.add(this.ambientLight, this.directionalLight, this.directionalLight.target);
+        
+        //this.directionalLight.castShadow = true;
+      
+        this.hemiLight  = new THREE.HemisphereLight();
+        this.scene.add(this.ambientLight, this.directionalLight,this.hemiLight, this.directionalLight.target);
     }
     setStats(){
         this.stats = new Stats()

@@ -9,14 +9,14 @@ class Sarira {
     update(bufferGeometry) {
         this.getPosition(bufferGeometry)
         this.initializeConvex(bufferGeometry)
-
+    
     }
 
     addPlastics(micro) {
         this.plasticList.push(micro)
-  
-        if (this.plasticList.length > 4) {
+        if (this.plasticList.length > 5) {
             this.convex.updateBuffer(micro)
+
         }
     }
 
@@ -32,7 +32,6 @@ class Sarira {
         this.plasticList[0].updateBuffer(bufferGeometry, this.plasticList.length);
     }
 
-    //press key to generate
     initializeConvex(bufferGeometry) {
         if (this.isConvexMade == false) {
             if (this.plasticList.length > 3) {
@@ -42,5 +41,6 @@ class Sarira {
         }
 
     }
+
 
 }
