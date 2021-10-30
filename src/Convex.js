@@ -1,24 +1,60 @@
-class Convex  {
+class Convex {
 
-    constructor(shader) {
+    constructor(bufferGeometry) {
+
+        this.vertices = []
+        this.initializeBuffer(bufferGeometry)
+        this.initializeMaterial()
+        this.initializeMesh()
+    }
+
+    //must be at least three points. 
+    initializeBuffer(bufferGeometry) {
+        const positionAttribute = bufferGeometry.getAttribute('position');
+
+        for (let i = 0; i < positionAttribute.count; i++) {
+            const vertex = new THREE.Vector3();
+            vertex.fromBufferAttribute(positionAttribute, i);
+            this.vertices.push(vertex);
+        }
+
+        this.meshGeometry = new THREE.ConvexGeometry(this.vertices);
+
+    }
+
+    updateBuffer(plastic) {
         
+       this.meshGeometry.dispose()
+       threeSystemController.sariraThreeSystem.scene.remove(this.mesh1);
+       threeSystemController.sariraThreeSystem.scene.remove(this.mesh2);
 
+       this.vertices.push(plastic.positionVector3);
+       this.meshGeometry = new THREE.ConvexGeometry(this.vertices);
+      this.initializeMesh()
+       
     }
 
-    initilaizeBuffer(points) {
-
-        this.geometry = new THREE.ConvexGeometry();
+    initializeMesh() {
+        this.mesh1 = new THREE.Mesh(this.meshGeometry, this.material);
+        this.mesh1.material.side = THREE.BackSide; // back faces
+        this.mesh1.renderOrder = 0;
+        this.mesh2 = new THREE.Mesh(this.meshGeometry, this.material.clone());
+        this.mesh2.material.side = THREE.FrontSide; // front faces
+        this.mesh2.renderOrder = 1;
+        threeSystemController.addToSariraScene(this.mesh1, this.mesh2);
     }
-    
+
+
     initializeMaterial() {
-        this.material = new THREE.MeshBasicMaterial({
-            color: 0x00ff00,
+
+        this.material = new THREE.MeshLambertMaterial({
+            color: 0xffffff,
+            opacity: 0.5,
             transparent: true
         });
     }
-    makeMesh(){
-        this.mesh = new THREE.Mesh(this.geometry, this.material);
-        threeSystemController.addToSariraScene(this.mesh)
-    }
+
+
+
 
 }

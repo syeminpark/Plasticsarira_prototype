@@ -37,12 +37,12 @@ class BodySystem {
   
        
             if (micro.checkStuck(this.sarira.plasticList)) {
-                print("init",micro.color)
+               
                 this.sarira.addPlastics(micro)
                 micro.getPosition(this.buffer.floatingGeometry, index)
         
                 micro.updateBuffer(this.buffer.sariraGeometry, this.sarira.plasticList.length)
-                print("second",micro.color)
+              
                 micro.switch(this.buffer.floatingGeometry, index, this.floatingPlasticsList)
            
             }
@@ -50,6 +50,6 @@ class BodySystem {
         }
     }
     generateConvex(){
-        this.sarira.generateConvex(this.buffer.sariraGeometry)
+        this.sarira.initializeConvex(this.buffer.sariraGeometry)
     }
 }

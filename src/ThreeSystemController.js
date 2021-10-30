@@ -5,7 +5,7 @@ class ThreeSystemController {
 
         //초기 카메라 위치값 x,y,z
         this.worldCameraPositionList = [50, 50, 120]
-        this.sariraCameraPositionList = [50, 50, 50]
+        this.sariraCameraPositionList = [50, 50, 300]
         //카메라가 바라보는 시점  x, y, z
         this.cameraLookPositionList = [0, 0, 0]
 
@@ -55,13 +55,15 @@ class ThreeSystemController {
     addToWorldScene(...args) {
         this.worldThreeSystem.scene.add(...args)
     }
+ 
 
+    
     //화면 크기 조정 
     //---------------------------------------------------------------------------------------
 
     refreshWindowSize() {
 
-        
+
         for (let system of this.systemList) {
             system.camera.aspect = window.innerWidth / window.innerHeight;
             system.camera.updateProjectionMatrix();
@@ -133,7 +135,7 @@ class ThreeSystemController {
         }
     }
     resizeRendererToDisplaySize() {
-      
+
         let width = this.canvas.clientWidth;
         let height = this.canvas.clientHeight;
         let needResize = this.canvas.width !== width || this.canvas.height !== height;
