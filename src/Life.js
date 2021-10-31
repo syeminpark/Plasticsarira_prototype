@@ -61,8 +61,8 @@ class Life{
             ));
         this.velocity.add(this.acceleration);
         this.position.add(this.velocity);
-        if(this.velocity.length() > 0.2) this.velocity.multiplyScalar(0.1);
-        this.velocity.clampLength(0, 0.5);
+        if (this.velocity.length() > 0.1) this.velocity.multiplyScalar(0.01);
+        this.velocity.clampLength(0, 0.25);
         this.acceleration.setLength(0);
 
         this.life.rotation.set(this.angle.x, this.angle.y, this.angle.z);

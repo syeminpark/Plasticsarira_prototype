@@ -11,7 +11,7 @@ class ThreeSystemController {
 
         this.init();
 
-        // document.addEventListener('mousemove', this.stopOrbit.bind(this))
+        //document.addEventListener('mousemove', this.stopOrbit.bind(this))
     }
 
     //---------------------------------------------------------------------------------------
@@ -117,6 +117,9 @@ class ThreeSystemController {
             }
             system.camera.aspect = rect.width / rect.height;
             system.camera.updateProjectionMatrix();
+
+            //worldThreeSystem 거리제한 
+            this.worldThreeSystem.controls.maxDistance = 400;
 
             const positiveYUpBottom = this.canvas.clientHeight - rect.bottom;
             this.renderer.setScissor(rect.left, positiveYUpBottom, rect.width, rect.height);
