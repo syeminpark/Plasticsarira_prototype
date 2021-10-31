@@ -14,5 +14,11 @@ class Terminal {
         document.body.appendChild(text);
     }
 
+    refreshText(elementName,leftPosition,topPosition){
+        let text=document.querySelector(`${elementName.split(" ")[0]}`)
+        text.style.top =  `${topPosition}px`;
+        text.style.left =  `${leftPosition}px`;
+    }
+
 
 }
