@@ -24,7 +24,7 @@ class ThreeSystemController {
         //사리 생성 장면 시스템 
         //카메라 생성, 렌더러 설정, 마우스 이동 가능(orbitcontrols), 빛 두개(ambient,directional)생성 
         this.sariraThreeSystem = new ThreeSystem(document.querySelector('#sarira'), this.sariraCameraPositionList, this.cameraLookPositionList)
-        this.systemList = [this.sariraThreeSystem, this.worldThreeSystem]
+        this.systemList = [ this.worldThreeSystem,this.sariraThreeSystem]
         //-----------------------------------------------------------------------------
 
         //css와 연관된, 렌더러가 렌더링하는 캔버스 명 
@@ -55,8 +55,6 @@ class ThreeSystemController {
     addToWorldScene(...args) {
         this.worldThreeSystem.scene.add(...args)
     }
- 
-
     
     //화면 크기 조정 
     //---------------------------------------------------------------------------------------
@@ -76,13 +74,16 @@ class ThreeSystemController {
     initializeRenderer() {
         this.renderer = new THREE.WebGLRenderer({
             canvas: this.canvas,
-            antialias: true
+            antialias: true,
 
         });
-        this.renderer.shadowMap.enabled = true; //basic= unfiltered. pcf(default)= filters percentage close algorithm. pcf soft. vsm.   
-        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        
+        // this.renderer.shadowMap.enabled = true; //basic= unfiltered. pcf(default)= filters percentage close algorithm. pcf soft. vsm.   
+        // this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         this.renderer.setPixelRatio(window.devicePixelRatio)
         this.renderer.setSize(window.innerWidth, window.innerHeight);
+        //this.renderer.autoClear = false;
+       
     }
 
     render() {
@@ -91,22 +92,13 @@ class ThreeSystemController {
         this.renderer.clear(true, true);
         this.renderer.setScissorTest(true);
         this.renderSceneInfo();
+        this.renderSceneInfo2();
     }
 
-    initializeRenderer() {
-        this.renderer = new THREE.WebGLRenderer({
-            canvas: this.canvas,
-            antialias: true
 
-        });
-        this.renderer.shadowMap.enabled = true; //basic= unfiltered. pcf(default)= filters percentage close algorithm. pcf soft. vsm.   
-        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-        this.renderer.setPixelRatio(window.devicePixelRatio)
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
-    }
 
     renderSceneInfo() {
-        for (let system of this.systemList) {
+        
             const {
                 left,
                 right,
@@ -114,7 +106,7 @@ class ThreeSystemController {
                 bottom,
                 width,
                 height
-            } = system.element.getBoundingClientRect();
+            } =  this.worldThreeSystem.element.getBoundingClientRect();
             const isOffscreen =
                 bottom < 0 ||
                 top > this.canvas.clientHeight ||
@@ -123,17 +115,47 @@ class ThreeSystemController {
             if (isOffscreen) {
                 return;
             }
-            system.camera.aspect = width / height;
-            system.camera.updateProjectionMatrix();
+            this.worldThreeSystem.camera.aspect = width / height;
+            this.worldThreeSystem.camera.updateProjectionMatrix();
 
             const positiveYUpBottom = this.canvas.clientHeight - bottom;
             this.renderer.setScissor(left, positiveYUpBottom, width, height);
             this.renderer.setViewport(left, positiveYUpBottom, width, height);
 
-            this.renderer.render(system.scene, system.camera);
+            this.renderer.render(this.worldThreeSystem.scene, this.worldThreeSystem.camera);
 
-        }
+            
     }
+
+    renderSceneInfo2() {
+        
+        const {
+            left,
+            right,
+            top,
+            bottom,
+            width,
+            height
+        } =  this.sariraThreeSystem.element.getBoundingClientRect();
+        const isOffscreen =
+            bottom < 0 ||
+            top > this.canvas.clientHeight ||
+            right < 0 ||
+            left > this.canvas.clientWidth;
+        if (isOffscreen) {
+            return;
+        }
+        this.sariraThreeSystem.camera.aspect = width / height;
+        this.sariraThreeSystem.camera.updateProjectionMatrix();
+
+        const positiveYUpBottom = this.canvas.clientHeight - bottom;
+        this.renderer.setScissor(left, positiveYUpBottom, width, height);
+        this.renderer.setViewport(left, positiveYUpBottom, width, height);
+
+        this.renderer.render(this.sariraThreeSystem.scene, this.sariraThreeSystem.camera);
+
+        
+}
     resizeRendererToDisplaySize() {
 
         let width = this.canvas.clientWidth;

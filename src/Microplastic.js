@@ -1,23 +1,27 @@
 class Microplastic {
 
     //later create size and color parameter
-    constructor() {
+    constructor(positionList) {
         this.velocity = new THREE.Vector3(1, 0, 0)
-        this.phase = Math.random()
         this.acceleration = new THREE.Vector3(0, 0, 0)
-        this.density = 1;
         this.positionVector3 = new THREE.Vector3(0, 0, 0)
-        this.tensileStrength = 4554
+        this.positionList = positionList || this.randomPoint()
+        this.color = [Math.random(), Math.random(), Math.random()]
+        this.size =  50 //Math.random() * (50 - 1) + 1
     }
 
-    initialize(positionList, size) {
+    initialize(pastOwnersList, retrievedMethod, dateRetrieved) {
+        this.pastOwnersList = pastOwnersList || "Empty"
+        this.retrievedMethod = retrievedMethod || "Empty"
+        this.dateRetrieved = dateRetrieved || "Empty"
 
-        this.positionList = positionList || this.randomPoint()
-        this.size = size || 50 //Math.random() * (50 - 1) + 1
-        this.color = [Math.random(), Math.random(), Math.random()]
+        this.originalPurpose = this.originalPurposeList[Math.round(random(0, this.originalPurposeList.length))]
+        this.dateCreated = JSON.stringify(Math.round(random(this.dateCreated, 2021)));
+
         this.mass = this.density * this.size
-        this.tensileStrength = map(this.tensileStrength, 4400, 12400, 0,100)
+        this.tensileStrength = map(this.tensileStrength, 4400, 12400, 0, 100)
 
+        this.passDataList = [this.type, this.dateCreated, this.originalPurpose, this.pastOwnersList, this.retrievedMethod, this.dateRetrieved]
     }
 
     applyForce(force) {
@@ -38,7 +42,6 @@ class Microplastic {
         bufferGeometry.attributes.color.needsUpdate = true
         bufferGeometry.attributes.size.needsUpdate = true
 
-      
         for (let i = 0; i < 3; i++) {
             this.positionList[i] = bufferGeometry.attributes.position.array[(index * 3) + i]
         }
@@ -62,25 +65,22 @@ class Microplastic {
         }
         bufferGeometry.attributes.size.array[index] = bufferGeometry.attributes.size.array[lastIndex]
 
-
         for (let i = 0; i < 3; i++) {
-            bufferGeometry.attributes.position.array[(lastIndex * 3) + i]=0
-            bufferGeometry.attributes.color.array[(lastIndex * 3) + i]=0
+            bufferGeometry.attributes.position.array[(lastIndex * 3) + i] = 0
+            bufferGeometry.attributes.color.array[(lastIndex * 3) + i] = 0
         }
-        bufferGeometry.attributes.size.array[lastIndex]=0
+        bufferGeometry.attributes.size.array[lastIndex] = 0
 
-        list[index]=list[lastIndex]
-
+        list[index] = list[lastIndex]
         list.splice(lastIndex, 1)
         bufferGeometry.setDrawRange(0, lastIndex);
     }
 
     checkStuck(others) {
-
         for (let i = 0; i < others.length; i++) {
             let d2 = this.positionVector3.distanceTo(others[i].positionVector3)
-            if ((d2 < this.size / 5 + others[i].size / 5) 
-                * (this.tensileStrength + others[i].tensileStrength) / 2) {
+            if ((d2 < this.size / 5 + others[i].size / 5) *
+                (this.tensileStrength + others[i].tensileStrength) / 2) {
                 return true
             }
         }
@@ -89,34 +89,32 @@ class Microplastic {
 
     randomPoint() {
         let i = Math.round(Math.random() * 5)
-        let x = Math.random() * (threeSystemController.sariraThreeSystem.controls.object.position.x + threeSystemController.sariraThreeSystem.controls.object.position.x) - threeSystemController.sariraThreeSystem.controls.object.position.x;
-        let y = Math.random() * (threeSystemController.sariraThreeSystem.controls.object.position.y + threeSystemController.sariraThreeSystem.controls.object.position.y) - threeSystemController.sariraThreeSystem.controls.object.position.y;
-        let z = Math.random() * (threeSystemController.sariraThreeSystem.controls.object.position.z + threeSystemController.sariraThreeSystem.controls.object.position.z) - threeSystemController.sariraThreeSystem.controls.object.position.z;
+        let randomX = Math.random() * (threeSystemController.sariraThreeSystem.controls.object.position.x + threeSystemController.sariraThreeSystem.controls.object.position.x) - threeSystemController.sariraThreeSystem.controls.object.position.x;
+        let randomY = Math.random() * (threeSystemController.sariraThreeSystem.controls.object.position.y*2 + threeSystemController.sariraThreeSystem.controls.object.position.y*2) - threeSystemController.sariraThreeSystem.controls.object.position.y*2;
+        let randomZ = Math.random() * (threeSystemController.sariraThreeSystem.controls.object.position.z*2 + threeSystemController.sariraThreeSystem.controls.object.position.z) - threeSystemController.sariraThreeSystem.controls.object.position.z;
         let randPoint;
+
         if (i === 0) {
             //top
-            randPoint = [x, threeSystemController.sariraThreeSystem.controls.object.position.y, z]
+            randPoint = [randomX, threeSystemController.sariraThreeSystem.controls.object.position.y * 2, randomZ]
             //bottom
         } else if (i == 1) {
-            randPoint = [x, -threeSystemController.sariraThreeSystem.controls.object.position.y, z]
+            randPoint = [randomX, -threeSystemController.sariraThreeSystem.controls.object.position.y * 2, randomZ]
             //left
         } else if (i == 2) {
-            randPoint = [-threeSystemController.sariraThreeSystem.controls.object.position.x, y, z]
+            randPoint = [-threeSystemController.sariraThreeSystem.controls.object.position.x * 2, randomY, randomZ]
             //right 
         } else if (i == 3) {
-            randPoint = [threeSystemController.sariraThreeSystem.controls.object.position.x, y, z]
+            randPoint = [threeSystemController.sariraThreeSystem.controls.object.position.x * 2, randomY, randomZ]
         }
         //front
         else if (i == 4) {
-            randPoint = [x, y, threeSystemController.sariraThreeSystem.controls.object.position.z]
+            randPoint = [randomX, randomY, threeSystemController.sariraThreeSystem.controls.object.position.z*2]
         }
         //back     
         else {
-            randPoint = [x, y, -threeSystemController.sariraThreeSystem.controls.object.position.z]
+            randPoint = [randomX, randomY, -threeSystemController.sariraThreeSystem.controls.object.position.z*2]
         }
         return randPoint
     }
-
-
-
 }

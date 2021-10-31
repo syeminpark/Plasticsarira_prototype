@@ -1,17 +1,22 @@
 class Core extends Microplastic {
-    constructor() {
-        super()
-        this.size = 50
-        this.positionList = [0,0,0]
+    constructor(positionList) {
+
+        super(positionList)
+        this.type = "PP"; // polypropylene was identified in baby
+        this.dateCreated = 1951
+        this.originalPurposeList = ["Syringe", "Chip Bag", "Specimen Bottle", "Plastic Chair", "Car Battery Case", "Instrument Panel", "Rug, Lunch Box", "Packing Tape", "Coffee Machine"]
+        this.pastOwnersList = ["Mom"]
         this.density = 0.92
+        this.retrievedMethod = "Inheritance"
+        this.dateRetrieved = "Before Birth"
         this.tensileStrength = 5440
-
+        
     }
 
+    //pastOwnersList, retrievedMethod, dateRetrieved
     initialize() {
-        super.initialize(this.positionList, this.size)
+        super.initialize(this.pastOwnersList,this.retrievedMethod, this.dateRetrieved)
     }
-
 
     attract(floatingMicro) {
         // Calculate direction of force

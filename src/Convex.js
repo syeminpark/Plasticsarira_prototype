@@ -13,12 +13,11 @@ class Convex {
     initializeBuffer(bufferGeometry) {
         const positionAttribute = bufferGeometry.getAttribute('position');
 
-        for (let i = 0; i < positionAttribute.count; i++) {
+        for (let i = 0; i < 4; i++) {
             const vertex = new THREE.Vector3();
             vertex.fromBufferAttribute(positionAttribute, i);
             this.vertices.push(vertex);
         }
-
         this.meshGeometry = new THREE.ConvexGeometry(this.vertices);
 
     }
@@ -44,8 +43,6 @@ class Convex {
         this.mesh2.material.side = THREE.FrontSide; // front faces
         this.mesh2.renderOrder = 1;
 
-        this.group = new THREE.Group();
-        this.group.add(this.mesh1, this.mesh2)
         threeSystemController.addToSariraScene(this.mesh1, this.mesh2);
     }
 
