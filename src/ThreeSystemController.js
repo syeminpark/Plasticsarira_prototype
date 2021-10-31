@@ -118,6 +118,8 @@ class ThreeSystemController {
             this.worldThreeSystem.camera.aspect = width / height;
             this.worldThreeSystem.camera.updateProjectionMatrix();
 
+            this.worldThreeSystem.controls.maxDistance = 400;
+
             const positiveYUpBottom = this.canvas.clientHeight - bottom;
             this.renderer.setScissor(left, positiveYUpBottom, width, height);
             this.renderer.setViewport(left, positiveYUpBottom, width, height);
