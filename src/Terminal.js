@@ -4,11 +4,12 @@ class Terminal {
         
     }
 
-    createText(elementName,leftPosition,topPosition,){
-        let text = document.createElement(elementName);
+    createText(elementName,leftPosition,topPosition,textSize){
 
+       
+        let text = document.createElement(elementName.split(" ")[0]);
         text.style.position = 'absolute';
-        text.style.fontSize=  this.categoryTextSize
+        text.style.fontSize= textSize
         text.innerHTML = elementName
         text.style.top =  `${topPosition}px`;
         text.style.left =  `${leftPosition}px`;

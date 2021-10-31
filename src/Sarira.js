@@ -2,7 +2,10 @@ class Sarira {
     constructor(bufferGeometry) {
         this.plasticList = []
         this.initializeCore(bufferGeometry)
+        
         this.iterm=new TerminalController()
+        this.iterm.initialize()
+
         this.isConvexMade = false
 
         this.obtainedDataList = new Array(5)

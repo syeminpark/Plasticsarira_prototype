@@ -33,7 +33,7 @@ class ThreeSystemController {
         this.initializeRenderer()
 
         //adjust renderSize when screen is maximized or minimized
-        window.addEventListener('resize', this.refreshWindowSize.bind(this))
+        window.addEventListener('resize', this.refreshWindowSize().bind(this))
     }
     //---------------------------------------------------------------------------------------
 
