@@ -19,7 +19,7 @@ class Sarira {
     addPlastics(micro) {
         this.plasticList.push(micro)
         this.addMetaData()
-        print(this.obtainedDataList)
+
         if (this.plasticList.length > 4) {
             this.convex.updateBuffer(micro)
         }
@@ -34,7 +34,7 @@ class Sarira {
         }
     }
 
-  
+
 
     getPosition(bufferGeometry) {
         for (let [index, plastic] of this.plasticList.entries()) {
@@ -43,7 +43,7 @@ class Sarira {
     }
 
     initializeCore(bufferGeometry) {
-        this.plasticList.push(new Core([0,0,0]))
+        this.plasticList.push(new Core([0, 0, 0]))
         this.plasticList[0].initialize()
         this.plasticList[0].updateBuffer(bufferGeometry, this.plasticList.length);
     }

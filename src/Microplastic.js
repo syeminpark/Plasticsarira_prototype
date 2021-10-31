@@ -6,7 +6,7 @@ class Microplastic {
         this.acceleration = new THREE.Vector3(0, 0, 0)
         this.positionVector3 = new THREE.Vector3(0, 0, 0)
         this.positionList = positionList || this.randomPoint()
-        this.color = [Math.random(), Math.random(), Math.random()]
+        this.color = [1,1,1]// [Math.random(), Math.random(), Math.random()]
         this.size =  50 //Math.random() * (50 - 1) + 1
     }
 

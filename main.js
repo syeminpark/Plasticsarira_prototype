@@ -9,6 +9,8 @@ setup()
 draw()
 
 function setup() {
+  
+
     threeSystemController = new ThreeSystemController();
     bodySystem= new BodySystem();
     

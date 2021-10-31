@@ -9,13 +9,19 @@ class ThreeSystem {
         //creatCamera
         this.setCamera(cameraPositionList, cameraLookPositionList);
         //orbit controls. move camera by mouse 
+        this.canvas = document.querySelector('#oribit');
         this.controls = new THREE.OrbitControls(this.camera, this.element);
+        
+        // this.controls.autoRotate=true;
         //lights
         this.setLights()
       //마우스로 컨트롤 
         this.setOrbitcontrols();
         //프레임 레이트 모니터링 
         this.setStats()
+
+   
+    
     }
 
     update() {
@@ -53,4 +59,5 @@ class ThreeSystem {
         this.stats.dom.style.left = this.element.style.left
     }
 
+ 
 }
