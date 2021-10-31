@@ -5,8 +5,6 @@ class Terminal {
     }
 
     createText(elementName,leftPosition,topPosition,textSize){
-
-       
         let text = document.createElement(elementName.split(" ")[0]);
         text.style.position = 'absolute';
         text.style.fontSize= textSize
