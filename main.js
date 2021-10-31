@@ -13,7 +13,7 @@ function setup() {
     bodySystem= new BodySystem();
 
     lifeSystem = new LifeSystem();
-    particleSystem_microPlastic = new ParticleSystem(lifeSystem.lifes);
+    particleSystem_microPlastic = new ParticleSystem(lifeSystem);
 }
 
 function draw() {

@@ -28,8 +28,8 @@ body {
 
 .diagram {
     display: inline-block;
-    width: 40em;
-    height: 30em;
+    width: 80em;
+    height: 60em;
     border: 1px solid white
 }
 

@@ -12,22 +12,26 @@ class Life{
 
         if (this.position.length() > windowSize) this.position.setLength(windowSize);
         
-        this.velocity = new THREE.Vector3(random(-0.01, 0.01),
-                                          random(-0.01, 0.01),
-                                          random(-0.01, 0.01));
+        this.velocity = new THREE.Vector3(
+            random(-0.01, 0.01),
+            random(-0.01, 0.01),
+            random(-0.01, 0.01));
         this.acceleration = new THREE.Vector3(0, 0, 0);
 
-        this.angle = new THREE.Vector3(random(0, Math.PI * 2), 
-                                       random(0, Math.PI * 2), 
-                                       random(0, Math.PI * 2));
-        this.angleVelocity = new THREE.Vector3(0, 0, 0);
-        this.angleAcceleration = new THREE.Vector3(0, 0, 0);
+        this.angle = new THREE.Vector3(
+            random(0, Math.PI * 2), 
+            random(0, Math.PI * 2), 
+            random(0, Math.PI * 2));
+        this.angleVelocity = this.velocity.clone();
+        this.angleAcceleration = this.acceleration.clone();
 
-        this.size = random(0.01, 5);
-        this.sizeMax = random(0.01, 20);
+        this.size = random(0.001, 7);
+        this.sizeMax = random(0.001, 17);
 
-        this.noiseShape = (0.05, 0.2);
+        this.noiseShape = (0.05, 0.18);
         this.noiseAnimSpeed = random(0.1, 0.5);
+
+        this.sariraPosition = new THREE.Vector3();
         
         this.movement;
 
@@ -42,7 +46,7 @@ class Life{
 
         this.sarira_makingSpeed;
 
-        this.toxicSensitivity;
+        this.toxicResistance;
         
         this.display();
         this.noise_set();
@@ -50,7 +54,6 @@ class Life{
 
     update(){
         this.life.position.set(this.position.x, this.position.y, this.position.z);
-
         this.acceleration.add(new THREE.Vector3(
             random(-0.01, 0.01),
             random(-0.01, 0.01),
@@ -58,10 +61,21 @@ class Life{
             ));
         this.velocity.add(this.acceleration);
         this.position.add(this.velocity);
-        this.velocity.multiplyScalar(0.995);
-        //if(this.velocity.length() > 0.5) this.velocity.multiplyScalar(0.1);
+        if(this.velocity.length() > 0.2) this.velocity.multiplyScalar(0.1);
         this.velocity.clampLength(0, 0.5);
         this.acceleration.setLength(0);
+
+        this.life.rotation.set(this.angle.x, this.angle.y, this.angle.z);
+        this.angleAcceleration.add(new THREE.Vector3(
+            random(-0.001, 0.001),
+            random(-0.001, 0.001),
+            random(-0.001, 0.001)
+            ));
+        this.angleVelocity.add(this.angleAcceleration);
+        this.angle.add(this.angleVelocity);
+        if(this.angleVelocity.length() > 0.025) this.angleVelocity.multiplyScalar(0.1);
+        this.angleVelocity.clampLength(0, 0.05);
+        this.angleAcceleration.setLength(0);
     }
 
     display(){
@@ -99,6 +113,7 @@ class Life{
         this.n_position = this.life.geometry.attributes.position.clone();
         this.n_normal = this.life.geometry.attributes.normal.clone();
         this.n_position_num = this.n_position.count;
+        
         this.clock = new THREE.Clock();
     }
 
@@ -116,7 +131,6 @@ class Life{
             pos.multiplyScalar(this.noiseShape);
             pos.x += elapsedTime * this.noiseAnimSpeed;
             const n = this.perlin.get3(pos) * this.sizeMax;
-            //console.log(n);
 
             newPos.add(norm.multiplyScalar(n));
 
@@ -124,6 +138,8 @@ class Life{
         }
 
         position.copyVector3sArray(noise);
+
+        this.sariraPosition = noise[Math.floor(random(0, 1089))];
 
         this.life.geometry.computeVertexNormals();
         this.life.geometry.attributes.position.needsUpdate = true;
@@ -138,18 +154,17 @@ class Life{
     }
     
     eat(microPlastic){
-        const randomSariraPos = this.size;
-        const sariraPos = this.position.clone().addVectors(
-            this.position, 
-            new THREE.Vector3(
-                random(-randomSariraPos, randomSariraPos),
-                random(-randomSariraPos, randomSariraPos),
-                random(-randomSariraPos, randomSariraPos)));
-        const distance = sariraPos.distanceTo(microPlastic.position);
+        const distance = this.position.distanceTo(microPlastic.position);
         const lifeSize = this.sizeMax;
-        if (distance < lifeSize){
-            var force = new THREE.Vector3().subVectors(this.position, microPlastic.position);
-            force.setLength(0.1);
+        var sariraPos = new THREE.Vector3().addVectors(
+            this.position, 
+            this.sariraPosition.setLength(this.size*0.5));
+
+        if (distance < lifeSize && microPlastic.isEaten == false){
+            
+            var force = new THREE.Vector3().subVectors(sariraPos, microPlastic.position);
+
+            force.setLength(0.1); //0.1
             microPlastic.applyForce(force);
             microPlastic.eaten_becomeSarira();
         }

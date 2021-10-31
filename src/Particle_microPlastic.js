@@ -27,13 +27,15 @@ class MicroPlastic {
       this.opacity = 1.0;
   
       this.toxicity = false;
+
+      this.isEaten = false;
     }
   
     update(){
       this.velocity.add(this.acceleration);
       this.position.add(this.velocity);
-      //if (this.velocity.length() > 0.5) this.velocity.setLength(0.5);
       this.velocity.clampLength(0, 0.5);
+      if (this.velocity.length() > 0.4) this.velocity.multiplyScalar(0.05);
       this.acceleration.setLength(0);
     }
   
@@ -59,10 +61,12 @@ class MicroPlastic {
     }
   
     eaten_becomeSarira(){
-      this.velocity.multiplyScalar(0.5);
-      if (this.velocity.length() < 0.000001) {
-        this.velocity.setLength(0);
-      }
+      this.velocity.multiplyScalar(0.9999); //0.5, 0.1
+      // if (this.velocity.length() < 0.000001) {
+      //   this.velocity.setLength(0.0000001);
+      // }
+
+      //this.isEaten = true;
     }
   }
   

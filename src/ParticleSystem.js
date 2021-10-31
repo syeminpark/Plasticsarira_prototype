@@ -1,5 +1,5 @@
 class ParticleSystem{
-    constructor(lifes){
+    constructor(lifeSystem){
         this.num = 4000;
         this.size = 100;
 
@@ -14,7 +14,8 @@ class ParticleSystem{
 
         this.display();
 
-        this.lifes = lifes; //array
+        this.lifes = lifeSystem.lifes; //array
+        this.life_user = lifeSystem.life_user;
     }
 
     update(){
@@ -23,17 +24,17 @@ class ParticleSystem{
         for (let i = 0; i < positions.length; i += 3) {
             const index = i/3;
 
-            this.particles[index].update();
-    
             positions[i+0] = this.particles[index].position.x;
             positions[i+1] = this.particles[index].position.y;
             positions[i+2] = this.particles[index].position.z;
 
+            this.particles[index].update();
             this.particles[index].wrap(this.size);
 
             for (let j = 0; j < this.lifes.length; j++) {
                 this.lifes[j].eat(this.particles[index]);           
             }
+            this.life_user.eat(this.particles[index]);
         }
 
         this.points.geometry.attributes.position.needsUpdate = true;
