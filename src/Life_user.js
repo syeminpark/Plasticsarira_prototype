@@ -19,11 +19,11 @@ class Life_user extends Life {
         this.life.position.set(this.position.x, this.position.y, this.position.z);
         this.life.rotation.set(this.angle.x, this.angle.y, this.angle.z);
 
-        this.acceleration.add(new THREE.Vector3(
-            random(-0.01, 0.01),
-            random(-0.01, 0.01),
-            random(-0.01, 0.01)
-            ));
+        // this.acceleration.add(new THREE.Vector3(
+        //     random(-0.01, 0.01),
+        //     random(-0.01, 0.01),
+        //     random(-0.01, 0.01)
+        //     ));
 
         this.lifeFocus();
         
