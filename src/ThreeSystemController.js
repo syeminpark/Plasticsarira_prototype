@@ -49,7 +49,7 @@ class ThreeSystemController {
 
     stopOrbit() {
         let rect = this.sariraThreeSystem.element.getBoundingClientRect()
-        
+
         if (event.clientX > rect.left && event.clientY < rect.bottom) {
             this.worldThreeSystem.controls.enabled = false;
         } else {
@@ -115,24 +115,8 @@ class ThreeSystemController {
             if (isOffscreen) {
                 return;
             }
-<<<<<<< HEAD
             system.camera.aspect = rect.width / rect.height;
             system.camera.updateProjectionMatrix();
-=======
-            this.worldThreeSystem.camera.aspect = width / height;
-            this.worldThreeSystem.camera.updateProjectionMatrix();
-
-            this.worldThreeSystem.controls.maxDistance = 400;
-
-            const positiveYUpBottom = this.canvas.clientHeight - bottom;
-            this.renderer.setScissor(left, positiveYUpBottom, width, height);
-            this.renderer.setViewport(left, positiveYUpBottom, width, height);
-
-            this.renderer.render(this.worldThreeSystem.scene, this.worldThreeSystem.camera);
-
-            
-    }
->>>>>>> 8d5fdb3341f0aa467ae4b868025d75abbc682cc5
 
             const positiveYUpBottom = this.canvas.clientHeight - rect.bottom;
             this.renderer.setScissor(rect.left, positiveYUpBottom, rect.width, rect.height);
