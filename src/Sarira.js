@@ -1,17 +1,12 @@
 class Sarira {
     constructor(bufferGeometry) {
         this.plasticList = []
-        this.initializeCore(bufferGeometry)
-        
-        this.iterm=new TerminalController()
-        this.iterm.initialize()
-
         this.isConvexMade = false
 
-        this.obtainedDataList = new Array(5)
-        for (let i = 0; i < 6; i++) {
-            this.obtainedDataList[i] = new Array(0)
-        }
+        this.terminalController=new TerminalController()
+        this.terminalController.initialize()
+
+        this.initializeCore(bufferGeometry)
         this.addMetaData()
     }
 
@@ -19,10 +14,10 @@ class Sarira {
         this.getPosition(bufferGeometry)
         this.initializeConvex(bufferGeometry)
     }
+
     addPlastics(micro) {
         this.plasticList.push(micro)
         this.addMetaData()
-
         if (this.plasticList.length > 4) {
             this.convex.updateBuffer(micro)
         }
@@ -33,8 +28,9 @@ class Sarira {
         let plastic = this.plasticList[this.plasticList.length - 1]
         //iterate over every metadata for plastic 
         for (let [index, dataElement] of plastic.passDataList.entries()) {
-            this.obtainedDataList[index].push(dataElement)
+           this.terminalController.metaDataList[index].push(dataElement)
         }
+       
     }
 
     getPosition(bufferGeometry) {
