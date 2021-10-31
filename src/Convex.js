@@ -1,7 +1,6 @@
 class Convex {
 
     constructor(bufferGeometry) {
-
         this.vertices = []
 
         this.initializeBuffer(bufferGeometry)
@@ -19,11 +18,9 @@ class Convex {
             this.vertices.push(vertex);
         }
         this.meshGeometry = new THREE.ConvexGeometry(this.vertices);
-
     }
 
     updateBuffer(plastic) {
-
         this.meshGeometry.dispose()
         threeSystemController.sariraThreeSystem.scene.remove(this.mesh1);
         threeSystemController.sariraThreeSystem.scene.remove(this.mesh2);
@@ -31,11 +28,9 @@ class Convex {
         this.vertices.push(plastic.positionVector3);
         this.meshGeometry = new THREE.ConvexGeometry(this.vertices);
         this.initializeMesh()
-
     }
 
     initializeMesh() {
-
         this.mesh1 = new THREE.Mesh(this.meshGeometry, this.material);
         this.mesh1.material.side = THREE.BackSide; // back faces
         this.mesh1.renderOrder = 0;
@@ -46,16 +41,14 @@ class Convex {
         threeSystemController.addToSariraScene(this.mesh1, this.mesh2);
     }
 
-
     initializeMaterial() {
-
         this.material = new THREE.MeshPhysicalMaterial({
             transmission: 0.9,
             thickness: 0.1,
             roughness: 0.4,
 
-            clearcoat: 0.5,
-            clearcoatRoughness: 0.12
+            clearcoat: 1,
+            clearcoatRoughness: 0,
         });
     }
 

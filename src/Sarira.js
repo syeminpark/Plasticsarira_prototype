@@ -2,7 +2,7 @@ class Sarira {
     constructor(bufferGeometry) {
         this.plasticList = []
         this.initializeCore(bufferGeometry)
-        //this.iterm=new Terminal()
+        this.iterm=new TerminalController()
         this.isConvexMade = false
 
         this.obtainedDataList = new Array(5)
@@ -33,8 +33,6 @@ class Sarira {
             this.obtainedDataList[index].push(dataElement)
         }
     }
-
-
 
     getPosition(bufferGeometry) {
         for (let [index, plastic] of this.plasticList.entries()) {
