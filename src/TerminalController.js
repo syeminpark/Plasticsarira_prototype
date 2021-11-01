@@ -58,7 +58,7 @@ class TerminalController {
         this.updateInfo()
         let initialSpace= this.initialSpace
         if(this.metaDataList[0].length==1){
-            initialSpace *= this.metaDataList[0].length + 2
+            initialSpace *= this.metaDataList[0].length + this.space/2
         }
         else{
             initialSpace += this.ownerVerticalSpace 
