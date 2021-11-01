@@ -16,44 +16,54 @@ class TerminalController {
             this.metaDataList[i] = new Array(0)
         }
 
-        window.addEventListener('resize', this.refreshCategory.bind(this));
-        window.addEventListener('resize', this.refreshMetaData.bind(this));
+        // window.addEventListener('resize', this.refreshCategory.bind(this));
+        // window.addEventListener('resize', this.refreshMetaData.bind(this));
     }
+
+    // initializeCategory() {
+    //     this.updateInfo()
+
+    //     for (let i = 0; i < this.categoryList.length; i++) {
+    //         this.iterm.createText(this.categoryList[i], this.leftPosition, this.canvasRect.bottom + this.initialSpace, this.categoryTextSize)
+    //         this.leftPosition += this.categoryList[i].length * this.space
+    //     }
+    // }
 
     initializeCategory() {
-        this.updateInfo()
-
+        // this.updateInfo()
+        this.leftPosition = 76;
+        this.topPosition=36
         for (let i = 0; i < this.categoryList.length; i++) {
-            this.iterm.createText(this.categoryList[i], this.leftPosition, this.canvasRect.bottom + this.initialSpace, this.categoryTextSize)
-            this.leftPosition += this.categoryList[i].length * this.space
+            this.iterm.createText(this.categoryList[i], this.leftPosition, this.topPosition, this.categoryTextSize)
+            this.leftPosition += 1 + this.categoryList[i].length/2.7
         }
     }
 
-    refreshCategory() {
-        this.updateInfo()
-        //refresh category
-        for (let i = 0; i < this.categoryList.length; i++) {
-            this.iterm.refreshText(this.categoryList[i], this.leftPosition, this.canvasRect.bottom + this.initialSpace)
-            this.leftPosition += this.categoryList[i].length * this.space
-        }
-    }
-    refreshMetaData() {
-        this.updateInfo()
+    // refreshCategory() {
+    //     this.updateInfo()
+    //     //refresh category
+    //     for (let i = 0; i < this.categoryList.length; i++) {
+    //         this.iterm.refreshText(this.categoryList[i], this.leftPosition, this.canvasRect.bottom + this.initialSpace)
+    //         this.leftPosition += this.categoryList[i].length * this.space
+    //     }
+    // }
 
-        let currentMetaData = 1
-        //refresh Metadata
-        for (let [horitontalIndex, category] of this.metaDataList) {
-            print(this.metaDataList)
-            this.initialSpace *= currentMetaData + 1
-            for (let [verticalIndex, metaData] of category) {
-                this.iterm.refreshText(metaData, this.leftPosition, this.canvasRect.bottom + this.initialSpace)
-                this.leftPosition += this.categoryList[index].length * this.space
-            }
-            this.updateInfo()
-        }
+    // refreshMetaData() {
+    //     this.updateInfo()
 
+    //     let currentMetaData = 1
+    //     //refresh Metadata
+    //     for (let [horitontalIndex, category] of this.metaDataList) {
+    //         print(this.metaDataList)
+    //         this.initialSpace *= currentMetaData + 1
+    //         for (let [verticalIndex, metaData] of category) {
+    //             this.iterm.refreshText(metaData, this.leftPosition, this.canvasRect.bottom + this.initialSpace)
+    //             this.leftPosition += this.categoryList[index].length * this.space
+    //         }
+    //         this.updateInfo()
+    //     }
+    // }
 
-    }
     createMetaDataText() {
         this.updateInfo()
         let initialSpace= this.initialSpace
