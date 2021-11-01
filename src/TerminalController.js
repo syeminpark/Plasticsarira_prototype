@@ -61,7 +61,7 @@ class TerminalController {
             initialSpace *= this.metaDataList[0].length + 2
         }
         else{
-            initialSpace += this.ownerVerticalSpace -this.space
+            initialSpace += this.ownerVerticalSpace 
         }
 
         for (let [index, category] of this.metaDataList.entries()) {
