@@ -42,17 +42,18 @@ class Convex {
     }
 
     initializeMaterial() {
+    this.material = new THREE.MeshPhysicalMaterial({
+        transmission: 0.95,
+        thickness: 0.5,
+        roughness: 0.44,
+        
+        metalness: 0,
+        reflectivity:0.5,
+        clearcoat: 1,
+        clearcoatRoughness: 0,
+    });
+}
 
-        this.material = new THREE.MeshPhysicalMaterial({
-            transmission: 0.95,
-            thickness: 0.5,
-            roughness: 0.44,
-            metalness: 0,
-            reflectivity:0.5,
-            clearcoat: 1,
-            clearcoatRoughness: 0,
-        });
-    }
 
 
 

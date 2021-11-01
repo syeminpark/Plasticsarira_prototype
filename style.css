@@ -5,6 +5,7 @@ body {
     overflow: hidden;
     color: white;
     font-family: Monospace;
+    
 }
 
 #info {
@@ -23,6 +24,7 @@ body {
     height: 100vh;
     display: block;
     z-index: -3;
+  
 }
 
 .diagram {
