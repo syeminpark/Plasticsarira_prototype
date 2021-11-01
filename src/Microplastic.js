@@ -11,11 +11,12 @@ class Microplastic {
     }
 
     initialize(pastOwnersList, retrievedMethod, dateRetrieved) {
-        this.pastOwnersList = pastOwnersList || "Empty"
+        this.pastOwnersList = pastOwnersList || ["Empty"]
+        //this.pastOwnersList = this.pastOwnersList.toString()
         this.retrievedMethod = retrievedMethod || "Empty"
         this.dateRetrieved = dateRetrieved || "Empty"
 
-        this.originalPurpose = this.originalPurposeList[Math.round(random(0, this.originalPurposeList.length))]
+        this.originalPurpose = this.originalPurposeList[Math.round(random(0, this.originalPurposeList.length-1))]
         this.dateCreated = JSON.stringify(Math.round(random(this.dateCreated, 2021)));
 
         this.mass = this.density * this.size

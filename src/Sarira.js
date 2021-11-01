@@ -4,12 +4,11 @@ class Sarira {
         this.isConvexMade = false
 
         this.terminalController=new TerminalController()
-        this.terminalController.initialize()
-
+        this.terminalController.initializeCategory()
         this.initializeCore(bufferGeometry)
-        this.addMetaData()
+        this.terminalController.createMetaDataText()
+        
     }
-
     update(bufferGeometry) {
         this.getPosition(bufferGeometry)
         this.initializeConvex(bufferGeometry)
@@ -18,7 +17,8 @@ class Sarira {
     addPlastics(micro) {
         this.plasticList.push(micro)
         this.addMetaData()
-        if (this.plasticList.length > 4) {
+        this.terminalController.createMetaDataText()
+        if (this.plasticList.length > 5) {
             this.convex.updateBuffer(micro)
         }
     }
@@ -30,7 +30,6 @@ class Sarira {
         for (let [index, dataElement] of plastic.passDataList.entries()) {
            this.terminalController.metaDataList[index].push(dataElement)
         }
-       
     }
 
     getPosition(bufferGeometry) {
@@ -43,11 +42,12 @@ class Sarira {
         this.plasticList.push(new Core([0, 0, 0]))
         this.plasticList[0].initialize()
         this.plasticList[0].updateBuffer(bufferGeometry, this.plasticList.length);
+        this.addMetaData()
     }
 
     initializeConvex(bufferGeometry) {
         if (this.isConvexMade == false) {
-            if (this.plasticList.length > 3) {
+            if (this.plasticList.length > 2) {
                 this.convex = new Convex(bufferGeometry)
                 this.isConvexMade = true
             }
