@@ -61,7 +61,7 @@ class TerminalController {
             initialSpace *= this.metaDataList[0].length + 2
         }
         else{
-            initialSpace += this.ownerVerticalSpace -3
+            initialSpace += this.ownerVerticalSpace -5
         }
 
         for (let [index, category] of this.metaDataList.entries()) {
@@ -69,7 +69,7 @@ class TerminalController {
             if (index == 3) {
                 for (let pastOwner of category[category.length - 1]) {
                     this.iterm.createText(pastOwner, this.leftPosition, this.canvasRect.bottom + ownerVerticalSpace, this.metaDataTextSize)
-                    ownerVerticalSpace +=3
+                    ownerVerticalSpace +=5
                 }
                 this.ownerVerticalSpace= ownerVerticalSpace
                 
