@@ -11,7 +11,7 @@ class Microplastic {
     }
 
     initialize(pastOwnersList, retrievedMethod, dateRetrieved) {
-        this.pastOwnersList = pastOwnersList || ["Empty"]
+        this.pastOwnersList = pastOwnersList || "Empty"
         //this.pastOwnersList = this.pastOwnersList.toString()
         this.retrievedMethod = retrievedMethod || "Empty"
         this.dateRetrieved = dateRetrieved || "Empty"
