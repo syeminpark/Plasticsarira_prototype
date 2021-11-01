@@ -6,10 +6,10 @@ class TerminalController {
         this.canvas = document.querySelector('#sarira')
         this.canvasRect = this.canvas.getBoundingClientRect()
 
-        this.categoryTextSize = "0.6vw"
-        this.metaDataTextSize = "0.4vw"
+        this.categoryTextSize = "0.7vw"
+        this.metaDataTextSize = "0.5vw"
         this.ownerVerticalSpace = 0
-        this.categoryList = ["Type ", `Birthday`, `Origin`, `Owners`, `Retrieved By`, `Date Retrieved`]
+        this.categoryList = ["Type ", `Birthday`, `Origin`, `Owners`, `Retrieved_By`, `Date_Retrieved`]
 
         this.metaDataList = new Array(5)
         for (let i = 0; i < 6; i++) {
@@ -31,7 +31,7 @@ class TerminalController {
 
     initializeCategory() {
         this.updateInfo()
-        let list = [0, 4, 7, 10, 5.5, 10]
+        let list = [0, 4.5, 8, 12, 6.5, 11.5]
 
         for (let i = 0; i < this.categoryList.length; i++) {
             this.leftPosition += list[i] * this.space
@@ -66,11 +66,11 @@ class TerminalController {
     }
 
     createMetaDataText() {
-        let list = [0, 4, 7, 10, 5.5, 10]
+        let list = [0, 4.5, 8, 12, 6.5, 11.5]
         this.updateInfo()
         let initialSpace = this.initialSpace
         if (this.metaDataList[0].length == 1) {
-            initialSpace *= this.metaDataList[0].length + 2
+            initialSpace *= this.metaDataList[0].length + 3
         } else {
             initialSpace += this.ownerVerticalSpace - this.space
         }
@@ -99,7 +99,7 @@ class TerminalController {
         this.initialSpace = window.innerWidth / 250
         this.space = window.innerWidth / 200
         this.canvasRect = this.canvas.getBoundingClientRect()
-        this.leftPosition = this.canvasRect.left + this.initialSpace
+        this.leftPosition = this.canvasRect.left 
     }
 
 }
