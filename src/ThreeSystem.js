@@ -19,6 +19,8 @@ class ThreeSystem {
         this.setOrbitcontrols();
         //프레임 레이트 모니터링 
         this.setStats()
+
+        this.setFog()
     }
 
     update() {
@@ -39,8 +41,18 @@ class ThreeSystem {
         this.controls.dampingFactor = 0.05;
     }
 
+    setFog(){
+        if(this.element==document.querySelector('#sarira')){
+        const near = 10
+        const far = 2000;
+        const color = '#000000'
+        this.scene.fog = new THREE.Fog(color, near, far);
+        this.scene.background = new THREE.Color(color);
+        }
+    }
+
     setLights() {
-        this.ambientLight = new THREE.AmbientLight(0x404040, 5);
+        this.ambientLight = new THREE.AmbientLight(0xffffff, 5);
         this.directionalLight = new THREE.DirectionalLight(0xffffff, 5);
         this.directionalLight.position.set(.5, 0, 0.866);
         this.directionalLight.target.position.set(0, 0, 0);
@@ -51,6 +63,7 @@ class ThreeSystem {
         this.scene.add(this.ambientLight, this.directionalLight,this.hemiLight, this.directionalLight.target);
     }
     setStats(){
+       
         this.stats = new Stats()
         this.element.appendChild(this.stats.dom)
         this.stats.dom.style.left = this.element.style.left

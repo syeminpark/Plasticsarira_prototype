@@ -8,6 +8,8 @@ class TerminalController {
 
         this.categoryTextSize = "0.7vw"
         this.metaDataTextSize = "0.5vw"
+        this.wordSpacingList = [0, 4.5, 8, 12, 6.5, 11.5]
+
         this.ownerVerticalSpace = 0
         this.categoryList = ["Type ", `Birthday`, `Origin`, `Owners`, `Retrieved_By`, `Date_Retrieved`]
 
@@ -20,21 +22,11 @@ class TerminalController {
         window.addEventListener('resize', this.refreshMetaData.bind(this));
     }
 
-    // initializeCategory() {
-    //     this.updateInfo()
-
-    //     for (let i = 0; i < this.categoryList.length; i++) {
-    //         this.iterm.createText(this.categoryList[i], this.leftPosition, this.canvasRect.bottom + this.initialSpace, this.categoryTextSize)
-    //         this.leftPosition += this.categoryList[i].length* this.space
-    //     }
-    // }
-
     initializeCategory() {
         this.updateInfo()
-        let list = [0, 4.5, 8, 12, 6.5, 11.5]
 
         for (let i = 0; i < this.categoryList.length; i++) {
-            this.leftPosition += list[i] * this.space
+            this.leftPosition +=  this.wordSpacingList[i] * this.space
             this.iterm.createText(this.categoryList[i], this.leftPosition, this.canvasRect.bottom + this.initialSpace, this.categoryTextSize)
 
         }
@@ -44,8 +36,8 @@ class TerminalController {
         this.updateInfo()
         //refresh category
         for (let i = 0; i < this.categoryList.length; i++) {
+            this.leftPosition +=  this.wordSpacingList[i] * this.space
             this.iterm.refreshText(this.categoryList[i], this.leftPosition, this.canvasRect.bottom + this.initialSpace)
-            this.leftPosition += this.categoryList[i].length * this.space
         }
     }
 
@@ -66,7 +58,7 @@ class TerminalController {
     }
 
     createMetaDataText() {
-        let list = [0, 4.5, 8, 12, 6.5, 11.5]
+
         this.updateInfo()
         let initialSpace = this.initialSpace
         if (this.metaDataList[0].length == 1) {
@@ -77,7 +69,7 @@ class TerminalController {
         
 
         for (let [index, category] of this.metaDataList.entries()) {
-            this.leftPosition += list[index] * this.space
+            this.leftPosition += this.wordSpacingList[index] * this.space
             let ownerVerticalSpace = initialSpace
             if (index == 3) {
                 for (let pastOwner of category[category.length - 1]) {
@@ -87,11 +79,8 @@ class TerminalController {
                 this.ownerVerticalSpace = ownerVerticalSpace
 
             } else {
-               
                 this.iterm.createText(category[category.length - 1], this.leftPosition, this.canvasRect.bottom + initialSpace, this.metaDataTextSize)
             }
-
-
         }
     }
 
