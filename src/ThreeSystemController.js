@@ -102,6 +102,9 @@ class ThreeSystemController {
         this.renderer.setScissorTest(true);
         this.renderSceneInfo();
 
+        const transform = `translateY(${window.scrollY}px)`;
+        this.canvas.style.transform = transform;
+
     }
 
     renderSceneInfo() {
