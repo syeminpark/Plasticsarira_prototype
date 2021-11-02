@@ -12,7 +12,8 @@ class ThreeSystem {
         this.canvas = document.querySelector('#oribit');
         this.controls = new THREE.OrbitControls(this.camera, this.element);
         
-        // this.controls.autoRotate=true;
+        //this.controls.autoRotate=true;
+
         //lights
         this.setLights()
       //마우스로 컨트롤 

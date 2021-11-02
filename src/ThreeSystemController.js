@@ -4,7 +4,7 @@ class ThreeSystemController {
     constructor() {
 
         //초기 카메라 위치값 x,y,z
-        this.worldCameraPositionList = [50, 50, 120]
+        this.worldCameraPositionList = [50, 50, -300]
         this.sariraCameraPositionList = [50, 50, 300]
         //카메라가 바라보는 시점  x, y, z
         this.cameraLookPositionList = [0, 0, 0]

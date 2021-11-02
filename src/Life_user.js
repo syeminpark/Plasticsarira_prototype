@@ -9,13 +9,35 @@ class Life_user extends Life {
         this.angleVelocity = new THREE.Vector3();
         this.angleAcceleration = new THREE.Vector3();
 
-        this.onceF = false;
-        this.isLifeFocusOn = false;
-        
+        //======================================================
         this.scene = threeSystemController.worldThreeSystem.scene;
         this.cam = threeSystemController.worldThreeSystem.camera;
         this.orbitControl = threeSystemController.worldThreeSystem.controls;
         this.keyboard = new KeyboardState();
+
+        //======================================================
+        this.newPos = new THREE.Vector3();
+        this.matrix = new THREE.Matrix4();
+
+        this.stop = 1;
+        this.DEGTORAD = 0.01745327;
+        this.temp = new THREE.Vector3;
+        this.dir = new THREE.Vector3;
+        this.a = new THREE.Vector3;
+        this.b = new THREE.Vector3;
+        this.safetyDistance = 0.1;
+        this.vel = 0.0;
+        this.acc = 0.0;
+
+        this.goal = new THREE.Object3D;
+        this.follow = new THREE.Object3D;
+        this.follow.position.z = -this.safetyDistance;
+
+        this.camLerp = new THREE.Vector3();
+
+        //======================================================
+        this.isLifeFocusOn = false;
+        this.timer = 1;
 
         this.camera_focusOff_init();
     }
@@ -27,12 +49,21 @@ class Life_user extends Life {
 
         this.key_check();
 
+        this.lerpLoad();
+        
+
         if (this.isLifeFocusOn == true){
             this.camera_focusOn_update();
             this.key_update();
         } else {
-            //this.randomWalk(0.01, 0.08);
             //this.randomLook();
+        }
+    }
+
+    lerpLoad(){
+        if (this.timer > 0){
+            this.timer -= 0.01;
+            this.cam.position.lerp(this.camLerp, 0.05);
         }
     }
 
@@ -41,6 +72,7 @@ class Life_user extends Life {
 
         if ( this.keyboard.down("F") ) {
             this.isLifeFocusOn = !this.isLifeFocusOn;
+            this.timer = 1;
             if (this.isLifeFocusOn == true){
                 console.log('focus on');
                 this.camera_focusOn_init();
@@ -74,34 +106,26 @@ class Life_user extends Life {
     }
 
     camera_focusOff_init(){
-        this.cam.position.set(50, 50, 200);
+        this.goal = new THREE.Object3D;
+        this.follow = new THREE.Object3D;
+
+        //======================================================
+        //this.cam.position.set(50, 50, 200);
+        this.camLerp = new THREE.Vector3(50, 50, -250);
         this.cam.lookAt(0, 0, 0);
         this.orbitControl.target = new THREE.Vector3(0, 0, 0);
     }
 
     camera_focusOn_init(){
-        this.newPos = new THREE.Vector3();
-        this.matrix = new THREE.Matrix4();
-
-        this.stop = 1;
-        this.DEGTORAD = 0.01745327;
-        this.temp = new THREE.Vector3;
-        this.dir = new THREE.Vector3;
-        this.a = new THREE.Vector3;
-        this.b = new THREE.Vector3;
-        this.safetyDistance = 0.1;
-        this.vel = 0.0;
-        this.acc = 0.0;
-
-        //======================================================
-        this.goal = new THREE.Object3D;
-        this.follow = new THREE.Object3D;
-        this.follow.position.z = -this.safetyDistance;
 
         this.life.add( this.follow );
         this.goal.add( this.cam );
+
         //======================================================
-        this.cam.position.set(
+        // this.cam.position.set(
+        //     this.life.position.x, this.life.position.y, 
+        //     this.life.position.z - 100);
+        this.camLerp = new THREE.Vector3(
             this.life.position.x, this.life.position.y, 
             this.life.position.z - 100);
         this.orbitControl.target = this.life.position;
