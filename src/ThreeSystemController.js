@@ -89,7 +89,7 @@ class ThreeSystemController {
 
         // this.renderer.shadowMap.enabled = true; //basic= unfiltered. pcf(default)= filters percentage close algorithm. pcf soft. vsm.   
         // this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-       // this.renderer.setPixelRatio(window.devicePixelRatio)
+        this.renderer.setPixelRatio(window.devicePixelRatio)
         this.renderer.setSize(window.innerWidth, window.innerHeight,false);
         //this.renderer.autoClear = false;
 
