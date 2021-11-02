@@ -9,11 +9,11 @@ setup()
 draw()
 
 function setup() {
-  
+
 
     threeSystemController = new ThreeSystemController();
-    bodySystem= new BodySystem();
-    
+    bodySystem = new BodySystem();
+
 
     lifeSystem = new LifeSystem();
     particleSystem_microPlastic = new ParticleSystem(lifeSystem);
@@ -21,7 +21,7 @@ function setup() {
 
 function draw() {
     requestAnimationFrame(draw);
-  
+
     //매 프레임 실행되는 부분
     threeSystemController.update()
     bodySystem.update()
@@ -31,4 +31,3 @@ function draw() {
 }
 
 //------------------------------------------------------------------
-

@@ -86,6 +86,7 @@ class ThreeSystemController {
             antialias: true,
 
         });
+  
 
         // this.renderer.shadowMap.enabled = true; //basic= unfiltered. pcf(default)= filters percentage close algorithm. pcf soft. vsm.   
         // this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;

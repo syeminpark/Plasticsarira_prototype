@@ -32,6 +32,8 @@ class TerminalController {
         }
     }
 
+    //전체 화면으로 만든다. 
+    
     refreshCategory() {
         this.updateInfo()
         //refresh category
