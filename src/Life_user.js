@@ -44,6 +44,7 @@ class Life_user extends Life {
 
     update_position(){
         this.life.position.set(this.position.x, this.position.y, this.position.z);
+        this.life.rotation.set(this.angle.x, this.angle.y, this.angle.z);
 
         this.randomWalk(0.01, 0.08);
 
@@ -88,19 +89,27 @@ class Life_user extends Life {
         var rotateValue = 500 * this.clock.getDelta();
 
         if ( this.keyboard.pressed("W") ){
-            this.life.translateZ( -moveDistance );
+            this.life.translateY( moveDistance );
         }
 		    
         if ( this.keyboard.pressed("S") ){
-            this.life.translateZ(  moveDistance );
+            this.life.translateY(  -moveDistance );
         }
 
         if ( this.keyboard.pressed("A") ){
-            this.life.rotation.y += 0.05;
+            this.life.translateX(  moveDistance );
         }
 		    
         if ( this.keyboard.pressed("D") ){
-            this.life.rotation.y += -0.05;
+            this.life.translateX(  -moveDistance );
+        }
+
+        if ( this.keyboard.pressed("Q") ){
+            this.life.translateZ(  moveDistance );
+        }
+		    
+        if ( this.keyboard.pressed("E") ){
+            this.life.translateZ(  -moveDistance );
         }
             
     }
