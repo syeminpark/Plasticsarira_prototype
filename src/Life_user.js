@@ -36,10 +36,10 @@ class Life_user extends Life {
         this.camLerp = new THREE.Vector3();
 
         //======================================================
-        this.isLifeFocusOn = false;
+        this.isLifeFocusOn = true;
         this.timer = 1;
 
-        this.camera_focusOff_init();
+        this.camera_focusOn_init();
     }
 
     update_position(){
