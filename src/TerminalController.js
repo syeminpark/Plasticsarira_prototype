@@ -4,7 +4,7 @@ class TerminalController {
         this.iterm = new Terminal()
 
         this.canvas = document.querySelector('#sarira')
-        this.canvasRect = this.canvas.getBoundingClientRect()
+       
 
         this.categoryTextSize = "0.7vw"
         this.metaDataTextSize = "0.5vw"
@@ -27,7 +27,7 @@ class TerminalController {
 
 
     initializeCategory() {
-        let leftPosition=100-(this.canvasRect.width/document.documentElement.clientWidth * 100)
+        let leftPosition=71
         for (let i = 0; i < this.categoryList.length; i++) {
             leftPosition+=this.wordSpacingList[i]
             this.iterm.createText(this.categoryList[i], leftPosition, this.initialSpace, this.categoryTextSize)
@@ -35,9 +35,8 @@ class TerminalController {
     }
 
     createMetaDataText() {
-
         let initialSpace=this.checkMetaDataLength()
-        let leftPosition=100-(this.canvasRect.width/document.documentElement.clientWidth * 100)
+        let leftPosition=71
 
         for (let [i, category] of this.metaDataList.entries()) {
             leftPosition += this.wordSpacingList[i] 
