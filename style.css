@@ -35,13 +35,13 @@ body {
 
 .left {
     float: left;
-    width: 71vw;
+    width: 70vw;
     height: 70vh;
 }
 
 .right {
     float: right;
-    width: 27vw;
+    width: 28vw;
     height: 30vh;
 
 }

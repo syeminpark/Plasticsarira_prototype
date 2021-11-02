@@ -49,6 +49,7 @@ class ThreeSystem {
         this.scene.fog = new THREE.Fog(color, near, far);
         this.scene.background = new THREE.Color(color);
         }
+        
     }
 
     setLights() {
