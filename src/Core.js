@@ -5,7 +5,7 @@ class Core extends Microplastic {
         this.type = "PP"; // polypropylene was identified in baby
         this.dateCreated = 1951
         this.originalPurposeList = ["Syringe", "Chip Bag", "Specimen Bottle", "Plastic Chair", "Car Battery Case", "Instrument Panel", "Rug", "Lunch Box", "Packing Tape", "Coffee Machine"]
-        this.pastOwnersList = ["Mom", "Dad", "brother","me"]
+        this.pastOwnersList = ["Mom", "Dad", "brother","Mom"]
         this.density = 0.92
         this.retrievedMethod = "Inheritance"
         this.dateRetrieved = "Before Birth"

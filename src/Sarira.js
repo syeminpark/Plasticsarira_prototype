@@ -30,6 +30,7 @@ class Sarira {
         for (let [index, dataElement] of plastic.passDataList.entries()) {
            this.terminalController.metaDataList[index].push(dataElement)
         }
+       
     }
 
     getPosition(bufferGeometry) {
