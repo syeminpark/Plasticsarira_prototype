@@ -57,3 +57,12 @@ body {
     height: 40vh;
   }
 
+  #copyRight {
+    color: lightgrey;
+    position: absolute;
+    bottom:0vh;
+    left:44vw;
+    z-index: 3;
+
+
+}
