@@ -54,19 +54,18 @@ class MicroPlastic {
   
     wrap(size){
       const distance = this.position.length();
-
-      if (distance > size*1.2){
+      var wrapSize = size;
+      if (distance > wrapSize){
         this.velocity.multiplyScalar(-1);
       } 
     }
-  
-    eaten_becomeSarira(){
-      this.velocity.multiplyScalar(0.9999); //0.5, 0.1
-      // if (this.velocity.length() < 0.000001) {
-      //   this.velocity.setLength(0.0000001);
-      // }
 
-      //this.isEaten = true;
+    wrap_eaten(life){
+      var distance = new THREE.Vector3().distanceTo(life.position, this.position);
+      if (distance > life.size*0.5){
+        this.velocity.multiplyScalar(-1);
+        this.velocity.multiplyScalar(0.9999);
+      } 
     }
   }
   
