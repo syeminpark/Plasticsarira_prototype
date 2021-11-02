@@ -6,6 +6,7 @@ class Convex {
         this.initializeBuffer(bufferGeometry)
         this.initializeMaterial()
         this.initializeMesh()
+        
     }
 
     //must be at least three points. 
@@ -21,6 +22,7 @@ class Convex {
     }
 
     updateBuffer(plastic) {
+        
         this.meshGeometry.dispose()
         threeSystemController.sariraThreeSystem.scene.remove(this.mesh1);
         threeSystemController.sariraThreeSystem.scene.remove(this.mesh2);

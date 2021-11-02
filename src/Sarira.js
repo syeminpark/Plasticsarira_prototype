@@ -7,7 +7,7 @@ class Sarira {
         this.terminalController.initializeCategory()
         this.initializeCore(bufferGeometry)
         this.terminalController.createMetaDataText()
-        
+       
     }
     update(bufferGeometry) {
         this.getPosition(bufferGeometry)
@@ -18,7 +18,7 @@ class Sarira {
         this.plasticList.push(micro)
         this.addMetaData()
         this.terminalController.createMetaDataText()
-        if (this.plasticList.length > 5) {
+        if (this.convex!=undefined) {
             this.convex.updateBuffer(micro)
         }
     }
