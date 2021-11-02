@@ -120,7 +120,7 @@ class Life_user extends Life {
 
         //======================================================
         //this.cam.position.set(50, 50, 200);
-        this.camLerp = new THREE.Vector3(50, 50, -250);
+        this.camLerp = new THREE.Vector3(50, 50, -400);
         this.cam.lookAt(0, 0, 0);
         this.orbitControl.target = new THREE.Vector3(0, 0, 0);
     }
