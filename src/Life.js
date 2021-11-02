@@ -25,10 +25,10 @@ class Life{
         this.angleVelocity = this.velocity.clone();
         this.angleAcceleration = this.acceleration.clone();
 
-        this.size = random(0.001, 7);
-        this.sizeMax = random(0.001, 17);
+        this.size = random(2, 5); 
+        this.sizeMax = random(0, 20); 
 
-        this.noiseShape = (0.05, 0.18);
+        this.noiseShape = random(0.05, 0.3);
         this.noiseAnimSpeed = random(0.1, 0.5);
 
         this.sariraPosition = new THREE.Vector3();
@@ -53,18 +53,26 @@ class Life{
     }
 
     update(){
+        this.randomWalk(0.01, 0.2);
+        this.randomLook();
+        
+    }
+
+    randomWalk(acc, velLimit){
         this.life.position.set(this.position.x, this.position.y, this.position.z);
+        this.position = this.life.position;
         this.acceleration.add(new THREE.Vector3(
-            random(-0.01, 0.01),
-            random(-0.01, 0.01),
-            random(-0.01, 0.01)
+            random(-acc, acc),
+            random(-acc, acc),
+            random(-acc, acc)
             ));
         this.velocity.add(this.acceleration);
         this.position.add(this.velocity);
-        if (this.velocity.length() > 0.1) this.velocity.multiplyScalar(0.01);
-        this.velocity.clampLength(0, 0.25);
+        if (this.velocity.length() > velLimit) this.velocity.multiplyScalar(0.01);
         this.acceleration.setLength(0);
+    }
 
+    randomLook(){
         this.life.rotation.set(this.angle.x, this.angle.y, this.angle.z);
         this.angleAcceleration.add(new THREE.Vector3(
             random(-0.001, 0.001),
@@ -92,6 +100,7 @@ class Life{
         });
         this.life = new THREE.Mesh(geometry, material);
         this.life.position.set(this.position.x, this.position.y, this.position.z);
+        this.life.rotation.set(this.angle.x, this.angle.y, this.angle.z);
 
         threeSystemController.addToWorldScene(this.life);
 
@@ -99,7 +108,8 @@ class Life{
         var map = new THREE.TextureLoader().load('images/glow.png')
         var spriteMaterial = new THREE.SpriteMaterial({
             map: map,
-            blending:THREE.AdditiveBlending
+            blending:THREE.AdditiveBlending,
+            opacity:0.5
         })
         var sprite = new THREE.Sprite(spriteMaterial);
         sprite.scale.set(
@@ -155,19 +165,28 @@ class Life{
     
     eat(microPlastic){
         const distance = this.position.distanceTo(microPlastic.position);
-        const lifeSize = this.sizeMax;
-        var sariraPos = new THREE.Vector3().addVectors(
-            this.position, 
-            this.sariraPosition.setLength(this.size*0.5));
+        const lifeSize = this.size + this.sizeMax;
+        var sariraPos = this.position;
+        var particles = [];
 
-        if (distance < lifeSize && microPlastic.isEaten == false){
-            
+        if (distance < lifeSize){
             var force = new THREE.Vector3().subVectors(sariraPos, microPlastic.position);
+            particles.push(microPlastic);
 
-            force.setLength(0.1); //0.1
+            if (distance < this.size/3){
+                force.multiplyScalar(0.05);
+                
+            } else {
+                force.divideScalar(this.size/2);
+            }
+            
+            microPlastic.velocity.multiplyScalar(0.9999);
             microPlastic.applyForce(force);
-            microPlastic.eaten_becomeSarira();
         }
+    }
+
+    make_sarira(){
+
     }
 
     breath(){
@@ -175,10 +194,6 @@ class Life{
     }
 
     divistion(){
-
-    }
-
-    make_sarira(){
 
     }
 

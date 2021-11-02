@@ -1,7 +1,7 @@
 class ParticleSystem{
     constructor(lifeSystem){
-        this.num = 4000;
-        this.size = 100;
+        this.num = 10000;
+        this.size = 150;
 
         this.particles = [];
         this.p_positions = [];
@@ -29,11 +29,20 @@ class ParticleSystem{
             positions[i+2] = this.particles[index].position.z;
 
             this.particles[index].update();
-            this.particles[index].wrap(this.size);
 
             for (let j = 0; j < this.lifes.length; j++) {
-                this.lifes[j].eat(this.particles[index]);           
+                this.lifes[j].eat(this.particles[index]);  
             }
+
+            if (this.particles[index].isEaten == true) {
+                for (let j = 0; j < this.lifes.length; j++) {
+                    this.particles[index].wrap_eaten(this.lifes[j]);
+                }
+                this.particles[index].wrap_eaten(this.life_user);
+            } else {
+                this.particles[index].wrap(this.size * 1.2);
+            }
+
             this.life_user.eat(this.particles[index]);
         }
 
@@ -44,7 +53,7 @@ class ParticleSystem{
         var geometry = new THREE.BufferGeometry().setFromPoints(this.p_positions);
         
         var material = new THREE.PointsMaterial({
-            size: random(0.1, 0.3),
+            size: random(0.1, 0.5),
             color:'white'
         });
         //var material = new THREE.MeshNormalMaterial({wireframe:false});
