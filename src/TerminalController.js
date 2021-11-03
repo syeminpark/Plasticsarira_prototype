@@ -7,7 +7,7 @@ class TerminalController {
         this.metaDataTextSize = "0.5vw"
         this.wordSpacingList = [0, 2.3, 4, 6.5, 3.5, 6]
         this.space = 2
-        this.initialSpace = pxToVh(document.querySelector('#sarira').getBoundingClientRect().bottom) + this.space
+        this.initialSpace = pxToVh(document.querySelector('#sarira').getBoundingClientRect().bottom) + window.innerHeight/3000
 
         this.ownerVerticalSpace = 0
         this.leftPosition = 71
@@ -22,7 +22,7 @@ class TerminalController {
         // this.slider = new Slider()
         this.canvas = document.querySelector('#sarira')
 
-        
+
     }
     initializeCategory() {
         let leftPosition = this.leftPosition
