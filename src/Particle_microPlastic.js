@@ -4,7 +4,7 @@ class MicroPlastic {
       this._index = index;
       this.size = size;
 
-      this.velV = 0.01;
+      this.velV = 0.02;
   
       this.position = new THREE.Vector3(
         random(-this.size, this.size), 
@@ -34,8 +34,7 @@ class MicroPlastic {
     update(){
       this.velocity.add(this.acceleration);
       this.position.add(this.velocity);
-      this.velocity.clampLength(0, 0.5);
-      if (this.velocity.length() > 0.4) this.velocity.multiplyScalar(0.05);
+      if (this.velocity.length() > 0.5) this.velocity.multiplyScalar(0.1);
       this.acceleration.setLength(0);
     }
   

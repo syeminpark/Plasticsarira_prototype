@@ -5,6 +5,11 @@ class Slider {
         this.sliderRect = slider.getBoundingClientRect()
       
 
+        this.slider = document.getElementById('mySlider')
+        this.sliderRect = this.slider.getBoundingClientRect()
+
+        this.sliderContainer =  this.sliderRect
+        
         window.addEventListener('resize', this.updateSliderRect.bind(this));
     }
 
@@ -24,6 +29,7 @@ class Slider {
     }
 
     updateSliderRect() {
-        this.sliderRect = slider.getBoundingClientRect()
+
+        this.sliderRect = this.slider.getBoundingClientRect()
     }
 }

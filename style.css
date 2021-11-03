@@ -13,8 +13,16 @@ body {
     margin-top: 1vh;
     width: 100%;
     height: 100%;
-
 }
+
+#copyRight {
+    color: lightgrey;
+    position: absolute;
+    bottom: 0vh;
+    left: 44vw;
+    z-index: 3;
+}
+
 
 #c {
     position: absolute;
@@ -29,14 +37,15 @@ body {
 .diagram {
     position: relative;
     display: block;
-    border: 1px solid rgb(88, 88, 88)
+    border: 1px solid rgb(88, 88, 88);
+    cursor: pointer;
 }
 
 .left {
     float: left;
     width: 69.5vw;
     height: 70vh;
-  
+
 }
 
 .right {
@@ -46,23 +55,33 @@ body {
     padding-left: 1vw;
 
 }
-#slider {
+
+.slider {
     position: absolute;
-    top: 35vh;
+    top: 36vh;
     right: 0vh;
     border-radius: 50px;
     background: grey;
 
     width: 0.5vw;
-    height: 40vh;
-  }
+    height: 37vh;
 
-  #copyRight {
-    color: lightgrey;
-    position: absolute;
-    bottom:0vh;
-    left:44vw;
-    z-index: 3;
-
+    cursor: pointer;
 
 }
+
+
+.slider:hover {
+    background: darkgrey
+}
+
+/* .terminalContainer {
+    padding-left: 1vw;
+
+    float: right;
+    width: 28vw;
+    height: 40vh;
+    position: relative;
+    overflow: auto;
+    border: 1px solid rgb(88, 88, 88);
+} */
