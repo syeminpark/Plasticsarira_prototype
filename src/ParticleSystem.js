@@ -28,11 +28,10 @@ class ParticleSystem{
             positions[i+1] = this.particles[index].position.y;
             positions[i+2] = this.particles[index].position.z;
 
-            this.particles[index].update();
-
             for (let j = 0; j < this.lifes.length; j++) {
                 this.lifes[j].eat(this.particles[index]);  
             }
+            this.life_user.eat(this.particles[index]);
 
             if (this.particles[index].isEaten == true) {
                 for (let j = 0; j < this.lifes.length; j++) {
@@ -43,7 +42,7 @@ class ParticleSystem{
                 this.particles[index].wrap(this.size * 1.2);
             }
 
-            this.life_user.eat(this.particles[index]);
+            this.particles[index].update();
         }
 
         this.points.geometry.attributes.position.needsUpdate = true;
