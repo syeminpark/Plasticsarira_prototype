@@ -5,7 +5,7 @@ class TerminalController {
 
         this.categoryTextSize = "0.7vw"
         this.metaDataTextSize = "0.5vw"
-        this.wordSpacingList = [0.5, 2.3, 4, 6.5, 3.5, 5.8]
+        this.wordSpacingList = [0, 2.3, 4, 6.5, 3.5, 6]
 
         this.initialSpace = 35
         this.space = 2
@@ -19,13 +19,11 @@ class TerminalController {
             this.metaDataList[i] = new Array(0)
         }
 
-        this.slider = new Slider()
+        // this.slider = new Slider()
         this.canvas = document.querySelector('#sarira')
-        //document.addEventListener('mousemove', this.moveText.bind(this))
-    
+
+        
     }
-
-
     initializeCategory() {
         let leftPosition = this.leftPosition
         for (let i = 0; i < this.categoryList.length; i++) {
@@ -53,14 +51,7 @@ class TerminalController {
                 this.iterm.createText(category[category.length - 1], leftPosition, initialSpace, this.metaDataTextSize)
             }
         }
-    }
-
-    moveText(event) {
-        if (this.slider.isWithin(event) ) {
-            print("within")
-            this.iterm.moveText()
-            this.slider.moveSlider(event)
-        }
+        // this.slider.adjustSize(this.ownerVerticalSpace)
     }
 
     checkMetaDataLength() {
@@ -72,5 +63,6 @@ class TerminalController {
         }
         return initialSpace
     }
+
 
 }

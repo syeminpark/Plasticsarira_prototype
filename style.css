@@ -1,8 +1,8 @@
 body {
-    background-color: white;
+    background-color: black;
     margin: 0px;
     /* overflow: 요소의 콘텐츠가 너무 커서 요소의 블록 서식 맥락에 맞출 수 없을 때의 처리법 */
-    overflow: hidden;
+    /* overflow: hidden; */
     color: white;
     font-family: Monospace;
 
@@ -52,28 +52,29 @@ body {
     float: right;
     width: 28vw;
     height: 30vh;
+ 
     padding-left: 1vw;
 
 }
 
-.slider {
+/* .slider {
     position: absolute;
-    top: 36vh;
+    top: 35vh;
     right: 0vh;
     border-radius: 50px;
-    background: grey;
+    background: rgb(88, 88, 88);
 
     width: 0.5vw;
-    height: 37vh;
-
+    height: 64.5vh;
+ 
     cursor: pointer;
 
 }
 
 
 .slider:hover {
-    background: darkgrey
-}
+    background:grey;
+} */
 
 /* .terminalContainer {
     padding-left: 1vw;
