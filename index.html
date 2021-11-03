@@ -14,13 +14,37 @@
 
 	<canvas id="c"></canvas>
 
+	<div id="keys" class="instructions">
+		<div>
+			F- FOCUS / WORLD
+		</div>
+		<div>
+			Q- FORWARD
+		</div>
+		<div>
+			E - BACK
+		</div>
+		<div>
+			W -UP
+		</div>
+		<div>
+			S - DOWN
+		</div>
+		<div>
+			A -LEFT
+		</div>
+		<div>
+			D -RIGHT
+		</div>
+	</div>
+
 	<p>
 		<div id="world" class="diagram left"> </div>
 		<div id="sarira" class="diagram right"></div>
 	</p>
-	
-	<div id ="mySlider" class="slider"></div>
-	
+
+	<div id="mySlider" class="slider"></div>
+
 	<p id=copyRight> © 2021 Water Dwellers </p>
 
 
@@ -55,7 +79,14 @@
 	<script src="library/three-noise.js"></script>
 	<script src="/library/ConvexHull.js"></script>
 	<script src="/library/ConvexGeometry.js"></script>
-	<script src="/library/RGBELoader.js"></script>
+	<!-- <script src="/library/RGBELoader.js"></script> -->
+
+	<script src="/library/EffectComposer.js"></script>
+	<script src="/library/BloomPass.js"></script>
+	<script src="/library/ShaderPass.js"></script>
+	<script src="/library/CopyShader.js"></script>
+	<script src="/library/RenderPass.js"></script>
+	<script src="/library/ConvolutionShader.js"></script>
 
 	<!-- 커스텀 스크립트 영역 -->
 	<script src="/src/Slider.js"></script>
