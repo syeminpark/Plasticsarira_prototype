@@ -9,6 +9,7 @@ body {
 }
 
 #info {
+    position:fixed;
     text-align: center;
     margin-top: 1vh;
     width: 100%;
@@ -16,13 +17,13 @@ body {
 }
 
 #copyRight {
-    color: lightgrey;
-    position: absolute;
-    bottom: 0vh;
-    left: 44vw;
-    z-index: 3;
-}
+    width: 100%;
+    text-align: center;
+    position:fixed;
+    bottom: 0;
 
+    color: lightgrey;
+}
 
 #c {
     position: absolute;
@@ -35,6 +36,7 @@ body {
 }
 
 .diagram {
+    margin-top: 50px;
     position: relative;
     display: block;
     border: 1px solid rgb(88, 88, 88);
@@ -42,6 +44,7 @@ body {
 }
 
 .left {
+    position:fixed;
     float: left;
     width: 69.5vw;
     height: 70vh;
@@ -52,7 +55,6 @@ body {
     float: right;
     width: 28vw;
     height: 30vh;
- 
     padding-left: 1vw;
 
 }
