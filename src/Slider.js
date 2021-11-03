@@ -1,10 +1,7 @@
 class Slider {
 
     constructor() {
-        this.slider = document.querySelector('#slider')
-        this.sliderRect = slider.getBoundingClientRect()
-      
-
+   
         this.slider = document.getElementById('mySlider')
         this.sliderRect = this.slider.getBoundingClientRect()
 
