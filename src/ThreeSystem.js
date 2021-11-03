@@ -22,6 +22,8 @@ class ThreeSystem {
         this.setStats()
 
         this.setFog()
+
+  
     }
 
     update() {
@@ -45,7 +47,7 @@ class ThreeSystem {
     setFog(){
         if(this.element==document.querySelector('#sarira')){
         const near = 10
-        const far = 2000;
+        const far = 1500;
         const color = '#000000'
         this.scene.fog = new THREE.Fog(color, near, far);
         this.scene.background = new THREE.Color(color);
@@ -70,6 +72,19 @@ class ThreeSystem {
         this.element.appendChild(this.stats.dom)
         this.stats.dom.style.left = this.element.style.left
     }
+
+    // setBloom(renderer){
+    //     this.composer = new THREE.EffectComposer(renderer);
+    //     this.composer.addPass(new THREE.RenderPass(this.scene, this.camera));
+      
+    //    this.bloomPass = new THREE.BloomPass(
+    //         10,    // strength
+    //         25,   // kernel size
+    //         4,    // sigma ?
+    //         256,  // blur render target resolution
+    //     );
+    //     this.composer.addPass(this.bloomPass);
+    // }
 
  
 }
