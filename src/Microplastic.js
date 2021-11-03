@@ -30,7 +30,7 @@ class Microplastic {
         f.divideScalar(this.mass);
         this.acceleration.add(f);
     }
-
+    
     walk(bufferGeometry, index) {
         this.velocity.add(this.acceleration)
         bufferGeometry.attributes.position.array[index * 3] += this.velocity.x
@@ -41,7 +41,7 @@ class Microplastic {
     getPosition(bufferGeometry, index) {
         bufferGeometry.attributes.position.needsUpdate = true
         bufferGeometry.attributes.color.needsUpdate = true
-        bufferGeometry.attributes.size.needsUpdate = true
+    
 
         for (let i = 0; i < 3; i++) {
             this.positionList[i] = bufferGeometry.attributes.position.array[(index * 3) + i]
@@ -54,7 +54,6 @@ class Microplastic {
             bufferGeometry.attributes.position.array[((indexLength - 1) * 3) + i] = this.positionList[i]
             bufferGeometry.attributes.color.array[((indexLength - 1) * 3) + i] = this.color[i]
         }
-        bufferGeometry.attributes.size.array[indexLength - 1] = this.size
         bufferGeometry.setDrawRange(0, indexLength);
     }
 
@@ -64,13 +63,11 @@ class Microplastic {
             bufferGeometry.attributes.position.array[(index * 3) + i] = bufferGeometry.attributes.position.array[(lastIndex * 3) + i]
             bufferGeometry.attributes.color.array[(index * 3) + i] = bufferGeometry.attributes.color.array[(lastIndex * 3) + i]
         }
-        bufferGeometry.attributes.size.array[index] = bufferGeometry.attributes.size.array[lastIndex]
 
         for (let i = 0; i < 3; i++) {
             bufferGeometry.attributes.position.array[(lastIndex * 3) + i] = 0
             bufferGeometry.attributes.color.array[(lastIndex * 3) + i] = 0
         }
-        bufferGeometry.attributes.size.array[lastIndex] = 0
 
         list[index] = list[lastIndex]
         list.splice(lastIndex, 1)

@@ -1,56 +1,30 @@
 class Buffer {
 
-    constructor(shader) {
+    constructor() {
         this.maxPoints = 500;
-        this.shader = shader
         this.positionsEmptyList = new Float32Array(this.maxPoints * 3);
         this.colorsEmptyList = new Float32Array(this.maxPoints * 3);
-        this.sizeEmptyList = new Float32Array(this.maxPoints);
     }
 
     initialize() {
-        this.initilaizeBuffer()
-        this.initializeMaterial()
-        this.setAttribute()
-        this.makePoint()
-        this.setDrawCount()
+        this.bufferGeometry = new THREE.BufferGeometry();
 
-    }
 
-    initilaizeBuffer() {
-        this.floatingGeometry = new THREE.BufferGeometry();
-        this.sariraGeometry = new THREE.BufferGeometry();
-        this.bufferGeometryList = [this.floatingGeometry, this.sariraGeometry]
-
-    }
-
-    initializeMaterial() {
         this.pointMaterial = new THREE.PointsMaterial({
             vertexColors: THREE.VertexColors,
-            size:5
+            size: 5
         });
+        this.bufferGeometry.setAttribute('position', new THREE.Float32BufferAttribute(this.positionsEmptyList, 3));
+        this.bufferGeometry.setAttribute('color', new THREE.Float32BufferAttribute(this.colorsEmptyList, 3));
+        
+        this.point = new THREE.Points(this.bufferGeometry, this.pointMaterial);
 
-    }
-    setAttribute() {
-        for (let bufferGeometry of this.bufferGeometryList) {
-            bufferGeometry.setAttribute('position', new THREE.Float32BufferAttribute(this.positionsEmptyList, 3));
-            bufferGeometry.setAttribute('color', new THREE.Float32BufferAttribute(this.colorsEmptyList, 3));
-            bufferGeometry.setAttribute('size', new THREE.Float32BufferAttribute(this.sizeEmptyList, 1).setUsage(THREE.DynamicDrawUsage));
-        }
-    }
-
-    makePoint() {
-        this.floatingPoint = new THREE.Points(this.floatingGeometry, this.pointMaterial);
-        this.sariraPoint = new THREE.Points(this.sariraGeometry, this.pointMaterial);
-
-        threeSystemController.addToSariraScene(this.floatingPoint, this.sariraPoint)
-
-    }
-
-    setDrawCount() {
         let drawCount = 1;
-        this.floatingGeometry.setDrawRange(0, drawCount);
-        this.sariraGeometry.setDrawRange(0, drawCount)
+        this.bufferGeometry.setDrawRange(0, drawCount);
+   
+    }
+    getMesh(){
+        return this.point
     }
 
 

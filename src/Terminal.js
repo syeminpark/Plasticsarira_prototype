@@ -1,13 +1,67 @@
 class Terminal {
 
     constructor() {
-      this.canvas= document.querySelector(`#sarira`)
-      window.addEventListener('resize', this.moveText.bind(this));
-  
+    
+
+        this.categoryTextSize = "0.7vw"
+        this.metaDataTextSize = "0.5vw"
+        this.wordSpacingList = [0, 2.3, 4, 6.5, 3.5, 6]
+        this.space = 2
+        this.canvas = document.querySelector('#sarira')
+
+        this.initialSpace = pxToVh(this.canvas.getBoundingClientRect().bottom) + this.space
+
+        this.ownerVerticalSpace = 0
+        this.leftPosition = 71
+
+        this.categoryList = ["Type ", `Birthday`, `Origin`, `Owners`, `Retrieved_By`, `Date_Retrieved`]
+
+        this.metaDataList = new Array(5)
+        for (let i = 0; i < this.categoryList.length; i++) {
+            this.metaDataList[i] = new Array(0)
+        }
+    }
+
+    initializeCategory() {
+        let leftPosition = this.leftPosition
+        for (let i = 0; i < this.categoryList.length; i++) {
+            leftPosition += this.wordSpacingList[i]
+           this.createText(this.categoryList[i], leftPosition, this.initialSpace, this.categoryTextSize)
+        }
+    }
+
+    createMetaDataText() {
+        const OWNERS_INDEX = 3
+        let initialSpace = this.checkMetaDataLength()
+        let leftPosition = this.leftPosition
+
+        for (let [i, category] of this.metaDataList.entries()) {
+            leftPosition += this.wordSpacingList[i]
+
+            if (i == OWNERS_INDEX) {
+                let ownerVerticalSpace = initialSpace
+                for (let pastOwner of category[category.length - 1]) {
+                    this.createText(pastOwner, leftPosition, ownerVerticalSpace, this.metaDataTextSize)
+                    ownerVerticalSpace += this.space / 2
+                }
+                this.ownerVerticalSpace = ownerVerticalSpace
+            } else {
+                this.createText(category[category.length - 1], leftPosition, initialSpace, this.metaDataTextSize)
+            }
+        }
+    }
+
+    checkMetaDataLength() {
+        let initialSpace = this.initialSpace
+        if (this.metaDataList[0].length == 1) {
+            initialSpace += this.space
+        } else {
+            initialSpace = this.ownerVerticalSpace
+        }
+        return initialSpace
     }
 
     createText(elementName, leftPosition, topPosition, textSize) {
-
         let text = document.createElement('text');
         text.style.position = 'absolute';
         text.style.fontSize = textSize
@@ -17,11 +71,5 @@ class Terminal {
         document.body.appendChild(text);
     }
 
-    moveText(){
 
-        let totalText=document.querySelectorAll('text');
-        for (let i = 0; i < totalText.length; i++) {
-            totalText[i].style.top=`${parseInt(totalText[i].style.top.split("vh")[0])}vh`
-        }
-    }
 }
