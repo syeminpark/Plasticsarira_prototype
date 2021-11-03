@@ -12,8 +12,6 @@ class ThreeSystem {
         this.canvas = document.querySelector('#oribit');
         this.controls = new THREE.OrbitControls(this.camera, this.element);
         
-        //this.controls.autoRotate=true;
-
         //lights
         this.setLights()
       //마우스로 컨트롤 
@@ -21,9 +19,6 @@ class ThreeSystem {
         //프레임 레이트 모니터링 
         this.setStats()
 
-        this.setFog()
-
-  
     }
 
     update() {
@@ -45,46 +40,27 @@ class ThreeSystem {
     }
 
     setFog(){
-        if(this.element==document.querySelector('#sarira')){
         const near = 10
         const far = 1500;
         const color = '#000000'
         this.scene.fog = new THREE.Fog(color, near, far);
         this.scene.background = new THREE.Color(color);
-        }
         
     }
-
     setLights() {
-        this.ambientLight = new THREE.AmbientLight(0xffffff, 5);
-        this.directionalLight = new THREE.DirectionalLight(0xffffff, 5);
-        this.directionalLight.position.set(.5, 0, 0.866);
-        this.directionalLight.target.position.set(0, 0, 0);
-        
-        //this.directionalLight.castShadow = true;
-      
-        this.hemiLight  = new THREE.HemisphereLight();
-        this.scene.add(this.ambientLight, this.directionalLight,this.hemiLight, this.directionalLight.target);
+        let ambientLight = new THREE.AmbientLight(0xffffff, 5);
+        let directionalLight = new THREE.DirectionalLight(0xffffff, 5);
+        directionalLight.position.set(.5, 0, 0.866);
+        directionalLight.target.position.set(0, 0, 0);
+        let hemiLight  = new THREE.HemisphereLight();
+        this.scene.add(ambientLight, directionalLight,hemiLight, directionalLight.target);
     }
+    
     setStats(){
-       
         this.stats = new Stats()
         this.element.appendChild(this.stats.dom)
         this.stats.dom.style.left = this.element.style.left
     }
-
-    // setBloom(renderer){
-    //     this.composer = new THREE.EffectComposer(renderer);
-    //     this.composer.addPass(new THREE.RenderPass(this.scene, this.camera));
-      
-    //    this.bloomPass = new THREE.BloomPass(
-    //         10,    // strength
-    //         25,   // kernel size
-    //         4,    // sigma ?
-    //         256,  // blur render target resolution
-    //     );
-    //     this.composer.addPass(this.bloomPass);
-    // }
 
  
 }

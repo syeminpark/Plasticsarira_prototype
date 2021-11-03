@@ -1,25 +1,26 @@
 class Sarira {
-    constructor(bufferGeometry) {
+    constructor() {
         this.plasticList = []
         this.isConvexMade = false
 
-        this.terminalController=new TerminalController()
-        this.terminalController.initializeCategory()
-        this.initializeCore(bufferGeometry)
-        this.terminalController.createMetaDataText()
-       
-    }
-    update(bufferGeometry) {
-        this.getPosition(bufferGeometry)
-        this.initializeConvex(bufferGeometry)
     }
 
-    addPlastics(micro) {
+    initializeTerminal(bufferGeometry) {
+        this.terminal = new Terminal()
+        this.terminal.initializeCategory()
+        this.initializeCore(bufferGeometry)
+        this.terminal.createMetaDataText()
+    }
+
+
+    addPlastics(micro,threesystem) {
         this.plasticList.push(micro)
         this.addMetaData()
-        this.terminalController.createMetaDataText()
-        if (this.convex!=undefined) {
+        this.terminal.createMetaDataText()
+        if (this.convex != undefined) {
             this.convex.updateBuffer(micro)
+            let [mesh1, mesh2] = this.convex.getMesh()
+            threesystem.scene.add(mesh1, mesh2)
         }
     }
 
@@ -28,29 +29,31 @@ class Sarira {
         let plastic = this.plasticList[this.plasticList.length - 1]
         //iterate over every metadata for plastic 
         for (let [index, dataElement] of plastic.passDataList.entries()) {
-           this.terminalController.metaDataList[index].push(dataElement)
+            this.terminal.metaDataList[index].push(dataElement)
         }
     }
 
     getPosition(bufferGeometry) {
         for (let [index, plastic] of this.plasticList.entries()) {
             plastic.getPosition(bufferGeometry, index);
+
         }
     }
 
     initializeCore(bufferGeometry) {
         this.plasticList.push(new Core([0, 0, 0]))
+
         this.plasticList[0].initialize()
         this.plasticList[0].updateBuffer(bufferGeometry, this.plasticList.length);
         this.addMetaData()
     }
 
-    initializeConvex(bufferGeometry) {
-        if (this.isConvexMade == false) {
-            if (this.plasticList.length > 2) {
-                this.convex = new Convex(bufferGeometry)
-                this.isConvexMade = true
-            }
+    initializeConvex(bufferGeometry,threeSystem) {
+        if (this.isConvexMade == false && this.plasticList.length > 2) {
+            this.isConvexMade = true
+            this.convex = new Convex(bufferGeometry)
+            let [convexMeshFront, convexMeshBack] = this.convex.getMesh()
+           threeSystem.scene.add(convexMeshFront, convexMeshBack)
         }
 
     }

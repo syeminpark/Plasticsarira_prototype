@@ -11,6 +11,8 @@ draw()
 function setup() {
     threeSystemController = new ThreeSystemController();
     bodySystem = new BodySystem();
+    bodySystem.createBuffer(  threeSystemController.sariraThreeSystem)
+    bodySystem.createSarira()
 
 
     lifeSystem = new LifeSystem();
@@ -22,7 +24,7 @@ function draw() {
 
     //매 프레임 실행되는 부분
     threeSystemController.update()
-    bodySystem.update()
+    bodySystem.update(threeSystemController.sariraThreeSystem)
 
     particleSystem_microPlastic.update();
     lifeSystem.update();

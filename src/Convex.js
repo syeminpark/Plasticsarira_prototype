@@ -24,8 +24,8 @@ class Convex {
     updateBuffer(plastic) {
         
         this.meshGeometry.dispose()
-        threeSystemController.sariraThreeSystem.scene.remove(this.mesh1);
-        threeSystemController.sariraThreeSystem.scene.remove(this.mesh2);
+        threeSystemController.sariraThreeSystem.scene.remove(this.convexMeshBack);
+        threeSystemController.sariraThreeSystem.scene.remove(this.convexMeshFront);
 
         this.vertices.push(plastic.positionVector3);
         this.meshGeometry = new THREE.ConvexGeometry(this.vertices);
@@ -33,14 +33,17 @@ class Convex {
     }
 
     initializeMesh() {
-        this.mesh1 = new THREE.Mesh(this.meshGeometry, this.material);
-        this.mesh1.material.side = THREE.BackSide; // back faces
-        this.mesh1.renderOrder = 0;
-        this.mesh2 = new THREE.Mesh(this.meshGeometry, this.material.clone());
-        this.mesh2.material.side = THREE.FrontSide; // front faces
-        this.mesh2.renderOrder = 1;
+        this.convexMeshBack = new THREE.Mesh(this.meshGeometry, this.material);
+        this.convexMeshBack.material.side = THREE.BackSide; // back faces
+        this.convexMeshBack.renderOrder = 0;
+        this.convexMeshFront = new THREE.Mesh(this.meshGeometry, this.material.clone());
+        this.convexMeshFront.material.side = THREE.FrontSide; // front faces
+        this.convexMeshFront.renderOrder = 1;
 
-        threeSystemController.addToSariraScene(this.mesh1, this.mesh2);
+    }
+
+    getMesh(){
+       return [this.convexMeshFront,this.convexMeshBack,]
     }
 
     initializeMaterial() {

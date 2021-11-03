@@ -50,6 +50,7 @@ class Life{
         
         this.display();
         this.noise_set();
+        this.make_sarira();
     }
 
     update(){
@@ -59,7 +60,7 @@ class Life{
     }
 
     randomWalk(acc, velLimit){
-        this.life.position.set(this.position.x, this.position.y, this.position.z);
+        this.life.position.set(this.position.x, this.position.y, this.position.z);        
         this.position = this.life.position;
         this.acceleration.add(new THREE.Vector3(
             random(-acc, acc),
@@ -165,28 +166,44 @@ class Life{
     
     eat(microPlastic){
         const distance = this.position.distanceTo(microPlastic.position);
-        const lifeSize = this.size + this.sizeMax;
+        const lifeSize = (this.size + this.sizeMax)*1;
         var sariraPos = this.position;
         var particles = [];
 
         if (distance < lifeSize){
-            var force = new THREE.Vector3().subVectors(sariraPos, microPlastic.position);
             particles.push(microPlastic);
 
-            if (distance < this.size/3){
-                force.multiplyScalar(0.05);
-                
-            } else {
-                force.divideScalar(this.size/2);
-            }
-            
-            microPlastic.velocity.multiplyScalar(0.9999);
+            var force = new THREE.Vector3().subVectors(sariraPos, microPlastic.position);
+            force.multiplyScalar(0.02);
             microPlastic.applyForce(force);
+            
+            if (distance < this.size/5) {
+                microPlastic.isEaten = true;
+                //microPlastic.wrap_eaten(this);
+            }
+
+            // if (particles.length() > 100) {
+            //     microPlastic.position.set(
+            //         random(-microPlastic.size, microPlastic.size),
+            //         random(-microPlastic.size, microPlastic.size),
+            //         random(-microPlastic.size, microPlastic.size))
+            // }
+            
         }
     }
 
     make_sarira(){
+        // var sariraGeometry = new THREE.SphereGeometry(
+        //     this.size/3, 
+        //     Math.floor(random(3, 5)), 
+        //     Math.floor(random(2, 5)));
+        var sariraGeometry = new THREE.TetrahedronGeometry(this.size/5, Math.floor(random(0, 3)));
+        var sariraMaterial = new THREE.MeshBasicMaterial();
+        this.sarira = new THREE.Mesh(sariraGeometry, sariraMaterial);
+        //this.sarira.position.set(this.position.x, this.position.y, this.position.z);
+        this.sarira.rotation.set(this.angle.x, this.angle.y, this.angle.z);
 
+        this.life.add(this.sarira);
     }
 
     breath(){

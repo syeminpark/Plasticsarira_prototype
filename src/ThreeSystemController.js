@@ -2,16 +2,13 @@ class ThreeSystemController {
 
     //매개변수들 설정 
     constructor() {
-
         //초기 카메라 위치값 x,y,z
         this.worldCameraPositionList = [50, 50, -400]
-        this.sariraCameraPositionList = [50, 50, 300]
+        this.sariraCameraPositionList = [50, 50, 100]
         //카메라가 바라보는 시점  x, y, z
         this.cameraLookPositionList = [0, 0, 0]
 
         this.init();
-
-        //document.addEventListener('mousemove', this.stopOrbit.bind(this))
     }
 
     //---------------------------------------------------------------------------------------
@@ -19,14 +16,13 @@ class ThreeSystemController {
 
         //-----------------------------------------------------------------------------
         //가상현실 생성 장면 시스템 
-
         this.worldThreeSystem = new ThreeSystem(document.querySelector('#world'), this.worldCameraPositionList, this.cameraLookPositionList)
         //사리 생성 장면 시스템 
         //카메라 생성, 렌더러 설정, 마우스 이동 가능(orbitcontrols), 빛 두개(ambient,directional)생성 
         this.sariraThreeSystem = new ThreeSystem(document.querySelector('#sarira'), this.sariraCameraPositionList, this.cameraLookPositionList)
+        this.sariraThreeSystem.setFog()
         this.systemList = [this.worldThreeSystem, this.sariraThreeSystem]
         //-----------------------------------------------------------------------------
-
         //css와 연관된, 렌더러가 렌더링하는 캔버스 명 
         this.canvas = document.querySelector('#c');
         //렌더러 생성 
@@ -58,9 +54,7 @@ class ThreeSystemController {
     }
 
     //장면에 요소를 추가하기 위한 메서드 
-    addToSariraScene(...args) {
-        this.sariraThreeSystem.scene.add(...args)
-    }
+
     addToWorldScene(...args) {
         this.worldThreeSystem.scene.add(...args)
     }
@@ -69,8 +63,6 @@ class ThreeSystemController {
     //---------------------------------------------------------------------------------------
 
     refreshWindowSize() {
-
-
         for (let system of this.systemList) {
             system.camera.aspect = window.innerWidth / window.innerHeight;
             system.camera.updateProjectionMatrix();
@@ -84,16 +76,10 @@ class ThreeSystemController {
         this.renderer = new THREE.WebGLRenderer({
             canvas: this.canvas,
             antialias: true,
-
         });
-  
-
-        // this.renderer.shadowMap.enabled = true; //basic= unfiltered. pcf(default)= filters percentage close algorithm. pcf soft. vsm.   
-        // this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         this.renderer.setPixelRatio(window.devicePixelRatio)
         this.renderer.setSize(window.innerWidth, window.innerHeight,false);
         //this.renderer.autoClear = false;
-
     }
 
     render() {
@@ -102,7 +88,6 @@ class ThreeSystemController {
         this.renderer.clear(true, true);
         this.renderer.setScissorTest(true);
         this.renderSceneInfo();
-
         const transform = `translateY(${window.scrollY}px)`;
         this.canvas.style.transform = transform;
 
@@ -130,11 +115,9 @@ class ThreeSystemController {
             this.renderer.setViewport(rect.left, positiveYUpBottom, rect.width, rect.height);
             this.renderer.render(system.scene, system.camera);
         }
-
     }
 
     resizeRendererToDisplaySize() {
-
         let width = this.canvas.clientWidth;
         let height = this.canvas.clientHeight;
         let needResize = this.canvas.width !== width || this.canvas.height !== height;

@@ -28,7 +28,7 @@ body {
 }
 
 .left {
-    position:fixed;
+    position: fixed;
     float: left;
     width: 69.5vw;
     height: 70vh;
@@ -44,7 +44,7 @@ body {
 }
 
 #info {
-    position:fixed;
+    position: fixed;
     text-align: center;
     margin-top: 1vh;
     width: 100%;
@@ -54,35 +54,38 @@ body {
 #copyRight {
     width: 100%;
     text-align: center;
-    position:fixed;
+    position: fixed;
     bottom: 0;
     color: darkgrey
 }
-.instructions{
-    position:fixed;
-    float: left;
-    margin-top:7vh;
-    margin-left:1.5vw;
-    color:grey
-}
-.Description{
-    
+
+.instructions {
     position: fixed;
     float: left;
-    margin-top:80vh;
+    margin-top: 7vh;
+    margin-left: 1.5vw;
+    color: grey
+}
+
+.Description {
+
+    position: fixed;
+    float: left;
+    margin-top: 80vh;
     width: 100%;
     text-align: center;
 }
 
-.Tip{
+.Tip {
     position: fixed;
     float: left;
-    margin-top:82vh;
+    margin-top: 84vh;
     width: 100%;
     text-align: center;
-    color:grey;
-    font-size:1vh;
+    color: grey;
+    font-size: 1vh;
 }
+
 /* .slider {
     position: absolute;
     top: 35vh;
@@ -100,4 +103,3 @@ body {
 .slider:hover {
     background:grey;
 } */
-
