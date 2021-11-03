@@ -5,7 +5,7 @@ body {
     /* overflow: hidden; */
     color: white;
     font-family: Monospace;
-    
+
 }
 
 #info {
@@ -14,7 +14,7 @@ body {
     margin-top: 1vh;
     width: 100%;
     height: 100%;
-    font-size:1vw;
+    
 }
 
 #copyRight {
@@ -22,7 +22,7 @@ body {
     text-align: center;
     position:fixed;
     bottom: 0;
-    font-size:1vh;
+
     color: lightgrey;
 }
 
