@@ -62,8 +62,7 @@ class MicroPlastic {
     wrap_eaten(life){
       var distance = new THREE.Vector3().distanceTo(life.position, this.position);
       if (distance > life.size*0.5){
-        this.velocity.multiplyScalar(-1);
-        this.velocity.multiplyScalar(0.9999);
+        this.velocity.multiplyScalar(-0.999999);
       } 
     }
   }
