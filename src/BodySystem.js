@@ -7,44 +7,47 @@ class BodySystem {
     }
 
     createBuffer(threeSystem) {
-    
+
         //만드는 순서가 중요함 .
         this.floatingBuffer = new Buffer()
         this.floatingBuffer.initialize(threeSystem)
         this.sariraBuffer = new Buffer()
         this.sariraBuffer.initialize(threeSystem)
-
     }
 
     createSarira() {
         this.sarira = new Sarira()
         this.sarira.initializeTerminal(this.sariraBuffer.bufferGeometry)
         print(this.sariraBuffer.bufferGeometry)
-        
+
     }
 
     update(threesystem) {
-        this.moveFloatingPlastics(threesystem)
+        this.moveFloatingPlastics()
+        this.checkDistance(threesystem)
         this.sarira.getPosition(this.sariraBuffer.bufferGeometry)
         this.sarira.initializeConvex(this.sariraBuffer.bufferGeometry, threesystem)
     }
 
     addFloatingPlastics() {
         let tempMicro = new PE()
-         tempMicro.initialize()
+        tempMicro.initialize()
         this.floatingPlasticsList.push(tempMicro)
-         tempMicro.updateBuffer(this.floatingBuffer.bufferGeometry, this.floatingPlasticsList.length)
+        tempMicro.updateBuffer(this.floatingBuffer.bufferGeometry, this.floatingPlasticsList.length)
 
     }
 
-    moveFloatingPlastics(threesystem) {
+    moveFloatingPlastics() {
         for (let [index, micro] of this.floatingPlasticsList.entries()) {
             let force = this.sarira.plasticList[0].attract(micro);
-
             micro.getPosition(this.floatingBuffer.bufferGeometry, index);
-
             micro.applyForce(force);
             micro.walk(this.floatingBuffer.bufferGeometry, index)
+        }
+    }
+
+    checkDistance(threesystem) {
+        for (let [index, micro] of this.floatingPlasticsList.entries()) {
             if (micro.checkStuck(this.sarira.plasticList)) {
                 this.sarira.addPlastics(micro, threesystem)
                 micro.getPosition(this.floatingBuffer.bufferGeometry, index)
@@ -57,3 +60,5 @@ class BodySystem {
 
 //사리라 클래스 정리
 //마이크로플라스틱 클래스 정리
+//convex 이상하게 만들어지는 거 수정 
+
