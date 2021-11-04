@@ -6,23 +6,29 @@ class Microplastic {
         this.acceleration = new THREE.Vector3(0, 0, 0)
         this.positionVector3 = new THREE.Vector3(0, 0, 0)
         this.positionList = positionList || this.randomPoint()
-        this.color = [1,1,1]// [Math.random(), Math.random(), Math.random()]
-        this.size =  50 //Math.random() * (50 - 1) + 1
+        this.color = [1, 1, 1] // [Math.random(), Math.random(), Math.random()]
+        this.size = 50 //Math.random() * (50 - 1) + 1
     }
 
-    initialize(pastOwnersList, retrievedMethod, dateRetrieved) {
-        this.pastOwnersList = pastOwnersList || ["Empty"]
-        //this.pastOwnersList = this.pastOwnersList.toString()
-        this.retrievedMethod = retrievedMethod || "Empty"
-        this.dateRetrieved = dateRetrieved || "Empty"
+    initialize(originalFormList, madeIn, microType,passedByList, absorbedBy, dateRetrieved,  density, tensileStrength ) {
+        this.originalFormList=originalFormList || this.originalFormList
+        this.madeIn = madeIn || this.madeIn
+        this.microType = microType || this.microType
+        this.passedByList = passedByList || ["Empty"]
+        this.absorbedBy = absorbedBy || "Empty"
 
-        this.originalPurpose = this.originalPurposeList[Math.round(random(0, this.originalPurposeList.length-1))]
-        this.dateCreated = JSON.stringify(Math.round(random(this.dateCreated, 2021)));
+        let today = new Date()
+        this.dateRetrieved = dateRetrieved || `${today.getFullYear()}-${(today.getMonth() + 1)}-${today.getDate()} / ${today.getHours()}:${today.getMinutes()}:${this.addZeroToSeconds(today)} ${this.getAmPm(today)}`;
+       
+        this.density =density || this.density
+        this.tensileStrength =tensileStrength || this.tensileStrength
 
+        this.originalForm = this.originalFormList[Math.round(random(0, this.originalFormList.length - 1))]
+        this.madeIn = JSON.stringify(Math.round(random(this.madeIn, 2021)));
         this.mass = this.density * this.size
         this.tensileStrength = map(this.tensileStrength, 4400, 12400, 0, 100)
 
-        this.passDataList = [this.type, this.dateCreated, this.originalPurpose, this.pastOwnersList, this.retrievedMethod, this.dateRetrieved]
+        this.passDataList = [this.originalForm, this.madeIn, this.microType, this.passedByList, this.absorbedBy, this.dateRetrieved]
     }
 
     applyForce(force) {
@@ -30,7 +36,7 @@ class Microplastic {
         f.divideScalar(this.mass);
         this.acceleration.add(f);
     }
-    
+
     walk(bufferGeometry, index) {
         this.velocity.add(this.acceleration)
         bufferGeometry.attributes.position.array[index * 3] += this.velocity.x
@@ -38,10 +44,11 @@ class Microplastic {
         bufferGeometry.attributes.position.array[(index * 3) + 2] += this.velocity.z
         this.acceleration.multiplyScalar(0)
     }
+
     getPosition(bufferGeometry, index) {
         bufferGeometry.attributes.position.needsUpdate = true
         bufferGeometry.attributes.color.needsUpdate = true
-    
+
 
         for (let i = 0; i < 3; i++) {
             this.positionList[i] = bufferGeometry.attributes.position.array[(index * 3) + i]
@@ -88,8 +95,8 @@ class Microplastic {
     randomPoint() {
         let i = Math.round(Math.random() * 5)
         let randomX = Math.random() * (threeSystemController.sariraThreeSystem.controls.object.position.x + threeSystemController.sariraThreeSystem.controls.object.position.x) - threeSystemController.sariraThreeSystem.controls.object.position.x;
-        let randomY = Math.random() * (threeSystemController.sariraThreeSystem.controls.object.position.y*2 + threeSystemController.sariraThreeSystem.controls.object.position.y*2) - threeSystemController.sariraThreeSystem.controls.object.position.y*2;
-        let randomZ = Math.random() * (threeSystemController.sariraThreeSystem.controls.object.position.z*2 + threeSystemController.sariraThreeSystem.controls.object.position.z) - threeSystemController.sariraThreeSystem.controls.object.position.z;
+        let randomY = Math.random() * (threeSystemController.sariraThreeSystem.controls.object.position.y * 2 + threeSystemController.sariraThreeSystem.controls.object.position.y * 2) - threeSystemController.sariraThreeSystem.controls.object.position.y * 2;
+        let randomZ = Math.random() * (threeSystemController.sariraThreeSystem.controls.object.position.z * 2 + threeSystemController.sariraThreeSystem.controls.object.position.z) - threeSystemController.sariraThreeSystem.controls.object.position.z;
         let randPoint;
 
         if (i === 0) {
@@ -107,12 +114,20 @@ class Microplastic {
         }
         //front
         else if (i == 4) {
-            randPoint = [randomX, randomY, threeSystemController.sariraThreeSystem.controls.object.position.z*2]
+            randPoint = [randomX, randomY, threeSystemController.sariraThreeSystem.controls.object.position.z * 2]
         }
         //back     
         else {
-            randPoint = [randomX, randomY, -threeSystemController.sariraThreeSystem.controls.object.position.z*2]
+            randPoint = [randomX, randomY, -threeSystemController.sariraThreeSystem.controls.object.position.z * 2]
         }
         return randPoint
+    }
+
+    addZeroToSeconds(today) {
+        return today.getSeconds() < 10 ? `0${today.getSeconds()}` : today.getSeconds()
+    }
+
+    getAmPm(today) {
+        return today.getHours() >= 12 ? 'PM' : 'AM';
     }
 }

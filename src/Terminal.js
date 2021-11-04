@@ -5,7 +5,7 @@ class Terminal {
 
         this.categoryTextSize = "0.7vw"
         this.metaDataTextSize = "0.5vw"
-        this.wordSpacingList = [0, 2.3, 4, 6.5, 3.5, 6]
+        this.wordSpacingList = [0, 5.8, 3.5, 4.7, 3.5, 5]
         this.space = 2
         this.canvas = document.querySelector('#sarira')
 
@@ -14,7 +14,7 @@ class Terminal {
         this.ownerVerticalSpace = 0
         this.leftPosition = 71
 
-        this.categoryList = ["Type ", `Birthday`, `Origin`, `Owners`, `Retrieved_By`, `Date_Retrieved`]
+        this.categoryList = [`Original_Form`,  `Made_In`, "Micro_Type ",`Pass_By`, `Absorbed_By`, `Date_Retrieved`]
 
         this.metaDataList = new Array(5)
         for (let i = 0; i < this.categoryList.length; i++) {
