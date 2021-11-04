@@ -3,6 +3,10 @@ class BodySystem {
     constructor() {
 
         this.floatingPlasticsList = new Array(0)
+        //pe=0, pp=1
+        this.densityList = [0.92,0.94]
+        this.tensileStrengthList = [5440,4554]
+
         document.addEventListener('mousedown', this.addFloatingPlastics.bind(this), false);
     }
 
@@ -18,15 +22,18 @@ class BodySystem {
     createSarira() {
         this.sarira = new Sarira()
         this.sarira.initializeTerminal(this.sariraBuffer.bufferGeometry)
-        print(this.sariraBuffer.bufferGeometry)
+        this.sarira.initializeCore(this.sariraBuffer.bufferGeometry)
+        this.sarira.initializeCoreMetaData()
 
     }
 
     update(threesystem) {
         this.moveFloatingPlastics()
-        this.checkDistance(threesystem)
+        this.updateSarira(threesystem)
+
         this.sarira.getPosition(this.sariraBuffer.bufferGeometry)
         this.sarira.initializeConvex(this.sariraBuffer.bufferGeometry, threesystem)
+
     }
 
     addFloatingPlastics() {
@@ -46,19 +53,18 @@ class BodySystem {
         }
     }
 
-    checkDistance(threesystem) {
+    updateSarira(threesystem) {
         for (let [index, micro] of this.floatingPlasticsList.entries()) {
             if (micro.checkStuck(this.sarira.plasticList)) {
-                this.sarira.addPlastics(micro, threesystem)
+                this.sarira.addPlastics(micro)
                 micro.getPosition(this.floatingBuffer.bufferGeometry, index)
                 micro.updateBuffer(this.sariraBuffer.bufferGeometry, this.sarira.plasticList.length)
                 micro.switch(this.floatingBuffer.bufferGeometry, index, this.floatingPlasticsList)
+
+                this.sarira.updateConvex(micro, threesystem)
             }
         }
     }
 }
 
-//사리라 클래스 정리
-//마이크로플라스틱 클래스 정리
-//convex 이상하게 만들어지는 거 수정 
-
+//랜덤하게 움직이다 결국 중앙으로 수렴되는 현상 해결하기.
