@@ -36,13 +36,11 @@ class Sarira {
     getPosition(bufferGeometry) {
         for (let [index, plastic] of this.plasticList.entries()) {
             plastic.getPosition(bufferGeometry, index);
-
         }
     }
 
     initializeCore(bufferGeometry) {
         this.plasticList.push(new Core([0, 0, 0]))
-
         this.plasticList[0].initialize()
         this.plasticList[0].updateBuffer(bufferGeometry, this.plasticList.length);
         this.addMetaData()
