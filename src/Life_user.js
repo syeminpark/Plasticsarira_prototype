@@ -85,7 +85,7 @@ class Life_user extends Life {
     }
 
     key_update(){
-        var moveDistance = 500 * this.clock.getDelta();
+        var moveDistance = 200 * this.clock.getDelta();
         var rotateValue = 500 * this.clock.getDelta();
 
         if ( this.keyboard.pressed("W") ){

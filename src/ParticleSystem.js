@@ -7,9 +7,9 @@ class ParticleSystem{
         this.p_positions = [];
         
         for (let i = 0; i < this.num; i++) {
-            this.p = new MicroPlastic(i, this.size);
-            this.particles.push(this.p);
-            this.p_positions.push(this.p.position);
+            var p = new MicroPlastic(i, this.size);
+            this.particles.push(p);
+            this.p_positions.push(p.position);
         }
 
         this.display();
@@ -28,21 +28,12 @@ class ParticleSystem{
             positions[i+1] = this.particles[index].position.y;
             positions[i+2] = this.particles[index].position.z;
 
+            this.particles[index].update();
+
             for (let j = 0; j < this.lifes.length; j++) {
                 this.lifes[j].eat(this.particles[index]);  
             }
             this.life_user.eat(this.particles[index]);
-
-            if (this.particles[index].isEaten == true) {
-                for (let j = 0; j < this.lifes.length; j++) {
-                    this.particles[index].wrap_eaten(this.lifes[j]);
-                }
-                this.particles[index].wrap_eaten(this.life_user);
-            } else {
-                this.particles[index].wrap(this.size * 1.2);
-            }
-
-            this.particles[index].update();
         }
 
         this.points.geometry.attributes.position.needsUpdate = true;
@@ -52,7 +43,7 @@ class ParticleSystem{
         var geometry = new THREE.BufferGeometry().setFromPoints(this.p_positions);
         
         var material = new THREE.PointsMaterial({
-            size: random(0.1, 0.5),
+            size: random(0.1, 0.9),
             color:'white'
         });
         //var material = new THREE.MeshNormalMaterial({wireframe:false});

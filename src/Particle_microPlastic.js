@@ -1,17 +1,16 @@
 class MicroPlastic {
-    constructor(index, size) {
-      //this.type = [PP, PE, PET];
-      this._index = index;
-      this.size = size;
+    constructor(index, spaceSize) {
+      this.index = index;
+      this.spaceSize = spaceSize;
 
       this.velV = 0.02;
   
       this.position = new THREE.Vector3(
-        random(-this.size, this.size), 
-        random(-this.size, this.size), 
-        random(-this.size, this.size));
+        random(-spaceSize, spaceSize), 
+        random(-spaceSize, spaceSize), 
+        random(-spaceSize, spaceSize));
 
-      if (this.position.length() > size) this.position.setLength(size);
+      if (this.position.length() > spaceSize) this.position.setLength(spaceSize);
       
         this.velocity = new THREE.Vector3(
         random(-this.velV, this.velV),
@@ -22,48 +21,82 @@ class MicroPlastic {
       this.angle = new THREE.Vector3(0, 0, 0);
       this.angleVelocity = new THREE.Vector3(0, 0, 0);
       this.angleAcceleration = new THREE.Vector3(0, 0, 0);
-    
+      
+      this.isEaten = false;
+
+      this.wrap_init();
+
+      //======================================================
+      //DATA==================================================
+      //this.type = [PP, PE, PET];
       this.color = new THREE.Color('white');
       this.opacity = 1.0;
   
       this.toxicity = false;
-
-      this.isEaten = false;
     }
   
     update(){
+      this.applyForce(new THREE.Vector3(
+        random(-0.001, 0.001),
+        random(-0.001, 0.001),
+        random(-0.001, 0.001)
+      ));
       this.velocity.add(this.acceleration);
       this.position.add(this.velocity);
-      if (this.velocity.length() > 0.5) this.velocity.multiplyScalar(0.1);
+      if (this.velocity.length() > 0.2) this.velocity.multiplyScalar(0.01);
       this.acceleration.setLength(0);
-    }
-  
-    follow_flowField(vectors){
-      var x = Math.floor(this.pos.x / this.gridSize);
-      var y = Math.floor(this.pos.y / this.gridSize);
-      var z = Math.floor(this.pos.z / this.gridSize);
-      var index = (y * (this.gridSize * this.gridSize)) + (x * this.gridSize) + z;
-      var force = vectors[index];
-      this.applyForce(force);
+
+      this.wrap();
     }
   
     applyForce(force){
       this.acceleration.add(force);
     }
+
+    wrap_init(){
+      this.wrapCenter = new THREE.Vector3(0, 0, 0);
+      this.wrapSize = this.spaceSize * 1.2;
+    }
   
-    wrap(size){
-      const distance = this.position.length();
-      var wrapSize = size;
-      if (distance > wrapSize){
+    wrap(){
+      var distance = this.wrapCenter.distanceTo(this.position);
+      if (distance > this.wrapSize){
         this.velocity.multiplyScalar(-1);
       } 
     }
 
-    wrap_eaten(life){
-      var distance = new THREE.Vector3().distanceTo(life.position, this.position);
-      if (distance > life.size*0.5){
-        this.velocity.multiplyScalar(-0.999999);
-      } 
+    separate(otherParticles){
+      const separationDistance = 0.3;
+      const sum = new THREE.Vector3();
+      const count = 0;
+
+      for (let i = 0; i < otherParticles.length; i++) {
+        var d = this.position.distanceTo(otherParticles[i].position);
+        if (d < separationDistance && d > 0){
+          var diff = new THREE.Vector3().subVectors(this.position, otherParticles[i].position);
+          diff.normalize();
+          diff.divideScalar(d);
+          sum.add(diff);
+          count++;
+        }
+      }
+
+      if (count > 0){
+        sum.divideScalar(count);
+        sum.setLength(0.1);
+        var steer = new THREE.Vector3().subVectors(sum, this.velocity);
+        steer.clampLength(0, 0.1);
+        return steer;
+      }
+    }
+
+    seek(target){
+      var desired = new THREE.Vector3().subVectors(target, this.position);
+      desired.normalize();
+      desired.multiplyScalar(0.1);
+      var steer = new THREE.Vector3().subVectors(desired, this.velocity);
+      steer.clampLength(0.1);
+      return steer;
     }
   }
   
