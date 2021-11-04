@@ -31,10 +31,10 @@ class Life {
 
         this.noiseShape = random(0.05, 0.3);
         this.noiseAnimSpeed = random(0.1, 0.5);
-        
+
         this.eatenParticles = [];
         this.sariraPosition = new THREE.Vector3();
-        
+
         this.microPlastic_amount;
         this.sarira_amount;
 
@@ -172,24 +172,35 @@ class Life {
 
         var force = new THREE.Vector3().subVectors(sariraPos, microPlastic.position);
 
-        if (distance < lifeSize && distance > this.size/2) {
-            force.multiplyScalar(0.02);
-            microPlastic.applyForce(force);
+        if (microPlastic.isEaten == false) {
+            //아직 먹히지 않은 상태의 파티클 끌어당기기
+            if (distance < lifeSize && distance > this.size / 2) {
+                force.multiplyScalar(0.02);
+                microPlastic.applyForce(force);
+            }
+
+            //파티클 먹고 파티클 상태 먹힌것으로 변경
+            if (distance < this.size * 0.5) {
+                this.eatenParticles.push(microPlastic);
+                //console.log(this.eatenParticles.length);
+
+                microPlastic.isEaten = true;
+            }
         }
+    }
 
-        if (distance < this.size * 0.7 && microPlastic.isEaten == false) {
-            microPlastic.wrapCenter = this.position;
-            microPlastic.wrapSize = this.size;
+    wrap_particles() {
+        var sariraPos = this.position;
 
-            this.eatenParticles.push(microPlastic);
+        for (let i = 0; i < this.eatenParticles.length; i++) {
+            this.eatenParticles[i].wrapCenter = this.position;
+            this.eatenParticles[i].wrapSize = this.size;
 
-            microPlastic.isEaten = true;
-        } 
+            var force = new THREE.Vector3().subVectors(sariraPos, this.eatenParticles[i].position);
 
-        // if (microPlastic.isEaten == true && distance > this.size/2){
-        //     force.multiplyScalar(0.5);
-        //     microPlastic.applyForce(force);
-        // }
+            force.multiplyScalar(0.02);
+            this.eatenParticles[i].acceleration.add(force);
+        }
     }
 
     make_sarira() {

@@ -19,11 +19,13 @@ class LifeSystem{
         for (let i = 0; i < this.lifes.length; i++) {
             this.lifes[i].noise_animate();
             this.lifes[i].update();
+            this.lifes[i].wrap_particles();
             this.lifes[i].wrap(this.windowSize);
         }
 
         this.life_user.noise_animate();
         this.life_user.update_position();
+        this.life_user.wrap_particles();
     }
 
     display(){
