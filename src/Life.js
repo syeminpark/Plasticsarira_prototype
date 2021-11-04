@@ -34,15 +34,15 @@ class Life {
 
         this.eatenParticles = [];
         this.sariraPosition = new THREE.Vector3();
+        this.sariraType = Math.floor(random(1, 4));
+
+        this.display();
+        this.noise_set();
 
         this.microPlastic_amount;
         this.sarira_amount;
 
         this.sarira_makingSpeed;
-
-        this.display();
-        this.noise_set();
-        //this.make_sarira();
 
         this.movement;
 
@@ -56,7 +56,7 @@ class Life {
     }
 
     update() {
-        this.randomWalk(0.01, 0.2);
+        this.randomWalk(0.01, 0.1);
         this.randomLook();
     }
 
@@ -119,6 +119,8 @@ class Life {
             ((this.size * 2) + this.sizeMax) * 2,
             1.0);
         this.life.add(sprite);
+
+        this.make_sarira();
     }
 
     noise_set() {
@@ -204,11 +206,23 @@ class Life {
     }
 
     make_sarira() {
-        // var sariraGeometry = new THREE.SphereGeometry(
-        //     this.size/3, 
-        //     Math.floor(random(3, 5)), 
-        //     Math.floor(random(2, 5)));
-        var sariraGeometry = new THREE.TetrahedronGeometry(this.size / 5, Math.floor(random(0, 5)));
+        if (this.sariraType == 1) {
+            var sariraGeometry = new THREE.SphereGeometry(
+            this.size/3, 
+            Math.floor(random(3, 5)), 
+            Math.floor(random(2, 5)));
+        } else if (this.sariraType == 2){
+            var sariraGeometry = new THREE.TetrahedronGeometry(
+            this.size / 5, 
+            Math.floor(random(0, 5)));
+        } else {
+            var sariraGeometry = new THREE.CircleGeometry(
+                this.size / 5, 
+                Math.floor(random(0, 24)),
+                0,
+                random(0, 6.3));
+        }
+        
         var sariraMaterial = new THREE.MeshBasicMaterial({
             transparent: false,
             opacity: 0.5,

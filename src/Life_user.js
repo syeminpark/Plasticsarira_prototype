@@ -63,8 +63,11 @@ class Life_user extends Life {
 
     lerpLoad(){
         if (this.timer > 0){
+            this.orbitControl.enabled = false;
             this.timer -= 0.01;
             this.cam.position.lerp(this.camLerp, 0.05);
+        } else {
+            this.orbitControl.enabled = true;
         }
     }
 
