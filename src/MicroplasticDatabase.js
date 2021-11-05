@@ -38,29 +38,35 @@ class MicroplasticData {
 
     initialize() {
         //랜덤하게 하나의 미세플라스틱 선정 
-        let index= Math.round(random(0,this.microTypeList.length-1))
-        this.microType=this.microTypeList[index]
-        this.absorbedBy=""
+        let index = Math.round(random(0, this.microTypeList.length - 1))
+        this.microType = this.microTypeList[index]
+        this.absorbedBy = ""
         //앞에서 선정한 인덱스를 바탕으로 그 인덱스에 해당하는 원래 목적 리스트 중 하나를 랜덤하게 선정 
         this.originalForm = this.originalFormList[index][Math.round(random(0, this.originalFormList[index].length - 1))]
-         //앞에서 선정한 인덱스를 바탕으로 그 인덱스에 해당하는 날짜부터 2021년까지 랜덤하게 년도 하나를 선정 
+        //앞에서 선정한 인덱스를 바탕으로 그 인덱스에 해당하는 날짜부터 2021년까지 랜덤하게 년도 하나를 선정 
         this.madeIn = JSON.stringify(Math.round(random(this.madeInList[index], 2021)));
 
     }
 
     getDataList() {
         //이차원배열. this.passby가 하나의 배열이라.
-        return this.dataList = [this.originalForm, this.madeIn, this.passBy,this.microType, this.absorbedBy]
+        return this.dataList = [this.originalForm, this.madeIn, this.passBy, this.microType, this.absorbedBy]
     }
 
+    //두가지 방법이 있을 것 같은데. 첫번째는 이 클라스 인스턴스 하나만 만들어서 initialize을 한번 하고 반환된 배열을
+    //각각의 미세플라스틱안의 배열에 저장하는 것. 그리고 새로운 정보들을 그 배열에 업데이트 시키는 것
+    // 그래서 각각의 미세플라스틱에 만든 하나의 인스턴스의 initialize 메서드만 사용하는 것. 
+    //두번째 방법은 미세플라스틱마다 하나의 인스턴스를 만들어서 여기에 있는 배열에 데이터들을 업로드시키는 것.
+    //두번째 방법 사용시 아마 밑에 있는 메서들을 이용하면 될 것 같네요. 
+
     //생물체 지나올때마다 축적시키기 
-    setPassBy(organismType){
+    setPassBy(organismType) {
         this.dataList[2].push(organismType)
     }
 
     //하나의 값만 필요하기 때문에. 계속 최신값으로 덮어씌우기 
-    setAbsorbedBy(absorbedByIndex){
-        this.dataList[4]= this.absorbedByList[absorbedByIndex]
+    setAbsorbedBy(absorbedByIndex) {
+        this.dataList[4] = this.absorbedByList[absorbedByIndex]
     }
 
 }
