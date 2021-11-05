@@ -10,12 +10,13 @@ draw()
 
 function setup() {
 
+    let userWindowCorePositionList=[0,0,0]
     checkScreenSize()
 
     threeSystemController = new ThreeSystemController();
     bodySystem = new BodySystem();
     bodySystem.createBuffer(threeSystemController.sariraThreeSystem)
-    bodySystem.createSarira()
+    bodySystem.createSarira(userWindowCorePositionList)
 
     lifeSystem = new LifeSystem();
     particleSystem_microPlastic = new ParticleSystem(lifeSystem);

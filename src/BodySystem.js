@@ -3,27 +3,27 @@ class BodySystem {
     constructor() {
 
         this.floatingPlasticsList = new Array(0)
-        //pe=0, pp=1
-        this.densityList = [0.92,0.94]
-        this.tensileStrengthList = [5440,4554]
+        //Polyethylene= 1  Polypropylene =2  "Polystyrene =3,  Polyamide=4, Polyester =5, Acrylic=6,  Polyacetal=7, PolyvinylChloride=8, Polyurethane=9
+        this.densityList = [0.94, 0.92, 1.05, 1.14, 1.4, 1.2, 1.42, 1.38, 0.425]
+        this.tensileStrengthList = [4554, 5440, 7700, 12400, 11500, 9400, 10007, 7500, 2596]
 
         document.addEventListener('mousedown', this.addFloatingPlastics.bind(this), false);
     }
 
-    createBuffer(threeSystem,material) {
+    createBuffer(threeSystem, material) {
 
         //만드는 순서가 중요함 .
         this.floatingBuffer = new Buffer()
-        material!= undefined ? this.material=material : this.material= this.floatingBuffer.initializeMaterial() 
-        this.floatingBuffer.initialize(threeSystem,this.material)
+        material != undefined ? this.material = material : this.material = this.floatingBuffer.initializeMaterial()
+        this.floatingBuffer.initialize(threeSystem, this.material)
         this.sariraBuffer = new Buffer()
-        this.sariraBuffer.initialize(threeSystem,this.material)
+        this.sariraBuffer.initialize(threeSystem, this.material)
     }
 
-    createSarira() {
+    createSarira(corePostionList) {
         this.sarira = new Sarira()
         this.sarira.initializeTerminal(this.sariraBuffer.bufferGeometry)
-        this.sarira.initializeCore(this.sariraBuffer.bufferGeometry)
+        this.sarira.initializeCore(corePostionList,this.sariraBuffer.bufferGeometry)
         this.sarira.initializeCoreMetaData()
 
     }
@@ -37,9 +37,12 @@ class BodySystem {
 
     }
 
-    addFloatingPlastics() {
-        let tempMicro = new PE()
-        tempMicro.initialize()
+    addFloatingPlastics(positionList,passDataList) {
+        //추후에 microplastic을 만드는 것으로 변경 
+        let tempMicro = new PE(/*positionList*/)
+        //temp
+        passDataList=[false,false,false,false,false]
+        tempMicro.initialize(passDataList, /*this.densityList[i], this.tensileStrength[i]*/)
         this.floatingPlasticsList.push(tempMicro)
         tempMicro.updateBuffer(this.floatingBuffer.bufferGeometry, this.floatingPlasticsList.length)
     }
@@ -66,4 +69,3 @@ class BodySystem {
         }
     }
 }
-

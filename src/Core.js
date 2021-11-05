@@ -15,7 +15,7 @@ class Core extends Microplastic {
 
     //pastOwnersList, retrievedMethod, dateRetrieved
     initialize() {
-        super.initialize(this.originalFormList, this.madeIn, this.microType,this.passedByList,this.absorbedBy, this.dateRetrieved, this.density,this.tensileStrength)
+        super.initialize([this.originalFormList, this.madeIn, this.microType,this.passedByList,this.absorbedBy], this.density,this.tensileStrength,this.dateRetrieved,)
     }
 
     attract(floatingMicro) {

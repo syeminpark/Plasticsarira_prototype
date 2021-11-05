@@ -10,23 +10,23 @@ class Microplastic {
         this.size = 50 //Math.random() * (50 - 1) + 1
     }
 
-    initialize(originalFormList, madeIn, microType,passedByList, absorbedBy, dateRetrieved,  density, tensileStrength ) {
-        this.originalFormList=originalFormList || this.originalFormList
-        this.madeIn = madeIn || this.madeIn
-        this.microType = microType || this.microType
-        this.passedByList = passedByList || ["Empty"]
-        this.absorbedBy = absorbedBy || "Empty"
+    initialize(passDataList, density, tensileStrength, dateRetrieved) {
+        this.originalFormList = passDataList[0] || this.originalFormList
+        this.madeIn = passDataList[1]  || this.madeIn
+        this.microType = passDataList[2]  || this.microType
+        this.passedByList = passDataList[3]  || ["Empty"]
+        this.absorbedBy = passDataList[4]  || "Empty"
 
         let today = new Date()
         this.dateRetrieved = dateRetrieved || `${today.getFullYear()}.${(today.getMonth() + 1)}.${today.getDate()}/${today.getHours()}:${today.getMinutes()}:${this.addZeroToSeconds(today)} ${this.getAmPm(today)}`;
-       
-        this.density =density || this.density
-        this.tensileStrength =tensileStrength || this.tensileStrength
+
+        this.density = density || this.density
+        this.tensileStrength = tensileStrength || this.tensileStrength
 
         this.originalForm = this.originalFormList[Math.round(random(0, this.originalFormList.length - 1))]
         this.madeIn = JSON.stringify(Math.round(random(this.madeIn, 2021)));
         this.mass = this.density * this.size
-        this.tensileStrength = map(this.tensileStrength, 4400, 12400, 0, 100)
+        this.tensileStrength = map(this.tensileStrength, 2596, 12400, 0, 100)
 
         this.passDataList = [this.originalForm, this.madeIn, this.microType, this.passedByList, this.absorbedBy, this.dateRetrieved]
     }
@@ -95,34 +95,34 @@ class Microplastic {
     randomPoint() {
 
         let i = Math.round(Math.random() * 5)
-        let myPosition= threeSystemController.sariraThreeSystem.controls.object.position
-        let windowRect= document.getElementById("sarira").getBoundingClientRect()
+        let myPosition = threeSystemController.sariraThreeSystem.controls.object.position
+        let windowRect = document.getElementById("sarira").getBoundingClientRect()
 
-        let randomX = random(myPosition.x+ windowRect.width,-myPosition.x-windowRect.width)
-        let randomY = random(myPosition.y+windowRect.width,-myPosition.y-windowRect.width)
-        let randomZ = random(myPosition.z+windowRect.width, -myPosition.z-windowRect.width)
+        let randomX = random(myPosition.x + windowRect.width, -myPosition.x - windowRect.width)
+        let randomY = random(myPosition.y + windowRect.width, -myPosition.y - windowRect.width)
+        let randomZ = random(myPosition.z + windowRect.width, -myPosition.z - windowRect.width)
         let randPoint;
 
         if (i === 0) {
             //top
-            randPoint = [randomX, myPosition.y , randomZ]
+            randPoint = [randomX, myPosition.y, randomZ]
             //bottom
         } else if (i == 1) {
             randPoint = [randomX, -myPosition.y, randomZ]
             //left
         } else if (i == 2) {
-            randPoint = [-myPosition.x , randomY, randomZ]
+            randPoint = [-myPosition.x, randomY, randomZ]
             //right 
         } else if (i == 3) {
-            randPoint = [myPosition.x , randomY, randomZ]
+            randPoint = [myPosition.x, randomY, randomZ]
         }
         //front
         else if (i == 4) {
-            randPoint = [randomX, randomY, myPosition.z ]
+            randPoint = [randomX, randomY, myPosition.z]
         }
         //back     
         else {
-            randPoint = [randomX, randomY, - myPosition.z]
+            randPoint = [randomX, randomY, -myPosition.z]
         }
         return randPoint
     }

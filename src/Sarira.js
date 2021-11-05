@@ -10,8 +10,9 @@ class Sarira {
         this.terminal.initializeCategory()
     }
 
-    initializeCore(bufferGeometry) {
-        this.plasticList.push(new Core([0, 0, 0]))
+    initializeCore(corePostionList,bufferGeometry) {
+
+        this.plasticList.push(new Core(corePostionList))
         this.plasticList[0].initialize()
         this.plasticList[0].updateBuffer(bufferGeometry, this.plasticList.length);
     }
@@ -29,7 +30,6 @@ class Sarira {
             this.convex.initializeBuffer(bufferGeometry)
             material != undefined ? this.material = material : this.material = this.convex.initializeMaterial();
             this.convex.initializeMesh(threeSystem,this.material)
-        
         }
     }
 
