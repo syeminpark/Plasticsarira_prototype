@@ -87,8 +87,7 @@ function checkScreenSize() {
         var elem = document.documentElement;; // Make the body go full screen.
         requestFullScreen(elem);
       }
-      setup()
-      draw
+
 
     })
 
