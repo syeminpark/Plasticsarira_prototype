@@ -76,7 +76,7 @@ function requestFullScreen(element) {
 }
 
 
-function checkScreenSize() {
+function checkScreenSize(setup,draw) {
   if (screen.width != window.innerWidth) {
     swal("Start Experince With A FullScreen?", {
       buttons: ["No Thanks", "Sure! (Recommended)"],
@@ -87,11 +87,11 @@ function checkScreenSize() {
         var elem = document.documentElement;; // Make the body go full screen.
         requestFullScreen(elem);
       }
-
+ 
 
     })
 
   };
-  
+
 
 }
