@@ -24,7 +24,8 @@ function setup() {
 
 function draw() {
     requestAnimationFrame(draw);
-
+   
+        
     //매 프레임 실행되는 부분
     threeSystemController.update()
     bodySystem.update(threeSystemController.sariraThreeSystem)
