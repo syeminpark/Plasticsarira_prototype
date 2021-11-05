@@ -61,11 +61,13 @@ class MicroplasticData {
 
     //생물체 지나올때마다 축적시키기 
     setPassBy(organismType) {
+        //this.passyBy 인덱스=2
         this.dataList[2].push(organismType)
     }
 
     //하나의 값만 필요하기 때문에. 계속 최신값으로 덮어씌우기 
     setAbsorbedBy(absorbedByIndex) {
+           //this.absorbedBy 인덱스=4
         this.dataList[4] = this.absorbedByList[absorbedByIndex]
     }
 
