@@ -53,13 +53,46 @@ function requestFullScreen(element) {
 }
 
 function vhToPx(vh) {
-  return window.innerHeight * (vh/100)
+  return window.innerHeight * (vh / 100)
 }
 
 function pxToVh(px) {
-  return  px*(100/window.innerHeight)
+  return px * (100 / window.innerHeight)
 }
 
 
+function requestFullScreen(element) {
+  // Supports most browsers and their versions.
+  var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+
+  if (requestMethod) { // Native full screen.
+    requestMethod.call(element);
+  } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
+    var wscript = new ActiveXObject("WScript.Shell");
+    if (wscript !== null) {
+      wscript.SendKeys("{F11}");
+    }
+  }
+}
 
 
+function checkScreenSize() {
+  if (screen.width != window.innerWidth) {
+    swal("Start Experince With A FullScreen?", {
+      buttons: ["No Thanks", "Sure! (Recommended)"],
+      closeOnClickOutside: false,
+
+    }).then(isOkay => {
+      if (isOkay) {
+        var elem = document.documentElement;; // Make the body go full screen.
+        requestFullScreen(elem);
+      }
+      setup()
+      draw
+
+    })
+
+  };
+  
+
+}
