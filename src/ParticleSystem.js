@@ -32,8 +32,11 @@ class ParticleSystem{
 
             for (let j = 0; j < this.lifes.length; j++) {
                 this.lifes[j].eat(this.particles[index]);  
+                this.lifes[j].breath(this.particles[index]);  
             }
             this.life_user.eat(this.particles[index]);
+            this.life_user.breath(this.particles[index]);
+            this.life_user.add_MicroPlasticToBodySystem();
         }
 
         this.points.geometry.attributes.position.needsUpdate = true;

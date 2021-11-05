@@ -37,6 +37,8 @@ class Life_user extends Life {
 
         //======================================================
         this.isLifeFocusOn = true;
+        console.log('focus mode : ' + this.isLifeFocusOn);
+        
         this.timer = 1;
 
         this.camera_focusOn_init();
@@ -56,9 +58,9 @@ class Life_user extends Life {
         if (this.isLifeFocusOn == true){
             this.camera_focusOn_update();
             this.key_update();
-        } else {
-            //this.randomLook();
-        }
+        } 
+
+        if (this.isEat == true) console.log('eat');
     }
 
     lerpLoad(){
@@ -76,12 +78,11 @@ class Life_user extends Life {
 
         if ( this.keyboard.down("F") ) {
             this.isLifeFocusOn = !this.isLifeFocusOn;
+            console.log('focus mode : ' + this.isLifeFocusOn);
             this.timer = 1;
             if (this.isLifeFocusOn == true){
-                console.log('focus on');
                 this.camera_focusOn_init();
             } else {
-                console.log('focus off');
                 this.camera_focusOff_init();
             }
         }
