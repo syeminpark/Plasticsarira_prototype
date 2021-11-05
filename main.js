@@ -5,18 +5,23 @@ let bodySystem;
 let particleSystem_microPlastic;
 let lifeSystem;
 
+
 setup()
 draw()
 
 function setup() {
+
     threeSystemController = new ThreeSystemController();
     bodySystem = new BodySystem();
     bodySystem.createBuffer(  threeSystemController.sariraThreeSystem)
     bodySystem.createSarira()
 
-
     lifeSystem = new LifeSystem();
     particleSystem_microPlastic = new ParticleSystem(lifeSystem);
+
+    if (window.screenTop ||  window.screenY || window.screenLeft || window.screenX) {
+        alert('Browser is in Not in fullscreen');
+    }
 }
 
 function draw() {
