@@ -78,7 +78,7 @@ body {
 }
 
 #metaData{
-    cursor: n-resize;
+    cursor: ns-resize;
     caret-color: white;
 }
 
