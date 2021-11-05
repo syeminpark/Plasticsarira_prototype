@@ -78,7 +78,8 @@ body {
 }
 
 #metaData{
-    cursor: row-resize
+    cursor: row-resize;
+    caret-color: white;
 }
 
 ::-webkit-scrollbar {
