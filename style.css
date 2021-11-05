@@ -87,7 +87,6 @@ body {
     height: 0px;
 }
 
-
 .swal-text {
     background-color: black;
     padding: 17px;
@@ -101,23 +100,17 @@ body {
 .swal-modal {
     background-color: black;
     border: 1px solid grey;
-
 }
-
 .swal-overlay {
     background-color: rgba(0, 0, 0, 0.5);
 }
-
 .swal-button {
     padding: 10px 19px;
     margin-right: 35px;
     margin-bottom: 5px;
 }
-
 .swal-button--confirm {
     background-color: grey;
-
 }
-
 .swal-button--confirm:hover{ transition : 3s; }
 

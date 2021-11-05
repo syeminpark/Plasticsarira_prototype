@@ -93,32 +93,35 @@ class Microplastic {
     }
 
     randomPoint() {
+
         let i = Math.round(Math.random() * 5)
-        let randomX = Math.random() * (threeSystemController.sariraThreeSystem.controls.object.position.x + threeSystemController.sariraThreeSystem.controls.object.position.x) - threeSystemController.sariraThreeSystem.controls.object.position.x;
-        let randomY = Math.random() * (threeSystemController.sariraThreeSystem.controls.object.position.y * 2 + threeSystemController.sariraThreeSystem.controls.object.position.y * 2) - threeSystemController.sariraThreeSystem.controls.object.position.y * 2;
-        let randomZ = Math.random() * (threeSystemController.sariraThreeSystem.controls.object.position.z * 2 + threeSystemController.sariraThreeSystem.controls.object.position.z) - threeSystemController.sariraThreeSystem.controls.object.position.z;
+        let myPosition= threeSystemController.sariraThreeSystem.controls.object.position
+        let windowRect= document.getElementById("sarira").getBoundingClientRect()
+        let randomX = random(myPosition.x+ windowRect.width,myPosition.x-windowRect.width)
+        let randomY = random(myPosition.y+windowRect.height,myPosition.y-windowRect.height)
+        let randomZ = random(myPosition.z, -myPosition.z)
         let randPoint;
 
         if (i === 0) {
             //top
-            randPoint = [randomX, threeSystemController.sariraThreeSystem.controls.object.position.y * 2, randomZ]
+            randPoint = [randomX, myPosition.y , randomZ]
             //bottom
         } else if (i == 1) {
-            randPoint = [randomX, -threeSystemController.sariraThreeSystem.controls.object.position.y * 2, randomZ]
+            randPoint = [randomX, -myPosition.y, randomZ]
             //left
         } else if (i == 2) {
-            randPoint = [-threeSystemController.sariraThreeSystem.controls.object.position.x * 2, randomY, randomZ]
+            randPoint = [-myPosition.x , randomY, randomZ]
             //right 
         } else if (i == 3) {
-            randPoint = [threeSystemController.sariraThreeSystem.controls.object.position.x * 2, randomY, randomZ]
+            randPoint = [myPosition.x , randomY, randomZ]
         }
         //front
         else if (i == 4) {
-            randPoint = [randomX, randomY, threeSystemController.sariraThreeSystem.controls.object.position.z * 2]
+            randPoint = [randomX, randomY, myPosition.z ]
         }
         //back     
         else {
-            randPoint = [randomX, randomY, -threeSystemController.sariraThreeSystem.controls.object.position.z * 2]
+            randPoint = [randomX, randomY, - myPosition.z]
         }
         return randPoint
     }

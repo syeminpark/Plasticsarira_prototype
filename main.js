@@ -5,12 +5,12 @@ let bodySystem;
 let particleSystem_microPlastic;
 let lifeSystem;
 
-checkScreenSize()
 setup()
 draw()
 
-
 function setup() {
+
+    checkScreenSize()
 
     threeSystemController = new ThreeSystemController();
     bodySystem = new BodySystem();
