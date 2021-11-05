@@ -2,6 +2,7 @@ class Convex {
 
     constructor() {
         this.vertices = []
+    
     }
 
     //must be at least three points. 
@@ -17,7 +18,7 @@ class Convex {
     }
 
     updateBuffer(plastic) {
-
+        
         this.meshGeometry.dispose()
         threeSystemController.sariraThreeSystem.scene.remove(this.convexMeshBack);
         threeSystemController.sariraThreeSystem.scene.remove(this.convexMeshFront);
@@ -27,19 +28,19 @@ class Convex {
 
     }
 
-    initializeMesh(threeSystem) {
-        this.convexMeshBack = new THREE.Mesh(this.meshGeometry, this.material);
+    initializeMesh(threeSystem, material) {
+        this.convexMeshBack = new THREE.Mesh(this.meshGeometry, material);
         this.convexMeshBack.material.side = THREE.BackSide; // back faces
         this.convexMeshBack.renderOrder = 0;
-        this.convexMeshFront = new THREE.Mesh(this.meshGeometry, this.material.clone());
+        this.convexMeshFront = new THREE.Mesh(this.meshGeometry, material.clone());
         this.convexMeshFront.material.side = THREE.FrontSide; // front faces
         this.convexMeshFront.renderOrder = 1;
-
-        threeSystem.scene.add(this.convexMeshBack, this.convexMeshFront)
+        threeSystem.scene.add(this.convexMeshBack,this.convexMeshFront)
     }
 
+
     initializeMaterial() {
-        this.material = new THREE.MeshPhysicalMaterial({
+       let material = new THREE.MeshPhysicalMaterial({
             transmission: 0.9,
             thickness: 0.1,
             roughness: 0.4,
@@ -47,9 +48,6 @@ class Convex {
             clearcoat: 1,
             clearcoatRoughness: 0,
         });
+        return material
     }
-
-
-
-
 }

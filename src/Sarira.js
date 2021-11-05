@@ -21,13 +21,15 @@ class Sarira {
         this.terminal.createMetaDataText()
     }
 
-    initializeConvex(bufferGeometry, threeSystem) {
+    initializeConvex(bufferGeometry, threeSystem, material) {
         if (this.isConvexMade == false && this.plasticList.length > 2) {
             this.isConvexMade = true
+
             this.convex = new Convex()
             this.convex.initializeBuffer(bufferGeometry)
-            this.convex.initializeMaterial()
-            this.convex.initializeMesh(threeSystem)
+            material != undefined ? this.material = material : this.material = this.convex.initializeMaterial();
+            this.convex.initializeMesh(threeSystem,this.material)
+        
         }
     }
 
@@ -49,10 +51,9 @@ class Sarira {
     updateConvex(micro,threeSystem) {
         if (this.convex != undefined) {
             this.convex.updateBuffer(micro)
-            this.convex.initializeMesh(threeSystem)
+            this.convex.initializeMesh(threeSystem,this.material)
         }
     }
-
 
     getPosition(bufferGeometry) {
         for (let [index, plastic] of this.plasticList.entries()) {

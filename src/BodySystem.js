@@ -10,13 +10,14 @@ class BodySystem {
         document.addEventListener('mousedown', this.addFloatingPlastics.bind(this), false);
     }
 
-    createBuffer(threeSystem) {
+    createBuffer(threeSystem,material) {
 
         //만드는 순서가 중요함 .
         this.floatingBuffer = new Buffer()
-        this.floatingBuffer.initialize(threeSystem)
+        material!= undefined ? this.material=material : this.material= this.floatingBuffer.initializeMaterial() 
+        this.floatingBuffer.initialize(threeSystem,this.material)
         this.sariraBuffer = new Buffer()
-        this.sariraBuffer.initialize(threeSystem)
+        this.sariraBuffer.initialize(threeSystem,this.material)
     }
 
     createSarira() {
@@ -41,7 +42,6 @@ class BodySystem {
         tempMicro.initialize()
         this.floatingPlasticsList.push(tempMicro)
         tempMicro.updateBuffer(this.floatingBuffer.bufferGeometry, this.floatingPlasticsList.length)
-
     }
 
     moveFloatingPlastics() {

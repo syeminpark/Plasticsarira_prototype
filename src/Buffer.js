@@ -6,17 +6,21 @@ class Buffer {
         this.colorsEmptyList = new Float32Array(this.maxPoints * 3);
     }
 
-    initialize(threeSystem) {
-        this.bufferGeometry = new THREE.BufferGeometry();
-
-        this.pointMaterial = new THREE.PointsMaterial({
+    initializeMaterial(){
+        let pointMaterial = new THREE.PointsMaterial({
             vertexColors: THREE.VertexColors,
             size: 5
         });
+        return pointMaterial
+    }
+
+    initialize(threeSystem,material) {
+        this.bufferGeometry = new THREE.BufferGeometry();
+
         this.bufferGeometry.setAttribute('position', new THREE.Float32BufferAttribute(this.positionsEmptyList, 3));
         this.bufferGeometry.setAttribute('color', new THREE.Float32BufferAttribute(this.colorsEmptyList, 3));
         
-        let point = new THREE.Points(this.bufferGeometry, this.pointMaterial);
+        let point = new THREE.Points(this.bufferGeometry, material);
 
         let drawCount = 1;
         this.bufferGeometry.setDrawRange(0, drawCount);
