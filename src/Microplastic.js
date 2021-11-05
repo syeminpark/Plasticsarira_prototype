@@ -18,7 +18,7 @@ class Microplastic {
         this.absorbedBy = absorbedBy || "Empty"
 
         let today = new Date()
-        this.dateRetrieved = dateRetrieved || `${today.getFullYear()}-${(today.getMonth() + 1)}-${today.getDate()} / ${today.getHours()}:${today.getMinutes()}:${this.addZeroToSeconds(today)} ${this.getAmPm(today)}`;
+        this.dateRetrieved = dateRetrieved || `${today.getFullYear()}.${(today.getMonth() + 1)}.${today.getDate()}/${today.getHours()}:${today.getMinutes()}:${this.addZeroToSeconds(today)} ${this.getAmPm(today)}`;
        
         this.density =density || this.density
         this.tensileStrength =tensileStrength || this.tensileStrength

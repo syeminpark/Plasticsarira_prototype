@@ -34,3 +34,7 @@
 
 /// 플라스틱 파라미터 리스트 
 
+this.orginalForm
+this.madeIn
+this.microType
+this.absorbedBy
