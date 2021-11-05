@@ -97,9 +97,10 @@ class Microplastic {
         let i = Math.round(Math.random() * 5)
         let myPosition= threeSystemController.sariraThreeSystem.controls.object.position
         let windowRect= document.getElementById("sarira").getBoundingClientRect()
-        let randomX = random(myPosition.x+ windowRect.width,myPosition.x-windowRect.width)
-        let randomY = random(myPosition.y+windowRect.height,myPosition.y-windowRect.height)
-        let randomZ = random(myPosition.z, -myPosition.z)
+
+        let randomX = random(myPosition.x+ windowRect.width,-myPosition.x-windowRect.width)
+        let randomY = random(myPosition.y+windowRect.width,-myPosition.y-windowRect.width)
+        let randomZ = random(myPosition.z+windowRect.width, -myPosition.z-windowRect.width)
         let randPoint;
 
         if (i === 0) {
