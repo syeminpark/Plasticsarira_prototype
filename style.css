@@ -74,8 +74,14 @@ body {
     min-height: auto;
     margin-top: 84vh;
     color: grey;
-     font-size: calc(0.5vw + 0.1vh);
+     font-size: 0.63vw;
 }
 
+#metaData{
+    cursor: row-resize
+}
 
+::-webkit-scrollbar {
+    width: 0px;
+  }
 

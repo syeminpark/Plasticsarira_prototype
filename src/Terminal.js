@@ -68,7 +68,7 @@ class Terminal {
         text.innerHTML = elementName
         text.style.top = `${topPosition}vh`;
         text.style.left = `${leftPosition}vw`;
-        document.body.appendChild(text);
+        document.getElementById("metaData").appendChild(text);
     }
 
 
