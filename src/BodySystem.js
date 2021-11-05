@@ -23,7 +23,7 @@ class BodySystem {
     createSarira(corePostionList) {
         this.sarira = new Sarira()
         this.sarira.initializeTerminal(this.sariraBuffer.bufferGeometry)
-        this.sarira.initializeCore(corePostionList,this.sariraBuffer.bufferGeometry)
+        this.sarira.initializeCore(corePostionList, this.sariraBuffer.bufferGeometry)
         this.sarira.initializeCoreMetaData()
 
     }
@@ -37,12 +37,12 @@ class BodySystem {
 
     }
 
-    addFloatingPlastics(positionList,passDataList) {
+    addFloatingPlastics(positionList, passDataList) {
         //추후에 microplastic을 만드는 것으로 변경 
-        let tempMicro = new PE(/*positionList*/)
+        let tempMicro = new PE( /*positionList*/ )
         //temp
-        passDataList=[false,false,false,false,false]
-        tempMicro.initialize(passDataList, /*this.densityList[i], this.tensileStrength[i]*/)
+        passDataList = [false, false, false, false, false]
+        tempMicro.initialize(passDataList, /*this.densityList[this.checkIndex(passDataList)], this.tensileStrength[this.checkIndex(passDataList)]*/ )
         this.floatingPlasticsList.push(tempMicro)
         tempMicro.updateBuffer(this.floatingBuffer.bufferGeometry, this.floatingPlasticsList.length)
     }
@@ -65,6 +65,16 @@ class BodySystem {
                 micro.switch(this.floatingBuffer.bufferGeometry, index, this.floatingPlasticsList)
 
                 this.sarira.updateConvex(micro, threesystem)
+            }
+        }
+    }
+
+    checkIndex(passDataList) {
+        //microType
+        let microType = ["Polyethylene", "Polypropylene", "Polystyrene", "Polyamide", "Polyester", "Acrylic", "Polyacetal", "PolyvinylChloride", "Polyurethane"]
+        for (let i = 0; i < microType.length; i++) {
+            if (passDataList[2] == microType[i]) {
+                return i
             }
         }
     }
