@@ -7,7 +7,7 @@ class BodySystem {
         this.densityList = [0.94, 0.92, 1.05, 1.14, 1.4, 1.2, 1.42, 1.38, 0.425]
         this.tensileStrengthList = [4554, 5440, 7700, 12400, 11500, 9400, 10007, 7500, 2596]
 
-       // document.addEventListener('mousedown', this.addFloatingPlastics.bind(this), false);
+       //document.addEventListener('mousedown', this.addFloatingPlastics.bind(this), false);
     }
 
     createBuffer(threeSystem, material) {

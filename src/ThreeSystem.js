@@ -48,7 +48,7 @@ class ThreeSystem {
         
     }
     setLights() {
-        let ambientLight = new THREE.AmbientLight(0xffffff, 5);
+        let ambientLight = new THREE.AmbientLight(0xffffff, 3);
         let directionalLight = new THREE.DirectionalLight(0xffffff, 5);
         directionalLight.position.set(.5, 0, 0.866);
         directionalLight.target.position.set(0, 0, 0);
