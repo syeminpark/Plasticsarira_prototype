@@ -3,7 +3,8 @@ class UserText {
         this.name = name
         this.system = system
         this.canvas = canvas
-        this.textName="I Is Another"
+        //this.textName="I Is Another"
+        this.textName="You"
     }
 
     createLabel() {
@@ -21,7 +22,8 @@ class UserText {
     }
 
     updateLabel(positionVector3) {
-        let tempV = _.cloneDeep(positionVector3)
+        //let tempV = _.cloneDeep(positionVector3)
+        let tempV = _.cloneDeep(new THREE.Vector3(positionVector3.x, positionVector3.y + 5, positionVector3.z))
         let orbitV = new THREE.Vector3();
         orbitV = this.system.controls.object.position
         tempV.project(this.system.camera);
