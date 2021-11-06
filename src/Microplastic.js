@@ -8,7 +8,6 @@ class Microplastic {
         this.color = [1, 1, 1] // [Math.random(), Math.random(), Math.random()]
         this.size = plastiSarira.particleMaterial.size
 
-
         this.threeSystem=threeSystem
     }
 
