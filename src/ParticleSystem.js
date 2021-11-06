@@ -48,7 +48,7 @@ class ParticleSystem{
         var geometry = new THREE.BufferGeometry().setFromPoints(this.particles_positions);
         
         var material = new THREE.PointsMaterial({
-            size: random(0.1, 0.5),
+            size: 0.5,
             color:'white'
         });
         //var material = new THREE.MeshNormalMaterial({wireframe:false});
