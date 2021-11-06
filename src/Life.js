@@ -195,7 +195,9 @@ class Life {
 
             //파티클 먹고 파티클 상태 먹힌것으로 변경
             if (distance < this.size * 0.5) {
+                microPlastic.data.setPassBy('life'+this.index);
                 this.absorbedParticles.push(microPlastic);
+                this.absorbedParticlesData.push(microPlastic.data.getDataList());
    
                 microPlastic.isEaten = true;
                 this.isEat = true;
@@ -219,8 +221,11 @@ class Life {
 
             //파티클 먹고 파티클 상태 먹힌것으로 변경
             if (distance < this.size * 0.5) {
+                microPlastic.data.setPassBy('life' + String(this.index));
+                microPlastic.data.setAbsorbedBy(2);
                 this.absorbedParticles.push(microPlastic);
                 this.absorbedParticlesData.push(microPlastic.data.getDataList());
+                console.log(microPlastic.data.getDataList());
    
                 microPlastic.isEaten = true;
                 this.isEat = true;
@@ -244,6 +249,8 @@ class Life {
 
             //파티클 먹고 파티클 상태 먹힌것으로 변경
             if (distance < this.size * 0.5 && random(0, 1) < this.breathSpeed) {
+                microPlastic.data.setPassBy('life' + String(this.index));
+                microPlastic.data.setAbsorbedBy(1);
                 this.absorbedParticles.push(microPlastic);
                 this.absorbedParticlesData.push(microPlastic.data.getDataList());
    
@@ -253,9 +260,10 @@ class Life {
         }
     }
 
-    add_MicroPlasticToBodySystem(bodySystem,threeSystem){
+    add_MicroPlasticToBodySystem(bodySystem){
         if (this.isEat == true) {
-            bodySystem.addFloatingPlastics(bodySystem);
+            var data = this.absorbedParticlesData[this.absorbedParticlesData.length-1];
+            bodySystem.addFloatingPlastics(data);
             //console.log('life eat = ' + this.isEat);
             this.isEat = false;
         }

@@ -38,7 +38,7 @@ class ParticleSystem{
             }
             this.life_user.eat(this.particles[index]);
             this.life_user.breath(this.particles[index]);
-            this.life_user.add_MicroPlasticToBodySystem(bodySystem,threeSystem);
+            this.life_user.add_MicroPlasticToBodySystem(bodySystem);
         }
 
         this.points.geometry.attributes.position.needsUpdate = true;

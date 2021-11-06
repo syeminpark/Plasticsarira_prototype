@@ -46,6 +46,7 @@ class MicroplasticDatabase {
         //앞에서 선정한 인덱스를 바탕으로 그 인덱스에 해당하는 날짜부터 2021년까지 랜덤하게 년도 하나를 선정 
         this.madeIn = JSON.stringify(Math.round(random(this.madeInList[index], 2021)));
 
+        this.dataList = [this.originalForm, this.madeIn, this.passBy, this.microType, this.absorbedBy];
     }
 
     getDataList() {
