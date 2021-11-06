@@ -15,7 +15,7 @@ class BodySystem {
 
     createBuffer(material) {
         this.floatingBuffer = new Buffer()
-        material != undefined ? this.material = material : this.material = this.floatingBuffer.initializeMaterial()
+        this.material = material;
         this.floatingBuffer.initialize(this.threeSystem, this.material)
         this.sariraBuffer = new Buffer()
         this.sariraBuffer.initialize(this.threeSystem, this.material)

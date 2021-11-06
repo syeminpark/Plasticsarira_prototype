@@ -6,14 +6,15 @@ class Microplastic {
         this.acceleration = new THREE.Vector3(0, 0, 0)
         this.positionVector3 = new THREE.Vector3(0, 0, 0)
         this.color = [1, 1, 1] // [Math.random(), Math.random(), Math.random()]
-        this.size = 50 //Math.random() * (50 - 1) + 1
+        this.size = plastiSarira.particleMaterial.size
+
 
         this.threeSystem=threeSystem
     }
 
     initialize(positionList,density, tensileStrength,) {
         this.positionList = positionList || this.randomPoint()
-        this.mass = density * this.size
+        this.mass = density * this.size /10
         this.tensileStrength = map(tensileStrength, 2596, 12400, 0, 100)
     }
 
@@ -77,7 +78,7 @@ class Microplastic {
     checkStuck(others) {
         for (let i = 0; i < others.length; i++) {
             let d2 = this.positionVector3.distanceTo(others[i].positionVector3)
-            if ((d2 < this.size / 5 + others[i].size / 5) *
+            if ((d2 < this.size*10 + others[i].size*10 ) *
                 (this.tensileStrength + others[i].tensileStrength) / 2) {
                 return true
             }
@@ -90,9 +91,9 @@ class Microplastic {
         let myPosition = this.threeSystem.controls.object.position
         let windowRect = document.getElementById("sarira").getBoundingClientRect()
 
-        let randomX = random(myPosition.x + windowRect.width, -myPosition.x - windowRect.width)
-        let randomY = random(myPosition.y + windowRect.width, -myPosition.y - windowRect.width)
-        let randomZ = random(myPosition.z + windowRect.width, -myPosition.z - windowRect.width)
+        let randomX = random(myPosition.x + windowRect.width/100, -myPosition.x - windowRect.width/200)
+        let randomY = random(myPosition.y + windowRect.width/100, -myPosition.y - windowRect.width/200)
+        let randomZ = random(myPosition.z + windowRect.width/100, -myPosition.z - windowRect.width/200)
         let randPoint;
 
         if (i === 0) {

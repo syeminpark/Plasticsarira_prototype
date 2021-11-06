@@ -14,7 +14,6 @@ class PlastiSarira {
         this.threeSystemController = new ThreeSystemController();
     
         this.lifeSystem = new LifeSystem(this.threeSystemController);
-
         this.particleSystem_microPlastic = new ParticleSystem(this.lifeSystem);
         this.particleMaterial=this.particleSystem_microPlastic.display(this.threeSystemController)
 
