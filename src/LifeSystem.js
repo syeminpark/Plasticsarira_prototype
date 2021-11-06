@@ -12,7 +12,11 @@ class LifeSystem{
         
         this.life_user = new Life_user();
 
-        this.display();
+        this.display();     
+        
+        this.userText= new UserText("Myself",threeSystemController.worldThreeSystem,document.querySelector("#world"))
+        this.userText.createLabel()
+
     }
 
     update(){
@@ -28,6 +32,9 @@ class LifeSystem{
         this.life_user.wrap_particles();
 
         //console.log(this.life_user.isEat);
+
+        
+        this.userText.updateLabel(this.life_user.life.position)
     }
 
     display(){

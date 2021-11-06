@@ -32,24 +32,5 @@ class Core extends Microplastic {
     }
 
 
-    createLabel(name) {
-        const labelContainerElem = document.querySelector('#labels');
-        const text = document.createElement('div');
-        text.textContent = name;
-        labelContainerElem.appendChild(text);
-        return text
 
-
-    }
-    moveLabel(text, system, canvas) {
-        let tempV = new THREE.Vector3();
-        let orbitV = new THREE.Vector3();
-        tempV.project(system.camera);
-        orbitV= threeSystemController.sariraThreeSystem.controls.object.position
-        text.style.fontSize = tempV.z+"vw"
-        
-        const x = (tempV.x * .5 + .5) * canvas.clientWidth + canvas.getBoundingClientRect().left;
-        const y = (tempV.y * -.5 + .5) * canvas.clientHeight + canvas.getBoundingClientRect().top
-        text.style.transform = `translate(-50%, -50%) translate(${x}px,${y}px)`;
-    }
 }
