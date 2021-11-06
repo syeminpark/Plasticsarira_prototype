@@ -5,17 +5,17 @@ class PlastiSarira {
         this.bodySystem;
         this.particleSystem_microPlastic;
         this.lifeSystem;
-        this.corePositionListOfLists=[]
+        this.corePositionList=[0,0,0]
     }
 
     initialize(){
         
         let isUser=true
-        //this.corePositionListofLists.push([0,0,0])
-        this.threeSystemController = new ThreeSystemController([0,0,0]);
+       // this.corePositionListofLists.push([0,0,0])
+        this.threeSystemController = new ThreeSystemController();
         this.bodySystem = new BodySystem(isUser,this.threeSystemController.sariraThreeSystem);
         this.bodySystem.createBuffer()
-        this.bodySystem.createSarira(this.corePositionListOfLists[0])
+        this.bodySystem.createSarira(this.corePositionList)
         this.bodySystem.createTerminal()
     
         this.lifeSystem = new LifeSystem(this.threeSystemController);
@@ -24,7 +24,7 @@ class PlastiSarira {
     }
     update(){
         this.threeSystemController.update()
-        this.bodySystem.update()
+        //this.bodySystem.update()
     
         this.particleSystem_microPlastic.update(this.bodySystem,this.threeSystemController.sariraThreeSystem);
         this.lifeSystem.update();
