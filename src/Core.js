@@ -4,7 +4,7 @@ class Core extends Microplastic {
         super(positionList)
         this.microType = "Polypropylene"; // polypropylene was identified in baby
         this.madeIn = 1951
-        this.originalFormList = ["Syringe", "Chip Bag", "Specimen Bottle", "Plastic Chair", "Car Battery Case", "Instrument Panel", "Rug", "Lunch Box", "Packing Tape", "Coffee Machine"]
+        this.originalFormList = ["Syringe", "Chip Bag", "Specimen Bottle", "Car Battery Case", "Instrument Panel", "Rug", "Crisp Bag", "Lunch Box", "Packing Tape", "Tobacco Package", "Beach Slipper", "Tote Bag", "Vacuum Cleaner", "Car Bumper", "Door Trim"]
         this.passedByList = ["Mom", "Dad", "brother", "Mom"]
         this.density = 0.92
         this.absorbedBy = "Inheritance"

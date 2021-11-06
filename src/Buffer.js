@@ -16,15 +16,12 @@ class Buffer {
 
     initialize(threeSystem,material) {
         this.bufferGeometry = new THREE.BufferGeometry();
-
         this.bufferGeometry.setAttribute('position', new THREE.Float32BufferAttribute(this.positionsEmptyList, 3));
         this.bufferGeometry.setAttribute('color', new THREE.Float32BufferAttribute(this.colorsEmptyList, 3));
-        
+        this.bufferGeometry.setDrawRange(0, 1);
+
         let point = new THREE.Points(this.bufferGeometry, material);
 
-        let drawCount = 1;
-        this.bufferGeometry.setDrawRange(0, drawCount);
-   
         threeSystem.scene.add(point)
     }
 

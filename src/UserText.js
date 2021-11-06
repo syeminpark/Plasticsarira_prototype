@@ -6,10 +6,16 @@ class UserText {
     }
 
     createLabel() {
-        const labelContainerElem = document.querySelector('#labels');
-        this.text = document.createElement('div');
-        this.text.textContent = this.name;
-        labelContainerElem.appendChild(this.text);
+        // const labelContainerElem = document.querySelector('#labels');
+        this.text = document.createElement('input');
+        this.text.type = "text";
+        this.text.style.backgroundColor="rgba(0,0,0,0)"
+        this.text.style.color="white"
+        this.text.value="I Is Another."
+        this.text.style.textAlign="center"
+        this.text.size=15
+        this.text.style.border= "0px"
+        document.body.appendChild(this.text);
     }
 
     updateLabel(positionVector3) {

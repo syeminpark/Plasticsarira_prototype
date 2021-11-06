@@ -1,21 +1,18 @@
 class Terminal {
 
     constructor() {
-    
 
         this.categoryTextSize = "0.65vw"
         this.metaDataTextSize = "0.5vw"
         this.wordSpacingList = [0, 5.8, 3.5, 4.7, 3.5, 5]
         this.space = 2
-        this.canvas = document.querySelector('#sarira')
-
-        this.initialSpace = pxToVh(this.canvas.getBoundingClientRect().bottom) + this.space
-
         this.ownerVerticalSpace = 0
-        this.leftPosition = 71
 
-        this.categoryList = [`Original_Form`,  `Made_In`, "Micro_Type ",`Pass_By`, `Absorbed_By`, `Date_Retrieved`]
+        this.canvas = document.querySelector('#sarira')
+        this.initialSpace = pxToVh(this.canvas.getBoundingClientRect().bottom) + this.space
+        this.leftPosition = pxToVw(this.canvas.getBoundingClientRect().left)
 
+        this.categoryList = [`Original_Form`, `Made_In`, "Micro_Type ", `Pass_By`, `Absorbed_By`, `Date_Retrieved`]
         this.metaDataList = new Array(5)
         for (let i = 0; i < this.categoryList.length; i++) {
             this.metaDataList[i] = new Array(0)
@@ -26,7 +23,7 @@ class Terminal {
         let leftPosition = this.leftPosition
         for (let i = 0; i < this.categoryList.length; i++) {
             leftPosition += this.wordSpacingList[i]
-           this.createText(this.categoryList[i], leftPosition, this.initialSpace, this.categoryTextSize)
+            this.createText(this.categoryList[i], leftPosition, this.initialSpace, this.categoryTextSize)
         }
     }
 
@@ -70,6 +67,4 @@ class Terminal {
         text.style.left = `${leftPosition}vw`;
         document.getElementById("metaData").appendChild(text);
     }
-
-
 }

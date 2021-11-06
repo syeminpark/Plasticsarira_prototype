@@ -2,7 +2,6 @@ class Convex {
 
     constructor() {
         this.vertices = []
-    
     }
 
     //must be at least three points. 
@@ -17,8 +16,7 @@ class Convex {
         this.meshGeometry = new THREE.ConvexGeometry(this.vertices);
     }
 
-    updateBuffer(plastic) {
-        
+    updateBuffer(plastic) {      
         this.meshGeometry.dispose()
         threeSystemController.sariraThreeSystem.scene.remove(this.convexMeshBack);
         threeSystemController.sariraThreeSystem.scene.remove(this.convexMeshFront);
@@ -44,10 +42,11 @@ class Convex {
             transmission: 0.95,
             thickness: 0.1,
             roughness: 0.4,
-
             clearcoat: 1,
             clearcoatRoughness: 0,
         });
         return material
     }
 }
+
+///add unique id then add to scene.

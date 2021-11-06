@@ -18,7 +18,6 @@ class ThreeSystem {
         this.setOrbitcontrols();
         //프레임 레이트 모니터링 
         this.setStats()
-
     }
 
     update() {

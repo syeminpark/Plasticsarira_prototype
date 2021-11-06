@@ -32,7 +32,8 @@ body {
     left: 0;
     /* make our position the top left of the container */
     top: 0;
-    color: white;
+    background-color: black;
+    color:white
 }
 
 #labels>div {

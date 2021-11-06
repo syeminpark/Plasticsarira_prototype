@@ -7,7 +7,7 @@ class BodySystem {
         this.densityList = [0.94, 0.92, 1.05, 1.14, 1.4, 1.2, 1.42, 1.38, 0.425]
         this.tensileStrengthList = [4554, 5440, 7700, 12400, 11500, 9400, 10007, 7500, 2596]
 
-       //document.addEventListener('mousedown', this.addFloatingPlastics.bind(this), false);
+        //document.addEventListener('mousedown', this.addFloatingPlastics.bind(this), false);
     }
 
     createBuffer(threeSystem, material) {
@@ -22,10 +22,14 @@ class BodySystem {
 
     createSarira(corePostionList) {
         this.sarira = new Sarira()
-        this.sarira.initializeTerminal(this.sariraBuffer.bufferGeometry)
         this.sarira.initializeCore(corePostionList, this.sariraBuffer.bufferGeometry)
-        this.sarira.initializeCoreMetaData()
+    }
 
+    createTerminal() {
+        this.terminal = new Terminal()
+        this.terminal.initializeCategory()
+        this.sarira.addMetaData(this.terminal)
+        this.terminal.createMetaDataText()
     }
 
     update(threesystem) {
@@ -34,12 +38,11 @@ class BodySystem {
 
         this.sarira.getPosition(this.sariraBuffer.bufferGeometry)
         this.sarira.initializeConvex(this.sariraBuffer.bufferGeometry, threesystem)
-
     }
 
     addFloatingPlastics(positionList, passDataList) {
         //추후에 microplastic을 만드는 것으로 변경 
-        
+
         let tempMicro = new PE( /*positionList*/ )
         //temp
         passDataList = [false, false, false, false, false]
@@ -61,6 +64,12 @@ class BodySystem {
         for (let [index, micro] of this.floatingPlasticsList.entries()) {
             if (micro.checkStuck(this.sarira.plasticList)) {
                 this.sarira.addPlastics(micro)
+
+                if (this.terminal != undefined) {
+                    this.sarira.addMetaData(this.terminal)
+                    this.terminal.createMetaDataText()
+                }
+
                 micro.getPosition(this.floatingBuffer.bufferGeometry, index)
                 micro.updateBuffer(this.sariraBuffer.bufferGeometry, this.sarira.plasticList.length)
                 micro.switch(this.floatingBuffer.bufferGeometry, index, this.floatingPlasticsList)

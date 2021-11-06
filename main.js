@@ -17,6 +17,7 @@ function setup() {
     bodySystem = new BodySystem();
     bodySystem.createBuffer(threeSystemController.sariraThreeSystem)
     bodySystem.createSarira(userWindowCorePositionList)
+    bodySystem.createTerminal()
 
     lifeSystem = new LifeSystem();
     particleSystem_microPlastic = new ParticleSystem(lifeSystem);
