@@ -15,7 +15,7 @@ class Sarira {
         this.plasticList.push(new Core(corePostionList))
         this.plasticList[0].initialize()
         this.plasticList[0].updateBuffer(bufferGeometry, this.plasticList.length);
-       // this.plasticList[0].createLabel();
+        this.text= this.plasticList[0].createLabel("user");
     }
 
     initializeCoreMetaData() {
@@ -61,7 +61,10 @@ class Sarira {
         for (let [index, plastic] of this.plasticList.entries()) {
             plastic.getPosition(bufferGeometry, index);
         }
+       
+        this.plasticList[0].moveLabel(this.text,threeSystemController.sariraThreeSystem,document.querySelector("#sarira"));
     }
+
 
 
 }

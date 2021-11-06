@@ -3,7 +3,7 @@ class MicroplasticDatabase {
 
         /// 플라스틱 파라미터 리스트 . 플라스틱 당 15개. 
 
-        this.microType = ["Polyethylene", "Polypropylene", "Polystyrene", "Polyamide", "Polyester", "Acrylic", "Polyacetal", "PolyvinylChloride", "Polyurethane"]
+        this.microTypeList = ["Polyethylene", "Polypropylene", "Polystyrene", "Polyamide", "Polyester", "Acrylic", "Polyacetal", "PolyvinylChloride", "Polyurethane"]
 
         this.orginalFormListofList = [
             //Polyethylene
