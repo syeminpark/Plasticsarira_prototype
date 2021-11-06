@@ -1,19 +1,19 @@
 class BodySystem {
 
-    constructor(isUser,threeSystem) {
+    constructor(index) {
 
-        this.isUser = isUser
+        index == 0 ? this.isUser = true : this.isUser = false;
+        index == 0 ? this.threeSystem = plastiSarira.threeSystemController.sariraThreeSystem : this.threeSystem = plastiSarira.threeSystemController.worldThreeSystem
 
         this.floatingPlasticsList = new Array(0)
         //Polyethylene= 1  Polypropylene =2  "Polystyrene =3,  Polyamide=4, Polyester =5, Acrylic=6,  Polyacetal=7, PolyvinylChloride=8, Polyurethane=9
         this.densityList = [0.94, 0.92, 1.05, 1.14, 1.4, 1.2, 1.42, 1.38, 0.425]
         this.tensileStrengthList = [4554, 5440, 7700, 12400, 11500, 9400, 10007, 7500, 2596]
-        this.threeSystem=threeSystem
+
         //document.addEventListener('mousedown', this.addFloatingPlastics.bind(this), false);
     }
 
     createBuffer(material) {
-        //만드는 순서가 중요함 .
         this.floatingBuffer = new Buffer()
         material != undefined ? this.material = material : this.material = this.floatingBuffer.initializeMaterial()
         this.floatingBuffer.initialize(this.threeSystem, this.material)
@@ -48,7 +48,6 @@ class BodySystem {
 
         tempMicro.initialize( /*this.densityList[this.checkIndex(passDataList)], this.tensileStrength[this.checkIndex(passDataList)]*/ )
         if (this.isUser) {
-           // passDataList = [false, false, false, false, false]
             tempMicro.initializePassDataList(passDataList)
         }
         this.floatingPlasticsList.push(tempMicro)

@@ -1,5 +1,5 @@
 class ParticleSystem{
-    constructor(lifeSystem,threeSystemController){
+    constructor(lifeSystem ){
         this.num = 10000;
         this.size = 150;
 
@@ -14,7 +14,7 @@ class ParticleSystem{
             //this.particles_data.push(p.data.getDataList());
         }
 
-        this.display(threeSystemController);
+        
 
         this.lifes = lifeSystem.lifes; //array
         this.life_user = lifeSystem.life_user;
@@ -57,5 +57,6 @@ class ParticleSystem{
         this.points.position.set(0, 0, 0);
 
         threeSystemController.addToWorldScene(this.points);
+        return material
     }
 }
