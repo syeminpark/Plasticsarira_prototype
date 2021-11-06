@@ -43,7 +43,7 @@ class MicroPlastic {
       ));
       this.velocity.add(this.acceleration);
       this.position.add(this.velocity);
-      if (this.velocity.length() > 0.2) this.velocity.multiplyScalar(0.01);
+      if (this.velocity.length() > 0.1) this.velocity.multiplyScalar(0.01);
       this.acceleration.setLength(0);
 
       this.wrap();
@@ -61,7 +61,7 @@ class MicroPlastic {
     wrap(){
       var distance = this.wrapCenter.distanceTo(this.position);
       if (distance > this.wrapSize){
-        this.velocity.multiplyScalar(-1);
+        this.velocity.multiplyScalar(-0.9999);
       } 
     }
 

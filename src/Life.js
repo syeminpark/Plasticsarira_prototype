@@ -32,14 +32,20 @@ class Life {
         this.noiseShape = random(0.05, 0.3);
         this.noiseAnimSpeed = random(0.1, 0.5);
 
-        this.eatenParticles = [];
+        this.isEat = false;
+        this.accumulatedParticles = [];
         this.sariraPosition = new THREE.Vector3();
         this.sariraType = Math.floor(random(1, 4));
+
+        this.microPlastic_maxAmount = (this.size + this.sizeMax) * 5;
+        this.eatSpeed = (this.size+this.sizeMax)*1/1000;
+        this.breathSpeed = (this.size+this.sizeMax)*1/100;
 
         this.display();
         this.noise_set();
 
-        this.microPlastic_amount;
+        //======================================================
+        
         this.sarira_amount;
 
         this.sarira_makingSpeed;
@@ -167,14 +173,14 @@ class Life {
         }
     }
 
-    eat(microPlastic) {
+    absorb(microPlastic) {
         const distance = this.position.distanceTo(microPlastic.position);
         const lifeSize = (this.size + this.sizeMax) * 1;
         var sariraPos = this.position;
 
         var force = new THREE.Vector3().subVectors(sariraPos, microPlastic.position);
 
-        if (microPlastic.isEaten == false) {
+        if (microPlastic.isEaten == false && this.accumulatedParticles.length < this.microPlastic_maxAmount) {
             //아직 먹히지 않은 상태의 파티클 끌어당기기
             if (distance < lifeSize && distance > this.size / 2) {
                 force.multiplyScalar(0.02);
@@ -183,41 +189,102 @@ class Life {
 
             //파티클 먹고 파티클 상태 먹힌것으로 변경
             if (distance < this.size * 0.5) {
-                this.eatenParticles.push(microPlastic);
-                //console.log(this.eatenParticles.length);
-
+                this.accumulatedParticles.push(microPlastic);
+   
                 microPlastic.isEaten = true;
+                this.isEat = true;
             }
+        }
+    }
+
+    eat(microPlastic){
+        const distance = this.position.distanceTo(microPlastic.position);
+        const lifeSize = (this.size + this.sizeMax) * 1;
+        var sariraPos = this.position;
+        
+
+        var force = new THREE.Vector3().subVectors(sariraPos, microPlastic.position);
+
+        if (microPlastic.isEaten == false && this.accumulatedParticles.length < this.microPlastic_maxAmount) {
+            //아직 먹히지 않은 상태의 파티클 끌어당기기
+            if (distance < lifeSize && distance > this.size / 2 && random(0,1) < this.eatSpeed) {
+                force.multiplyScalar(0.02);
+                microPlastic.applyForce(force);
+            }
+
+            //파티클 먹고 파티클 상태 먹힌것으로 변경
+            if (distance < this.size * 0.5) {
+                this.accumulatedParticles.push(microPlastic);
+   
+                microPlastic.isEaten = true;
+                this.isEat = true;
+            }
+        }
+    }
+
+    breath(microPlastic) {
+        const distance = this.position.distanceTo(microPlastic.position);
+        const lifeSize = (this.size + this.sizeMax) * 1;
+        var sariraPos = this.position;
+        
+
+        var force = new THREE.Vector3().subVectors(sariraPos, microPlastic.position);
+
+        if (microPlastic.isEaten == false && this.accumulatedParticles.length < this.microPlastic_maxAmount) {
+            //아직 먹히지 않은 상태의 파티클 끌어당기기
+            if (distance < lifeSize && distance > this.size / 2) {
+                force.multiplyScalar(0.02);
+                microPlastic.applyForce(force);
+            }
+
+            //파티클 먹고 파티클 상태 먹힌것으로 변경
+            if (distance < this.size * 0.5 && random(0, 1) < this.breathSpeed) {
+                this.accumulatedParticles.push(microPlastic);
+   
+                microPlastic.isEaten = true;
+                this.isEat = true;
+            }
+        }
+    }
+
+    add_MicroPlasticToBodySystem(){
+        if (this.isEat == true) {
+            bodySystem.addFloatingPlastics(bodySystem);
+            console.log('life eat = ' + this.isEat);
+            this.isEat = false;
         }
     }
 
     wrap_particles() {
         var sariraPos = this.position;
 
-        for (let i = 0; i < this.eatenParticles.length; i++) {
-            this.eatenParticles[i].wrapCenter = this.position;
-            this.eatenParticles[i].wrapSize = this.size;
+        for (let i = 0; i < this.accumulatedParticles.length; i++) {
+            this.accumulatedParticles[i].wrapCenter = this.position;
+            this.accumulatedParticles[i].wrapSize = this.size;
 
-            var force = new THREE.Vector3().subVectors(sariraPos, this.eatenParticles[i].position);
-
-            force.multiplyScalar(0.02);
-            this.eatenParticles[i].acceleration.add(force);
+            const distance = this.position.distanceTo(this.accumulatedParticles[i].position);
+            var force = new THREE.Vector3().subVectors(sariraPos, this.accumulatedParticles[i].position);
+            if (distance > this.size * 0.5) {
+                force.multiplyScalar(0.02);
+                this.accumulatedParticles[i].acceleration.add(force);
+            }
         }
     }
 
     make_sarira() {
+        const sariraSize = this.size/5;
         if (this.sariraType == 1) {
             var sariraGeometry = new THREE.SphereGeometry(
-            this.size/3, 
-            Math.floor(random(3, 5)), 
-            Math.floor(random(2, 5)));
+                sariraSize, 
+                Math.floor(random(3, 5)), 
+                Math.floor(random(2, 5)));
         } else if (this.sariraType == 2){
             var sariraGeometry = new THREE.TetrahedronGeometry(
-            this.size / 5, 
-            Math.floor(random(0, 5)));
+                sariraSize, 
+                Math.floor(random(0, 5)));
         } else {
             var sariraGeometry = new THREE.CircleGeometry(
-                this.size / 5, 
+                sariraSize, 
                 Math.floor(random(0, 24)),
                 0,
                 random(0, 6.3));
@@ -231,10 +298,6 @@ class Life {
         this.sarira.rotation.set(this.angle.x, this.angle.y, this.angle.z);
 
         this.life.add(this.sarira);
-    }
-
-    breath() {
-
     }
 
     divistion() {

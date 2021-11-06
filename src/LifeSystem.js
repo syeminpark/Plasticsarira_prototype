@@ -26,6 +26,8 @@ class LifeSystem{
         this.life_user.noise_animate();
         this.life_user.update_position();
         this.life_user.wrap_particles();
+
+        //console.log(this.life_user.isEat);
     }
 
     display(){
