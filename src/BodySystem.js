@@ -42,11 +42,10 @@ class BodySystem {
     }
 
     addFloatingPlastics(passDataList, positionList) {
-        //추후에 microplastic을 만드는 것으로 변경 
-        let tempMicro = new PE(this.threeSystem /*positionList*/ )
-        //temp
 
-        tempMicro.initialize( /*this.densityList[this.checkIndex(passDataList)], this.tensileStrength[this.checkIndex(passDataList)]*/ )
+        //추후에 microplastic을 만드는 것으로 변경 
+        let tempMicro = new Microplastic(this.threeSystem /*positionList*/ )
+        tempMicro.initialize(undefined,0.94,4554)
         if (this.isUser) {
             tempMicro.initializePassDataList(passDataList)
         }
@@ -87,7 +86,9 @@ class BodySystem {
         let microType = ["Polyethylene", "Polypropylene", "Polystyrene", "Polyamide", "Polyester", "Acrylic", "Polyacetal", "PolyvinylChloride", "Polyurethane"]
         for (let i = 0; i < microType.length; i++) {
             if (passDataList[2] == microType[i]) {
-                return i
+                print(i)
+               
+               
             }
         }
     }

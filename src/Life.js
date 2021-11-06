@@ -225,7 +225,7 @@ class Life {
                 microPlastic.data.setAbsorbedBy(2);
                 this.absorbedParticles.push(microPlastic);
                 this.absorbedParticlesData.push(microPlastic.data.getDataList());
-                console.log(microPlastic.data.getDataList());
+               // console.log(microPlastic.data.getDataList());
    
                 microPlastic.isEaten = true;
                 this.isEat = true;
