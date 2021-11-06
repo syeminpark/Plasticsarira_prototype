@@ -1,8 +1,8 @@
 class ThreeSystem {
 
-    constructor(element,cameraPositionList, cameraLookPositionList) {
-        
-        this.element=element;
+    constructor(element, cameraPositionList, cameraLookPositionList) {
+
+        this.element = element;
 
         //createScene
         this.scene = new THREE.Scene();
@@ -11,10 +11,10 @@ class ThreeSystem {
         //orbit controls. move camera by mouse 
         this.canvas = document.querySelector('#oribit');
         this.controls = new THREE.OrbitControls(this.camera, this.element);
-        
+
         //lights
         this.setLights()
-      //마우스로 컨트롤 
+        //마우스로 컨트롤 
         this.setOrbitcontrols();
         //프레임 레이트 모니터링 
         this.setStats()
@@ -38,28 +38,29 @@ class ThreeSystem {
         this.controls.dampingFactor = 0.05;
     }
 
-    setFog(){
+
+    setFog() {
         const near = 10
         const far = 1500;
         const color = '#000000'
         this.scene.fog = new THREE.Fog(color, near, far);
         this.scene.background = new THREE.Color(color);
-        
+
     }
     setLights() {
         let ambientLight = new THREE.AmbientLight(0xffffff, 3);
         let directionalLight = new THREE.DirectionalLight(0xffffff, 5);
         directionalLight.position.set(.5, 0, 0.866);
         directionalLight.target.position.set(0, 0, 0);
-        let hemiLight  = new THREE.HemisphereLight();
-        this.scene.add(ambientLight, directionalLight,hemiLight, directionalLight.target);
+        let hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff,5);
+        this.scene.add(ambientLight, directionalLight, hemiLight, directionalLight.target);
     }
-    
-    setStats(){
+
+    setStats() {
         this.stats = new Stats()
         this.element.appendChild(this.stats.dom)
         this.stats.dom.style.left = this.element.style.left
     }
 
- 
+
 }

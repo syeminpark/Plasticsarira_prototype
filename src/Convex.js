@@ -40,7 +40,7 @@ class Convex {
     initializeMaterial() {
        let material = new THREE.MeshPhysicalMaterial({
             transmission: 0.95,
-            thickness: 0.1,
+            thickness: 1,
             roughness: 0.4,
             clearcoat: 1,
             clearcoatRoughness: 0,
