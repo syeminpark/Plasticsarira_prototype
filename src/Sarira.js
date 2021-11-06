@@ -15,6 +15,7 @@ class Sarira {
         this.plasticList.push(new Core(corePostionList))
         this.plasticList[0].initialize()
         this.plasticList[0].updateBuffer(bufferGeometry, this.plasticList.length);
+       // this.plasticList[0].createLabel();
     }
 
     initializeCoreMetaData() {
@@ -30,6 +31,7 @@ class Sarira {
             this.convex.initializeBuffer(bufferGeometry)
             material != undefined ? this.material = material : this.material = this.convex.initializeMaterial();
             this.convex.initializeMesh(threeSystem,this.material)
+        
         }
     }
 

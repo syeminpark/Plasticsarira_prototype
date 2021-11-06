@@ -5,17 +5,17 @@ class Core extends Microplastic {
         this.microType = "Polypropylene"; // polypropylene was identified in baby
         this.madeIn = 1951
         this.originalFormList = ["Syringe", "Chip Bag", "Specimen Bottle", "Plastic Chair", "Car Battery Case", "Instrument Panel", "Rug", "Lunch Box", "Packing Tape", "Coffee Machine"]
-        this.passedByList = ["Mom", "Dad", "brother","Mom"]
+        this.passedByList = ["Mom", "Dad", "brother", "Mom"]
         this.density = 0.92
         this.absorbedBy = "Inheritance"
         this.dateRetrieved = "When You Were A Fetus"
         this.tensileStrength = 5440
-        
+
     }
 
     //pastOwnersList, retrievedMethod, dateRetrieved
     initialize() {
-        super.initialize([this.originalFormList, this.madeIn, this.microType,this.passedByList,this.absorbedBy], this.density,this.tensileStrength,this.dateRetrieved,)
+        super.initialize([this.originalFormList, this.madeIn, this.microType, this.passedByList, this.absorbedBy], this.density, this.tensileStrength, this.dateRetrieved, )
     }
 
     attract(floatingMicro) {
@@ -29,5 +29,22 @@ class Core extends Microplastic {
         // Get force vector --> magnitude * direction
         force.setLength(strength);
         return force;
+    }
+
+
+    createLabel(name) {
+        const labelContainerElem = document.querySelector('#labels');
+        const text = document.createElement('div');
+        text.textContent = name;
+        labelContainerElem.appendChild(text);
+
+      
+    }
+    moveLabel(text,system,canvas){
+        const tempV = new THREE.Vector3();
+        tempV.project(system.camera);
+        const x = (tempV.x *  .5 + .5) * canvas.clientWidth;
+        const y = (tempV.y * -.5 + .5) * canvas.clientHeight;
+        text.style.transform = `translate(-50%, -50%) translate(${x}px,${y}px)`;
     }
 }
