@@ -31,5 +31,5 @@
 
 
 추가
-tensilestrength, density 배열로 만들어서 정리 
+promise, async await 공부해서 적용시키기 
 

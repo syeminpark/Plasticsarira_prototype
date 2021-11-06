@@ -127,11 +127,11 @@ class Microplastic {
         return randPoint
     }
 
-    addZeroToSeconds(today) {
-        return today.getSeconds() < 10 ? `0${today.getSeconds()}` : today.getSeconds()
+    addZeroToSeconds =(today) =>{
+         today.getSeconds() < 10 ? `0${today.getSeconds()}` : today.getSeconds()
     }
 
-    getAmPm(today) {
-        return today.getHours() >= 12 ? 'PM' : 'AM';
+    getAmPm =(today) =>{
+        today.getHours() >= 12 ? 'PM' : 'AM';
     }
 }

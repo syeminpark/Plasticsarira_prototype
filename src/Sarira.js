@@ -23,7 +23,7 @@ class Sarira {
     }
 
     initializeConvex(bufferGeometry, threeSystem, material) {
-        if (this.isConvexMade == false && this.plasticList.length > 2) {
+        if (!this.isConvexMade && this.plasticList.length > 2) {
             this.isConvexMade = true
 
             this.convex = new Convex()
