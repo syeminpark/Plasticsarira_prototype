@@ -4,7 +4,7 @@ class Terminal {
 
         this.categoryTextSize = "0.65vw"
         this.metaDataTextSize = "0.5vw"
-        this.wordSpacingList = [0, 5.8, 3.5, 4.7, 3.5, 5]
+        this.wordSpacingList = [0, 5.8, 3.5, 5, 3.5, 5]
         this.space = 2
         this.ownerVerticalSpace = 0
 
