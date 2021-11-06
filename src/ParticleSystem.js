@@ -56,6 +56,6 @@ class ParticleSystem{
         this.points = new THREE.Points(geometry, material);
         this.points.position.set(0, 0, 0);
 
-        threeSystemController.addToWorldScene(this.points);
+        plastiSarira.threeSystemController.addToWorldScene(this.points);
     }
 }
