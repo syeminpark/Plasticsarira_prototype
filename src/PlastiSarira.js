@@ -11,8 +11,8 @@ class PlastiSarira {
     initialize(){
         
         let isUser=true
-        this.corePositionListofLists.push([0,0,0])
-        this.threeSystemController = new ThreeSystemController();
+        //this.corePositionListofLists.push([0,0,0])
+        this.threeSystemController = new ThreeSystemController([0,0,0]);
         this.bodySystem = new BodySystem(isUser,this.threeSystemController.sariraThreeSystem);
         this.bodySystem.createBuffer()
         this.bodySystem.createSarira(this.corePositionListOfLists[0])
