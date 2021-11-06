@@ -44,23 +44,20 @@ class Life_user extends Life {
         this.camera_focusOn_init();
     }
 
-    update_position(){
+    update_user(){
         this.life.position.set(this.position.x, this.position.y, this.position.z);
         this.life.rotation.set(this.angle.x, this.angle.y, this.angle.z);
 
         this.randomWalk(0.01, 0.08);
-
+        this.noise_update();
+        this.wrap_particles();
         this.key_check();
-
         this.lerpLoad();
-        
 
         if (this.isLifeFocusOn == true){
             this.camera_focusOn_update();
             this.key_update();
         } 
-
-        if (this.isEat == true) console.log('eat');
     }
 
     lerpLoad(){

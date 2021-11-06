@@ -1,16 +1,15 @@
 class Life {
     constructor(index, windowSize, threeSystemController) {
-        const { Perlin } = THREE_Noise;
-        this.perlin = new Perlin(Math.random());
-
         this.index = index;
 
-        this.position = new THREE.Vector3(
-            random(-windowSize, windowSize),
-            random(-windowSize, windowSize),
-            random(-windowSize, windowSize));
+        this.windowSize = windowSize;
 
-        if (this.position.length() > windowSize) this.position.setLength(windowSize);
+        this.position = new THREE.Vector3(
+            random(-this.windowSize, this.windowSize),
+            random(-this.windowSize, this.windowSize),
+            random(-this.windowSize, this.windowSize));
+
+        if (this.position.length() > this.windowSize) this.position.setLength(this.windowSize);
 
         this.velocity = new THREE.Vector3(
             random(-0.01, 0.01),
@@ -29,6 +28,10 @@ class Life {
         this.sizeMax = random(0, 20);
         this.mass = this.size + this.sizeMax;
 
+        this.glowAmount = 0.5;
+
+        const { Perlin } = THREE_Noise;
+        this.perlin = new Perlin(Math.random());
         this.noiseShape = random(0.05, 0.3);
         this.noiseAnimSpeed = random(0.1, 0.5);
 
@@ -44,13 +47,11 @@ class Life {
         this.breathSpeed = (this.size+this.sizeMax)*1/100;
 
         this.display(threeSystemController);
-        this.noise_set();
+        this.noise_init();
 
         //======================================================
         
         this.sarira_amount;
-
-        this.sarira_makingSpeed;
 
         this.movement;
 
@@ -66,6 +67,9 @@ class Life {
     update() {
         this.randomWalk(0.01, 0.1);
         this.randomLook();
+        this.noise_update();
+        this.wrap_particles();
+        this.wrap();
     }
 
     randomWalk(acc, velLimit) {
@@ -119,7 +123,7 @@ class Life {
         var spriteMaterial = new THREE.SpriteMaterial({
             map: map,
             blending: THREE.AdditiveBlending,
-            opacity: 0.5
+            opacity: this.glowAmount
         })
         var sprite = new THREE.Sprite(spriteMaterial);
         sprite.scale.set(
@@ -131,7 +135,7 @@ class Life {
         this.make_sarira();
     }
 
-    noise_set() {
+    noise_init() {
         this.n_position = this.life.geometry.attributes.position.clone();
         this.n_normal = this.life.geometry.attributes.normal.clone();
         this.n_position_num = this.n_position.count;
@@ -139,7 +143,7 @@ class Life {
         this.clock = new THREE.Clock();
     }
 
-    noise_animate() {
+    noise_update() {
         const position = this.life.geometry.attributes.position;
         const normal = this.life.geometry.attributes.normal;
         const elapsedTime = this.clock.getElapsedTime();
@@ -167,10 +171,10 @@ class Life {
         this.life.geometry.attributes.position.needsUpdate = true;
     }
 
-    wrap(size) {
+    wrap() {
         const distance = this.position.length();
 
-        if (distance > size) {
+        if (distance > this.windowSize) {
             this.velocity.multiplyScalar(-1);
         }
     }
@@ -303,11 +307,15 @@ class Life {
         this.life.add(this.sarira);
     }
 
+    excrete(){
+        
+    }
+
     divistion() {
 
     }
 
-    eaten() {
+    eatenBy() {
 
     }
 }
