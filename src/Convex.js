@@ -1,7 +1,13 @@
 class Convex {
 
-    constructor() {
+    constructor(threeSystem) {
         this.vertices = []
+        this.meshObject = {}
+        this.group = new THREE.Object3D
+        this.groupName = Symbol()
+        this.threeSystem=threeSystem
+
+    
     }
 
     //must be at least three points. 
@@ -16,31 +22,38 @@ class Convex {
         this.meshGeometry = new THREE.ConvexGeometry(this.vertices);
     }
 
-    updateBuffer(plastic) {      
+    updateBuffer(plastic) {
+     
+        let selectedObject = this.threeSystem.scene.getObjectByName(this.groupName);
+        this.threeSystem.scene.remove(selectedObject);
         this.meshGeometry.dispose()
-        threeSystemController.sariraThreeSystem.scene.remove(this.convexMeshBack);
-        threeSystemController.sariraThreeSystem.scene.remove(this.convexMeshFront);
+        this.group.clear()
 
         this.vertices.push(plastic.positionVector3);
         this.meshGeometry = new THREE.ConvexGeometry(this.vertices);
 
     }
 
-    initializeMesh(threeSystem, material) {
+    initializeMesh(material) {
+       
         this.convexMeshBack = new THREE.Mesh(this.meshGeometry, material);
         this.convexMeshBack.material.side = THREE.BackSide; // back faces
         this.convexMeshBack.renderOrder = 0;
         this.convexMeshFront = new THREE.Mesh(this.meshGeometry, material.clone());
         this.convexMeshFront.material.side = THREE.FrontSide; // front faces
-        this.convexMeshFront.renderOrder = 1;
-        threeSystem.scene.add(this.convexMeshBack,this.convexMeshFront)
+        this.convexMeshFront.renderOrder = 1
+
+        this.group.add(this.convexMeshBack)
+        this.group.add(this.convexMeshFront)
+        this.group.name = this.groupName
+        this.threeSystem.scene.add(this.group)
     }
 
 
     initializeMaterial() {
-       let material = new THREE.MeshPhysicalMaterial({
+        let material = new THREE.MeshPhysicalMaterial({
             transmission: 0.95,
-            thickness: 1,
+            thickness: 0.1,
             roughness: 0.4,
             clearcoat: 1,
             clearcoatRoughness: 0,

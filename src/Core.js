@@ -1,21 +1,26 @@
 class Core extends Microplastic {
-    constructor(positionList) {
-
-        super(positionList)
+    constructor(threeSystem) {
+        super(threeSystem)
+        
         this.microType = "Polypropylene"; // polypropylene was identified in baby
+        this.absorbedBy = "Inheritance"
+        this.dateRetrieved = "When You Were A Fetus"
         this.madeIn = 1951
         this.originalFormList = ["Syringe", "Chip Bag", "Specimen Bottle", "Car Battery Case", "Instrument Panel", "Rug", "Crisp Bag", "Lunch Box", "Packing Tape", "Tobacco Package", "Beach Slipper", "Tote Bag", "Vacuum Cleaner", "Car Bumper", "Door Trim"]
         this.passedByList = ["Mom", "Dad", "brother", "Mom"]
+
         this.density = 0.92
-        this.absorbedBy = "Inheritance"
-        this.dateRetrieved = "When You Were A Fetus"
         this.tensileStrength = 5440
 
     }
+    initialize(positionList) {
+        super.initialize(positionList,this.density, this.tensileStrength)
+    }
 
-    //pastOwnersList, retrievedMethod, dateRetrieved
-    initialize() {
-        super.initialize([this.originalFormList, this.madeIn, this.microType, this.passedByList, this.absorbedBy], this.density, this.tensileStrength, this.dateRetrieved, )
+    initializePassDataList() {
+        this.originalForm = this.originalFormList[Math.round(random(0, this.originalFormList.length - 1))]
+        this.madeIn = JSON.stringify(Math.round(random(this.madeIn, 2021)));
+        this.passDataList = [this.originalForm, this.madeIn, this.microType, this.passedByList, this.absorbedBy, this.dateRetrieved]
     }
 
     attract(floatingMicro) {

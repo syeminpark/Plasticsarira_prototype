@@ -1,5 +1,5 @@
 class ParticleSystem{
-    constructor(lifeSystem){
+    constructor(lifeSystem,threeSystemController){
         this.num = 10000;
         this.size = 150;
 
@@ -12,13 +12,13 @@ class ParticleSystem{
             this.p_positions.push(p.position);
         }
 
-        this.display();
+        this.display(threeSystemController);
 
         this.lifes = lifeSystem.lifes; //array
         this.life_user = lifeSystem.life_user;
     }
 
-    update(){
+    update(bodySystem,threeSystem){
         const positions = this.points.geometry.attributes.position.array;
         
         for (let i = 0; i < positions.length; i += 3) {
@@ -36,13 +36,13 @@ class ParticleSystem{
             }
             this.life_user.eat(this.particles[index]);
             this.life_user.breath(this.particles[index]);
-            this.life_user.add_MicroPlasticToBodySystem();
+            this.life_user.add_MicroPlasticToBodySystem(bodySystem,threeSystem);
         }
 
         this.points.geometry.attributes.position.needsUpdate = true;
     }
 
-    display(){
+    display(threeSystemController){
         var geometry = new THREE.BufferGeometry().setFromPoints(this.p_positions);
         
         var material = new THREE.PointsMaterial({

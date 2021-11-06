@@ -7,7 +7,7 @@ class UserText {
     }
 
     createLabel() {
-        // const labelContainerElem = document.querySelector('#labels');
+    
         this.text = document.createElement('input');
         this.text.type = "text";
         this.text.style.backgroundColor = "rgba(0,0,0,0)"
@@ -16,6 +16,7 @@ class UserText {
         this.text.style.textAlign = "center"
         this.text.size = 15
         this.text.style.border = "0px"
+
         document.body.appendChild(this.text);
     }
 

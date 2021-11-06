@@ -1,28 +1,29 @@
 class BodySystem {
 
-    constructor() {
+    constructor(isUser,threeSystem) {
+
+        this.isUser = isUser
 
         this.floatingPlasticsList = new Array(0)
         //Polyethylene= 1  Polypropylene =2  "Polystyrene =3,  Polyamide=4, Polyester =5, Acrylic=6,  Polyacetal=7, PolyvinylChloride=8, Polyurethane=9
         this.densityList = [0.94, 0.92, 1.05, 1.14, 1.4, 1.2, 1.42, 1.38, 0.425]
         this.tensileStrengthList = [4554, 5440, 7700, 12400, 11500, 9400, 10007, 7500, 2596]
-
+        this.threeSystem=threeSystem
         document.addEventListener('mousedown', this.addFloatingPlastics.bind(this), false);
     }
 
-    createBuffer(threeSystem, material) {
-
+    createBuffer(material) {
         //만드는 순서가 중요함 .
         this.floatingBuffer = new Buffer()
         material != undefined ? this.material = material : this.material = this.floatingBuffer.initializeMaterial()
-        this.floatingBuffer.initialize(threeSystem, this.material)
+        this.floatingBuffer.initialize(this.threeSystem, this.material)
         this.sariraBuffer = new Buffer()
-        this.sariraBuffer.initialize(threeSystem, this.material)
+        this.sariraBuffer.initialize(this.threeSystem, this.material)
     }
 
     createSarira(corePostionList) {
-        this.sarira = new Sarira()
-        this.sarira.initializeCore(corePostionList, this.sariraBuffer.bufferGeometry)
+        this.sarira = new Sarira(this.threeSystem)
+        this.sarira.initializeCore(corePostionList, this.sariraBuffer.bufferGeometry, this.isUser, this.threeSystem)
     }
 
     createTerminal() {
@@ -32,21 +33,24 @@ class BodySystem {
         this.terminal.createMetaDataText()
     }
 
-    update(threesystem) {
+    update() {
         this.moveFloatingPlastics()
-        this.updateSarira(threesystem)
+        this.updateSarira()
 
         this.sarira.getPosition(this.sariraBuffer.bufferGeometry)
-        this.sarira.initializeConvex(this.sariraBuffer.bufferGeometry, threesystem)
+        this.sarira.initializeConvex(this.sariraBuffer.bufferGeometry, this.threesystem)
     }
 
-    addFloatingPlastics(positionList, passDataList) {
+    addFloatingPlastics(passDataList, positionList) {
         //추후에 microplastic을 만드는 것으로 변경 
-
-        let tempMicro = new PE( /*positionList*/ )
+        let tempMicro = new PE(this.threeSystem /*positionList*/ )
         //temp
-        passDataList = [false, false, false, false, false]
-        tempMicro.initialize(passDataList, /*this.densityList[this.checkIndex(passDataList)], this.tensileStrength[this.checkIndex(passDataList)]*/ )
+
+        tempMicro.initialize( /*this.densityList[this.checkIndex(passDataList)], this.tensileStrength[this.checkIndex(passDataList)]*/ )
+        if (this.isUser) {
+            passDataList = [false, false, false, false, false]
+            tempMicro.initializePassDataList(passDataList)
+        }
         this.floatingPlasticsList.push(tempMicro)
         tempMicro.updateBuffer(this.floatingBuffer.bufferGeometry, this.floatingPlasticsList.length)
     }
@@ -60,7 +64,7 @@ class BodySystem {
         }
     }
 
-    updateSarira(threesystem) {
+    updateSarira() {
         for (let [index, micro] of this.floatingPlasticsList.entries()) {
             if (micro.checkStuck(this.sarira.plasticList)) {
                 this.sarira.addPlastics(micro)
@@ -74,7 +78,7 @@ class BodySystem {
                 micro.updateBuffer(this.sariraBuffer.bufferGeometry, this.sarira.plasticList.length)
                 micro.switch(this.floatingBuffer.bufferGeometry, index, this.floatingPlasticsList)
 
-                this.sarira.updateConvex(micro, threesystem)
+                this.sarira.updateConvex(micro)
             }
         }
     }

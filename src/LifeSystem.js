@@ -1,16 +1,16 @@
 class LifeSystem{
-    constructor(){
+    constructor(threeSystemController){
         this.num = 15;
         this.windowSize = 140;
 
         this.lifes = [];
 
         for (let i = 0; i < this.num; i++) {
-            this.l = new Life(i, this.windowSize);
+            this.l = new Life(i, this.windowSize,threeSystemController);
             this.lifes.push(this.l);
         }
         
-        this.life_user = new Life_user();
+        this.life_user = new Life_user(threeSystemController);
 
         this.display();     
         

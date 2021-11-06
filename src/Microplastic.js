@@ -1,34 +1,27 @@
 class Microplastic {
 
     //later create size and color parameter
-    constructor(positionList) {
+    constructor(threeSystem) {
         this.velocity = new THREE.Vector3(1, 0, 0)
         this.acceleration = new THREE.Vector3(0, 0, 0)
         this.positionVector3 = new THREE.Vector3(0, 0, 0)
-        this.positionList = positionList || this.randomPoint()
         this.color = [1, 1, 1] // [Math.random(), Math.random(), Math.random()]
         this.size = 50 //Math.random() * (50 - 1) + 1
+
+        this.threeSystem=threeSystem
     }
 
-    initialize(passDataList, density, tensileStrength, dateRetrieved) {
-        this.originalFormList = passDataList[0] || this.originalFormList
-        this.madeIn = passDataList[1]  || this.madeIn
-        this.microType = passDataList[2]  || this.microType
-        this.passedByList = passDataList[3]  || ["Empty"]
-        this.absorbedBy = passDataList[4]  || "Empty"
+    initialize(positionList,density, tensileStrength,) {
+        this.positionList = positionList || this.randomPoint()
+        this.mass = density * this.size
+        this.tensileStrength = map(tensileStrength, 2596, 12400, 0, 100)
+    }
 
+    initializePassDataList(passDataList){
         let today = new Date()
-        this.dateRetrieved = dateRetrieved || `${today.getFullYear()}.${(today.getMonth() + 1)}.${today.getDate()}/${today.getHours()}:${today.getMinutes()}:${this.addZeroToSeconds(today)} ${this.getAmPm(today)}`;
-
-        this.density = density || this.density
-        this.tensileStrength = tensileStrength || this.tensileStrength
-
-        this.originalForm = this.originalFormList[Math.round(random(0, this.originalFormList.length - 1))]
-        this.madeIn = JSON.stringify(Math.round(random(this.madeIn, 2021)));
-        this.mass = this.density * this.size
-        this.tensileStrength = map(this.tensileStrength, 2596, 12400, 0, 100)
-
-        this.passDataList = [this.originalForm, this.madeIn, this.microType, this.passedByList, this.absorbedBy, this.dateRetrieved]
+        let dateRetrieved = `${today.getFullYear()}.${(today.getMonth() + 1)}.${today.getDate()}/${today.getHours()}:${today.getMinutes()}:${this.addZeroToSeconds(today)} ${this.getAmPm(today)}`;
+        this.passDataList = _.cloneDeep(passDataList)
+        this.passDataList.push(dateRetrieved)
     }
 
     applyForce(force) {
@@ -93,9 +86,8 @@ class Microplastic {
     }
 
     randomPoint() {
-
         let i = Math.round(Math.random() * 5)
-        let myPosition = threeSystemController.sariraThreeSystem.controls.object.position
+        let myPosition = this.threeSystem.controls.object.position
         let windowRect = document.getElementById("sarira").getBoundingClientRect()
 
         let randomX = random(myPosition.x + windowRect.width, -myPosition.x - windowRect.width)
@@ -134,3 +126,6 @@ class Microplastic {
         return today.getHours() >= 12 ? 'PM' : 'AM';
     }
 }
+
+
+///메타데이터랑 그냥 움직임에 필요한 속성으로 나눠서 연산 줄이기.

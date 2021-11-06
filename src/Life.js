@@ -1,5 +1,5 @@
 class Life {
-    constructor(index, windowSize) {
+    constructor(index, windowSize, threeSystemController) {
         const { Perlin } = THREE_Noise;
         this.perlin = new Perlin(Math.random());
 
@@ -41,7 +41,7 @@ class Life {
         this.eatSpeed = (this.size+this.sizeMax)*1/1000;
         this.breathSpeed = (this.size+this.sizeMax)*1/100;
 
-        this.display();
+        this.display(threeSystemController);
         this.noise_set();
 
         //======================================================
@@ -94,7 +94,7 @@ class Life {
         this.angleAcceleration.setLength(0);
     }
 
-    display() {
+    display(threeSystemController) {
         var geometry = new THREE.SphereGeometry(this.size, 32, 32);
         // var material = new THREE.MeshNormalMaterial({
         //     transparent:true,
@@ -247,9 +247,9 @@ class Life {
         }
     }
 
-    add_MicroPlasticToBodySystem(){
+    add_MicroPlasticToBodySystem(bodySystem,threeSystem){
         if (this.isEat == true) {
-            bodySystem.addFloatingPlastics(bodySystem);
+            bodySystem.addFloatingPlastics(bodySystem,threeSystem);
             console.log('life eat = ' + this.isEat);
             this.isEat = false;
         }

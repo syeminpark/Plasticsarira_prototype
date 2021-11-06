@@ -24,7 +24,4 @@ class Buffer {
 
         threeSystem.scene.add(point)
     }
-
-
-
 }
