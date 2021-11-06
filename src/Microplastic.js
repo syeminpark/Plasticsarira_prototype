@@ -85,7 +85,7 @@ class Microplastic {
         return false
     }
 
-    randomPoint() {
+    randomPoint(threeSystem) {
         let i = Math.round(Math.random() * 5)
         let myPosition = this.threeSystem.controls.object.position
         let windowRect = document.getElementById("sarira").getBoundingClientRect()

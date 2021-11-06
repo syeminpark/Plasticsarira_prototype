@@ -48,7 +48,7 @@ class BodySystem {
 
         tempMicro.initialize( /*this.densityList[this.checkIndex(passDataList)], this.tensileStrength[this.checkIndex(passDataList)]*/ )
         if (this.isUser) {
-            passDataList = [false, false, false, false, false]
+           // passDataList = [false, false, false, false, false]
             tempMicro.initializePassDataList(passDataList)
         }
         this.floatingPlasticsList.push(tempMicro)

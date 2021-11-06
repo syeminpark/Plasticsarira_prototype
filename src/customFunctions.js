@@ -43,7 +43,7 @@ function requestFullScreen(element) {
   }
 }
 
-function checkScreenSize(setup, draw) {
+function checkScreenSize() {
   if (screen.width != window.innerWidth) {
     swal("Start Experince With A FullScreen?", {
       buttons: ["No Thanks", "Sure! (Recommended)"],

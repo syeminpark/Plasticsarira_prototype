@@ -1,5 +1,6 @@
 let plastiSarira
 
+checkScreenSize()
 setup()
 draw()
 
