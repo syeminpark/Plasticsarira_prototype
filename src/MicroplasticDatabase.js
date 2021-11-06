@@ -5,7 +5,7 @@ class MicroplasticDatabase {
 
         this.microTypeList = ["Polyethylene", "Polypropylene", "Polystyrene", "Polyamide", "Polyester", "Acrylic", "Polyacetal", "PolyvinylChloride", "Polyurethane"]
 
-        this.orginalFormListofList = [
+        this.originalFormList = [
             //Polyethylene
             ["Squeeze Bottle", "Laundry Detergent", "Cutting board", "Garbage bin", "Sandwich Bag", "Ready-meal Tray", "Cooking Oil Bottle", "First Aid Blanket", "Polar Fleece", "Jerry Can", "Drum,Ice Box", "Fishing rope", "Bulleproof Vest", "Fuel Tank"],
             //polypropylene

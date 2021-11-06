@@ -33,11 +33,13 @@ class Life {
         this.noiseAnimSpeed = random(0.1, 0.5);
 
         this.isEat = false;
-        this.accumulatedParticles = [];
+        this.absorbedParticles = [];
+        this.absorbedParticlesData = [];
         this.sariraPosition = new THREE.Vector3();
         this.sariraType = Math.floor(random(1, 4));
 
-        this.microPlastic_maxAmount = (this.size + this.sizeMax) * 5;
+        this.microPlastic_eat_maxAmount = (this.size + this.sizeMax) * 2;
+        this.microPlastic_breath_maxAmount = (this.size + this.sizeMax) * 1;
         this.eatSpeed = (this.size+this.sizeMax)*1/1000;
         this.breathSpeed = (this.size+this.sizeMax)*1/100;
 
@@ -180,7 +182,7 @@ class Life {
 
         var force = new THREE.Vector3().subVectors(sariraPos, microPlastic.position);
 
-        if (microPlastic.isEaten == false && this.accumulatedParticles.length < this.microPlastic_maxAmount) {
+        if (microPlastic.isEaten == false && this.absorbedParticles.length < this.microPlastic_maxAmount) {
             //아직 먹히지 않은 상태의 파티클 끌어당기기
             if (distance < lifeSize && distance > this.size / 2) {
                 force.multiplyScalar(0.02);
@@ -189,7 +191,7 @@ class Life {
 
             //파티클 먹고 파티클 상태 먹힌것으로 변경
             if (distance < this.size * 0.5) {
-                this.accumulatedParticles.push(microPlastic);
+                this.absorbedParticles.push(microPlastic);
    
                 microPlastic.isEaten = true;
                 this.isEat = true;
@@ -202,10 +204,9 @@ class Life {
         const lifeSize = (this.size + this.sizeMax) * 1;
         var sariraPos = this.position;
         
-
         var force = new THREE.Vector3().subVectors(sariraPos, microPlastic.position);
 
-        if (microPlastic.isEaten == false && this.accumulatedParticles.length < this.microPlastic_maxAmount) {
+        if (microPlastic.isEaten == false && this.absorbedParticles.length < this.microPlastic_eat_maxAmount) {
             //아직 먹히지 않은 상태의 파티클 끌어당기기
             if (distance < lifeSize && distance > this.size / 2 && random(0,1) < this.eatSpeed) {
                 force.multiplyScalar(0.02);
@@ -214,7 +215,8 @@ class Life {
 
             //파티클 먹고 파티클 상태 먹힌것으로 변경
             if (distance < this.size * 0.5) {
-                this.accumulatedParticles.push(microPlastic);
+                this.absorbedParticles.push(microPlastic);
+                this.absorbedParticlesData.push(microPlastic.data.getDataList());
    
                 microPlastic.isEaten = true;
                 this.isEat = true;
@@ -227,10 +229,9 @@ class Life {
         const lifeSize = (this.size + this.sizeMax) * 1;
         var sariraPos = this.position;
         
-
         var force = new THREE.Vector3().subVectors(sariraPos, microPlastic.position);
 
-        if (microPlastic.isEaten == false && this.accumulatedParticles.length < this.microPlastic_maxAmount) {
+        if (microPlastic.isEaten == false && this.absorbedParticles.length < this.microPlastic_breath_maxAmount) {
             //아직 먹히지 않은 상태의 파티클 끌어당기기
             if (distance < lifeSize && distance > this.size / 2) {
                 force.multiplyScalar(0.02);
@@ -239,7 +240,8 @@ class Life {
 
             //파티클 먹고 파티클 상태 먹힌것으로 변경
             if (distance < this.size * 0.5 && random(0, 1) < this.breathSpeed) {
-                this.accumulatedParticles.push(microPlastic);
+                this.absorbedParticles.push(microPlastic);
+                this.absorbedParticlesData.push(microPlastic.data.getDataList());
    
                 microPlastic.isEaten = true;
                 this.isEat = true;
@@ -249,8 +251,8 @@ class Life {
 
     add_MicroPlasticToBodySystem(bodySystem,threeSystem){
         if (this.isEat == true) {
-            bodySystem.addFloatingPlastics(bodySystem,threeSystem);
-            console.log('life eat = ' + this.isEat);
+            bodySystem.addFloatingPlastics(bodySystem);
+            //console.log('life eat = ' + this.isEat);
             this.isEat = false;
         }
     }
@@ -258,15 +260,16 @@ class Life {
     wrap_particles() {
         var sariraPos = this.position;
 
-        for (let i = 0; i < this.accumulatedParticles.length; i++) {
-            this.accumulatedParticles[i].wrapCenter = this.position;
-            this.accumulatedParticles[i].wrapSize = this.size;
+        for (let i = 0; i < this.absorbedParticles.length; i++) {
+            this.absorbedParticles[i].wrapCenter = this.position;
+            this.absorbedParticles[i].wrapSize = this.size;
+            this.absorbedParticles[i].velLimit = 0.3;
 
-            const distance = this.position.distanceTo(this.accumulatedParticles[i].position);
-            var force = new THREE.Vector3().subVectors(sariraPos, this.accumulatedParticles[i].position);
+            const distance = this.position.distanceTo(this.absorbedParticles[i].position);
+            var force = new THREE.Vector3().subVectors(sariraPos, this.absorbedParticles[i].position);
             if (distance > this.size * 0.5) {
                 force.multiplyScalar(0.02);
-                this.accumulatedParticles[i].acceleration.add(force);
+                this.absorbedParticles[i].acceleration.add(force);
             }
         }
     }

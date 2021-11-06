@@ -1,10 +1,8 @@
 class MicroPlastic {
     constructor(index, spaceSize) {
-      this.index = index;
+
       this.spaceSize = spaceSize;
 
-      this.velV = 0.02;
-  
       this.position = new THREE.Vector3(
         random(-spaceSize, spaceSize), 
         random(-spaceSize, spaceSize), 
@@ -12,7 +10,10 @@ class MicroPlastic {
 
       if (this.position.length() > spaceSize) this.position.setLength(spaceSize);
       
-        this.velocity = new THREE.Vector3(
+      this.velV = 0.02;
+      this.velLimit = 0.1;
+
+      this.velocity = new THREE.Vector3(
         random(-this.velV, this.velV),
         random(-this.velV, this.velV),
         random(-this.velV, this.velV));
@@ -29,6 +30,12 @@ class MicroPlastic {
       //======================================================
       //DATA==================================================
       //this.type = [PP, PE, PET];
+      this.index = index;
+      this.data = new MicroplasticDatabase();
+
+      this.data.initialize();
+      //console.log(this.data.getDataList());
+
       this.color = new THREE.Color('white');
       this.opacity = 1.0;
   
@@ -43,7 +50,7 @@ class MicroPlastic {
       ));
       this.velocity.add(this.acceleration);
       this.position.add(this.velocity);
-      if (this.velocity.length() > 0.1) this.velocity.multiplyScalar(0.01);
+      if (this.velocity.length() > this.velLimit) this.velocity.multiplyScalar(0.01);
       this.acceleration.setLength(0);
 
       this.wrap();

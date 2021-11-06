@@ -4,12 +4,14 @@ class ParticleSystem{
         this.size = 150;
 
         this.particles = [];
-        this.p_positions = [];
+        this.particles_positions = [];
+        //this.particles_data = [];
         
         for (let i = 0; i < this.num; i++) {
             var p = new MicroPlastic(i, this.size);
             this.particles.push(p);
-            this.p_positions.push(p.position);
+            this.particles_positions.push(p.position);
+            //this.particles_data.push(p.data.getDataList());
         }
 
         this.display(threeSystemController);
@@ -42,8 +44,8 @@ class ParticleSystem{
         this.points.geometry.attributes.position.needsUpdate = true;
     }
 
-    display(threeSystemController){
-        var geometry = new THREE.BufferGeometry().setFromPoints(this.p_positions);
+    display(){
+        var geometry = new THREE.BufferGeometry().setFromPoints(this.particles_positions);
         
         var material = new THREE.PointsMaterial({
             size: random(0.1, 0.5),
