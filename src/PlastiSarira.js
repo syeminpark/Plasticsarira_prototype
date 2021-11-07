@@ -1,11 +1,7 @@
 //전체 총괄 클래스 
 class PlastiSarira {
     constructor() {
-        this.threeSystemController
         this.bodySystemList = new Array(0)
-        this.particleSystem_microPlastic;
-        this.lifeSystem;
-        this.corePositionList = new Array(0)
     }
 
     initialize() {
@@ -15,6 +11,7 @@ class PlastiSarira {
         this.particleSystem_microPlastic = new ParticleSystem(this.lifeSystem);
         this.particleMaterial = this.particleSystem_microPlastic.display(this.threeSystemController)
 
+        this.initializeCorePositionList()
         //유저 제외한 모든 생먕체의 사리 만들기 
         for (let index = 0; index < this.lifeSystem.num; index++) {
             //지금은 하나만 만들고 나중에는 각 생물당 하나 만듦 
@@ -35,11 +32,11 @@ class PlastiSarira {
         this.threeSystemController.update()
         this.particleSystem_microPlastic.update(this.bodySystem, this.threeSystemController.sariraThreeSystem);
         this.lifeSystem.update();
-        this.printLifePosition()
     }
 
 
     initializeCorePositionList() {
+        this.corePositionList = new Array(0)
         for (let index = 0; index < this.lifeSystem.num; index++) {
             index == 0 ? this.corePositionList.push([0, 0, 0]) : null
             this.corePositionList.push(this.lifeSystem.lifes[index].position) 
