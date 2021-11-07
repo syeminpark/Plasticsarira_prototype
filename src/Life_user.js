@@ -1,14 +1,7 @@
 class Life_user extends Life {
     constructor(threeSystemController){
         super(0, 0,threeSystemController);
-        this.position = new THREE.Vector3();
-        this.velocity = new THREE.Vector3();
-        this.acceleration = new THREE.Vector3();
-
-        this.angle = new THREE.Vector3();
-        this.angleVelocity = new THREE.Vector3();
-        this.angleAcceleration = new THREE.Vector3();
-
+    
         //======================================================
         this.scene = threeSystemController.worldThreeSystem.scene;
         this.cam = threeSystemController.worldThreeSystem.camera;
@@ -42,6 +35,20 @@ class Life_user extends Life {
         this.timer = 1;
 
         this.camera_focusOn_init();
+    }
+
+    init(){
+        this.position = new THREE.Vector3();
+        this.velocity = new THREE.Vector3();
+        this.acceleration = new THREE.Vector3();
+
+        this.angle = new THREE.Vector3();
+        this.angleVelocity = new THREE.Vector3();
+        this.angleAcceleration = new THREE.Vector3();
+
+        this.size = 5;
+        this.sizeMax = 20;
+        this.mass = this.size + this.sizeMax;
     }
 
     update_user(){
