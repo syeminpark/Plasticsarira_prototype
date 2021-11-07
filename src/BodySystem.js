@@ -1,9 +1,10 @@
 class BodySystem {
 
-    constructor(index) {
+    constructor(threeSystem, index) {
 
         index == 0 ? this.isUser = true : this.isUser = false;
-        index == 0 ? this.threeSystem = plastiSarira.threeSystemController.sariraThreeSystem : this.threeSystem = plastiSarira.threeSystemController.worldThreeSystem
+
+        this.threeSystem = threeSystem
 
         this.floatingPlasticsList = new Array(0)
         //Polyethylene= 1  Polypropylene =2  "Polystyrene =3,  Polyamide=4, Polyester =5, Acrylic=6,  Polyacetal=7, PolyvinylChloride=8, Polyurethane=9
@@ -12,9 +13,18 @@ class BodySystem {
         //document.addEventListener('mousedown', this.addFloatingPlastics.bind(this), false);
     }
 
+    getLifePosition(positionList) {
+
+        this.sarira.plasticList[0].moveWithLife(positionList, this.sariraBuffer.bufferGeometry, 0, this.sarira.plasticList.length)
+        this.sarira.updateConvexList(this.sariraBuffer.bufferGeometry)
+
+    }
+
+
     createBuffer(material) {
         this.floatingBuffer = new Buffer()
         this.material = material;
+
         this.floatingBuffer.initialize(this.threeSystem, this.material)
         this.sariraBuffer = new Buffer()
         this.sariraBuffer.initialize(this.threeSystem, this.material)
@@ -25,32 +35,20 @@ class BodySystem {
         this.sarira.initializeCore(corePostionList, this.sariraBuffer.bufferGeometry, this.isUser, this.threeSystem)
     }
 
-    createTerminal() {
-        if (this.isUser) {
-            this.terminal = new Terminal()
-            this.terminal.initializeCategory()
-            this.sarira.addMetaData(this.terminal)
-            this.terminal.createMetaDataText()
-        }
-    }
-
     update() {
         this.moveFloatingPlastics()
         this.updateSarira()
         this.sarira.getPosition(this.sariraBuffer.bufferGeometry)
     }
 
-    // getLifePosition(positionList){
-    //     this.lifePostionList=positionList
-    // }
 
     addFloatingPlastics(passDataList, positionList) {
 
         //추후에 microplastic을 만드는 것으로 변경 
         let tempMicro = new Microplastic(this.threeSystem)
 
-        
-        tempMicro.initialize(positionList,this.densityList[this.checkIndex(passDataList)], this.tensileStrengthList[this.checkIndex(passDataList)])
+
+        tempMicro.initialize(positionList, this.densityList[this.checkIndex(passDataList)], this.tensileStrengthList[this.checkIndex(passDataList)])
         if (this.isUser) {
             tempMicro.initializePassDataList(passDataList)
         }

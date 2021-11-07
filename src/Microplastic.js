@@ -5,7 +5,7 @@ class Microplastic {
         this.velocity = new THREE.Vector3(1, 0, 0)
         this.acceleration = new THREE.Vector3(0, 0, 0)
         this.positionVector3 = new THREE.Vector3(0, 0, 0)
-        this.color = [1, 1, 1] // [Math.random(), Math.random(), Math.random()]
+        // this.color = [1, 1, 1] // [Math.random(), Math.random(), Math.random()]
         this.size = plastiSarira.particleMaterial.size
 
         this.threeSystem = threeSystem
@@ -13,8 +13,8 @@ class Microplastic {
 
     initialize(positionList, density, tensileStrength) {
 
-        this.positionList = [positionList.x,positionList.y,positionList.z]
-      
+        this.positionList = [positionList.x, positionList.y, positionList.z]
+
         this.mass = density * this.size / 10
         this.tensileStrength = map(tensileStrength, 2596, 12400, 0, 100)
     }
@@ -42,7 +42,7 @@ class Microplastic {
 
     getPosition(bufferGeometry, index) {
         bufferGeometry.attributes.position.needsUpdate = true
-        bufferGeometry.attributes.color.needsUpdate = true
+        //  bufferGeometry.attributes.color.needsUpdate = true
 
 
         for (let i = 0; i < 3; i++) {
@@ -54,7 +54,7 @@ class Microplastic {
     updateBuffer(bufferGeometry, indexLength) {
         for (let i = 0; i < 3; i++) {
             bufferGeometry.attributes.position.array[((indexLength - 1) * 3) + i] = this.positionList[i]
-            bufferGeometry.attributes.color.array[((indexLength - 1) * 3) + i] = this.color[i]
+            //  bufferGeometry.attributes.color.array[((indexLength - 1) * 3) + i] = this.color[i]
         }
         bufferGeometry.setDrawRange(0, indexLength);
     }
@@ -63,12 +63,12 @@ class Microplastic {
         let lastIndex = list.length - 1
         for (let i = 0; i < 3; i++) {
             bufferGeometry.attributes.position.array[(index * 3) + i] = bufferGeometry.attributes.position.array[(lastIndex * 3) + i]
-            bufferGeometry.attributes.color.array[(index * 3) + i] = bufferGeometry.attributes.color.array[(lastIndex * 3) + i]
+            // bufferGeometry.attributes.color.array[(index * 3) + i] = bufferGeometry.attributes.color.array[(lastIndex * 3) + i]
         }
 
         for (let i = 0; i < 3; i++) {
             bufferGeometry.attributes.position.array[(lastIndex * 3) + i] = 0
-            bufferGeometry.attributes.color.array[(lastIndex * 3) + i] = 0
+            //  bufferGeometry.attributes.color.array[(lastIndex * 3) + i] = 0
         }
 
         list[index] = list[lastIndex]
@@ -80,25 +80,25 @@ class Microplastic {
         for (let i = 0; i < others.length; i++) {
             let d2 = this.positionVector3.distanceTo(others[i].positionVector3)
             if ((d2 < this.size + others[i].size) +
-                (this.tensileStrength + others[i].tensileStrength) / 2) {
+                (this.tensileStrength + others[i].tensileStrength) / 10) {
                 return true
             }
         }
         return false
     }
 
-    moveWithLife(lifePostionList, bufferGeometry, index) {
+    moveWithLife(lifePositionList, bufferGeometry, index) {
+        lifePositionList = [lifePositionList.x, lifePositionList.y, lifePositionList.z]
         for (let i = 0; i < 3; i++) {
-            bufferGeometry.attributes.position.array[(index * 3) + i] //lifePositionList[i]을 따라가게
+            bufferGeometry.attributes.position.array[i] = lifePositionList[i]
         }
     }
 
-        addZeroToSeconds(today) {
-            return today.getSeconds() < 10 ? `0${today.getSeconds()}` : today.getSeconds()
-        }
-
-        getAmPm(today) {
-            return today.getHours() >= 12 ? 'PM' : 'AM';
-        }
+    addZeroToSeconds(today) {
+        return today.getSeconds() < 10 ? `0${today.getSeconds()}` : today.getSeconds()
     }
 
+    getAmPm(today) {
+        return today.getHours() >= 12 ? 'PM' : 'AM';
+    }
+}

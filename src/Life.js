@@ -265,6 +265,7 @@ class Life {
             var data = this.absorbedParticlesData[this.absorbedParticlesData.length-1];
             var position = new THREE.Vector3().subVectors(this.absorbedParticles[this.absorbedParticlesData.length-1].position, this.position) ;
             plastiSarira.bodySystemList[0].addFloatingPlastics(data, position);
+            plastiSarira.bodySystemList[1].addFloatingPlastics(data, position);
             //console.log('life eat = ' + this.isEat);
             this.isEat = false;
         }
