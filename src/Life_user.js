@@ -46,9 +46,11 @@ class Life_user extends Life {
         this.angleVelocity = new THREE.Vector3();
         this.angleAcceleration = new THREE.Vector3();
 
-        this.size = 5;
+        this.size = 10;
         this.sizeMax = 20;
-        this.mass = this.size + this.sizeMax;
+
+        this.noiseShape = random(0.05, 0.1);
+        this.noiseAnimSpeed = random(0.1, 0.7);
     }
 
     update_user(){
