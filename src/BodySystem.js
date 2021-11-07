@@ -9,7 +9,6 @@ class BodySystem {
         //Polyethylene= 1  Polypropylene =2  "Polystyrene =3,  Polyamide=4, Polyester =5, Acrylic=6,  Polyacetal=7, PolyvinylChloride=8, Polyurethane=9
         this.densityList = [0.94, 0.92, 1.05, 1.14, 1.4, 1.2, 1.42, 1.38, 0.425]
         this.tensileStrengthList = [4554, 5440, 7700, 12400, 11500, 9400, 10007, 7500, 2596]
-
         //document.addEventListener('mousedown', this.addFloatingPlastics.bind(this), false);
     }
 
@@ -42,10 +41,11 @@ class BodySystem {
     }
 
     addFloatingPlastics(passDataList, positionList) {
-
+        print(positionList)
         //추후에 microplastic을 만드는 것으로 변경 
         let tempMicro = new Microplastic(this.threeSystem /*positionList*/ )
-        tempMicro.initialize(undefined, 0.94, 4554)
+
+        tempMicro.initialize(undefined, this.densityList[this.checkIndex(passDataList)], this.tensileStrengthList[this.checkIndex(passDataList)])
         if (this.isUser) {
             tempMicro.initializePassDataList(passDataList)
         }
@@ -87,9 +87,7 @@ class BodySystem {
         let microType = ["Polyethylene", "Polypropylene", "Polystyrene", "Polyamide", "Polyester", "Acrylic", "Polyacetal", "PolyvinylChloride", "Polyurethane"]
         for (let i = 0; i < microType.length; i++) {
             if (passDataList[2] == microType[i]) {
-                print(i)
-
-
+                return i
             }
         }
     }

@@ -11,8 +11,6 @@ class LifeSystem{
             this.l = new Life(i, this.windowSize,threeSystemController);
             this.lifes.push(this.l);
         }
-        
-        
 
         this.display();     
         
