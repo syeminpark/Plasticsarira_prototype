@@ -263,7 +263,8 @@ class Life {
     add_MicroPlasticToBodySystem(){
         if (this.isEat == true) {
             var data = this.absorbedParticlesData[this.absorbedParticlesData.length-1];
-            plastiSarira.bodySystemList[0].addFloatingPlastics(data);
+            var position = new THREE.Vector3().subVectors(this.absorbedParticles[this.absorbedParticlesData.length-1].position, this.position) ;
+            plastiSarira.bodySystemList[0].addFloatingPlastics(data, position);
             //console.log('life eat = ' + this.isEat);
             this.isEat = false;
         }
