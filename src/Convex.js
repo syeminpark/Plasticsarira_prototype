@@ -1,17 +1,16 @@
 class Convex {
 
     constructor(threeSystem) {
-        this.vertices = []
+        this.vertices = new Array(0)
         this.meshObject = {}
         this.group = new THREE.Object3D
         this.groupName = Symbol()
-        this.threeSystem=threeSystem
-
-    
+        this.threeSystem = threeSystem
     }
 
     //must be at least three points. 
     initializeBuffer(bufferGeometry) {
+
         const positionAttribute = bufferGeometry.getAttribute('position');
 
         for (let i = 0; i < 4; i++) {
@@ -23,19 +22,33 @@ class Convex {
     }
 
     updateBuffer(plastic) {
-     
-        let selectedObject = this.threeSystem.scene.getObjectByName(this.groupName);
-        this.threeSystem.scene.remove(selectedObject);
-        this.meshGeometry.dispose()
-        this.group.clear()
+
+        this.clearObject()
 
         this.vertices.push(plastic.positionVector3);
         this.meshGeometry = new THREE.ConvexGeometry(this.vertices);
-
     }
 
+    updateVertices(bufferGeometry, sariraListlength) {
+
+        this.clearObject()
+        this.vertices = []
+
+        const positionAttribute = bufferGeometry.getAttribute('position');
+
+        for (let i = 0; i < sariraListlength; i++) {
+            const vertex = new THREE.Vector3();
+            vertex.fromBufferAttribute(positionAttribute, i);
+            this.vertices.push(vertex)
+        }
+
+        this.meshGeometry = new THREE.ConvexGeometry(this.vertices);
+    }
+
+
+
     initializeMesh(material) {
-       
+
         this.convexMeshBack = new THREE.Mesh(this.meshGeometry, material);
         this.convexMeshBack.material.side = THREE.BackSide; // back faces
         this.convexMeshBack.renderOrder = 0;
@@ -47,6 +60,7 @@ class Convex {
         this.group.add(this.convexMeshFront)
         this.group.name = this.groupName
         this.threeSystem.scene.add(this.group)
+        print(this.convexMeshBack.position)
     }
 
 
@@ -60,6 +74,13 @@ class Convex {
         });
         return material
     }
-}
 
+    clearObject() {
+        let selectedObject = this.threeSystem.scene.getObjectByName(this.groupName);
+        this.threeSystem.scene.remove(selectedObject);
+        this.meshGeometry.dispose()
+        this.group.clear()
+    }
+
+}
 ///add unique id then add to scene.

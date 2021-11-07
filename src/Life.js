@@ -260,11 +260,19 @@ class Life {
         }
     }
 
-    add_MicroPlasticToBodySystem(bodySystem){
+    add_MicroPlasticToBodySystem(){
         if (this.isEat == true) {
             var data = this.absorbedParticlesData[this.absorbedParticlesData.length-1];
-            bodySystem.addFloatingPlastics(data);
+            var position = new THREE.Vector3().subVectors(this.absorbedParticles[this.absorbedParticlesData.length-1].position, this.position) ;
+            let newPosition= _.cloneDeep(position)
+            plastiSarira.bodySystemList[1].addFloatingPlastics(data, newPosition);
+            plastiSarira.bodySystemList[0].addFloatingPlastics(data, newPosition);
+
             //console.log('life eat = ' + this.isEat);
+            this.absorbedParticles[this.absorbedParticlesData.length-1].becomeSarira = true;
+            this.absorbedParticles[this.absorbedParticlesData.length-1].velocity.multiplyScalar(0);
+            //this.absorbedParticles[this.absorbedParticlesData.length-1].position = this.position;
+
             this.isEat = false;
         }
     }
@@ -275,12 +283,12 @@ class Life {
         for (let i = 0; i < this.absorbedParticles.length; i++) {
             this.absorbedParticles[i].wrapCenter = this.position;
             this.absorbedParticles[i].wrapSize = this.size;
-            this.absorbedParticles[i].velLimit = 0.3;
+            this.absorbedParticles[i].velLimit = 0.5;
 
             const distance = this.position.distanceTo(this.absorbedParticles[i].position);
             var force = new THREE.Vector3().subVectors(sariraPos, this.absorbedParticles[i].position);
             if (distance > this.size * 0.5) {
-                force.multiplyScalar(0.02);
+                force.multiplyScalar(0.03);
                 this.absorbedParticles[i].acceleration.add(force);
             }
         }

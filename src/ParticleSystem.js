@@ -1,27 +1,25 @@
 class ParticleSystem{
-    constructor(lifeSystem ){
+    constructor(lifeSystem){
         this.num = 10000;
         this.size = 150;
 
         this.particles = [];
         this.particles_positions = [];
-        //this.particles_data = [];
         
         for (let i = 0; i < this.num; i++) {
             var p = new MicroPlastic(i, this.size);
             this.particles.push(p);
             this.particles_positions.push(p.position);
-            //this.particles_data.push(p.data.getDataList());
         }
 
-        
+        //this.positionAttributes = new THREE.BufferAttribute();
 
         this.lifes = lifeSystem.lifes; //array
-        this.life_user = lifeSystem.life_user;
+        this.life_user = lifeSystem.lifes[0];
     }
 
     update(bodySystem,threeSystem){
-        const positions = this.points.geometry.attributes.position.array;
+        const positions = this.points.geometry.attributes.position.array; // buffer attribute position array
         
         for (let i = 0; i < positions.length; i += 3) {
             const index = i/3;
@@ -32,7 +30,7 @@ class ParticleSystem{
 
             this.particles[index].update();
 
-            for (let j = 0; j < this.lifes.length; j++) {
+            for (let j = 1; j < this.lifes.length; j++) {
                 this.lifes[j].eat(this.particles[index]);  
                 this.lifes[j].breath(this.particles[index]);  
             }
@@ -40,6 +38,15 @@ class ParticleSystem{
             this.life_user.breath(this.particles[index]);
             this.life_user.add_MicroPlasticToBodySystem(bodySystem);
         }
+
+        // for (let j = positions.length - 1; j >= 0; j-= 3) {
+        //     const index = Math.floor(j/3);
+        //     if (this.particles[index].becomeSarira == true) {
+        //         this.particles.splice(index, 1);
+        //         this.particles_positions.splice(index, 1);
+        //         console.log(positions.length);
+        //     }
+        // }
 
         this.points.geometry.attributes.position.needsUpdate = true;
     }

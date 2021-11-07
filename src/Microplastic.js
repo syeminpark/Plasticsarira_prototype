@@ -5,19 +5,21 @@ class Microplastic {
         this.velocity = new THREE.Vector3(1, 0, 0)
         this.acceleration = new THREE.Vector3(0, 0, 0)
         this.positionVector3 = new THREE.Vector3(0, 0, 0)
-        this.color = [1, 1, 1] // [Math.random(), Math.random(), Math.random()]
+        // this.color = [1, 1, 1] // [Math.random(), Math.random(), Math.random()]
         this.size = plastiSarira.particleMaterial.size
 
-        this.threeSystem=threeSystem
+        this.threeSystem = threeSystem
     }
 
-    initialize(positionList,density, tensileStrength,) {
-        this.positionList = positionList || this.randomPoint()
-        this.mass = density * this.size /10
+    initialize(positionList, density, tensileStrength) {
+
+        this.positionList = [positionList.x, positionList.y, positionList.z]
+
+        this.mass = density * this.size / 10
         this.tensileStrength = map(tensileStrength, 2596, 12400, 0, 100)
     }
 
-    initializePassDataList(passDataList){
+    initializePassDataList(passDataList) {
         let today = new Date()
         let dateRetrieved = `${today.getFullYear()}.${(today.getMonth() + 1)}.${today.getDate()}/${today.getHours()}:${today.getMinutes()}:${this.addZeroToSeconds(today)} ${this.getAmPm(today)}`;
         this.passDataList = _.cloneDeep(passDataList)
@@ -40,7 +42,7 @@ class Microplastic {
 
     getPosition(bufferGeometry, index) {
         bufferGeometry.attributes.position.needsUpdate = true
-        bufferGeometry.attributes.color.needsUpdate = true
+        //  bufferGeometry.attributes.color.needsUpdate = true
 
 
         for (let i = 0; i < 3; i++) {
@@ -52,7 +54,7 @@ class Microplastic {
     updateBuffer(bufferGeometry, indexLength) {
         for (let i = 0; i < 3; i++) {
             bufferGeometry.attributes.position.array[((indexLength - 1) * 3) + i] = this.positionList[i]
-            bufferGeometry.attributes.color.array[((indexLength - 1) * 3) + i] = this.color[i]
+            //  bufferGeometry.attributes.color.array[((indexLength - 1) * 3) + i] = this.color[i]
         }
         bufferGeometry.setDrawRange(0, indexLength);
     }
@@ -61,12 +63,12 @@ class Microplastic {
         let lastIndex = list.length - 1
         for (let i = 0; i < 3; i++) {
             bufferGeometry.attributes.position.array[(index * 3) + i] = bufferGeometry.attributes.position.array[(lastIndex * 3) + i]
-            bufferGeometry.attributes.color.array[(index * 3) + i] = bufferGeometry.attributes.color.array[(lastIndex * 3) + i]
+            // bufferGeometry.attributes.color.array[(index * 3) + i] = bufferGeometry.attributes.color.array[(lastIndex * 3) + i]
         }
 
         for (let i = 0; i < 3; i++) {
             bufferGeometry.attributes.position.array[(lastIndex * 3) + i] = 0
-            bufferGeometry.attributes.color.array[(lastIndex * 3) + i] = 0
+            //  bufferGeometry.attributes.color.array[(lastIndex * 3) + i] = 0
         }
 
         list[index] = list[lastIndex]
@@ -77,47 +79,25 @@ class Microplastic {
     checkStuck(others) {
         for (let i = 0; i < others.length; i++) {
             let d2 = this.positionVector3.distanceTo(others[i].positionVector3)
-            if ((d2 < this.size*5 + others[i].size*5 ) *
-                (this.tensileStrength + others[i].tensileStrength) / 2) {
+            if ((d2 < this.size + others[i].size) +
+                (this.tensileStrength + others[i].tensileStrength) / 10) {
                 return true
             }
         }
         return false
     }
 
-    randomPoint(threeSystem) {
-        let i = Math.round(Math.random() * 5)
-        let myPosition = this.threeSystem.controls.object.position
-        let windowRect = document.getElementById("sarira").getBoundingClientRect()
+    moveWithLife(lifePositionList, bufferGeometry) {
+        //print(Math.round(lifePositionList.x),Math.round(lifePositionList.y),Math.round(lifePositionList.z))
+        let newLifePositionList = [lifePositionList.x, lifePositionList.y, lifePositionList.z]
+        for (let i = 0; i < 3; i++) {
 
-        let randomX = random(myPosition.x + windowRect.width/100, -myPosition.x - windowRect.width/100)
-        let randomY = random(myPosition.y + windowRect.width/50, -myPosition.y - windowRect.width/50)
-        let randomZ = random(myPosition.z + windowRect.width/100, -myPosition.z - windowRect.width/100)
-        let randPoint;
-
-        if (i === 0) {
-            //top
-            randPoint = [randomX, myPosition.y, randomZ]
-            //bottom
-        } else if (i == 1) {
-            randPoint = [randomX, -myPosition.y, randomZ]
-            //left
-        } else if (i == 2) {
-            randPoint = [-myPosition.x, randomY, randomZ]
-            //right 
-        } else if (i == 3) {
-            randPoint = [myPosition.x, randomY, randomZ]
+            bufferGeometry.attributes.position.array[i] = newLifePositionList[i]
         }
-        //front
-        else if (i == 4) {
-            randPoint = [randomX, randomY, myPosition.z/2]
-        }
-        //back     
-        else {
-            randPoint = [randomX, randomY, -myPosition.z/2]
-        }
-        return randPoint
     }
+
+
+
     addZeroToSeconds(today) {
         return today.getSeconds() < 10 ? `0${today.getSeconds()}` : today.getSeconds()
     }
@@ -126,6 +106,3 @@ class Microplastic {
         return today.getHours() >= 12 ? 'PM' : 'AM';
     }
 }
-
-
-///메타데이터랑 그냥 움직임에 필요한 속성으로 나눠서 연산 줄이기.

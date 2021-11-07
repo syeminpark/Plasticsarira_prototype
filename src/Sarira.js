@@ -1,12 +1,12 @@
 class Sarira {
     constructor(threeSystem) {
         this.plasticList = []
-        this.threeSystem=threeSystem
-        
+        this.threeSystem = threeSystem
+
 
     }
 
-    initializeCore(corePostionList,bufferGeometry,isUser) {
+    initializeCore(corePostionList, bufferGeometry, isUser) {
         this.plasticList.push(new Core(this.threeSystem))
         this.plasticList[0].initialize(corePostionList)
         isUser ? this.plasticList[0].initializePassDataList() : null
@@ -15,7 +15,7 @@ class Sarira {
 
     initializeConvex(bufferGeometry, material) {
 
-        if (this.convex==undefined && this.plasticList.length > 2) {
+        if (this.convex == undefined && this.plasticList.length > 2) {
             this.convex = new Convex(this.threeSystem)
             this.convex.initializeBuffer(bufferGeometry)
             material != undefined ? this.material = material : this.material = this.convex.initializeMaterial();
@@ -37,6 +37,13 @@ class Sarira {
         }
     }
 
+    updateConvexList(bufferGeometry ) {
+        if (this.convex != undefined  && this.plasticList.length > 3) {
+            this.convex.updateVertices(bufferGeometry,this.plasticList.length)
+            this.convex.initializeMesh(this.material)
+        }
+    }
+
     updateConvex(micro) {
         if (this.convex != undefined) {
             this.convex.updateBuffer(micro)
@@ -48,6 +55,6 @@ class Sarira {
     getPosition(bufferGeometry) {
         for (let [index, plastic] of this.plasticList.entries()) {
             plastic.getPosition(bufferGeometry, index);
-        } 
+        }
     }
 }

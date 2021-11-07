@@ -2,18 +2,13 @@
 
 	class ConvexGeometry extends THREE.BufferGeometry {
 
-		constructor( points ) {
+		constructor( points,verticesList,normalsList ) {
 
 			super(); // buffers
 
 			const vertices = [];
 			const normals = [];
 
-			if ( THREE.ConvexHull === undefined ) {
-
-				console.error( 'THREE.ConvexBufferGeometry: ConvexBufferGeometry relies on THREE.ConvexHull' );
-
-			}
 
 			const convexHull = new THREE.ConvexHull().setFromPoints( points ); // generate vertices and normals
 
