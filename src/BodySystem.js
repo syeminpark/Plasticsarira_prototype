@@ -36,7 +36,7 @@ class BodySystem {
     }
 
     update() {
-        // this.moveFloatingPlastics()
+        this.moveFloatingPlastics()
         this.updateSarira()
         this.sarira.getPosition(this.sariraBuffer.bufferGeometry)
     }
@@ -47,12 +47,12 @@ class BodySystem {
         //추후에 microplastic을 만드는 것으로 변경 
         let tempMicro = new Microplastic(this.threeSystem)
 
-      
+
         tempMicro.initialize(positionList, this.densityList[this.checkIndex(passDataList)], this.tensileStrengthList[this.checkIndex(passDataList)])
         if (this.isUser) {
             tempMicro.initializePassDataList(passDataList)
-        
-          
+
+
         }
         this.floatingPlasticsList.push(tempMicro)
         tempMicro.updateBuffer(this.floatingBuffer.bufferGeometry, this.floatingPlasticsList.length)
@@ -61,15 +61,16 @@ class BodySystem {
     moveFloatingPlastics() {
         //print(this.sariraBuffer.bufferGeometry)
         for (let [index, micro] of this.floatingPlasticsList.entries()) {
-            let force = this.sarira.plasticList[0].attract(micro);
+            // let force = this.sarira.plasticList[0].attract(micro);
             micro.getPosition(this.floatingBuffer.bufferGeometry, index);
-            micro.applyForce(force);
-            micro.walk(this.floatingBuffer.bufferGeometry, index)
+            //  micro.applyForce(force);
+            // micro.walk(this.floatingBuffer.bufferGeometry, index)
         }
     }
 
     updateSarira() {
         for (let [index, micro] of this.floatingPlasticsList.entries()) {
+
             if (micro.checkStuck(this.sarira.plasticList)) {
                 this.sarira.addPlastics(micro)
                 if (this.terminal != undefined) {
@@ -83,7 +84,7 @@ class BodySystem {
 
                 this.sarira.updateConvex(micro)
                 this.sarira.initializeConvex(this.sariraBuffer.bufferGeometry, this.threesystem)
-               // print(this.sarira.plasticList.length, this.sariraBuffer.bufferGeometry)
+                // print(this.sarira.plasticList.length, this.sariraBuffer.bufferGeometry)
             }
         }
     }

@@ -62,7 +62,7 @@ class Sarira {
 
     updateVerticesFromLife(positionList,bufferGeometry) {
         for (let [index, plastic] of this.plasticList.entries()) {
-            plastic.moveWithLife(positionList, bufferGeometry, this.plasticList,index, )
+            plastic.moveWithLife(positionList, bufferGeometry, index )
         }
 
     }
