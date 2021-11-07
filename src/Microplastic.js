@@ -45,10 +45,7 @@ class Microplastic {
         //  bufferGeometry.attributes.color.needsUpdate = true
 
 
-        for (let i = 0; i < 3; i++) {
-            this.positionList[i] = bufferGeometry.attributes.position.array[(index * 3) + i]
-        }
-        this.positionVector3.set(this.positionList[0], this.positionList[1], this.positionList[2])
+      d
     }
 
     updateBuffer(bufferGeometry, indexLength) {
@@ -80,7 +77,7 @@ class Microplastic {
         for (let i = 0; i < others.length; i++) {
             let d2 = this.positionVector3.distanceTo(others[i].positionVector3)
             if ((d2 < this.size + others[i].size) +
-                (this.tensileStrength + others[i].tensileStrength) / 10) {
+                (this.tensileStrength + others[i].tensileStrength) / 100) {
                 return true
             }
         }
@@ -89,11 +86,22 @@ class Microplastic {
 
     moveWithLife(lifePositionList, bufferGeometry, plasticList, index) {
         //print(Math.round(lifePositionList.x),Math.round(lifePositionList.y),Math.round(lifePositionList.z))
-        let newLifePositionList = [lifePositionList.x, lifePositionList.y, lifePositionList.z]
+         let newLifePositionList = [lifePositionList.x, lifePositionList.y, lifePositionList.z]
         //print(bufferGeometry)
         // print(index,bufferGeometry)
+
+        // let offset= new THREE.Vector3().addVectors(lifePositionList,this.positionVector3)
+        // let offsetList=[offset.x,offset.y,offset.z]
+      
+        // print(offsetList)
+
+        print(lifePositionList)
         for (let i = 0; i < 3; i++) {
-            bufferGeometry.attributes.position.array[i] = newLifePositionList[i]
+           // bufferGeometry.attributes.position.array[i] = newLifePositionList[i] 
+
+           bufferGeometry.attributes.position.array[(index * 3) + i] = newLifePositionList[i] +  this.positionList[i] 
+           print(this.positionList[i])
+        //   this.positionList[i]= newLifePositionList[i]
 
         }
     }
