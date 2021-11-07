@@ -6,7 +6,8 @@ draw()
 
 function setup() {
     plastiSarira = new PlastiSarira()
-    plastiSarira.initialize()
+    plastiSarira.initializeCorePositionList()
+    plastiSarira.initializeBodystem()
 }
 
 function draw() {

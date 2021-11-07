@@ -27,10 +27,12 @@ class BodySystem {
     }
 
     createTerminal() {
-        this.terminal = new Terminal()
-        this.terminal.initializeCategory()
-        this.sarira.addMetaData(this.terminal)
-        this.terminal.createMetaDataText()
+        if (this.isUser) {
+            this.terminal = new Terminal()
+            this.terminal.initializeCategory()
+            this.sarira.addMetaData(this.terminal)
+            this.terminal.createMetaDataText()
+        }
     }
 
     update() {
@@ -43,7 +45,7 @@ class BodySystem {
 
         //추후에 microplastic을 만드는 것으로 변경 
         let tempMicro = new Microplastic(this.threeSystem /*positionList*/ )
-        tempMicro.initialize(undefined,0.94,4554)
+        tempMicro.initialize(undefined, 0.94, 4554)
         if (this.isUser) {
             tempMicro.initializePassDataList(passDataList)
         }
@@ -86,8 +88,8 @@ class BodySystem {
         for (let i = 0; i < microType.length; i++) {
             if (passDataList[2] == microType[i]) {
                 print(i)
-               
-               
+
+
             }
         }
     }
