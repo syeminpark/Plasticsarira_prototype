@@ -268,6 +268,10 @@ class Life {
             plastiSarira.bodySystemList[0].addFloatingPlastics(data, position);
 
             //console.log('life eat = ' + this.isEat);
+            this.absorbedParticles[this.absorbedParticlesData.length-1].becomeSarira = true;
+            this.absorbedParticles[this.absorbedParticlesData.length-1].velocity.multiplyScalar(0);
+            this.absorbedParticles[this.absorbedParticlesData.length-1].position = this.position;
+
             this.isEat = false;
         }
     }

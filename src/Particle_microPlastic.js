@@ -24,6 +24,7 @@ class MicroPlastic {
       this.angleAcceleration = new THREE.Vector3(0, 0, 0);
       
       this.isEaten = false;
+      this.becomeSarira = false;
 
       this.wrap_init();
 
