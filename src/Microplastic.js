@@ -87,12 +87,16 @@ class Microplastic {
         return false
     }
 
-    moveWithLife(lifePositionList, bufferGeometry, index) {
-        lifePositionList = [lifePositionList.x, lifePositionList.y, lifePositionList.z]
+    moveWithLife(lifePositionList, bufferGeometry) {
+        //print(Math.round(lifePositionList.x),Math.round(lifePositionList.y),Math.round(lifePositionList.z))
+        let newLifePositionList = [lifePositionList.x, lifePositionList.y, lifePositionList.z]
         for (let i = 0; i < 3; i++) {
-            bufferGeometry.attributes.position.array[i] = lifePositionList[i]
+
+            bufferGeometry.attributes.position.array[i] = newLifePositionList[i]
         }
     }
+
+
 
     addZeroToSeconds(today) {
         return today.getSeconds() < 10 ? `0${today.getSeconds()}` : today.getSeconds()

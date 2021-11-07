@@ -24,6 +24,7 @@ class PlastiSarira {
 
         //창용  유저 사리라 
         this.bodySystemList = new Array(0)
+        
         let bodySystemWindow = new BodySystemWindow(this.threeSystemController.sariraThreeSystem);
         bodySystemWindow.createBuffer(this.particleMaterial)
         bodySystemWindow.createSarira()
@@ -31,7 +32,7 @@ class PlastiSarira {
         this.bodySystemList.push(bodySystemWindow)
 
         //세계용 유저 사리라
-        let bodySystem = new BodySystem(this.threeSystemController.worldThreeSystem,);
+        let bodySystem = new BodySystem(this.threeSystemController.worldThreeSystem,0);
         bodySystem.createBuffer(this.particleMaterial)
         bodySystem.createSarira(this.lifeSystem.lifes[0].position)
 
@@ -55,8 +56,9 @@ class PlastiSarira {
         // for (let index = 0; index < this.lifeSystem.num; index++) {
         //     this.bodySystem.getLifePositon(this.lifeSystem.lifes[index].position)
         // }
-     
-        this.bodySystemList[1].getLifePosition(this.lifeSystem.lifes[0].position)
+        let position=_.cloneDeep(this.lifeSystem.lifes[0].position)
+        this.bodySystemList[1].getLifePosition(position)
+        this.bodySystemList[0].getLifePosition(position)
 
     }
 }
