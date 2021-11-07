@@ -15,9 +15,9 @@ class BodySystem {
 
     getLifePosition(positionList) {
 
-        //this.sarira.plasticList[0].moveWithLife(positionList, this.sariraBuffer.bufferGeometry, this.sarira.plasticList.length)
+        this.sarira.plasticList[0].moveWithLife(positionList, this.sariraBuffer.bufferGeometry, this.sarira.plasticList.length)
 
-        //this.sarira.updateConvexList(this.sariraBuffer.bufferGeometry)
+        this.sarira.updateConvexList(this.sariraBuffer.bufferGeometry)
     }
 
 
@@ -37,7 +37,7 @@ class BodySystem {
     }
 
     update() {
-        this.moveFloatingPlastics()
+       // this.moveFloatingPlastics()
         this.updateSarira()
         this.sarira.getPosition(this.sariraBuffer.bufferGeometry)
     }

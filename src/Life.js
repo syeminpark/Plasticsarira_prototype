@@ -264,14 +264,14 @@ class Life {
         if (this.isEat == true) {
             var data = this.absorbedParticlesData[this.absorbedParticlesData.length-1];
             var position = new THREE.Vector3().subVectors(this.absorbedParticles[this.absorbedParticlesData.length-1].position, this.position) ;
-            // let newPosition= _.cloneDeep(position)
-            // plastiSarira.bodySystemList[1].addFloatingPlastics(data, newPosition);
-            // plastiSarira.bodySystemList[0].addFloatingPlastics(data, newPosition);
+            let newPosition= _.cloneDeep(position)
+            plastiSarira.bodySystemList[1].addFloatingPlastics(data, newPosition);
+            plastiSarira.bodySystemList[0].addFloatingPlastics(data, newPosition);
 
             //console.log('life eat = ' + this.isEat);
             this.absorbedParticles[this.absorbedParticlesData.length-1].becomeSarira = true;
             this.absorbedParticles[this.absorbedParticlesData.length-1].velocity.multiplyScalar(0);
-            this.absorbedParticles[this.absorbedParticlesData.length-1].position = this.position;
+            //this.absorbedParticles[this.absorbedParticlesData.length-1].position = this.position;
 
             this.isEat = false;
         }
