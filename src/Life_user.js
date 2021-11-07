@@ -1,6 +1,6 @@
 class Life_user extends Life {
     constructor(threeSystemController){
-        super(1, 0,threeSystemController);
+        super(0, 0,threeSystemController);
         this.position = new THREE.Vector3();
         this.velocity = new THREE.Vector3();
         this.acceleration = new THREE.Vector3();
