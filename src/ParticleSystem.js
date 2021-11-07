@@ -14,10 +14,8 @@ class ParticleSystem{
             //this.particles_data.push(p.data.getDataList());
         }
 
-        
-
         this.lifes = lifeSystem.lifes; //array
-        this.life_user = lifeSystem.life_user;
+        this.life_user = lifeSystem.lifes[0];
     }
 
     update(bodySystem,threeSystem){
@@ -32,7 +30,7 @@ class ParticleSystem{
 
             this.particles[index].update();
 
-            for (let j = 0; j < this.lifes.length; j++) {
+            for (let j = 1; j < this.lifes.length; j++) {
                 this.lifes[j].eat(this.particles[index]);  
                 this.lifes[j].breath(this.particles[index]);  
             }
