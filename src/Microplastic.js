@@ -16,7 +16,7 @@ class Microplastic {
         this.positionList = [positionList.x, positionList.y, positionList.z]
 
         this.mass = density * this.size / 10
-        this.tensileStrength = map(tensileStrength, 2596, 12400, 0, 100)
+        this.tensileStrength = map(tensileStrength, 2596, 12400, 0, 0.1)
     }
 
     initializePassDataList(passDataList) {
@@ -43,9 +43,12 @@ class Microplastic {
     getPosition(bufferGeometry, index) {
         bufferGeometry.attributes.position.needsUpdate = true
         //  bufferGeometry.attributes.color.needsUpdate = true
+        let positionList=[]
+        for (let i = 0; i < 3; i++) {
+            positionList[i] = bufferGeometry.attributes.position.array[(index * 3) + i]
+        }
+        this.positionVector3.set(positionList[0], positionList[1], positionList[2])
 
-
-      
     }
 
     updateBuffer(bufferGeometry, indexLength) {
@@ -74,35 +77,24 @@ class Microplastic {
     }
 
     checkStuck(others) {
+
         for (let i = 0; i < others.length; i++) {
+
             let d2 = this.positionVector3.distanceTo(others[i].positionVector3)
-            if ((d2 < this.size + others[i].size) +
-                (this.tensileStrength + others[i].tensileStrength) / 100) {
+            if ((d2 < this.size + others[i].size)) {
+                print("true")
                 return true
             }
         }
         return false
     }
 
-    moveWithLife(lifePositionList, bufferGeometry, plasticList, index) {
-        //print(Math.round(lifePositionList.x),Math.round(lifePositionList.y),Math.round(lifePositionList.z))
-         let newLifePositionList = [lifePositionList.x, lifePositionList.y, lifePositionList.z]
-        //print(bufferGeometry)
-        // print(index,bufferGeometry)
-
-        // let offset= new THREE.Vector3().addVectors(lifePositionList,this.positionVector3)
-        // let offsetList=[offset.x,offset.y,offset.z]
-      
-        // print(offsetList)
-
-        //print(lifePositionList)
+    moveWithLife(lifePositionList, bufferGeometry, index) {
+        
+        let newLifePositionList = [lifePositionList.x, lifePositionList.y, lifePositionList.z]
         for (let i = 0; i < 3; i++) {
-           // bufferGeometry.attributes.position.array[i] = newLifePositionList[i] 
-
-           bufferGeometry.attributes.position.array[(index * 3) + i] = newLifePositionList[i] +  this.positionList[i] 
-           //print(this.positionList[i])
-        //   this.positionList[i]= newLifePositionList[i]
-
+            bufferGeometry.attributes.position.array[(index * 3) + i] = newLifePositionList[i] + this.positionList[i]
+            bufferGeometry.attributes.position.needsUpdate = true
         }
     }
 
@@ -116,3 +108,8 @@ class Microplastic {
         return today.getHours() >= 12 ? 'PM' : 'AM';
     }
 }
+
+
+//move 적용시키기. positionVecor3 this.positionList 과정 복습하기. 충돌 안일어나게 하기. move적용시 다르게 생기는 것 방지하기 
+//더 작게 만들기 
+// convex제대로 만들어지는지 확인하기 
