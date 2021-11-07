@@ -2,8 +2,7 @@ class Sarira {
     constructor(threeSystem) {
         this.plasticList = []
         this.threeSystem=threeSystem
-        
-
+    
     }
 
     initializeCore(corePostionList,bufferGeometry,isUser) {

@@ -22,6 +22,7 @@ class LifeSystem{
     update(){
         for (let i = 0; i < this.lifes.length; i++) {
             this.lifes[i].update();
+           
         }
 
         this.life_user.update_user();

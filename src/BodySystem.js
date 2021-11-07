@@ -36,9 +36,7 @@ class BodySystem {
     update() {
         this.moveFloatingPlastics()
         this.updateSarira()
-
         this.sarira.getPosition(this.sariraBuffer.bufferGeometry)
-        this.sarira.initializeConvex(this.sariraBuffer.bufferGeometry, this.threesystem)
     }
 
     addFloatingPlastics(passDataList, positionList) {
@@ -77,6 +75,7 @@ class BodySystem {
                 micro.switch(this.floatingBuffer.bufferGeometry, index, this.floatingPlasticsList)
 
                 this.sarira.updateConvex(micro)
+                this.sarira.initializeConvex(this.sariraBuffer.bufferGeometry, this.threesystem)
             }
         }
     }
