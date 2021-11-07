@@ -260,10 +260,10 @@ class Life {
         }
     }
 
-    add_MicroPlasticToBodySystem(bodySystem){
+    add_MicroPlasticToBodySystem(){
         if (this.isEat == true) {
             var data = this.absorbedParticlesData[this.absorbedParticlesData.length-1];
-            bodySystem.addFloatingPlastics(data);
+            plastiSarira.bodySystemList[0].addFloatingPlastics(data);
             //console.log('life eat = ' + this.isEat);
             this.isEat = false;
         }
