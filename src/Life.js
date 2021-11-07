@@ -4,29 +4,7 @@ class Life {
 
         this.windowSize = windowSize;
 
-        this.position = new THREE.Vector3(
-            random(-this.windowSize, this.windowSize),
-            random(-this.windowSize, this.windowSize),
-            random(-this.windowSize, this.windowSize));
-
-        if (this.position.length() > this.windowSize) this.position.setLength(this.windowSize);
-
-        this.velocity = new THREE.Vector3(
-            random(-0.01, 0.01),
-            random(-0.01, 0.01),
-            random(-0.01, 0.01));
-        this.acceleration = new THREE.Vector3(0, 0, 0);
-
-        this.angle = new THREE.Vector3(
-            random(0, Math.PI * 2),
-            random(0, Math.PI * 2),
-            random(0, Math.PI * 2));
-        this.angleVelocity = this.velocity.clone();
-        this.angleAcceleration = this.acceleration.clone();
-
-        this.size = random(2, 5);
-        this.sizeMax = random(0, 20);
-        this.mass = this.size + this.sizeMax;
+        this.init();
 
         this.glowAmount = 0.5;
 
@@ -62,6 +40,32 @@ class Life {
         this.nutrients;
 
         this.toxicResistance;
+    }
+
+    init(){
+        this.position = new THREE.Vector3(
+            random(-this.windowSize, this.windowSize),
+            random(-this.windowSize, this.windowSize),
+            random(-this.windowSize, this.windowSize));
+
+        if (this.position.length() > this.windowSize) this.position.setLength(this.windowSize);
+
+        this.velocity = new THREE.Vector3(
+            random(-0.01, 0.01),
+            random(-0.01, 0.01),
+            random(-0.01, 0.01));
+        this.acceleration = new THREE.Vector3(0, 0, 0);
+
+        this.angle = new THREE.Vector3(
+            random(0, Math.PI * 2),
+            random(0, Math.PI * 2),
+            random(0, Math.PI * 2));
+        this.angleVelocity = this.velocity.clone();
+        this.angleAcceleration = this.acceleration.clone();
+
+        this.size = random(2, 5);
+        this.sizeMax = random(0, 20);
+        this.mass = this.size + this.sizeMax;
     }
 
     update() {
@@ -263,15 +267,12 @@ class Life {
     add_MicroPlasticToBodySystem(){
         if (this.isEat == true) {
             var data = this.absorbedParticlesData[this.absorbedParticlesData.length-1];
-            var position = new THREE.Vector3().subVectors(this.absorbedParticles[this.absorbedParticlesData.length-1].position, this.position) ;
-            let newPosition= _.cloneDeep(position)
-            plastiSarira.bodySystemList[1].addFloatingPlastics(data, newPosition);
-            plastiSarira.bodySystemList[0].addFloatingPlastics(data, newPosition);
+            var send_pos = new THREE.Vector3().subVectors(this.absorbedParticles[this.absorbedParticlesData.length-1].position, this.position) ;
+            
+            plastiSarira.bodySystemList[1].addFloatingPlastics(data, send_pos);
+            plastiSarira.bodySystemList[0].addFloatingPlastics(data, send_pos);
 
-            //console.log('life eat = ' + this.isEat);
             this.absorbedParticles[this.absorbedParticlesData.length-1].becomeSarira = true;
-            this.absorbedParticles[this.absorbedParticlesData.length-1].velocity.multiplyScalar(0);
-            //this.absorbedParticles[this.absorbedParticlesData.length-1].position = this.position;
 
             this.isEat = false;
         }
@@ -287,9 +288,12 @@ class Life {
 
             const distance = this.position.distanceTo(this.absorbedParticles[i].position);
             var force = new THREE.Vector3().subVectors(sariraPos, this.absorbedParticles[i].position);
-            if (distance > this.size * 0.5) {
+            if (distance > this.size * 0.5 && this.absorbedParticles[i].becomeSarira == false) {
                 force.multiplyScalar(0.03);
                 this.absorbedParticles[i].acceleration.add(force);
+            } 
+            else if (this.absorbedParticles[i].becomeSarira == true){
+                this.absorbedParticles[i].position = this.position.clone();
             }
         }
     }
