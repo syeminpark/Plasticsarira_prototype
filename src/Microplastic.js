@@ -77,7 +77,7 @@ class Microplastic {
     checkStuck(others) {
         for (let i = 0; i < others.length; i++) {
             let d2 = this.positionVector3.distanceTo(others[i].positionVector3)
-            if ((d2 < this.size*10 + others[i].size*10 ) *
+            if ((d2 < this.size*5 + others[i].size*5 ) *
                 (this.tensileStrength + others[i].tensileStrength) / 2) {
                 return true
             }
@@ -91,7 +91,7 @@ class Microplastic {
         let windowRect = document.getElementById("sarira").getBoundingClientRect()
 
         let randomX = random(myPosition.x + windowRect.width/100, -myPosition.x - windowRect.width/100)
-        let randomY = random(myPosition.y + windowRect.width/100, -myPosition.y - windowRect.width/100)
+        let randomY = random(myPosition.y + windowRect.width/50, -myPosition.y - windowRect.width/50)
         let randomZ = random(myPosition.z + windowRect.width/100, -myPosition.z - windowRect.width/100)
         let randPoint;
 
@@ -110,11 +110,11 @@ class Microplastic {
         }
         //front
         else if (i == 4) {
-            randPoint = [randomX, randomY, myPosition.z]
+            randPoint = [randomX, randomY, myPosition.z/2]
         }
         //back     
         else {
-            randPoint = [randomX, randomY, -myPosition.z]
+            randPoint = [randomX, randomY, -myPosition.z/2]
         }
         return randPoint
     }
