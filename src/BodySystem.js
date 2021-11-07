@@ -15,8 +15,9 @@ class BodySystem {
 
     getLifePosition(positionList) {
 
-      //  this.sarira.plasticList[0].moveWithLife(positionList, this.sariraBuffer.bufferGeometry, this.sarira.plasticList.length)
-        this.sarira.updateConvexList(this.sariraBuffer.bufferGeometry)
+        //this.sarira.plasticList[0].moveWithLife(positionList, this.sariraBuffer.bufferGeometry, this.sarira.plasticList.length)
+
+        //this.sarira.updateConvexList(this.sariraBuffer.bufferGeometry)
     }
 
 
@@ -27,7 +28,7 @@ class BodySystem {
         this.floatingBuffer.initialize(this.threeSystem, this.material)
         this.sariraBuffer = new Buffer()
         this.sariraBuffer.initialize(this.threeSystem, this.material)
-        print(this.sariraBuffer)
+        //print(this.sariraBuffer)
     }
 
     createSarira(corePostionList) {
@@ -57,7 +58,7 @@ class BodySystem {
     }
 
     moveFloatingPlastics() {
-       print(this.sariraBuffer.bufferGeometry)
+       //print(this.sariraBuffer.bufferGeometry)
         for (let [index, micro] of this.floatingPlasticsList.entries()) {
             let force = this.sarira.plasticList[0].attract(micro);
             micro.getPosition(this.floatingBuffer.bufferGeometry, index);

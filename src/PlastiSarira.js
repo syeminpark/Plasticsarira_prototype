@@ -58,7 +58,7 @@ class PlastiSarira {
         // }
         let position=_.cloneDeep(this.lifeSystem.lifes[0].position)
         this.bodySystemList[1].getLifePosition(position)
-        this.bodySystemList[0].getLifePosition(position)
+        //this.bodySystemList[0].getLifePosition(position)
 
     }
 }
