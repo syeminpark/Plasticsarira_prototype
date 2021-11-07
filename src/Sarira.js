@@ -37,9 +37,9 @@ class Sarira {
         }
     }
 
-    updateConvexList(bufferGeometry ) {
-        if (this.convex != undefined  && this.plasticList.length > 3) {
-            this.convex.updateVertices(bufferGeometry,this.plasticList.length)
+    updateConvexList(bufferGeometry) {
+        if (this.convex != undefined && this.plasticList.length > 3) {
+            this.convex.updateVertices(bufferGeometry, this.plasticList.length)
             this.convex.initializeMesh(this.material)
         }
     }
@@ -52,9 +52,18 @@ class Sarira {
         }
     }
 
-    getPosition(bufferGeometry) {
+
+    getPosition(bufferGeometry, positionList) {
         for (let [index, plastic] of this.plasticList.entries()) {
             plastic.getPosition(bufferGeometry, index);
+
         }
+    }
+
+    updateVerticesFromLife(positionList,bufferGeometry) {
+        for (let [index, plastic] of this.plasticList.entries()) {
+            plastic.moveWithLife(positionList, bufferGeometry, this.plasticList,index)
+        }
+
     }
 }

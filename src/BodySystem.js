@@ -15,8 +15,7 @@ class BodySystem {
 
     getLifePosition(positionList) {
 
-        this.sarira.plasticList[0].moveWithLife(positionList, this.sariraBuffer.bufferGeometry, this.sarira.plasticList.length)
-
+        this.sarira.updateVerticesFromLife(positionList, this.sariraBuffer.bufferGeometry)
         this.sarira.updateConvexList(this.sariraBuffer.bufferGeometry)
     }
 
@@ -37,7 +36,7 @@ class BodySystem {
     }
 
     update() {
-       // this.moveFloatingPlastics()
+        // this.moveFloatingPlastics()
         this.updateSarira()
         this.sarira.getPosition(this.sariraBuffer.bufferGeometry)
     }
@@ -48,17 +47,19 @@ class BodySystem {
         //추후에 microplastic을 만드는 것으로 변경 
         let tempMicro = new Microplastic(this.threeSystem)
 
-
+      
         tempMicro.initialize(positionList, this.densityList[this.checkIndex(passDataList)], this.tensileStrengthList[this.checkIndex(passDataList)])
         if (this.isUser) {
             tempMicro.initializePassDataList(passDataList)
+        
+          
         }
         this.floatingPlasticsList.push(tempMicro)
         tempMicro.updateBuffer(this.floatingBuffer.bufferGeometry, this.floatingPlasticsList.length)
     }
 
     moveFloatingPlastics() {
-       //print(this.sariraBuffer.bufferGeometry)
+        //print(this.sariraBuffer.bufferGeometry)
         for (let [index, micro] of this.floatingPlasticsList.entries()) {
             let force = this.sarira.plasticList[0].attract(micro);
             micro.getPosition(this.floatingBuffer.bufferGeometry, index);
@@ -71,7 +72,6 @@ class BodySystem {
         for (let [index, micro] of this.floatingPlasticsList.entries()) {
             if (micro.checkStuck(this.sarira.plasticList)) {
                 this.sarira.addPlastics(micro)
-
                 if (this.terminal != undefined) {
                     this.sarira.addMetaData(this.terminal)
                     this.terminal.createMetaDataText()
@@ -83,6 +83,7 @@ class BodySystem {
 
                 this.sarira.updateConvex(micro)
                 this.sarira.initializeConvex(this.sariraBuffer.bufferGeometry, this.threesystem)
+                print(this.sarira.plasticList.length, this.sarira.bufferGeometry)
             }
         }
     }

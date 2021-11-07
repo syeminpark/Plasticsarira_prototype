@@ -87,12 +87,14 @@ class Microplastic {
         return false
     }
 
-    moveWithLife(lifePositionList, bufferGeometry) {
+    moveWithLife(lifePositionList, bufferGeometry, plasticList, index) {
         //print(Math.round(lifePositionList.x),Math.round(lifePositionList.y),Math.round(lifePositionList.z))
         let newLifePositionList = [lifePositionList.x, lifePositionList.y, lifePositionList.z]
+        //print(bufferGeometry)
+        // print(index,bufferGeometry)
         for (let i = 0; i < 3; i++) {
-
             bufferGeometry.attributes.position.array[i] = newLifePositionList[i]
+
         }
     }
 

@@ -60,7 +60,7 @@ class Convex {
         this.group.add(this.convexMeshFront)
         this.group.name = this.groupName
         this.threeSystem.scene.add(this.group)
-        print(this.convexMeshBack.position)
+        
     }
 
 
