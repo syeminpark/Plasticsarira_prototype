@@ -12,7 +12,7 @@ class PlastiSarira {
     initializeCorePositionList() {
         this.corePositionList = new Array(0)
         for (let index = 0; index < this.lifeSystem.num; index++) {
-            index == 0 ? this.corePositionList.push([0, 0, 0]) : null
+            index == 0 ? this.corePositionList.push(new THREE.Vector3(0, 0, 0)) : null
             this.corePositionList.push(this.lifeSystem.lifes[index].position)
         }
     }

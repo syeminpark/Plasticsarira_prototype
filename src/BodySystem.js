@@ -40,16 +40,17 @@ class BodySystem {
         this.sarira.getPosition(this.sariraBuffer.bufferGeometry)
     }
 
-    getLifePosition(positionList){
-        this.lifePostionList=positionList
-    }
+    // getLifePosition(positionList){
+    //     this.lifePostionList=positionList
+    // }
 
     addFloatingPlastics(passDataList, positionList) {
-        print(positionList)
-        //추후에 microplastic을 만드는 것으로 변경 
-        let tempMicro = new Microplastic(this.threeSystem /*positionList*/ )
 
-        tempMicro.initialize(undefined, this.densityList[this.checkIndex(passDataList)], this.tensileStrengthList[this.checkIndex(passDataList)])
+        //추후에 microplastic을 만드는 것으로 변경 
+        let tempMicro = new Microplastic(this.threeSystem)
+
+        
+        tempMicro.initialize(positionList,this.densityList[this.checkIndex(passDataList)], this.tensileStrengthList[this.checkIndex(passDataList)])
         if (this.isUser) {
             tempMicro.initializePassDataList(passDataList)
         }
