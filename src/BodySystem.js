@@ -40,6 +40,10 @@ class BodySystem {
         this.sarira.getPosition(this.sariraBuffer.bufferGeometry)
     }
 
+    getLifePosition(positionList){
+        this.lifePostionList=positionList
+    }
+
     addFloatingPlastics(passDataList, positionList) {
         print(positionList)
         //추후에 microplastic을 만드는 것으로 변경 
