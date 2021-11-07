@@ -83,7 +83,7 @@ class BodySystem {
 
                 this.sarira.updateConvex(micro)
                 this.sarira.initializeConvex(this.sariraBuffer.bufferGeometry, this.threesystem)
-                print(this.sarira.plasticList.length, this.sarira.bufferGeometry)
+               // print(this.sarira.plasticList.length, this.sariraBuffer.bufferGeometry)
             }
         }
     }
