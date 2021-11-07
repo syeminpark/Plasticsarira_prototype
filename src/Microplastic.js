@@ -45,7 +45,7 @@ class Microplastic {
         //  bufferGeometry.attributes.color.needsUpdate = true
 
 
-      d
+      
     }
 
     updateBuffer(bufferGeometry, indexLength) {
@@ -95,12 +95,12 @@ class Microplastic {
       
         // print(offsetList)
 
-        print(lifePositionList)
+        //print(lifePositionList)
         for (let i = 0; i < 3; i++) {
            // bufferGeometry.attributes.position.array[i] = newLifePositionList[i] 
 
            bufferGeometry.attributes.position.array[(index * 3) + i] = newLifePositionList[i] +  this.positionList[i] 
-           print(this.positionList[i])
+           //print(this.positionList[i])
         //   this.positionList[i]= newLifePositionList[i]
 
         }
