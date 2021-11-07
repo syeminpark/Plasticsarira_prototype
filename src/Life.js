@@ -275,12 +275,12 @@ class Life {
         for (let i = 0; i < this.absorbedParticles.length; i++) {
             this.absorbedParticles[i].wrapCenter = this.position;
             this.absorbedParticles[i].wrapSize = this.size;
-            this.absorbedParticles[i].velLimit = 0.3;
+            this.absorbedParticles[i].velLimit = 0.5;
 
             const distance = this.position.distanceTo(this.absorbedParticles[i].position);
             var force = new THREE.Vector3().subVectors(sariraPos, this.absorbedParticles[i].position);
             if (distance > this.size * 0.5) {
-                force.multiplyScalar(0.02);
+                force.multiplyScalar(0.03);
                 this.absorbedParticles[i].acceleration.add(force);
             }
         }

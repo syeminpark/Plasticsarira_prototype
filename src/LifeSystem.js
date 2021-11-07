@@ -4,13 +4,15 @@ class LifeSystem{
         this.windowSize = 140;
 
         this.lifes = [];
+        this.life_user = new Life_user(threeSystemController);
 
-        for (let i = 0; i < this.num; i++) {
+        this.lifes.push(this.life_user);
+        for (let i = 1; i < this.num; i++) {
             this.l = new Life(i, this.windowSize,threeSystemController);
             this.lifes.push(this.l);
         }
         
-        this.life_user = new Life_user(threeSystemController);
+        
 
         this.display();     
         
@@ -20,12 +22,11 @@ class LifeSystem{
     }
 
     update(){
-        for (let i = 0; i < this.lifes.length; i++) {
+        this.lifes[0].update_user();
+        for (let i = 1; i < this.lifes.length; i++) {
             this.lifes[i].update();
            
         }
-
-        this.life_user.update_user();
         this.userText.updateLabel(this.life_user.life.position)
     }
 
