@@ -34,7 +34,8 @@ class PlastiSarira {
         //세계용 유저 사리라
         let bodySystem = new BodySystem(this.threeSystemController.worldThreeSystem,0);
         bodySystem.createBuffer(this.particleMaterial)
-        bodySystem.createSarira(this.lifeSystem.lifes[0].position)
+        let position=_.cloneDeep(this.lifeSystem.lifes[0].position)
+        bodySystem.createSarira(position)
 
         this.bodySystemList.push(bodySystem )
      
