@@ -22,31 +22,37 @@ class PlastiSarira {
         this.bodySystemList.push(bodySystemWindow)
 
 
-        for (let index = 0; index < this.lifeSystem.num; index++) {
+        for (let index = 0; index < this.lifeSystem.num; index++){
+
             // if (index  <=1  ) {
-                let bodySystem = new BodySystem(this.threeSystemController.worldThreeSystem, index);
-                bodySystem.createBuffer(this.particleMaterial)
-                bodySystem.createSarira(_.cloneDeep(this.lifeSystem.lifes[index].position), this.convexMaterial)
+            let bodySystem = new BodySystem(this.threeSystemController.worldThreeSystem, index);
+        bodySystem.createBuffer(this.particleMaterial)
 
-                this.bodySystemList.push(bodySystem)
-            // }
-        }
+        bodySystem.createSarira(_.cloneDeep(this.lifeSystem.lifes[index].position), this.convexMaterial)
+  
+
+        this.bodySystemList.push(bodySystem)
+        // }
+    }
+    print(this.lifeSystem.num, this.bodySystemList.length)
+}
+   
+
+
+update() {
+    for (let [index, bodySystem] of this.bodySystemList.entries()) {
+        bodySystem.update()
+    }
+    for (let index = 0; index < this.lifeSystem.num; index++) {
+        // if (index  <=1 ) {
+        this.bodySystemList[index + 1].getLifePosition(_.cloneDeep(this.lifeSystem.lifes[index].position))
+        // }
     }
 
-    update() {
-        for (let [index, bodySystem] of this.bodySystemList.entries()) {
-            bodySystem.update()
-        }
-        for (let index = 0; index < this.lifeSystem.num; index++) {
-            // if (index  <=1 ) {
-                this.bodySystemList[index + 1].getLifePosition(_.cloneDeep(this.lifeSystem.lifes[index].position))
-            // }
-        }
-
-        this.threeSystemController.update()
-        this.particleSystem_microPlastic.update(this.bodySystem, this.threeSystemController.sariraThreeSystem);
-        this.lifeSystem.update();
-    }
+    this.threeSystemController.update()
+    this.particleSystem_microPlastic.update(this.bodySystem, this.threeSystemController.sariraThreeSystem);
+    this.lifeSystem.update();
+}
 }
 
 //난관 리스트 

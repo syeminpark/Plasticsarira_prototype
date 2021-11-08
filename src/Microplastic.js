@@ -14,7 +14,6 @@ class Microplastic {
     initialize(positionList, density, tensileStrength) {
 
         this.positionList = [positionList.x, positionList.y, positionList.z]
-
         this.mass = density * this.size / 10
         this.tensileStrength = map(tensileStrength, 2596, 12400, 0, 0.1)
     }
@@ -43,15 +42,16 @@ class Microplastic {
     getPosition(bufferGeometry, index) {
         bufferGeometry.attributes.position.needsUpdate = true
         //  bufferGeometry.attributes.color.needsUpdate = true
-        let positionList=[]
+        let positionList = []
         for (let i = 0; i < 3; i++) {
-            positionList[i] = bufferGeometry.attributes.position.array[(index * 3) + i]
+            this.positionList[i] = bufferGeometry.attributes.position.array[(index * 3) + i]
         }
-        this.positionVector3.set(positionList[0], positionList[1], positionList[2])
+        this.positionVector3.set(this.positionList[0], this.positionList[1], this.positionList[2])
 
     }
 
     updateBuffer(bufferGeometry, indexLength) {
+        
         for (let i = 0; i < 3; i++) {
             bufferGeometry.attributes.position.array[((indexLength - 1) * 3) + i] = this.positionList[i]
             //  bufferGeometry.attributes.color.array[((indexLength - 1) * 3) + i] = this.color[i]
@@ -90,7 +90,7 @@ class Microplastic {
     }
 
     moveWithLife(lifePositionList, bufferGeometry, index) {
-        
+
         let newLifePositionList = [lifePositionList.x, lifePositionList.y, lifePositionList.z]
         for (let i = 0; i < 3; i++) {
             bufferGeometry.attributes.position.array[(index * 3) + i] = newLifePositionList[i] + this.positionList[i]
