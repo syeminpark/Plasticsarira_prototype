@@ -44,9 +44,9 @@ class Microplastic {
         //  bufferGeometry.attributes.color.needsUpdate = true
         let positionList = []
         for (let i = 0; i < 3; i++) {
-            this.positionList[i] = bufferGeometry.attributes.position.array[(index * 3) + i]
+            positionList[i] = bufferGeometry.attributes.position.array[(index * 3) + i]
         }
-        this.positionVector3.set(this.positionList[0], this.positionList[1], this.positionList[2])
+        this.positionVector3.set(positionList[0], positionList[1], positionList[2])
 
     }
 
