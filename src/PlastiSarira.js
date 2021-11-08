@@ -26,7 +26,7 @@ class PlastiSarira {
             // if (index == 0) {
                 let bodySystem = new BodySystem(this.threeSystemController.worldThreeSystem, index);
                 bodySystem.createBuffer(this.particleMaterial)
-                bodySystem.createSarira(_.cloneDeep(this.lifeSystem.lifes[0].position), this.convexMaterial)
+                bodySystem.createSarira(_.cloneDeep(this.lifeSystem.lifes[index].position), this.convexMaterial)
 
                 this.bodySystemList.push(bodySystem)
             // }
