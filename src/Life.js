@@ -23,6 +23,9 @@ class Life {
         this.microPlastic_breath_maxAmount = (this.size + this.sizeMax) * 1;
         this.sariraSpeed = (this.size+this.sizeMax)*(1/10000);
 
+        this.absorbPlasticList = [];
+        this.set_absorbPlasticList();
+
         this.display(threeSystemController);
         this.noise_init();
 
@@ -39,6 +42,20 @@ class Life {
         this.nutrients;
 
         this.toxicResistance;
+    }
+
+    set_absorbPlasticList(){
+        const percente = this.size/7;
+
+        if (random(0, 1) < 0.5) this.absorbPlasticList.push("Polyethylene");
+        if (random(0, 1) < 0.5) this.absorbPlasticList.push("Polypropylene");
+        if (random(0, 1) < percente) this.absorbPlasticList.push("Polystyrene");
+        if (random(0, 1) < percente) this.absorbPlasticList.push("Polyamide");
+        if (random(0, 1) < percente) this.absorbPlasticList.push("Polyester");
+        if (random(0, 1) < percente) this.absorbPlasticList.push("Acrylic");
+        if (random(0, 1) < percente) this.absorbPlasticList.push("Polyacetal");
+        if (random(0, 1) < percente) this.absorbPlasticList.push("PolyvinylChloride");
+        if (random(0, 1) < percente) this.absorbPlasticList.push("Polyurethane");
     }
 
     init(){
@@ -219,7 +236,7 @@ class Life {
         
         var force = new THREE.Vector3().subVectors(sariraPos, microPlastic.position);
 
-        if (microPlastic.isEaten == false) {
+        if (microPlastic.isEaten == false && this.absorbPlasticList.includes(microPlastic.data.microType) == true) {
             //아직 먹히지 않은 상태의 파티클 끌어당기기
             if (distance < lifeSize && distance > this.size * 0.5) {
                 force.multiplyScalar(0.02);
@@ -241,7 +258,7 @@ class Life {
         
         var force = new THREE.Vector3().subVectors(sariraPos, microPlastic.position);
 
-        if (microPlastic.isEaten == false) {
+        if (microPlastic.isEaten == false && this.absorbPlasticList.includes(microPlastic.data.microType) == true) {
             //아직 먹히지 않은 상태의 파티클 끌어당기기
             if (distance < lifeSize && distance > this.size * 0.5) {
                 force.multiplyScalar(0.02);

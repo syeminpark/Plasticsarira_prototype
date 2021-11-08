@@ -1,7 +1,7 @@
 class Life_user extends Life {
     constructor(threeSystemController){
         super(0, 0,threeSystemController);
-    
+
         //======================================================
         this.scene = threeSystemController.worldThreeSystem.scene;
         this.cam = threeSystemController.worldThreeSystem.camera;
@@ -46,8 +46,8 @@ class Life_user extends Life {
         this.angleVelocity = new THREE.Vector3();
         this.angleAcceleration = new THREE.Vector3();
 
-        this.size = 10;
-        this.sizeMax = 20;
+        this.size = random(7, 15);
+        this.sizeMax = random(10, 25);
 
         this.noiseShape = random(0.05, 0.1);
         this.noiseAnimSpeed = random(0.1, 0.7);
@@ -72,7 +72,7 @@ class Life_user extends Life {
     lerpLoad(){
         if (this.timer > 0){
             this.orbitControl.enabled = false;
-            this.timer -= 0.01;
+            this.timer -= 0.015;
             this.cam.position.lerp(this.camLerp, 0.05);
         } else {
             this.orbitControl.enabled = true;
