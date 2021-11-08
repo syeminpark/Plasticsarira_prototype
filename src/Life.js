@@ -26,6 +26,11 @@ class Life {
         this.absorbPlasticList = [];
         this.set_absorbPlasticList();
 
+        this.absorbPlasticNum = (this.size + this.sizeMax) * 10;
+
+        this.isDead = false;
+        this.lifespan = (this.size + this.sizeMax)*10;
+
         this.display(threeSystemController);
         this.noise_init();
 
@@ -34,8 +39,6 @@ class Life {
         this.sarira_amount;
 
         this.movement;
-
-        this.lifespan;
 
         this.division_speed;
 
@@ -84,16 +87,18 @@ class Life {
 
         this.noiseShape = random(0.05, 0.3);
         this.noiseAnimSpeed = random(0.1, 0.5);
-        
     }
 
     update() {
-        this.randomWalk(0.01, 0.1);
-        this.randomLook();
-        this.noise_update();
-        this.wrap_particles();
-        this.wrap();
-        this.add_MicroPlasticToBodySystem();
+        this.lifeGo();
+        if (this.isDead == false){
+            this.randomWalk(0.01, 0.1);
+            this.randomLook();
+            this.noise_update();
+            this.wrap_particles();
+            this.wrap();
+            this.add_MicroPlasticToBodySystem();
+        }
     }
 
     randomWalk(acc, velLimit) {
@@ -237,7 +242,7 @@ class Life {
         
         var force = new THREE.Vector3().subVectors(sariraPos, microPlastic.position);
 
-        if (microPlastic.isEaten == false && this.absorbPlasticList.includes(microPlastic.data.microType) == true) {
+        if (microPlastic.isEaten == false && this.absorbPlasticList.includes(microPlastic.data.microType) == true && this.isDead == false) {
             //아직 먹히지 않은 상태의 파티클 끌어당기기
             if (distance < lifeSize && distance > this.size * 0.5) {
                 force.multiplyScalar(0.02);
@@ -259,7 +264,7 @@ class Life {
         
         var force = new THREE.Vector3().subVectors(sariraPos, microPlastic.position);
 
-        if (microPlastic.isEaten == false && this.absorbPlasticList.includes(microPlastic.data.microType) == true) {
+        if (microPlastic.isEaten == false && this.absorbPlasticList.includes(microPlastic.data.microType) == true && this.isDead == false) {
             //아직 먹히지 않은 상태의 파티클 끌어당기기
             if (distance < lifeSize && distance > this.size * 0.5) {
                 force.multiplyScalar(0.02);
@@ -282,7 +287,7 @@ class Life {
             this.absorbedParticles[i].wrapCenter = this.position;
             this.absorbedParticles[i].wrapSize = this.size;
             this.absorbedParticles[i].velLimit = 0.5;
-
+            
             const distance = this.position.distanceTo(this.absorbedParticles[i].position);
             var force = new THREE.Vector3().subVectors(sariraPos, this.absorbedParticles[i].position);
 
@@ -293,7 +298,9 @@ class Life {
             } 
 
             //그중에서 일정 확률로 몇몇 파티클이 사리가 되도록 함
-            if (random(0, 30) < this.sariraSpeed && distance < this.size * 0.3 && this.absorbedParticles[i].becomeSarira == false){
+            if (random(0, 10) < this.sariraSpeed && distance < this.size * 0.3 && 
+                this.absorbedParticles[i].becomeSarira == false && this.absorbedParticles.length < this.absorbPlasticNum){
+
                 this.absorbedParticles[i].data.setPassBy('life' + String(this.index));
                 this.absorbedParticles[i].data.setAbsorbedBy(1);
                 this.absorbedParticles[i].becomeSarira = true;
@@ -313,7 +320,6 @@ class Life {
 
             plastiSarira.bodySystemList[this.index+1].addFloatingPlastics(send_pos, data);
             
-
             this.isMakeSarira = false;
         }
 
@@ -349,6 +355,28 @@ class Life {
         this.sarira.rotation.set(this.angle.x, this.angle.y, this.angle.z);
 
         this.life.add(this.sarira);
+    }
+
+    lifeGo(){
+        if (this.lifespan > 0){
+            if (this.absorbedParticles.length < this.absorbPlasticNum) this.lifespan -= 0.1;
+            else this.lifespan -= 0.2;
+        } 
+
+        if (this.lifespan < 0.1 && this.life.scale.x > 0.011){
+            this.life.scale.x -= 0.01;
+            this.life.scale.y -= 0.01;
+            this.life.scale.z -= 0.01;
+
+            if (this.isDead == false){
+                for (let i = 0; i < this.absorbedParticles.length; i++) {
+                    this.absorbedParticles[i].wrap_init();
+                }
+
+                console.log(this.index + ' is die');
+                this.isDead = true;
+            }
+        }
     }
 
     excrete(){

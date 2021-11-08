@@ -46,8 +46,8 @@ class Life_user extends Life {
         this.angleVelocity = new THREE.Vector3();
         this.angleAcceleration = new THREE.Vector3();
 
-        this.size = random(7, 15);
-        this.sizeMax = random(10, 25);
+        this.size = random(3, 10);
+        this.sizeMax = random(10, 20);
 
         this.noiseShape = random(0.05, 0.1);
         this.noiseAnimSpeed = random(0.1, 0.7);
@@ -57,12 +57,15 @@ class Life_user extends Life {
         this.life.position.set(this.position.x, this.position.y, this.position.z);
         this.life.rotation.set(this.angle.x, this.angle.y, this.angle.z);
 
-        this.randomWalk(0.01, 0.08);
-        this.noise_update();
-        this.wrap_particles();
-        this.key_check();
-        this.lerpLoad();
-        this.add_MicroPlasticToBodySystem();
+        this.lifeGo();
+        if (this.isDead == false){
+            this.randomWalk(0.01, 0.08);
+            this.noise_update();
+            this.wrap_particles();
+            this.key_check();
+            this.lerpLoad();
+            this.add_MicroPlasticToBodySystem();
+        }
 
         if (this.isLifeFocusOn == true){
             this.camera_focusOn_update();
