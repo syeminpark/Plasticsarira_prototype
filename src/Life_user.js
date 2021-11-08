@@ -62,11 +62,28 @@ class Life_user extends Life {
         this.wrap_particles();
         this.key_check();
         this.lerpLoad();
+        this.add_MicroPlasticToBodySystem();
 
         if (this.isLifeFocusOn == true){
             this.camera_focusOn_update();
             this.key_update();
         } 
+    }
+
+    add_MicroPlasticToBodySystem(){
+        if (this.isMakeSarira == true) {
+            var data = this.sariraParticlesData[this.sariraParticlesData.length-1];
+            var send_pos = new THREE.Vector3().subVectors(this.sariraParticles[this.sariraParticlesData.length-1].position, this.position);
+
+            plastiSarira.bodySystemList[1].addFloatingPlastics(send_pos, data);
+            plastiSarira.bodySystemList[0].addFloatingPlastics(send_pos, data);
+
+            this.isMakeSarira = false;
+        }
+
+        for (let j = 0; j < this.sariraParticles.length; j++) {
+            this.sariraParticles[j].position = this.position.clone();
+        }
     }
 
     lerpLoad(){

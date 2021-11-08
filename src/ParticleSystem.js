@@ -36,7 +36,6 @@ class ParticleSystem{
             }
             this.life_user.eat(this.particles[index]);
             this.life_user.breath(this.particles[index]);
-            this.life_user.add_MicroPlasticToBodySystem(bodySystem);
         }
 
         // for (let j = positions.length - 1; j >= 0; j-= 3) {
