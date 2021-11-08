@@ -21,7 +21,7 @@ class Life {
 
         this.microPlastic_eat_maxAmount = (this.size + this.sizeMax) * 2;
         this.microPlastic_breath_maxAmount = (this.size + this.sizeMax) * 1;
-        this.sariraSpeed = (this.size+this.sizeMax)*(1/10000);
+        this.sariraSpeed = (this.size+this.sizeMax)*(1/1000);
 
         this.absorbPlasticList = [];
         this.set_absorbPlasticList();
