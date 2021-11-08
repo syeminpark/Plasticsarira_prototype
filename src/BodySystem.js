@@ -41,7 +41,7 @@ class BodySystem {
     }
 
 
-    addFloatingPlastics(passDataList, positionList) {
+    addFloatingPlastics(positionList,passDataList) {
 
         //추후에 microplastic을 만드는 것으로 변경 
         let tempMicro = new Microplastic(this.threeSystem)
@@ -51,7 +51,6 @@ class BodySystem {
         if (this.isUser) {
             tempMicro.initializePassDataList(passDataList)
         
-          
         }
         this.floatingPlasticsList.push(tempMicro)
         tempMicro.updateBuffer(this.floatingBuffer.bufferGeometry, this.floatingPlasticsList.length)

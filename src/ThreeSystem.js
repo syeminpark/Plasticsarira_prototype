@@ -41,7 +41,7 @@ class ThreeSystem {
 
     setFog() {
         const near = 10
-        const far = 20
+        const far = 25
         const color = '#000000'
         this.scene.fog = new THREE.Fog(color, near, far);
         this.scene.background = new THREE.Color(color);
