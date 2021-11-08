@@ -22,19 +22,17 @@ class Convex {
     }
 
     updateBuffer(plastic) {
-
         this.clearObject()
-
         this.vertices.push(plastic.positionVector3);
         this.meshGeometry = new THREE.ConvexGeometry(this.vertices);
     }
 
     updateVertices(bufferGeometry, sariraListlength) {
-
         this.clearObject()
         this.vertices = []
 
         const positionAttribute = bufferGeometry.getAttribute('position');
+
 
         for (let i = 0; i < sariraListlength; i++) {
             const vertex = new THREE.Vector3();
@@ -60,17 +58,29 @@ class Convex {
         this.group.add(this.convexMeshFront)
         this.group.name = this.groupName
         this.threeSystem.scene.add(this.group)
-        
+
     }
 
 
     initializeMaterial() {
+        const hdrEquirect = new THREE.RGBELoader().load(
+            "images/empty_warehouse_01_1k.hdr",  
+            () => { 
+              hdrEquirect.mapping = THREE.EquirectangularReflectionMapping; 
+            }
+          );
+    
         let material = new THREE.MeshPhysicalMaterial({
             transmission: 0.95,
             thickness: 0.1,
             roughness: 0.4,
             clearcoat: 1,
-            clearcoatRoughness: 0,
+            metalness:0.06,
+            clearcoatRoughness: 0.4,
+            envMap: hdrEquirect,
+          
+            // normalMap: texture,
+           
         });
         return material
     }
@@ -83,4 +93,3 @@ class Convex {
     }
 
 }
-///add unique id then add to scene.

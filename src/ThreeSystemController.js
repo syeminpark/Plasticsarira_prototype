@@ -78,8 +78,12 @@ class ThreeSystemController {
             antialias: true,
         });
         this.renderer.setPixelRatio(window.devicePixelRatio)
-        this.renderer.setSize(window.innerWidth, window.innerHeight,false);
+        this.renderer.setSize(window.innerWidth, window.innerHeight, false);
         //this.renderer.autoClear = false;
+        this.renderer.outputEncoding = THREE.RGBDEncoding
+        this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        this.renderer.toneMappingExposure = 0.5
+   
     }
 
     render() {

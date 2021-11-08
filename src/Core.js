@@ -28,7 +28,7 @@ class Core extends Microplastic {
         let force = new THREE.Vector3(0, 0, 0)
         force.subVectors(this.positionVector3, floatingMicro.positionVector3);
         // Distance between objects
-        let distance = constrain(force.length(), 0.1, 3);
+        let distance = constrain(force.length(), 0.1, 1);
         // Calculate gravitional force magnitude
         let strength = (10 * this.mass * floatingMicro.mass) / (distance * distance);
         // Get force vector --> magnitude * direction

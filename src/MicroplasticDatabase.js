@@ -23,7 +23,7 @@ class MicroplasticDatabase {
             //PolyvinylChloride
             ["Credit card ", "Rain Coat", "Boot", "Shower Curtain", "Shrink Wrap", "Heat Duct", "Vinyl Record", "Synthetic Leather", "Drainage Pipe", "Window Frame", "Artificial Skin", "Blood bag ", "Phonograph Record", "Traffic Cone", "Garden Hose"],
             //Polyurethane
-            ["Couch", "Sport Shoe", "Rollerblade", "Tire", "Electronic Instrument", "Cushion Floor", "Engine Tubing", "Composite Wood", "Sponge", "Mattress Padding", "Wall Insulation", "Boat deck", "Water Tank", "Watch-band Wrapping", "Swimsuit"]
+            ["Couch", "Sport Shoe", "Rollerblade", "Tire", "Electric Instrument", "Cushion Floor", "Engine Tubing", "Composite Wood", "Sponge", "Mattress Padding", "Wall Insulation", "Boat deck", "Water Tank", "Watch-band", "Swimsuit"]
         ]
 
         //적힌 년도부터 2021년까지 랜덤한 년도 하나 
