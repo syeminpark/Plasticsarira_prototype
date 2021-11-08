@@ -1,16 +1,19 @@
 class Convex {
 
-    constructor(threeSystem) {
+    constructor(threeSystem,material) {
         this.vertices = new Array(0)
         this.meshObject = {}
         this.group = new THREE.Object3D
         this.groupName = Symbol()
         this.threeSystem = threeSystem
+        this.materialBack=material
+        print(material)
+     s
+        this.materialFront= _.cloneDeep(this.materialBack)
     }
 
     //must be at least three points. 
     initializeBuffer(bufferGeometry) {
-
         const positionAttribute = bufferGeometry.getAttribute('position');
 
         for (let i = 0; i < 4; i++) {
@@ -30,27 +33,23 @@ class Convex {
     updateVertices(bufferGeometry, sariraListlength) {
         this.clearObject()
         this.vertices = []
-
         const positionAttribute = bufferGeometry.getAttribute('position');
-
 
         for (let i = 0; i < sariraListlength; i++) {
             const vertex = new THREE.Vector3();
             vertex.fromBufferAttribute(positionAttribute, i);
             this.vertices.push(vertex)
         }
-
         this.meshGeometry = new THREE.ConvexGeometry(this.vertices);
     }
 
 
 
-    initializeMesh(material) {
-
-        this.convexMeshBack = new THREE.Mesh(this.meshGeometry, material);
+    initializeMesh() {
+        this.convexMeshBack = new THREE.Mesh(this.meshGeometry,this. materialBack);
         this.convexMeshBack.material.side = THREE.BackSide; // back faces
         this.convexMeshBack.renderOrder = 0;
-        this.convexMeshFront = new THREE.Mesh(this.meshGeometry, material.clone());
+        this.convexMeshFront = new THREE.Mesh(this.meshGeometry, this.materialFront);
         this.convexMeshFront.material.side = THREE.FrontSide; // front faces
         this.convexMeshFront.renderOrder = 1
 
@@ -61,29 +60,6 @@ class Convex {
 
     }
 
-
-    initializeMaterial() {
-        const hdrEquirect = new THREE.RGBELoader().load(
-            "images/empty_warehouse_01_1k.hdr",  
-            () => { 
-              hdrEquirect.mapping = THREE.EquirectangularReflectionMapping; 
-            }
-          );
-    
-        let material = new THREE.MeshPhysicalMaterial({
-            transmission: 0.95,
-            thickness: 0.1,
-            roughness: 0.4,
-            clearcoat: 1,
-            metalness:0.06,
-            clearcoatRoughness: 0.4,
-            envMap: hdrEquirect,
-          
-            // normalMap: texture,
-           
-        });
-        return material
-    }
 
     clearObject() {
         let selectedObject = this.threeSystem.scene.getObjectByName(this.groupName);
