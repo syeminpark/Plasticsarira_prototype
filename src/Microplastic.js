@@ -108,6 +108,3 @@ class Microplastic {
         return today.getHours() >= 12 ? 'PM' : 'AM';
     }
 }
-//move 적용시키기. positionVecor3 this.positionList 과정 복습하기. 충돌 안일어나게 하기. move적용시 다르게 생기는 것 방지하기 
-//더 작게 만들기 
-// convex제대로 만들어지는지/
