@@ -1,25 +1,27 @@
 class Sarira {
-    constructor(threeSystem) {
+    constructor(threeSystem,material,bufferGeometry) {
         this.plasticList = []
         this.threeSystem = threeSystem
+        this.material = material
+
+        this.bufferGeometry=bufferGeometry
 
 
     }
 
-    initializeCore(corePostionList, bufferGeometry, isUser) {
+    initializeCore(corePostionList, isUser) {
         this.plasticList.push(new Core(this.threeSystem))
         this.plasticList[0].initialize(corePostionList)
         isUser ? this.plasticList[0].initializePassDataList() : null
-        this.plasticList[0].updateBuffer(bufferGeometry, this.plasticList.length);
+        this.plasticList[0].updateBuffer(this.bufferGeometry, this.plasticList.length);
     }
 
-    initializeConvex(bufferGeometry, material) {
+    initializeConvex() {
 
         if (this.convex == undefined && this.plasticList.length > 3) {
-            this.convex = new Convex(this.threeSystem)
-            this.convex.initializeBuffer(bufferGeometry)
-            material != undefined ? this.material = material : this.material = this.convex.initializeMaterial();
-            this.convex.initializeMesh(this.material)
+            this.convex = new Convex(this.threeSystem,this.material)
+            this.convex.initializeBuffer(this.bufferGeometry)
+            this.convex.initializeMesh()
         }
     }
 
@@ -37,32 +39,31 @@ class Sarira {
         }
     }
 
-    updateConvexList(bufferGeometry) {
+    updateConvexList() {
         if (this.convex != undefined && this.plasticList.length > 3) {
-            this.convex.updateVertices(bufferGeometry, this.plasticList.length)
-            this.convex.initializeMesh(this.material)
+            this.convex.updateVertices(this.bufferGeometry, this.plasticList.length)
+            this.convex.initializeMesh()
         }
     }
 
     updateConvex(micro) {
         if (this.convex != undefined) {
             this.convex.updateBuffer(micro)
-
-            this.convex.initializeMesh(this.material)
+            this.convex.initializeMesh()
         }
     }
 
 
-    getPosition(bufferGeometry, positionList) {
+    getPosition() {
         for (let [index, plastic] of this.plasticList.entries()) {
-            plastic.getPosition(bufferGeometry, index);
+            plastic.getPosition(this.bufferGeometry, index);
 
         }
     }
 
-    updateVerticesFromLife(positionList,bufferGeometry) {
+    updateVerticesFromLife(positionList) {
         for (let [index, plastic] of this.plasticList.entries()) {
-            plastic.moveWithLife(positionList, bufferGeometry, index )
+            plastic.moveWithLife(positionList, this.bufferGeometry, index)
         }
 
     }

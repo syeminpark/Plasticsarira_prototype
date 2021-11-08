@@ -13,8 +13,8 @@ class BodySystemWindow extends BodySystem{
         }
     }
 
-    createSarira(){
-        super.createSarira(this.positionVector3)
+    createSarira(convexMaterial){
+        super.createSarira(this.positionVector3,convexMaterial)
     }
 
     updateSarira() {
@@ -36,5 +36,28 @@ class BodySystemWindow extends BodySystem{
                // print(this.sarira.plasticList.length, this.sariraBuffer.bufferGeometry)
             }
         }
+    }
+
+    createConvexMaterial(){
+        const hdrEquirect = new THREE.RGBELoader().load(
+            "images/empty_warehouse_01_1k.hdr",  
+            () => { 
+              hdrEquirect.mapping = THREE.EquirectangularReflectionMapping; 
+            }
+          );
+    
+        let convexMaterial = new THREE.MeshPhysicalMaterial({
+            transmission: 0.95,
+            thickness: 0.1,
+            roughness: 0.4,
+            clearcoat: 1,
+            metalness:0.06,
+            clearcoatRoughness: 0.4,
+            envMap: hdrEquirect,
+          
+            // normalMap: texture,
+           
+        });
+        return  convexMaterial
     }
 }
