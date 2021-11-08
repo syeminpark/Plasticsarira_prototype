@@ -8,7 +8,7 @@ class Convex {
         this.threeSystem = threeSystem
         this.materialBack=material
         print(material)
-     s
+     
         this.materialFront= _.cloneDeep(this.materialBack)
     }
 
