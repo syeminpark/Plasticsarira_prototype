@@ -59,7 +59,7 @@ class Life_user extends Life {
 
         this.lifeGo();
         if (this.isDead == false){
-            this.randomWalk(0.01, 0.08);
+            this.randomWalk(0.01, 0.1);
             this.noise_update();
             this.wrap_particles();
             this.key_check();
@@ -115,7 +115,7 @@ class Life_user extends Life {
     }
 
     key_update(){
-        var moveDistance = 400 * this.clock.getDelta();
+        var moveDistance = 500 * this.clock.getDelta();
         var rotateValue = 500 * this.clock.getDelta();
 
         if ( this.keyboard.pressed("W") ){

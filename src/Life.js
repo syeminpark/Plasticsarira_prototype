@@ -26,10 +26,10 @@ class Life {
         this.absorbPlasticList = [];
         this.set_absorbPlasticList();
 
-        this.absorbPlasticNum = (this.size + this.sizeMax) * 10;
+        this.absorbPlasticNum = (this.size + this.sizeMax) * 100;
 
         this.isDead = false;
-        this.lifespan = (this.size + this.sizeMax)*10;
+        this.lifespan = (this.size + this.sizeMax)*20;
 
         this.display(threeSystemController);
         this.noise_init();
@@ -92,7 +92,7 @@ class Life {
     update() {
         this.lifeGo();
         if (this.isDead == false){
-            this.randomWalk(0.01, 0.1);
+            this.randomWalk(this.size * 0.01, 0.1);
             this.randomLook();
             this.noise_update();
             this.wrap_particles();
@@ -363,11 +363,17 @@ class Life {
             else this.lifespan -= 0.2;
         } 
 
-        if (this.lifespan < 0.1 && this.life.scale.x > 0.011){
-            this.life.scale.x -= 0.01;
-            this.life.scale.y -= 0.01;
-            this.life.scale.z -= 0.01;
+        if (this.lifespan < 0.1){
+            if (this.life.scale.x > 0.011){
+                this.life.scale.x -= 0.01;
+                this.life.scale.y -= 0.01;
+                this.life.scale.z -= 0.01;
+            }
 
+            if (this.life.material.opacity > 0.01){
+                this.life.material.opacity -= 0.01;
+            }
+            
             if (this.isDead == false){
                 for (let i = 0; i < this.absorbedParticles.length; i++) {
                     this.absorbedParticles[i].wrap_init();
