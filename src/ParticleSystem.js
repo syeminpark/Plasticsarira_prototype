@@ -1,6 +1,6 @@
 class ParticleSystem{
     constructor(lifeSystem){
-        this.num = 5000;
+        this.num = 10000;
         this.size = 150;
 
         this.particles = [];

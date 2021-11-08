@@ -93,7 +93,7 @@ class Life {
         this.noise_update();
         this.wrap_particles();
         this.wrap();
-        this.add_MicroPlasticToBodySystem();
+        //this.add_MicroPlasticToBodySystem();
     }
 
     randomWalk(acc, velLimit) {
