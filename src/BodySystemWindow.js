@@ -53,7 +53,7 @@ class BodySystemWindow extends BodySystem{
             clearcoat: 1,
             metalness:0.06,
             clearcoatRoughness: 0.4,
-            envMap: hdrEquirect,
+            //envMap: hdrEquirect,
           
             // normalMap: texture,
            

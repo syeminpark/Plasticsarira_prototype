@@ -23,13 +23,13 @@ class PlastiSarira {
 
 
         for (let index = 0; index < this.lifeSystem.num; index++) {
-            if (index == 0) {
+            // if (index  <=1  ) {
                 let bodySystem = new BodySystem(this.threeSystemController.worldThreeSystem, index);
                 bodySystem.createBuffer(this.particleMaterial)
                 bodySystem.createSarira(_.cloneDeep(this.lifeSystem.lifes[index].position), this.convexMaterial)
 
                 this.bodySystemList.push(bodySystem)
-            }
+            // }
         }
     }
 
@@ -37,11 +37,10 @@ class PlastiSarira {
         for (let [index, bodySystem] of this.bodySystemList.entries()) {
             bodySystem.update()
         }
-
         for (let index = 0; index < this.lifeSystem.num; index++) {
-            if (index == 0) {
+            // if (index  <=1 ) {
                 this.bodySystemList[index + 1].getLifePosition(_.cloneDeep(this.lifeSystem.lifes[index].position))
-            }
+            // }
         }
 
         this.threeSystemController.update()
