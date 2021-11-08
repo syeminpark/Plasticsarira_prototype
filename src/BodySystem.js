@@ -38,7 +38,7 @@ class BodySystem {
 
 
     update() {
-       // this.moveFloatingPlastics()
+        this.moveFloatingPlastics()
         this.updateSarira()
         this.sarira.getPosition()
     }

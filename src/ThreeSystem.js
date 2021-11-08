@@ -17,12 +17,14 @@ class ThreeSystem {
         //마우스로 컨트롤 
         this.setOrbitcontrols();
         //프레임 레이트 모니터링 
-        this.setStats()
+        //this.setStats()
     }
 
     update() {
         this.controls.update();
-        this.stats.update()
+        if (this.stats != undefined) {
+            this.stats.update()
+        }
     }
 
     setCamera(cameraPositionList, cameraLookPositionList) {
@@ -52,7 +54,7 @@ class ThreeSystem {
         let directionalLight = new THREE.DirectionalLight(0xffffff, 5);
         directionalLight.position.set(.5, 0, 0.866);
         directionalLight.target.position.set(0, 0, 0);
-        let hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff,5);
+        let hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 5);
         this.scene.add(ambientLight, directionalLight, hemiLight, directionalLight.target);
     }
 
