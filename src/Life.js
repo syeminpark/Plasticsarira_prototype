@@ -93,7 +93,7 @@ class Life {
         this.noise_update();
         this.wrap_particles();
         this.wrap();
-        //this.add_MicroPlasticToBodySystem();
+        this.add_MicroPlasticToBodySystem();
     }
 
     randomWalk(acc, velLimit) {
@@ -312,6 +312,7 @@ class Life {
             var send_pos = new THREE.Vector3().subVectors(this.sariraParticles[this.sariraParticlesData.length-1].position, this.position);
 
             plastiSarira.bodySystemList[this.index+1].addFloatingPlastics(send_pos, data);
+            
 
             this.isMakeSarira = false;
         }

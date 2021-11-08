@@ -1,13 +1,13 @@
 class Convex {
 
     constructor(threeSystem,material) {
-        this.vertices = new Array(0)
+        this.vertices = []
         this.meshObject = {}
         this.group = new THREE.Object3D
         this.groupName = Symbol()
         this.threeSystem = threeSystem
         this.materialBack=material
-        print(material)
+       // print(material)
      
         this.materialFront= _.cloneDeep(this.materialBack)
     }

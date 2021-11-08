@@ -15,7 +15,7 @@ class BodySystem {
 
     getLifePosition(positionList) {
         this.sarira.updateVerticesFromLife(positionList)
-        this.sarira.updateConvexList()
+       this.sarira.updateConvexList()
     }
 
 
@@ -29,11 +29,11 @@ class BodySystem {
         //print(this.sariraBuffer)
     }
 
-    createSarira(corePostionList,convexMaterial) {
+    createSarira([corePostionList],convexMaterial) {
        
         this.convexMaterial=convexMaterial
         this.sarira = new Sarira(this.threeSystem,  this.convexMaterial,this.sariraBuffer.bufferGeometry,)
-        this.sarira.initializeCore(corePostionList,  this.isUser)
+        this.sarira.initializeCore(new THREE.Vector3(0,0,0),  this.isUser)
     }
 
 
@@ -41,6 +41,8 @@ class BodySystem {
         this.moveFloatingPlastics()
         this.updateSarira()
         this.sarira.getPosition()
+        
+       
     }
 
 
@@ -74,18 +76,12 @@ class BodySystem {
         
             if (micro.checkStuck(this.sarira.plasticList)) {
                 this.sarira.addPlastics(micro)
-                if (this.terminal != undefined) {
-                    this.sarira.addMetaData(this.terminal)
-                    this.terminal.createMetaDataText()
-                }
-
                 micro.getPosition(this.floatingBuffer.bufferGeometry, index)
                 micro.updateBuffer(this.sariraBuffer.bufferGeometry, this.sarira.plasticList.length)
                 micro.switch(this.floatingBuffer.bufferGeometry, index, this.floatingPlasticsList)
 
-              
                 this.sarira.initializeConvex()
-               // print(this.sarira.plasticList.length, this.sariraBuffer.bufferGeometry)
+              // print(this.sarira.plasticList.length, this.sariraBuffer.bufferGeometry)
             }
         }
     }

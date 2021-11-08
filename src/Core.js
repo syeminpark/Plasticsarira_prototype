@@ -15,6 +15,7 @@ class Core extends Microplastic {
     }
     initialize(positionList) {
         super.initialize(positionList,this.density, this.tensileStrength)
+      
     }
 
     initializePassDataList() {
