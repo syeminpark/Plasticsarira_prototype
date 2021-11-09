@@ -33,7 +33,7 @@ body {
     /* make our position the top left of the container */
     top: 0;
     background-color: black;
-    color:white
+    color: white
 }
 
 .diagram {
@@ -77,19 +77,19 @@ body {
     font-size: 1.5vh;
 }
 
-.credit{
+.credit {
     color: grey;
     font-size: 0.43vw;
-    bottom:0;
+    bottom: 0;
     margin-bottom: 3vh;
-    
+
 }
 
 .copyRight {
     bottom: 0;
     color: grey;
     font-size: 0.7vw;
-    margin-bottom:5vh;
+    margin-bottom: 5vh;
 }
 
 .description {
@@ -147,40 +147,39 @@ body {
     transition: 3s;
 }
 
-.logo{
+.logo {
     position: fixed;
-    bottom:0;
+    bottom: 0;
 
 }
 
 
-.nabi{
-    width: 4%;
-    margin-left:1vw;
-    margin-bottom:3.33vh;
+.nabi {
+    width: 4vw;
+    margin-left: 1vw;
+    margin-bottom: 2vw;
 }
 
-.bangLee{
-    width: 2%;
-    margin-left:6vw; 
-    margin-bottom:2vh;
+.bangLee {
+    width: 2vw;
+    margin-left: 6vw;
+    margin-bottom: 1vw;
 }
 
-.watershed{
-    width: 3%;
-    margin-left:9vw;
-    margin-bottom:3.3vh;
-}
-.britishcouncil{
-    width: 3%;
-    margin-left:13vw;
-    margin-bottom:3vh;
+.watershed {
+    width: 3vw;
+    margin-left: 9vw;
+    margin-bottom: 2vw;
 }
 
-.koreanfoundation{
-    width: 3%;
-    margin-left:17vw;
-    margin-bottom:2vh;
+.britishcouncil {
+    width: 3vw;
+    margin-left: 13vw;
+    margin-bottom: 1.7vw;
 }
 
-
+.koreanfoundation {
+    width: 3vw;
+    margin-left: 17vw;
+    margin-bottom: 1.1vw;
+}
