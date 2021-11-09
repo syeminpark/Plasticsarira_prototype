@@ -38,12 +38,12 @@ class LifeSystem{
             this.lifes[i].update();
         }
         
-        // for (let i = this.lifes.length-1; i >= 0 ; i--) {
-        //     if (this.lifes[i].isDead == true){
-        //         this.lifes.splice(i, 1);
-        //         console.log(i + 'delete');
-        //     }
-        // }
+        for (let i = this.lifes.length-1; i >= 0 ; i--) {
+            if (this.lifes[i].isDead == true){
+                this.lifes.splice(i, 1);
+                console.log(i + 'delete');
+            }
+        }
 
         this.userText.updateLabel(this.life_user.life.position)
     }
