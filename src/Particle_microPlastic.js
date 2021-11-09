@@ -64,6 +64,7 @@ class MicroPlastic {
     wrap_init(){
       this.wrapCenter = new THREE.Vector3(0, 0, 0);
       this.wrapSize = this.spaceSize * 1.2;
+      this.velLimit = 0.1;
     }
   
     wrap(){

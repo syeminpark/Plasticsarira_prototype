@@ -1,8 +1,8 @@
 class LifeSystem{
     constructor(threeSystemController){
-        this.primaryNum = 10;
-        this.secondaryNum = 6;
-        this.tertiaryNum = 3;
+        this.primaryNum = 15;
+        this.secondaryNum = 8;
+        this.tertiaryNum = 2;
         this.num = 1 + this.primaryNum + this.secondaryNum + this.tertiaryNum;
 
         this.windowSize = 140;
@@ -34,10 +34,17 @@ class LifeSystem{
 
     update(){
         this.lifes[0].update_user();
-        
         for (let i = 1; i < this.lifes.length; i++) {
             this.lifes[i].update();
         }
+        
+        // for (let i = this.lifes.length-1; i >= 0 ; i--) {
+        //     if (this.lifes[i].isDead == true){
+        //         this.lifes.splice(i, 1);
+        //         console.log(i + 'delete');
+        //     }
+        // }
+
         this.userText.updateLabel(this.life_user.life.position)
     }
 

@@ -92,8 +92,8 @@ class Life_tertiaryConsumer extends Life {
         this.angleVelocity = this.velocity.clone();
         this.angleAcceleration = this.acceleration.clone();
 
-        this.size = random(15, 20);
-        this.sizeMax = random(20, 40);
+        this.size = random(10, 20);
+        this.sizeMax = random(15, 30);
 
         this.noiseShape = random(0.01, 0.1);
         this.noiseAnimSpeed = random(0.1, 0.3);
