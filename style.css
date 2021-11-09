@@ -93,12 +93,14 @@ body {
 }
 
 .description {
+
     margin-top: 79vh;
     font-size: 1vw;
     color: lightgrey;
 }
 
 .tip {
+
     margin-top: 82vh;
     color: grey;
     font-size: 0.63vw;
@@ -154,32 +156,34 @@ body {
 }
 
 
+
+
 .nabi {
     width: 4vw;
     margin-left: 1vw;
     margin-bottom: 2vw;
 }
 
-.bangLee {
-    width: 2vw;
-    margin-left: 6vw;
-    margin-bottom: 1vw;
-}
-
 .watershed {
     width: 3vw;
-    margin-left: 9vw;
+    margin-left: 6vw;
     margin-bottom: 2vw;
 }
 
-.britishcouncil {
-    width: 3vw;
-    margin-left: 13vw;
-    margin-bottom: 1.7vw;
+.bangLee {
+    width: 2vw;
+    margin-left: 10vw;
+    margin-bottom: 1vw;
 }
 
 .koreanfoundation {
     width: 3vw;
-    margin-left: 17vw;
+    margin-left: 13vw;
     margin-bottom: 1.1vw;
+}
+
+.britishcouncil {
+    width: 3vw;
+    margin-left: 17vw;
+    margin-bottom: 1.7vw;
 }
