@@ -93,13 +93,13 @@ body {
 }
 
 .description {
-    margin-top: 80vh;
+    margin-top: 79vh;
     font-size: 1vw;
     color: lightgrey;
 }
 
 .tip {
-    margin-top: 84vh;
+    margin-top: 82vh;
     color: grey;
     font-size: 0.63vw;
 }
@@ -150,17 +150,19 @@ body {
 .logo{
     position: fixed;
     bottom:0;
+
 }
+
 
 .nabi{
     width: 4%;
     margin-left:1vw;
-    margin-bottom:3.3vh;
+    margin-bottom:3.33vh;
 }
 
 .bangLee{
     width: 2%;
-    margin-left:6vw;
+    margin-left:6vw; 
     margin-bottom:2vh;
 }
 
@@ -180,7 +182,5 @@ body {
     margin-left:17vw;
     margin-bottom:2vh;
 }
-
-
 
 
