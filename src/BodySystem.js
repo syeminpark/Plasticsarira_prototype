@@ -1,66 +1,56 @@
 class BodySystem {
 
     constructor(threeSystem, index=0) {
-
         index == 0 ? this.isUser = true : this.isUser = false;
         this.threeSystem = threeSystem
 
         this.floatingPlasticsList = new Array(0)
-        //Polyethylene= 1  Polypropylene =2  "Polystyrene =3,  Polyamide=4, Polyester =5, Acrylic=6,  Polyacetal=7, PolyvinylChloride=8, Polyurethane=9
+
+        this.microType = ["Polyethylene", "Polypropylene", "Polystyrene", "Polyamide", "Polyester", "Acrylic", "Polyacetal", "PolyvinylChloride", "Polyurethane"]
         this.densityList = [0.94, 0.92, 1.05, 1.14, 1.4, 1.2, 1.42, 1.38, 0.425]
         this.tensileStrengthList = [4554, 5440, 7700, 12400, 11500, 9400, 10007, 7500, 2596]
-        //document.addEventListener('mousedown', this.addFloatingPlastics.bind(this), false);
-
+    
         this.positionVector3=new THREE.Vector3(0,0,0)
     }
 
     getLifePosition(positionList) {
-        this.sarira.updateVerticesFromLife(positionList)
-       this.sarira.updateConvexList()
+        this.sarira.updateVerticesFromLife(positionList) //microplastic.movewithlife
+        this.sarira.updateConvexAll()
     }
 
-
     createBuffer(material) {
-     
         this.floatingBuffer = new Buffer()
         this.particleMaterial = material;
 
         this.floatingBuffer.initialize(this.threeSystem, this.particleMaterial)
         this.sariraBuffer = new Buffer()
         this.sariraBuffer.initialize(this.threeSystem, this.particleMaterial)
-        //print(this.sariraBuffer)
     }
 
     createSarira(convexMaterial) {
-     
         this.convexMaterial=convexMaterial
         this.sarira = new Sarira(this.threeSystem, this.particleMaterial, this.convexMaterial, this.sariraBuffer.bufferGeometry,)
         this.sarira.initializeCore(this.positionVector3,  this.isUser)
     }
 
     createTerminal() {
-        if (this.isUser) {
             this.terminal = new Terminal()
             this.terminal.initializeCategory()
             this.sarira.addMetaData(this.terminal)
             this.terminal.createMetaDataText()
-        }
     }
 
     update() {
         this.moveFloatingPlastics()
-        this.updateSarira()
+        this.updateSarira() //micro.getposition-microupdateBuffer-micro.switch
         this.sarira.getPosition()
     }
 
-
     addFloatingPlastics(positionList,passDataList) {
-
-        //추후에 microplastic을 만드는 것으로 변경 
         let tempMicro = new Microplastic(this.threeSystem,this.particleMaterial)
 
         tempMicro.initialize(positionList, this.densityList[this.checkIndex(passDataList)], this.tensileStrengthList[this.checkIndex(passDataList)])
-        if (this.isUser) {
+        if (this.terminal!=undefined) {
             tempMicro.initializePassDataList(passDataList)
         
         }
@@ -86,27 +76,22 @@ class BodySystem {
                 if (this.terminal != undefined) {
                     this.sarira.addMetaData(this.terminal)
                     this.terminal.createMetaDataText()
-
                 }
                 micro.getPosition(this.floatingBuffer.bufferGeometry, index)
                 micro.updateBuffer(this.sariraBuffer.bufferGeometry, this.sarira.plasticList.length)
                 micro.switch(this.floatingBuffer.bufferGeometry, index, this.floatingPlasticsList)
 
                 if(this.terminal !=undefined){
-                
                     this.sarira.updateConvex(micro)
                 }
                 this.sarira.initializeConvex()
-              // print(this.sarira.plasticList.length, this.sariraBuffer.bufferGeometry)
             }
         }
     }
 
     checkIndex(passDataList) {
-        //microType
-        let microType = ["Polyethylene", "Polypropylene", "Polystyrene", "Polyamide", "Polyester", "Acrylic", "Polyacetal", "PolyvinylChloride", "Polyurethane"]
-        for (let i = 0; i < microType.length; i++) {
-            if (passDataList[2] == microType[i]) {
+        for (let i = 0; i < this.microType.length; i++) {
+            if (passDataList[2] == this.microType[i]) {
                 return i
             }
         }

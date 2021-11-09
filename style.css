@@ -77,10 +77,20 @@ body {
     font-size: 1.5vh;
 }
 
+.credit{
+ 
+    color: darkgrey;
+    font-size: 0.43vw;
+    bottom:0;
+    margin-bottom: 1vh;
+    
+}
+
 .copyRight {
     bottom: 0;
     color: darkgrey;
-    font-size: 1vh;
+    font-size: 0.7vw;
+    margin-bottom:3vh;
 }
 
 .description {
@@ -90,7 +100,6 @@ body {
 }
 
 .tip {
-
     margin-top: 84vh;
     color: grey;
     font-size: 0.63vw;
@@ -138,3 +147,41 @@ body {
 .swal-button--confirm:hover {
     transition: 3s;
 }
+
+.logo{
+    position: fixed;
+    bottom:0;
+}
+
+.nabi{
+    width: 4%;
+    margin-left:1vw;
+    margin-bottom:1.3vh;
+}
+
+.bangLee{
+    width: 2%;
+    margin-left:6vw;
+    
+}
+
+.watershed{
+    width: 3%;
+    margin-left:9vw;
+    margin-bottom:1.3vh;
+}
+.britishcouncil{
+    width: 3%;
+    margin-left:13vw;
+    margin-bottom:1vh;
+}
+
+.koreanfoundation{
+    width: 3%;
+    margin-left:17vw;
+
+}
+
+
+
+

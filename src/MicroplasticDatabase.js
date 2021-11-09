@@ -13,7 +13,7 @@ class MicroplasticDatabase {
             //Polystyrene
             ["Refrigerator", "Air Conditioner", "Oven", "Microwave", "Door Knob", "Televison", "Computer", "CD Case", "Egg Carton", "Model Car", "Ruler", "Hair Comb", "Videocassettes", "Gardening Pot ", "Protective Seat "],
             //Polyamide
-            ["ToothBrush", "Wheel", "Glove", "Guitar pic", "Tennis Racket String", "Tent", "Banner", "Motor Insulator", "Wheel Cover", "Cable Protection", "Conveyor Belt", "Circuit Breaker", "Fuse", "Ski Binding", "Violin String"],
+            ["ToothBrush", "Wheel", "Glove", "Guitar pic", "Tennis String", "Tent", "Banner", "Motor Insulator", "Wheel Cover", "Cable Protection", "Conveyor Belt", "Circuit Breaker", "Fuse", "Ski Binding", "Violin String"],
             //Polyester
             ["Seat Belt", "Fishing Net", "Underwear", "Towel", "Curtain", "Blanket", "Mouse Pad", "LCD", "Diaper", "Laundry Bag", "Table Cloth", "Balloon", "X-Ray Film", "Canoe", "Air Filter"],
             //Acrylic
