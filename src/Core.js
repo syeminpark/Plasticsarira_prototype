@@ -32,7 +32,7 @@ class Core extends Microplastic {
 
         let distance = constrain(force.length(), 5, 20);
         // Calculate gravitional force magnitude
-        let strength = ( 2*this.mass*floatingMicro.mass*2) / (distance * distance);
+        let strength = ( 2*this.mass*floatingMicro.mass) / (distance * distance);
         // Get force vector --> magnitude * direction
         force.setLength(strength);
         return force;

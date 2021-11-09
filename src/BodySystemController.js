@@ -64,8 +64,8 @@ class BodySystemController {
             }
         );
         this.convexWindowMaterial=this.convexMaterial.clone()
-        this.convexWindowMaterial.roughness= 0.4
-        this.convexWindowMaterial.envMap= hdrEquirect
+        // this.convexWindowMaterial.roughness= 0.4
+        // this.convexWindowMaterial.envMap= hdrEquirect
     }
 
 }
