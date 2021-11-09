@@ -1,16 +1,15 @@
 class Sarira {
-    constructor(threeSystem,material,bufferGeometry) {
+    constructor(threeSystem,particleMaterial,convexMaterial,bufferGeometry) {
         this.plasticList = []
         this.threeSystem = threeSystem
-        this.material = material
-
+        this.particleMaterial = particleMaterial
+        this.convexMaterial=convexMaterial
         this.bufferGeometry=bufferGeometry
 
 
     }
-
     initializeCore(corePostionList, isUser) {
-        this.plasticList.push(new Core(this.threeSystem))
+        this.plasticList.push(new Core(this.threeSystem,this.particleMaterial))
         this.plasticList[0].initialize(corePostionList)
         isUser ? this.plasticList[0].initializePassDataList() : null
         this.plasticList[0].updateBuffer(this.bufferGeometry, this.plasticList.length);
@@ -19,7 +18,7 @@ class Sarira {
     initializeConvex() {
 
         if (this.convex == undefined && this.plasticList.length > 3) {
-            this.convex = new Convex(this.threeSystem,this.material)
+            this.convex = new Convex(this.threeSystem,this.convexMaterial)
             this.convex.initializeBuffer(this.bufferGeometry)
             this.convex.initializeMesh()
         }

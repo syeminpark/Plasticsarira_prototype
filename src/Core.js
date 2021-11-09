@@ -1,6 +1,6 @@
 class Core extends Microplastic {
-    constructor(threeSystem) {
-        super(threeSystem)
+    constructor(threeSystem,particleMaterial) {
+        super(threeSystem,particleMaterial)
         
         this.microType = "Polypropylene"; // polypropylene was identified in baby
         this.absorbedBy = "Inheritance"

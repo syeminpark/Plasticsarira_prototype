@@ -51,11 +51,11 @@ class ParticleSystem{
         this.points.geometry.attributes.position.needsUpdate = true;
     }
 
-    display(threeSystemController){
+    display(threeSystemController,size){
         var geometry = new THREE.BufferGeometry().setFromPoints(this.particles_positions);
         
         var material = new THREE.PointsMaterial({
-            size: 0.1,
+            size: size,
             color:'white'
         });
         //var material = new THREE.MeshNormalMaterial({wireframe:false});

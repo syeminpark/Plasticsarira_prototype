@@ -1,12 +1,12 @@
 class Microplastic {
 
     //later create size and color parameter
-    constructor(threeSystem) {
+    constructor(threeSystem,particleMaterial) {
         this.velocity = new THREE.Vector3(1, 0, 0)
         this.acceleration = new THREE.Vector3(0, 0, 0)
         this.positionVector3 = new THREE.Vector3(0, 0, 0)
         // this.color = [1, 1, 1] // [Math.random(), Math.random(), Math.random()]
-        this.size = plastiSarira.particleMaterial.size
+        this.size = particleMaterial.size
 
         this.threeSystem = threeSystem
     }

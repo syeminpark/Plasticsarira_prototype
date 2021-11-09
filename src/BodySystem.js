@@ -23,18 +23,18 @@ class BodySystem {
     createBuffer(material) {
      
         this.floatingBuffer = new Buffer()
-        this.microMaterial = material;
+        this.particleMaterial = material;
 
-        this.floatingBuffer.initialize(this.threeSystem, this.microMaterial)
+        this.floatingBuffer.initialize(this.threeSystem, this.particleMaterial)
         this.sariraBuffer = new Buffer()
-        this.sariraBuffer.initialize(this.threeSystem, this.microMaterial)
+        this.sariraBuffer.initialize(this.threeSystem, this.particleMaterial)
         //print(this.sariraBuffer)
     }
 
     createSarira(convexMaterial) {
      
         this.convexMaterial=convexMaterial
-        this.sarira = new Sarira(this.threeSystem,  this.convexMaterial,this.sariraBuffer.bufferGeometry,)
+        this.sarira = new Sarira(this.threeSystem, this.particleMaterial, this.convexMaterial, this.sariraBuffer.bufferGeometry,)
         this.sarira.initializeCore(this.positionVector3,  this.isUser)
     }
 
@@ -47,22 +47,18 @@ class BodySystem {
         }
     }
 
-
     update() {
         this.moveFloatingPlastics()
         this.updateSarira()
         this.sarira.getPosition()
-        
-       
     }
 
 
     addFloatingPlastics(positionList,passDataList) {
 
         //추후에 microplastic을 만드는 것으로 변경 
-        let tempMicro = new Microplastic(this.threeSystem)
+        let tempMicro = new Microplastic(this.threeSystem,this.particleMaterial)
 
-      
         tempMicro.initialize(positionList, this.densityList[this.checkIndex(passDataList)], this.tensileStrengthList[this.checkIndex(passDataList)])
         if (this.isUser) {
             tempMicro.initializePassDataList(passDataList)

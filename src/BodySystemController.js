@@ -6,12 +6,16 @@ class BodySystemController {
         this.lifeSystem=lifeSystem
         this.particleMaterial=particleMaterial
         this.bodySystemList = new Array(0)
+        this.lifePositionList=[]
+        for (let index = 0; index < this.lifeSystem.num; index++){
+            this.lifePositionList.push(0)
+        }
     }
 
     createWindowBodySystem() {
         let bodySystemWindow = new BodySystem(this.threeSystemController.sariraThreeSystem);
         bodySystemWindow.createBuffer(this.particleMaterial)
-        bodySystemWindow.createSarira(this.convexMaterial)
+        bodySystemWindow.createSarira(this.convexWindowMaterial)
         bodySystemWindow.createTerminal()
         this.bodySystemList.push(bodySystemWindow)
     }
@@ -25,7 +29,7 @@ class BodySystemController {
         }
     }
 
-    bodySystemUpdate() {
+    updateBodySystem() {
         for (let [index, bodySystem] of this.bodySystemList.entries()) {
             bodySystem.update()
         }
@@ -34,14 +38,11 @@ class BodySystemController {
         }
     }
 
-    createConvexMaterial() {
-        const hdrEquirect = new THREE.RGBELoader().load(
-            "images/empty_warehouse_01_1k.hdr",
-            () => {
-                hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
-            }
-        );
+    updateLifePosition(index,position){
+        this.lifePositionList[index]=position
+    }
 
+    createConvexMaterial() {
         this.convexMaterial = new THREE.MeshPhysicalMaterial({
             transmission: 0.95,
             thickness: 0.1,
@@ -53,4 +54,17 @@ class BodySystemController {
 
         })
     }
+
+    createConvexWindowMaterial() {
+        const hdrEquirect = new THREE.RGBELoader().load(
+            "images/empty_warehouse_01_1k.hdr",
+            () => {
+                hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
+            }
+        );
+        this.convexWindowMaterial=this.convexMaterial.clone()
+        this.convexWindowMaterial.roughness= 0.4
+        this.convexWindowMaterial.envMap= hdrEquirect
+    }
+
 }
