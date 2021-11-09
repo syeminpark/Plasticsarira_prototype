@@ -367,16 +367,16 @@ class Life {
 
         if (this.lifespan < 0.1){
             if (this.life.scale.x > 0.011){
-                this.life.scale.x -= 0.01;
-                this.life.scale.y -= 0.01;
-                this.life.scale.z -= 0.01;
+                this.life.scale.x -= 0.015;
+                this.life.scale.y -= 0.015;
+                this.life.scale.z -= 0.015;
             }
 
             if (this.life.material.opacity > 0.01){
                 this.life.material.opacity -= 0.01;
             }
             
-            if (this.isDead == false){
+            if (this.isDead == false && this.life.scale.x <= 0.010){
                 for (let i = 0; i < this.absorbedParticles.length; i++) {
                     this.absorbedParticles[i].wrap_init();
                 }
