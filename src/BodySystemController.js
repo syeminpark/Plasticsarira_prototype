@@ -35,7 +35,8 @@ class BodySystemController {
             bodySystem.update()
         }
         for (let index = 0; index < this.lifeSystem.num; index++) {
-            this.bodySystemList[index + 1].getLifePosition(_.cloneDeep(this.lifeSystem.lifes[index].position))
+            print( )
+            this.bodySystemList[index + 1].getLifePosition(_.cloneDeep(this.lifePositionList[index]))
         }
     }
 
