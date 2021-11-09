@@ -78,19 +78,18 @@ body {
 }
 
 .credit{
- 
-    color: darkgrey;
+    color: grey;
     font-size: 0.43vw;
     bottom:0;
-    margin-bottom: 1vh;
+    margin-bottom: 3vh;
     
 }
 
 .copyRight {
     bottom: 0;
-    color: darkgrey;
+    color: grey;
     font-size: 0.7vw;
-    margin-bottom:3vh;
+    margin-bottom:5vh;
 }
 
 .description {
@@ -156,30 +155,30 @@ body {
 .nabi{
     width: 4%;
     margin-left:1vw;
-    margin-bottom:1.3vh;
+    margin-bottom:3.3vh;
 }
 
 .bangLee{
     width: 2%;
     margin-left:6vw;
-    
+    margin-bottom:2vh;
 }
 
 .watershed{
     width: 3%;
     margin-left:9vw;
-    margin-bottom:1.3vh;
+    margin-bottom:3.3vh;
 }
 .britishcouncil{
     width: 3%;
     margin-left:13vw;
-    margin-bottom:1vh;
+    margin-bottom:3vh;
 }
 
 .koreanfoundation{
     width: 3%;
     margin-left:17vw;
-
+    margin-bottom:2vh;
 }
 
 
