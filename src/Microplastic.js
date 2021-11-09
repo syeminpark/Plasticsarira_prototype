@@ -14,7 +14,7 @@ class Microplastic {
     initialize(positionList, density, tensileStrength) {
 
         this.positionList = [positionList.x, positionList.y, positionList.z]
-        this.mass = density * this.size / 10
+        this.mass = density * this.size *2
         this.tensileStrength = map(tensileStrength, 2596, 12400, 0, 0.1)
     }
 
@@ -33,10 +33,14 @@ class Microplastic {
 
     walk(bufferGeometry, index) {
         this.velocity.add(this.acceleration)
+        
         bufferGeometry.attributes.position.array[index * 3] += this.velocity.x
         bufferGeometry.attributes.position.array[(index * 3) + 1] += this.velocity.y
         bufferGeometry.attributes.position.array[(index * 3) + 2] += this.velocity.z
+
+     
         this.acceleration.multiplyScalar(0)
+         
     }
 
     getPosition(bufferGeometry, index) {
@@ -76,13 +80,28 @@ class Microplastic {
         bufferGeometry.setDrawRange(0, lastIndex);
     }
 
+    // checkStuck(others) {
+
+    //     for (let i = 0; i < others.length; i++) {
+
+    //         let d2 = this.positionVector3.distanceTo(others[i].positionVector3)
+    //         if (d2 < this.size + others[i].size+1){
+    //             return true
+    //         }
+    //     }
+    //     return false
+    // }
+
     checkStuck(others) {
 
         for (let i = 0; i < others.length; i++) {
 
-            let d2 = this.positionVector3.distanceTo(others[i].positionVector3)
-            if ((d2 < this.size + others[i].size) +
-                (this.tensileStrength + others[i].tensileStrength) / 2) {
+            let tempVector3=new THREE.Vector3(0,0,0)
+            tempVector3.addVectors(this.positionVector3,others[0].positionVector3)
+            let d2 = tempVector3.distanceTo(others[i].positionVector3)
+          
+            if (d2 < this.size + others[i].size+1){
+        
                 return true
             }
         }

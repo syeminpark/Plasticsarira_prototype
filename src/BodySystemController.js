@@ -21,6 +21,7 @@ class BodySystemController {
     }
 
     createOtherBodySystem() {
+
         for (let index = 0; index < this.lifeSystem.num; index++) {
             let bodySystem = new BodySystem(this.threeSystemController.worldThreeSystem, index);
             bodySystem.createBuffer(this.particleMaterial)

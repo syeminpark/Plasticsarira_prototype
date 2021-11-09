@@ -18,6 +18,7 @@ class Sarira {
     initializeConvex() {
 
         if (this.convex == undefined && this.plasticList.length > 3) {
+            print("made")
             this.convex = new Convex(this.threeSystem,this.convexMaterial)
             this.convex.initializeBuffer(this.bufferGeometry)
             this.convex.initializeMesh()
@@ -32,7 +33,6 @@ class Sarira {
         //iterate over every (new) plastic inside sarira. 
         let plastic = this.plasticList[this.plasticList.length - 1]
         //iterate over every metadata for plastic 
-
         for (let [index, dataElement] of plastic.passDataList.entries()) {
             terminal.metaDataList[index].push(dataElement)
         }

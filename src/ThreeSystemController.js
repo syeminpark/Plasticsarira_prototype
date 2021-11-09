@@ -20,7 +20,7 @@ class ThreeSystemController {
         //사리 생성 장면 시스템 
         //카메라 생성, 렌더러 설정, 마우스 이동 가능(orbitcontrols), 빛 두개(ambient,directional)생성 
         this.sariraThreeSystem = new ThreeSystem(document.querySelector('#sarira'), this.sariraCameraPositionList, this.cameraLookPositionList)
-        this.sariraThreeSystem.setFog()
+        //this.sariraThreeSystem.setFog()
         this.systemList = [this.worldThreeSystem, this.sariraThreeSystem]
         //-----------------------------------------------------------------------------
         //css와 연관된, 렌더러가 렌더링하는 캔버스 명 
