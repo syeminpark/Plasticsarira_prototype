@@ -78,8 +78,8 @@ class Life_user extends Life {
             var data = this.sariraParticlesData[this.sariraParticlesData.length-1];
             var send_pos = new THREE.Vector3().subVectors(this.sariraParticles[this.sariraParticlesData.length-1].position, this.position);
 
-            plastiSarira.bodySystemList[1].addFloatingPlastics(send_pos, data);
-            plastiSarira.bodySystemList[0].addFloatingPlastics(send_pos, data);
+            plastiSarira.bodySystemController.bodySystemList[1].addFloatingPlastics(send_pos, data);
+            plastiSarira.bodySystemController.bodySystemList[0].addFloatingPlastics(send_pos, data);
 
             this.isMakeSarira = false;
         }

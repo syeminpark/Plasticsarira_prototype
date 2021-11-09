@@ -21,6 +21,7 @@ class BodySystem {
 
 
     createBuffer(material) {
+     
         this.floatingBuffer = new Buffer()
         this.microMaterial = material;
 
@@ -31,10 +32,19 @@ class BodySystem {
     }
 
     createSarira(convexMaterial) {
-       
+     
         this.convexMaterial=convexMaterial
         this.sarira = new Sarira(this.threeSystem,  this.convexMaterial,this.sariraBuffer.bufferGeometry,)
         this.sarira.initializeCore(this.positionVector3,  this.isUser)
+    }
+
+    createTerminal() {
+        if (this.isUser) {
+            this.terminal = new Terminal()
+            this.terminal.initializeCategory()
+            this.sarira.addMetaData(this.terminal)
+            this.terminal.createMetaDataText()
+        }
     }
 
 
@@ -77,10 +87,19 @@ class BodySystem {
         
             if (micro.checkStuck(this.sarira.plasticList)) {
                 this.sarira.addPlastics(micro)
+                if (this.terminal != undefined) {
+                    this.sarira.addMetaData(this.terminal)
+                    this.terminal.createMetaDataText()
+
+                }
                 micro.getPosition(this.floatingBuffer.bufferGeometry, index)
                 micro.updateBuffer(this.sariraBuffer.bufferGeometry, this.sarira.plasticList.length)
                 micro.switch(this.floatingBuffer.bufferGeometry, index, this.floatingPlasticsList)
 
+                if(this.terminal !=undefined){
+                
+                    this.sarira.updateConvex(micro)
+                }
                 this.sarira.initializeConvex()
               // print(this.sarira.plasticList.length, this.sariraBuffer.bufferGeometry)
             }

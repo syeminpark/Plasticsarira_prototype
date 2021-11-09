@@ -1,4 +1,5 @@
 //전체 총괄 클래스 
+
 class PlastiSarira {
     constructor() {
         this.threeSystemController = new ThreeSystemController();
@@ -6,36 +7,20 @@ class PlastiSarira {
         this.particleSystem_microPlastic = new ParticleSystem(this.lifeSystem);
         this.particleMaterial = this.particleSystem_microPlastic.display(this.threeSystemController)
     }
+    initializeBodySystem() {
+        this.bodySystemController = new BodySystemController(this.threeSystemController, this.lifeSystem, this.particleMaterial)
+        this.bodySystemController.createConvexMaterial()
+        this.bodySystemController.createWindowBodySystem()
+        this.bodySystemController.createOtherBodySystem()
+    }
 
-    initializeBodystem() {
-        this.bodySystemList = new Array(0)
-        
-        let bodySystemWindow = new BodySystemWindow(this.threeSystemController.sariraThreeSystem);
-        this.convexMaterial = bodySystemWindow.createConvexMaterial()
-        bodySystemWindow.createBuffer(this.particleMaterial)
-        bodySystemWindow.createSarira(this.convexMaterial)
-        bodySystemWindow.createTerminal()
-        this.bodySystemList.push(bodySystemWindow)
 
-        for (let index = 0; index < this.lifeSystem.num; index++){
-        let bodySystem = new BodySystem(this.threeSystemController.worldThreeSystem, index);
-        bodySystem.createBuffer(this.particleMaterial)
-        bodySystem.createSarira(_.cloneDeep(this.lifeSystem.lifes[index].position), this.convexMaterial)
-        this.bodySystemList.push(bodySystem)
+    update() {
+        this.bodySystemController. bodySystemUpdate()
+        this.threeSystemController.update()
+        this.particleSystem_microPlastic.update(this.bodySystem, this.threeSystemController.sariraThreeSystem);
+        this.lifeSystem.update();
     }
-}
-   
-update() {
-    for (let [index, bodySystem] of this.bodySystemList.entries()) {
-        bodySystem.update()
-    }
-    for (let index = 0; index < this.lifeSystem.num; index++) {
-        this.bodySystemList[index + 1].getLifePosition(_.cloneDeep(this.lifeSystem.lifes[index].position))
-    }
-    this.threeSystemController.update()
-    this.particleSystem_microPlastic.update(this.bodySystem, this.threeSystemController.sariraThreeSystem);
-    this.lifeSystem.update();
-}
 }
 
 

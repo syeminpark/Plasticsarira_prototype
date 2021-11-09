@@ -1,63 +1,56 @@
-class BodySystemWindow extends BodySystem{
-    constructor(threeSystem,index=0){
-        super(threeSystem,index)
-        this.positionVector3=new THREE.Vector3(0,0,0)
+class BodySystemController {
+
+    constructor(threeSystemController, lifeSystem, particleMaterial) {
+      
+        this.threeSystemController=threeSystemController
+        this.lifeSystem=lifeSystem
+        this.particleMaterial=particleMaterial
+        this.bodySystemList = new Array(0)
     }
 
-    createTerminal() {
-        if (this.isUser) {
-            this.terminal = new Terminal()
-            this.terminal.initializeCategory()
-            this.sarira.addMetaData(this.terminal)
-            this.terminal.createMetaDataText()
+    createWindowBodySystem() {
+        let bodySystemWindow = new BodySystem(this.threeSystemController.sariraThreeSystem);
+        bodySystemWindow.createBuffer(this.particleMaterial)
+        bodySystemWindow.createSarira(this.convexMaterial)
+        bodySystemWindow.createTerminal()
+        this.bodySystemList.push(bodySystemWindow)
+    }
+
+    createOtherBodySystem() {
+        for (let index = 0; index < this.lifeSystem.num; index++) {
+            let bodySystem = new BodySystem(this.threeSystemController.worldThreeSystem, index);
+            bodySystem.createBuffer(this.particleMaterial)
+            bodySystem.createSarira(this.convexMaterial)
+            this.bodySystemList.push(bodySystem)
         }
     }
 
-    createSarira(convexMaterial){
-        super.createSarira(convexMaterial)
-    }
-
-    updateSarira() {
-        for (let [index, micro] of this.floatingPlasticsList.entries()) {
-        
-            if (micro.checkStuck(this.sarira.plasticList)) {
-                this.sarira.addPlastics(micro)
-                if (this.terminal != undefined) {
-                    this.sarira.addMetaData(this.terminal)
-                    this.terminal.createMetaDataText()
-                }
-
-                micro.getPosition(this.floatingBuffer.bufferGeometry, index)
-                micro.updateBuffer(this.sariraBuffer.bufferGeometry, this.sarira.plasticList.length)
-                micro.switch(this.floatingBuffer.bufferGeometry, index, this.floatingPlasticsList)
-
-                this.sarira.updateConvex(micro)
-                this.sarira.initializeConvex(this.sariraBuffer.bufferGeometry, this.threesystem)
-               // print(this.sarira.plasticList.length, this.sariraBuffer.bufferGeometry)
-            }
+    bodySystemUpdate() {
+        for (let [index, bodySystem] of this.bodySystemList.entries()) {
+            bodySystem.update()
+        }
+        for (let index = 0; index < this.lifeSystem.num; index++) {
+            this.bodySystemList[index + 1].getLifePosition(_.cloneDeep(this.lifeSystem.lifes[index].position))
         }
     }
 
-    createConvexMaterial(){
+    createConvexMaterial() {
         const hdrEquirect = new THREE.RGBELoader().load(
-            "images/empty_warehouse_01_1k.hdr",  
-            () => { 
-              hdrEquirect.mapping = THREE.EquirectangularReflectionMapping; 
+            "images/empty_warehouse_01_1k.hdr",
+            () => {
+                hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
             }
-          );
-    
-        let convexMaterial = new THREE.MeshPhysicalMaterial({
+        );
+
+        this.convexMaterial = new THREE.MeshPhysicalMaterial({
             transmission: 0.95,
             thickness: 0.1,
             roughness: 0.2,
             clearcoat: 1,
-            metalness:0.06,
+            metalness: 0.06,
             clearcoatRoughness: 0.4,
             //envMap: hdrEquirect,
-          
-            // normalMap: texture,
-           
-        });
-        return  convexMaterial
+
+        })
     }
 }
