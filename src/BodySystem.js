@@ -1,9 +1,8 @@
 class BodySystem {
 
-    constructor(threeSystem, index) {
+    constructor(threeSystem, index=0) {
 
         index == 0 ? this.isUser = true : this.isUser = false;
-
         this.threeSystem = threeSystem
 
         this.floatingPlasticsList = new Array(0)
@@ -11,6 +10,8 @@ class BodySystem {
         this.densityList = [0.94, 0.92, 1.05, 1.14, 1.4, 1.2, 1.42, 1.38, 0.425]
         this.tensileStrengthList = [4554, 5440, 7700, 12400, 11500, 9400, 10007, 7500, 2596]
         //document.addEventListener('mousedown', this.addFloatingPlastics.bind(this), false);
+
+        this.positionVector3=new THREE.Vector3(0,0,0)
     }
 
     getLifePosition(positionList) {
@@ -29,11 +30,11 @@ class BodySystem {
         //print(this.sariraBuffer)
     }
 
-    createSarira([corePostionList],convexMaterial) {
+    createSarira(convexMaterial) {
        
         this.convexMaterial=convexMaterial
         this.sarira = new Sarira(this.threeSystem,  this.convexMaterial,this.sariraBuffer.bufferGeometry,)
-        this.sarira.initializeCore(new THREE.Vector3(0,0,0),  this.isUser)
+        this.sarira.initializeCore(this.positionVector3,  this.isUser)
     }
 
 

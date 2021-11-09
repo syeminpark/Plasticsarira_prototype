@@ -14,7 +14,7 @@ class BodySystemWindow extends BodySystem{
     }
 
     createSarira(convexMaterial){
-        super.createSarira(this.positionVector3,convexMaterial)
+        super.createSarira(convexMaterial)
     }
 
     updateSarira() {
@@ -49,7 +49,7 @@ class BodySystemWindow extends BodySystem{
         let convexMaterial = new THREE.MeshPhysicalMaterial({
             transmission: 0.95,
             thickness: 0.1,
-            roughness: 0.4,
+            roughness: 0.2,
             clearcoat: 1,
             metalness:0.06,
             clearcoatRoughness: 0.4,
