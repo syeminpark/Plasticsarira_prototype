@@ -27,10 +27,6 @@ class BodySystem {
 
         this.floatingBuffer.initialize(this.particleMaterial)
         
-        if(this.isWindow){
-        this.floatingBuffer.render(this.threeSystem)
-        }
-
         this.sariraBuffer = new Buffer()
         this.sariraBuffer.initialize(this.particleMaterial)
         this.sariraBuffer.render(this.threeSystem)
