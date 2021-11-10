@@ -46,12 +46,13 @@ class MicroplasticDatabase {
         //앞에서 선정한 인덱스를 바탕으로 그 인덱스에 해당하는 날짜부터 2021년까지 랜덤하게 년도 하나를 선정 
         this.madeIn = JSON.stringify(Math.round(random(this.madeInList[index], 2021)));
 
-        this.dataList = [this.originalForm, this.madeIn, this.microType,this.passBy,  this.absorbedBy];
+        this.dataList = [this.originalForm, this.madeIn, this.microType,this.passBy, this.absorbedBy];
     }
 
     getDataList() {
         //이차원배열. this.passby가 하나의 배열이라.
         return this.dataList = [this.originalForm,  this.madeIn, this.microType, this.passBy,this.absorbedBy]
+
     }
 
     //두가지 방법이 있을 것 같은데. 첫번째는 이 클라스 인스턴스 하나만 만들어서 initialize을 한번 하고 반환된 배열을
@@ -69,7 +70,8 @@ class MicroplasticDatabase {
     //하나의 값만 필요하기 때문에. 계속 최신값으로 덮어씌우기 
     setAbsorbedBy(absorbedByIndex) {
            //this.absorbedBy 인덱스=4
-        this.dataList[4] = this.absorbedByList[absorbedByIndex]
+        this.absorbedBy= this.absorbedByList[absorbedByIndex]
+
     }
 
 }

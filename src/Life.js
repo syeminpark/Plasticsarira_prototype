@@ -304,7 +304,7 @@ class Life {
             //그중에서 일정 확률로 몇몇 파티클이 사리가 되도록 함
             if (random(0, 10) < this.sariraSpeed && distance < this.size * 0.3 && 
                 this.absorbedParticles[i].becomeSarira == false && this.absorbedParticles.length < this.absorbPlasticNum){
-                this.absorbedParticles[i].data.setPassBy('empty');
+                this.absorbedParticles[i].data.setPassBy('None');
 
                 this.absorbedParticles[i].data.setAbsorbedBy(1);
                 this.absorbedParticles[i].becomeSarira = true;
@@ -321,7 +321,7 @@ class Life {
         if (this.isMakeSarira == true) {
             var data = this.sariraParticlesData[this.sariraParticlesData.length-1];
             var send_pos = new THREE.Vector3().subVectors(this.sariraParticles[this.sariraParticlesData.length-1].position, this.position);
-
+            print(data)
             plastiSarira.bodySystemController.bodySystemList[this.index+1].addFloatingPlastics(send_pos, data);
             
             this.isMakeSarira = false;
