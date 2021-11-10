@@ -7,7 +7,7 @@ class Core extends Microplastic {
         this.dateRetrieved = "When You Were A Fetus"
         this.madeIn = 1951
         this.originalFormList = ["Syringe", "Chip Bag", "Specimen Bottle", "Car Battery Case", "Instrument Panel", "Rug", "Crisp Bag", "Lunch Box", "Packing Tape", "Tobacco Package", "Beach Slipper", "Tote Bag", "Vacuum Cleaner", "Car Bumper", "Door Trim"]
-        this.passedByList = ["Mom", "Dad", "brother", "Mom"]
+        this.passedByList = ["Mom"]
 
         this.density = 0.92
         this.tensileStrength = 5440
@@ -32,7 +32,7 @@ class Core extends Microplastic {
 
         let distance = constrain(force.length(), 5, 20);
         // Calculate gravitional force magnitude
-        let strength = ( 2*this.mass*floatingMicro.mass*2) / (distance * distance);
+        let strength = ( 2*this.mass*floatingMicro.mass) / (distance * distance);
         // Get force vector --> magnitude * direction
         force.setLength(strength);
         return force;

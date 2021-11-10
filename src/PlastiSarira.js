@@ -16,10 +16,11 @@ class PlastiSarira {
     }
 
     update() {
-        this.bodySystemController. updateBodySystem()
+        
         this.threeSystemController.update()
         this.particleSystem_microPlastic.update(this.bodySystem, this.threeSystemController.sariraThreeSystem);
         this.lifeSystem.update();
+        this.bodySystemController. updateBodySystem()
     }
 }
 

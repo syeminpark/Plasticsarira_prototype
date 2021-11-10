@@ -29,6 +29,8 @@ class Life_primaryConsumer extends Life {
 
         this.noiseShape = random(0.05, 0.5);
         this.noiseAnimSpeed = random(0.5, 1);
+
+        this.lifeName = 'Plankton' + String(this.index);
     }
 }
 
@@ -63,6 +65,8 @@ class Life_secondaryConsumer extends Life {
 
         this.noiseShape = random(0.05, 0.3);
         this.noiseAnimSpeed = random(0.1, 0.5);
+
+        this.lifeName = 'herbivores' + String(this.index);
     }
 }
 
@@ -97,5 +101,7 @@ class Life_tertiaryConsumer extends Life {
 
         this.noiseShape = random(0.01, 0.1);
         this.noiseAnimSpeed = random(0.1, 0.3);
+
+        this.lifeName = 'carnivores' + String(this.index);
     }
 }
