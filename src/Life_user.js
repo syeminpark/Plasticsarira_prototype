@@ -51,6 +51,8 @@ class Life_user extends Life {
 
         this.noiseShape = random(0.05, 0.1);
         this.noiseAnimSpeed = random(0.1, 0.7);
+
+        this.lifeName = 'user';
     }
 
     update_user(){

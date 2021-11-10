@@ -87,6 +87,8 @@ class Life {
 
         this.noiseShape = random(0.05, 0.3);
         this.noiseAnimSpeed = random(0.1, 0.5);
+
+        this.lifeName = 'life' + String(this.index);
     }
 
     update() {
@@ -303,7 +305,7 @@ class Life {
             if (random(0, 10) < this.sariraSpeed && distance < this.size * 0.3 && 
                 this.absorbedParticles[i].becomeSarira == false && this.absorbedParticles.length < this.absorbPlasticNum){
 
-                this.absorbedParticles[i].data.setPassBy('life' + String(this.index));
+                this.absorbedParticles[i].data.setPassBy(this.lifeName);
                 this.absorbedParticles[i].data.setAbsorbedBy(1);
                 this.absorbedParticles[i].becomeSarira = true;
 
