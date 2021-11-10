@@ -304,8 +304,8 @@ class Life {
             //그중에서 일정 확률로 몇몇 파티클이 사리가 되도록 함
             if (random(0, 10) < this.sariraSpeed && distance < this.size * 0.3 && 
                 this.absorbedParticles[i].becomeSarira == false && this.absorbedParticles.length < this.absorbPlasticNum){
+                this.absorbedParticles[i].data.setPassBy('empty');
 
-                this.absorbedParticles[i].data.setPassBy(this.lifeName);
                 this.absorbedParticles[i].data.setAbsorbedBy(1);
                 this.absorbedParticles[i].becomeSarira = true;
 
@@ -380,6 +380,7 @@ class Life {
             
             if (this.isDead == false && this.life.scale.x <= 0.010){
                 for (let i = 0; i < this.absorbedParticles.length; i++) {
+                    this.absorbedParticles[i].data.setPassBy(this.lifeName);
                     this.absorbedParticles[i].wrap_init();
                 }
 
