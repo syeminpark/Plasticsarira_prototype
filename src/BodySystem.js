@@ -4,7 +4,7 @@ class BodySystem {
         index == 0 ? this.isUser = true : this.isUser = false;
         this.threeSystem = threeSystem
         this.threeSystem.element==document.querySelector("#sarira") ? this.isWindow=true : this.isWindow=false
- 
+        
 
         this.floatingPlasticsList = new Array(0)
 

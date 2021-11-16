@@ -116,7 +116,7 @@ class Life {
         if (this.velocity.length() > velLimit) this.velocity.multiplyScalar(0.01);
         this.acceleration.setLength(0);
 
-        plastiSarira.bodySystemController.updateLifePosition(this.index, this.position);
+        bodySystemController.updateLifePosition(this.index, this.position);
     }
 
     randomLook() {

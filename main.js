@@ -1,16 +1,32 @@
-let plastiSarira
+
+let threeSystemController 
+let lifeSystem 
+let particleSystem_microPlastic 
+let bodySystemController
 
 checkScreenSize()
 setup()
 draw()
 
 function setup() {
-    plastiSarira = new PlastiSarira()
-    plastiSarira.initializeBodySystem()
+    threeSystemController = new ThreeSystemController();
+    lifeSystem = new LifeSystem(threeSystemController);
+    particleSystem_microPlastic = new ParticleSystem(lifeSystem);
+    let particleMaterial = particleSystem_microPlastic.display(threeSystemController,0.3)
+
+    //
+    bodySystemController = new BodySystemController(threeSystemController, lifeSystem, particleMaterial)
+    bodySystemController.createConvexMaterial()
+    bodySystemController.createConvexWindowMaterial()
+    bodySystemController.createWindowBodySystem()
+    bodySystemController.createOtherBodySystem()
 }
 
 function draw() {
     requestAnimationFrame(draw);
-    plastiSarira.update()
-    //매 프레임 실행되는 부분
+    //
+    threeSystemController.update()
+    particleSystem_microPlastic.update(bodySystemController, threeSystemController.sariraThreeSystem);
+    lifeSystem.update();
+    bodySystemController. updateBodySystem()
 }
