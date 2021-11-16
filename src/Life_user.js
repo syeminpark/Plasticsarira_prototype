@@ -104,7 +104,7 @@ class Life_user extends Life {
     key_check(){
         this.keyboard.update();
 
-        if ( this.keyboard.down("F") ) {
+        if ( this.keyboard.down("Z") ) {
             this.isLifeFocusOn = !this.isLifeFocusOn;
             console.log('focus mode : ' + this.isLifeFocusOn);
             this.timer = 1;
