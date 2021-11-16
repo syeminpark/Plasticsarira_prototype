@@ -1,5 +1,5 @@
 class Life {
-    constructor(index, windowSize, threeSystemController) {
+    constructor(index, windowSize) {
         this.index = index;
 
         this.windowSize = windowSize;
@@ -31,7 +31,7 @@ class Life {
         this.isDead = false;
         this.lifespan = (this.size + this.sizeMax)*20;
 
-        this.display(threeSystemController);
+        this.display();
         this.noise_init();
 
         //======================================================
@@ -133,7 +133,7 @@ class Life {
         this.angleAcceleration.setLength(0);
     }
 
-    display(threeSystemController) {
+    display() {
         var geometry = new THREE.SphereGeometry(this.size, 32, 32);
         // var material = new THREE.MeshNormalMaterial({
         //     transparent:true,
@@ -321,8 +321,8 @@ class Life {
         if (this.isMakeSarira == true) {
             var data = this.sariraParticlesData[this.sariraParticlesData.length-1];
             var send_pos = new THREE.Vector3().subVectors(this.sariraParticles[this.sariraParticlesData.length-1].position, this.position);
-            print(data)
-            plastiSarira.bodySystemController.bodySystemList[this.index+1].addFloatingPlastics(send_pos, data);
+            //print(data)
+            bodySystemController.bodySystemList[this.index+1].addFloatingPlastics(send_pos, data);
             
             this.isMakeSarira = false;
         }

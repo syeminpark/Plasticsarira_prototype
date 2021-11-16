@@ -1,6 +1,6 @@
 class Life_user extends Life {
-    constructor(threeSystemController){
-        super(0, 0,threeSystemController);
+    constructor(){
+        super(0, 0);
 
         //======================================================
         this.scene = threeSystemController.worldThreeSystem.scene;
@@ -80,8 +80,8 @@ class Life_user extends Life {
             var data = this.sariraParticlesData[this.sariraParticlesData.length-1];
             var send_pos = new THREE.Vector3().subVectors(this.sariraParticles[this.sariraParticlesData.length-1].position, this.position);
 
-            plastiSarira.bodySystemController.bodySystemList[1].addFloatingPlastics(send_pos, data);
-            plastiSarira.bodySystemController.bodySystemList[0].addFloatingPlastics(send_pos, data);
+            bodySystemController.bodySystemList[1].addFloatingPlastics(send_pos, data);
+            bodySystemController.bodySystemList[0].addFloatingPlastics(send_pos, data);
 
             this.isMakeSarira = false;
         }

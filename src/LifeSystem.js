@@ -1,5 +1,5 @@
 class LifeSystem{
-    constructor(threeSystemController){
+    constructor(){
         this.primaryNum = 15;
         this.secondaryNum = 8;
         this.tertiaryNum = 2;
@@ -8,19 +8,19 @@ class LifeSystem{
         this.windowSize = 140;
 
         this.lifes = [];
-        this.life_user = new Life_user(threeSystemController);
+        this.life_user = new Life_user();
 
         this.lifes.push(this.life_user);
 
         for (let i = 1; i < this.num; i++) {
             if (i < 1+this.primaryNum) {
-                const l = new Life_primaryConsumer(i, this.windowSize,threeSystemController);
+                const l = new Life_primaryConsumer(i, this.windowSize);
                 this.lifes.push(l);
             } else if (i < 1+this.primaryNum+this.secondaryNum && i >= 1+this.primaryNum){
-                const l = new Life_secondaryConsumer(i, this.windowSize,threeSystemController);
+                const l = new Life_secondaryConsumer(i, this.windowSize);
                 this.lifes.push(l);
             } else {
-                const l = new Life_tertiaryConsumer(i, this.windowSize,threeSystemController);
+                const l = new Life_tertiaryConsumer(i, this.windowSize);
                 this.lifes.push(l);
             }
             

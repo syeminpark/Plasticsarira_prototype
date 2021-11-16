@@ -10,7 +10,7 @@ draw()
 
 function setup() {
     threeSystemController = new ThreeSystemController();
-    lifeSystem = new LifeSystem(threeSystemController);
+    lifeSystem = new LifeSystem();
     particleSystem_microPlastic = new ParticleSystem(lifeSystem);
     let particleMaterial = particleSystem_microPlastic.display(threeSystemController,0.3)
 
