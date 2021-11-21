@@ -30,7 +30,7 @@ class Life_user extends Life {
 
         //======================================================
         this.isLifeFocusOn = true;
-        console.log('focus mode : ' + this.isLifeFocusOn);
+        //console.log('focus mode : ' + this.isLifeFocusOn);
         
         this.timer = 1;
 
@@ -106,7 +106,7 @@ class Life_user extends Life {
 
         if ( this.keyboard.down("Z") ) {
             this.isLifeFocusOn = !this.isLifeFocusOn;
-            console.log('focus mode : ' + this.isLifeFocusOn);
+            //console.log('focus mode : ' + this.isLifeFocusOn);
             this.timer = 1;
             if (this.isLifeFocusOn == true){
                 this.camera_focusOn_init();

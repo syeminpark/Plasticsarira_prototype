@@ -41,7 +41,7 @@ class LifeSystem{
         for (let i = this.lifes.length-1; i >= 0 ; i--) {
             if (this.lifes[i].isDead == true){
                 this.lifes.splice(i, 1);
-                console.log(i + 'delete');
+                //console.log(i + 'delete');
             }
         }
 

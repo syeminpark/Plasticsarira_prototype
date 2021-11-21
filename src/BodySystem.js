@@ -3,8 +3,8 @@ class BodySystem {
     constructor(threeSystem, index = 0) {
         index == 0 ? this.isUser = true : this.isUser = false;
         this.threeSystem = threeSystem
-        this.threeSystem.element==document.querySelector("#sarira") ? this.isWindow=true : this.isWindow=false
-        
+        this.threeSystem.element == document.querySelector("#sarira") ? this.isWindow = true : this.isWindow = false
+
 
         this.floatingPlasticsList = new Array(0)
 
@@ -26,7 +26,7 @@ class BodySystem {
         this.particleMaterial = material;
 
         this.floatingBuffer.initialize(this.particleMaterial)
-        
+
         this.sariraBuffer = new Buffer()
         this.sariraBuffer.initialize(this.particleMaterial)
         this.sariraBuffer.render(this.threeSystem)
@@ -43,6 +43,7 @@ class BodySystem {
         this.terminal.initializeCategory()
         this.sarira.addMetaData(this.terminal)
         this.terminal.createMetaDataText()
+        this.terminal.assignPopupToText()
     }
 
     update() {
@@ -54,7 +55,7 @@ class BodySystem {
 
     addFloatingPlastics(positionList, passDataList) {
 
-        
+
         let tempMicro = new Microplastic(this.threeSystem, this.particleMaterial)
 
         tempMicro.initialize(positionList, this.densityList[this.checkIndex(passDataList)], this.tensileStrengthList[this.checkIndex(passDataList)])
@@ -94,7 +95,6 @@ class BodySystem {
                 if (this.terminal != undefined) {
                     this.sarira.updateConvex(micro)
                     this.sarira.updateConvexAll()
-
                 }
                 this.sarira.initializeConvex()
             }

@@ -21,6 +21,11 @@ function vhToPx(vh) {
   return window.innerHeight * (vh / 100)
 }
 
+function vwToPx(vw) {
+  return window.innerWidth * (vw / 100)
+}
+
+
 function pxToVh(px) {
   return px * (100 / window.innerHeight)
 }
@@ -45,7 +50,7 @@ function requestFullScreen(element) {
 
 function checkScreenSize() {
   if (screen.width != window.innerWidth) {
-    swal("Start Experince With A FullScreen?", {
+    swal("Experince With A FullScreen?", {
       buttons: ["No Thanks", "Sure! (Recommended)"],
       closeOnClickOutside: false,
 

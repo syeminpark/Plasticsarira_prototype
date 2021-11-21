@@ -93,7 +93,6 @@ body {
 }
 
 .description {
-
     margin-top: 79vh;
     font-size: 1vw;
     color: lightgrey;
@@ -106,8 +105,9 @@ body {
     font-size: 0.63vw;
 }
 
+
 #metaData {
-    cursor: ns-resize;
+    cursor: help;
     caret-color: white;
 }
 

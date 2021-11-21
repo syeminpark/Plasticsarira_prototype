@@ -384,7 +384,7 @@ class Life {
                     this.absorbedParticles[i].wrap_init();
                 }
 
-                console.log(this.index + ' is die');
+                //console.log(this.index + ' is die');
                 this.isDead = true;
             }
         }
