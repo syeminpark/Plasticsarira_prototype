@@ -131,7 +131,7 @@ class Terminal {
         let box = document.createElement('div');
         box.id = this.popupBoxId
         box.style.position = "absolute"
-        let height = 20
+        let height = 8;
         let width = 40
         box.style.height = `${height}vh`
         box.style.width = `${width}vw`
@@ -161,7 +161,7 @@ class Terminal {
 
         let jsonData = JSON.parse(data)
             //get the count of keys inside each popUpData category 
-            for (let i = 0; i < 3; i++) { // Object.keys(jsonData[this.categoryList[0]].length);
+            for (let i = 0; i < 1; i++) { // Object.keys(jsonData[this.categoryList[0]].length);
                 let key = 0;
                 if (i == 0) {
                     key = jsonData[this.categoryList[index]].text
