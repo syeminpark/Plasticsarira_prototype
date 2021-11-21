@@ -19,6 +19,7 @@ class Terminal {
 
         this.popupLimitWidth = 100;
         this.popupLimitHeight = 5
+        this.popupTitleSize= "0.8"
 
         this.canvas = document.querySelector('#sarira')
         this.initialSpace = pxToVh(this.canvas.getBoundingClientRect().bottom) + this.space
@@ -102,7 +103,11 @@ class Terminal {
             }
         } else {
             text.id = this.popupTextId
-            text.style.color = "rgba(150,150,150,1)"
+            if(textSize==this.popupTitleSize)
+            text.style.color = "rgba(200,200,200,1)"
+            else{
+                text.style.color = "rgba(150,150,150,1)"
+            }
             document.body.appendChild(text)
         }
     }
@@ -144,14 +149,15 @@ class Terminal {
     }
 
     createPopupText(metaDataId,index) {
-        let titleSize = "0.8"
         let verticalSpace = 3;
+        let popupTextSize=0.7
         let popupBox = document.querySelector("#" + this.popupBoxId)
         let popupBoxLeftPosition = parseFloat(popupBox.style.left.replace("vw", ""))
         let popupBoxtopPosition = parseFloat(popupBox.style.top.replace("vh", ""))
         let sentenceLengthList = []
 
-        this.createText(metaDataId, popupBoxLeftPosition + 0.5, popupBoxtopPosition + 0.5, titleSize)
+        //category
+        this.createText(metaDataId, popupBoxLeftPosition + 0.5, popupBoxtopPosition + 0.5, this.popupTitleSize)
 
         let jsonData = JSON.parse(data)
             //get the count of keys inside each popUpData category 
@@ -172,7 +178,7 @@ class Terminal {
             let verticalPosition = 0;
             for (let [j, sentence] of category.entries()) {
                 paragraphSpace == 0 ? verticalPosition = popupBoxtopPosition + verticalSpace + (j * 2) : verticalPosition = paragraphSpace + 3 + (j * 2);
-                this.createText(sentence, popupBoxLeftPosition + 0.5, verticalPosition, 0.7)
+                this.createText(sentence, popupBoxLeftPosition + 0.5, verticalPosition, popupTextSize)
             }
             paragraphSpace = verticalPosition
         }
