@@ -71,7 +71,8 @@ class Life_user extends Life {
 
         if (this.isLifeFocusOn == true){
             this.camera_focusOn_update();
-            this.key_update();
+            //this.key_update();
+            this.mouse_update();
         } 
     }
 
@@ -146,6 +147,24 @@ class Life_user extends Life {
             
     }
 
+    mouse_update(){
+        var moveDistance = 500 * this.clock.getDelta();
+        var cameraLook = new THREE.Vector3().subVectors(this.life.position, this.cam.position);
+        cameraLook.setLength(moveDistance);
+
+        document.addEventListener('contextmenu', onContextMenu, false);
+        document.addEventListener('mousedown', onMouseDown, false);
+        document.addEventListener('mouseup', onMouseUp, false);
+
+        switch(mouseHold) {
+            case 1:
+                this.life.translateX( cameraLook.x );
+                this.life.translateY( cameraLook.y );
+                this.life.translateZ( cameraLook.z );
+              break;
+          }
+    }
+
     camera_focusOff_init(){
         this.goal = new THREE.Object3D;
         this.follow = new THREE.Object3D;
@@ -154,6 +173,7 @@ class Life_user extends Life {
         //this.cam.position.set(50, 50, 200);
         this.camLerp = new THREE.Vector3(50, 50, -300);
         this.cam.lookAt(0, 0, 0);
+        this.orbitControl.enablePan = true;
         this.orbitControl.target = new THREE.Vector3(0, 0, 0);
     }
 
@@ -169,6 +189,7 @@ class Life_user extends Life {
         this.camLerp = new THREE.Vector3(
             this.life.position.x, this.life.position.y, 
             this.life.position.z - 100);
+        this.orbitControl.enablePan = false;
         this.orbitControl.target = this.life.position;
     }
 
@@ -185,4 +206,18 @@ class Life_user extends Life {
         
         this.cam.lookAt( this.life.position );
     }
+}
+
+var mouseHold = -1;
+
+function onContextMenu(event) { // Prevent right click
+    event.preventDefault();
+}
+  
+function onMouseDown(event) {
+    mouseHold = event.which;
+}
+  
+function onMouseUp(event) {
+    mouseHold = -1;
 }
