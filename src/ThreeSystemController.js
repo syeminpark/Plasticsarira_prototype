@@ -77,9 +77,10 @@ class ThreeSystemController {
             canvas: this.canvas,
             antialias: true,
         });
-        this.renderer.setPixelRatio(window.devicePixelRatio)
+        //화질 변경
+        //this.renderer.setPixelRatio(window.devicePixelRatio)
         this.renderer.setSize(window.innerWidth, window.innerHeight, false);
-        //this.renderer.autoClear = false;
+
      
     }
 
