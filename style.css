@@ -118,7 +118,9 @@ body {
 
 .swal-text {
     background-color: black;
+    /*
     padding: 17px;
+    */
     display: block;
     margin: 22px;
     text-align: center;
@@ -129,6 +131,7 @@ body {
 .swal-modal {
     background-color: black;
     border: 1px solid grey;
+    width:300px;
 }
 
 .swal-overlay {
@@ -136,9 +139,10 @@ body {
 }
 
 .swal-button {
-    padding: 10px 19px;
-    margin-right: 35px;
-    margin-bottom: 5px;
+    margin-right: 3px;
+    /* margin-bottom: 5px;
+       padding: 10px 19px;
+    */
 }
 
 .swal-button--confirm {
@@ -154,9 +158,6 @@ body {
     bottom: 0;
 
 }
-
-
-
 
 .nabi {
     width: 4vw;

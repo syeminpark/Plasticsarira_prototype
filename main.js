@@ -1,18 +1,20 @@
-
-let threeSystemController 
-let lifeSystem 
-let particleSystem_microPlastic 
+let threeSystemController
+let lifeSystem
+let particleSystem_microPlastic
 let bodySystemController
 
-checkScreenSize()
+let start;
+let userName;
+
 setup()
 draw()
 
 function setup() {
+    writeName()
     threeSystemController = new ThreeSystemController();
     lifeSystem = new LifeSystem();
     particleSystem_microPlastic = new ParticleSystem(lifeSystem);
-    let particleMaterial = particleSystem_microPlastic.display(threeSystemController,0.3)
+    let particleMaterial = particleSystem_microPlastic.display(threeSystemController, 0.3)
 
     //
     bodySystemController = new BodySystemController(threeSystemController, lifeSystem, particleMaterial)
@@ -24,9 +26,11 @@ function setup() {
 
 function draw() {
     requestAnimationFrame(draw);
-    //
-    threeSystemController.update()
-    particleSystem_microPlastic.update(bodySystemController, threeSystemController.sariraThreeSystem);
-    lifeSystem.update();
-    bodySystemController. updateBodySystem()
+    if (start) {
+        //
+        threeSystemController.update()
+        particleSystem_microPlastic.update(bodySystemController, threeSystemController.sariraThreeSystem);
+        lifeSystem.update(userName);
+        bodySystemController.updateBodySystem()
+    }
 }

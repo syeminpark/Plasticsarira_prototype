@@ -32,10 +32,10 @@ class LifeSystem{
         this.userText.createLabel()
     }
 
-    update(bodySystemController){
+    update(){
         for (let i = 0; i < this.lifes.length; i++) {
             if (this.lifes[i].index == 0) this.lifes[i].update_user();
-            if (this.lifes[i].index >= 1) this.lifes[i].update(bodySystemController);
+            if (this.lifes[i].index >= 1) this.lifes[i].update();
         }
         
         for (let i = this.lifes.length-1; i >= 0 ; i--) {

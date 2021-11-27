@@ -48,17 +48,28 @@ function requestFullScreen(element) {
   }
 }
 
-function checkScreenSize() {
-  if (screen.width != window.innerWidth) {
-    swal("Experince With A FullScreen?", {
-      buttons: ["No Thanks", "Sure! (Recommended)"],
+function writeName() {
+    swal({
+      text: "What is your Name?",
+      content: "input",
+      button: "Wrote!",
       closeOnClickOutside: false,
-
-    }).then(isOkay => {
-      if (isOkay) {
+      content: {
+        element: "input",
+        attributes: {
+          placeholder: "Please Type Your Name",
+        },
+      },
+    }, 
+    ).then(value => {
+      if (value) {
         var elem = document.documentElement;; // Make the body go full screen.
         requestFullScreen(elem);
+        start=true;
+        userName=value;
+      }
+      else{
+        writeName()
       }
     })
-  };
 }
