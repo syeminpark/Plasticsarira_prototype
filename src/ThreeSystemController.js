@@ -78,7 +78,8 @@ class ThreeSystemController {
             antialias: true,
         });
         //화질 변경
-        //this.renderer.setPixelRatio(window.devicePixelRatio)
+        this.renderer.setPixelRatio(window.devicePixelRatio)
+        
         this.renderer.setSize(window.innerWidth, window.innerHeight, false);
 
      
