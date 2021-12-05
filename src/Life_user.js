@@ -1,40 +1,6 @@
 class Life_user extends Life {
     constructor(){
         super(0, 0);
-
-        //======================================================
-        this.scene = threeSystemController.worldThreeSystem.scene;
-        this.cam = threeSystemController.worldThreeSystem.camera;
-        this.orbitControl = threeSystemController.worldThreeSystem.controls;
-        this.keyboard = new KeyboardState();
-
-        //======================================================
-        this.newPos = new THREE.Vector3();
-        this.matrix = new THREE.Matrix4();
-
-        this.stop = 1;
-        this.DEGTORAD = 0.01745327;
-        this.temp = new THREE.Vector3;
-        this.dir = new THREE.Vector3;
-        this.a = new THREE.Vector3;
-        this.b = new THREE.Vector3;
-        this.safetyDistance = 0.1;
-        this.vel = 0.0;
-        this.acc = 0.0;
-
-        this.goal = new THREE.Object3D;
-        this.follow = new THREE.Object3D;
-        this.follow.position.z = -this.safetyDistance;
-
-        this.camLerp = new THREE.Vector3();
-
-        //======================================================
-        this.isLifeFocusOn = true;
-        //console.log('focus mode : ' + this.isLifeFocusOn);
-        
-        this.timer = 1;
-
-        this.camera_focusOn_init();
     }
 
     init(){
@@ -64,19 +30,15 @@ class Life_user extends Life {
             this.randomWalk(0.01, 0.1);
             this.noise_update();
             this.wrap_particles();
-            this.key_check();
-            this.lerpLoad();
             this.add_MicroPlasticToBodySystem();
         }
-
-        if (this.isLifeFocusOn == true){
-            this.camera_focusOn_update();
-            //this.key_update();
-            this.mouse_update();
-        } 
     }
 
     add_MicroPlasticToBodySystem(){
+        //function map_range(value, low1, high1, low2, high2) {
+        //    return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
+        //}
+        var age = 0 + (100-0) * (this.age - 0) / (this.lifespan - 0);
         if (this.isMakeSarira == true) {
             var data = this.sariraParticlesData[this.sariraParticlesData.length-1];
             var send_pos = new THREE.Vector3().subVectors(this.sariraParticles[this.sariraParticlesData.length-1].position, this.position);
@@ -91,133 +53,5 @@ class Life_user extends Life {
             this.sariraParticles[j].position = this.position.clone();
         }
     }
-
-    lerpLoad(){
-        if (this.timer > 0){
-            this.orbitControl.enabled = false;
-            this.timer -= 0.015;
-            this.cam.position.lerp(this.camLerp, 0.05);
-        } else {
-            this.orbitControl.enabled = true;
-        }
-    }
-
-    key_check(){
-        this.keyboard.update();
-
-        if ( this.keyboard.down("Z") ) {
-            this.isLifeFocusOn = !this.isLifeFocusOn;
-            //console.log('focus mode : ' + this.isLifeFocusOn);
-            this.timer = 1;
-            if (this.isLifeFocusOn == true){
-                this.camera_focusOn_init();
-            } else {
-                this.camera_focusOff_init();
-            }
-        }
-    }
-
-    key_update(){
-        var moveDistance = 500 * this.clock.getDelta();
-        var rotateValue = 500 * this.clock.getDelta();
-
-        if ( this.keyboard.pressed("W") ){
-            this.life.translateY( moveDistance );
-        }
-		    
-        if ( this.keyboard.pressed("S") ){
-            this.life.translateY(  -moveDistance );
-        }
-
-        if ( this.keyboard.pressed("A") ){
-            this.life.translateX(  moveDistance );
-        }
-		    
-        if ( this.keyboard.pressed("D") ){
-            this.life.translateX(  -moveDistance );
-        }
-
-        if ( this.keyboard.pressed("Q") ){
-            this.life.translateZ(  moveDistance );
-        }
-		    
-        if ( this.keyboard.pressed("E") ){
-            this.life.translateZ(  -moveDistance );
-        }
-            
-    }
-
-    mouse_update(){
-        var moveDistance = 500 * this.clock.getDelta();
-        var cameraLook = new THREE.Vector3().subVectors(this.life.position, this.cam.position);
-        cameraLook.setLength(moveDistance);
-
-        document.addEventListener('contextmenu', onContextMenu, false);
-        document.addEventListener('mousedown', onMouseDown, false);
-        document.addEventListener('mouseup', onMouseUp, false);
-
-        switch(mouseHold) {
-            case 1:
-                this.life.translateX( cameraLook.x );
-                this.life.translateY( cameraLook.y );
-                this.life.translateZ( cameraLook.z );
-              break;
-          }
-    }
-
-    camera_focusOff_init(){
-        this.goal = new THREE.Object3D;
-        this.follow = new THREE.Object3D;
-
-        //======================================================
-        //this.cam.position.set(50, 50, 200);
-        this.camLerp = new THREE.Vector3(50, 50, -300);
-        this.cam.lookAt(0, 0, 0);
-        this.orbitControl.enablePan = true;
-        this.orbitControl.target = new THREE.Vector3(0, 0, 0);
-    }
-
-    camera_focusOn_init(){
-
-        this.life.add( this.follow );
-        this.goal.add( this.cam );
-
-        //======================================================
-        // this.cam.position.set(
-        //     this.life.position.x, this.life.position.y, 
-        //     this.life.position.z - 100);
-        this.camLerp = new THREE.Vector3(
-            this.life.position.x, this.life.position.y, 
-            this.life.position.z - 100);
-        this.orbitControl.enablePan = false;
-        this.orbitControl.target = this.life.position;
-    }
-
-    camera_focusOn_update(){
-        this.a.lerp(this.life.position, 0.4);
-        this.b.copy(this.goal.position);
-        
-        this.dir.copy( this.a ).sub( this.b ).normalize();
-
-        const dis = this.a.distanceTo( this.b ) - this.safetyDistance;
-        this.goal.position.addScaledVector( this.dir, dis );
-        this.goal.position.lerp(this.temp, 0.02);
-        this.temp.setFromMatrixPosition(this.follow.matrixWorld);
-        
-        this.cam.lookAt( this.life.position );
-    }
 }
 
-var mouseHold = -1;
-
-function onContextMenu(event) { // Prevent right click
-    event.preventDefault();
-}
-  
-function onMouseDown(event) {
-    mouseHold = event.which;
-}
-  
-function onMouseUp(event) {
-    mouseHold = -1;
-}

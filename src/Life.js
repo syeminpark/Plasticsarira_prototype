@@ -29,6 +29,7 @@ class Life {
         this.absorbPlasticNum = (this.size + this.sizeMax) * 100;
 
         this.isDead = false;
+        this.age = 0;
         this.lifespan = (this.size + this.sizeMax)*20;
 
         this.display();
@@ -290,7 +291,8 @@ class Life {
         for (let i = 0; i < this.absorbedParticles.length; i++) {
             this.absorbedParticles[i].wrapCenter = this.position;
             this.absorbedParticles[i].wrapSize = this.size;
-            this.absorbedParticles[i].velLimit = 0.5;
+            //this.absorbedParticles[i].velLimit = 0.5;
+            this.absorbedParticles[i].velLimit = 1.5;
             
             const distance = this.position.distanceTo(this.absorbedParticles[i].position);
             var force = new THREE.Vector3().subVectors(sariraPos, this.absorbedParticles[i].position);
@@ -362,12 +364,12 @@ class Life {
     }
 
     lifeGo(){
-        if (this.lifespan > 0){
-            if (this.absorbedParticles.length < this.absorbPlasticNum) this.lifespan -= 0.1;
-            else this.lifespan -= 0.2;
+        if (this.age < this.lifespan){
+            if (this.absorbedParticles.length < this.absorbPlasticNum) this.age += 0.1;
+            else this.lifespan += 0.2;
         } 
 
-        if (this.lifespan < 0.1){
+        if (this.age > this.lifespan - 0.1){
             if (this.life.scale.x > 0.011){
                 this.life.scale.x -= 0.015;
                 this.life.scale.y -= 0.015;
