@@ -1,6 +1,6 @@
 class ServerClientCommunication {
     constructor(userName) {
-        this.url = `http://localhost:3000`
+        this.url = `https://plasticsariraserver.herokuapp.com`
         this.name = userName
         this.type = this.chooseType()
 
