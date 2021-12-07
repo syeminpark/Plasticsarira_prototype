@@ -28,7 +28,7 @@ class LifeSystem{
 
         this.display();     
         
-        this.userText= new UserText("Myself",threeSystemController.worldThreeSystem,document.querySelector("#world"))
+        this.userText= new UserText(threeSystemController.worldThreeSystem,document.querySelector("#world"))
         this.userText.createLabel()
     }
 

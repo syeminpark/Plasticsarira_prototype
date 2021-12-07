@@ -2,15 +2,20 @@ let threeSystemController
 let lifeSystem
 let particleSystem_microPlastic
 let bodySystemController
-
-let start;
-let userName;
+let serverClientCommunication
+let userDead = false;
 
 setup()
 draw()
+done()
 
 function setup() {
-    writeName()
+
+    writeName().then(() => {
+        serverClientCommunication = new ServerClientCommunication(document.getElementById('userId').textContent)
+        serverClientCommunication.createUser()
+    })
+
     threeSystemController = new ThreeSystemController();
     lifeSystem = new LifeSystem();
     particleSystem_microPlastic = new ParticleSystem(lifeSystem);
@@ -26,11 +31,23 @@ function setup() {
 
 function draw() {
     requestAnimationFrame(draw);
-    if (start) {
+    if (document.getElementById('userId')) {
         //
         threeSystemController.update()
         particleSystem_microPlastic.update(bodySystemController, threeSystemController.sariraThreeSystem);
-        lifeSystem.update(userName);
+        lifeSystem.update();
         bodySystemController.updateBodySystem()
+    }
+}
+
+function done() {
+    requestAnimationFrame(done);
+    if (userDead) {
+        serverClientCommunication.postSariraById(bodySystemController.getSariraDataForServer()).then(() => {
+            //window.location = `${window.location.href}database.html`;
+           
+        })
+        userDead = false;
+
     }
 }

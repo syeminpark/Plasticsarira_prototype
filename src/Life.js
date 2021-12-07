@@ -361,7 +361,7 @@ class Life {
         this.life.add(this.sarira);
     }
 
-    lifeGo(){
+    lifeGo(callback){
         if (this.lifespan > 0){
             if (this.absorbedParticles.length < this.absorbPlasticNum) this.lifespan -= 0.1;
             else this.lifespan -= 0.2;
@@ -386,6 +386,9 @@ class Life {
 
                 //console.log(this.index + ' is die');
                 this.isDead = true;
+
+                //make Dead alert if user 
+                callback!= undefined? callback() : null;
             }
         }
     }

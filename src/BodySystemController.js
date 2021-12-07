@@ -1,13 +1,13 @@
 class BodySystemController {
 
     constructor(threeSystemController, lifeSystem, particleMaterial) {
-      
-        this.threeSystemController=threeSystemController
-        this.lifeSystem=lifeSystem
-        this.particleMaterial=particleMaterial
+
+        this.threeSystemController = threeSystemController
+        this.lifeSystem = lifeSystem
+        this.particleMaterial = particleMaterial
         this.bodySystemList = new Array(0)
-        this.lifePositionList=[]
-        for (let index = 0; index < this.lifeSystem.num; index++){
+        this.lifePositionList = []
+        for (let index = 0; index < this.lifeSystem.num; index++) {
             this.lifePositionList.push(0)
         }
     }
@@ -40,8 +40,33 @@ class BodySystemController {
         }
     }
 
-    updateLifePosition(index,position){
-        this.lifePositionList[index]=position
+    updateLifePosition(index, position) {
+        this.lifePositionList[index] = position
+    }
+
+    getSariraDataForServer() {
+        //user
+        let newPositionArray = []
+        let indexLength = 0;
+        let originalPositionArray = this.bodySystemList[0].sariraBuffer.bufferGeometry.attributes.position.array
+
+        for (let i = 1; i < 500; i++) {
+            if (originalPositionArray[i * 3] == 0 && originalPositionArray[(i * 3) + 1] == 0 && originalPositionArray[(i * 3) + 2] == 0) {
+                indexLength = i
+                break;
+            }
+        }
+        for (let i = 0; i < indexLength * 3; i++) {
+            newPositionArray[i] = originalPositionArray[i]
+        }
+
+        let message={
+            vertices: newPositionArray,
+            metaData: this.bodySystemList[0].terminal.metaDataList
+        }
+        
+        return message
+        
     }
 
     createConvexMaterial() {
@@ -64,7 +89,7 @@ class BodySystemController {
                 hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
             }
         );
-        this.convexWindowMaterial=this.convexMaterial.clone()
+        this.convexWindowMaterial = this.convexMaterial.clone()
         // this.convexWindowMaterial.roughness= 0.4
         // this.convexWindowMaterial.envMap= hdrEquirect
     }

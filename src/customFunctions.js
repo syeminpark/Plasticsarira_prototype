@@ -3,6 +3,7 @@ function constrain(num, min, max) {
   const MAX = max
   const parsed = parseInt(num)
   return Math.min(Math.max(parsed, MIN), MAX)
+  
 }
 
 function print(...args) {
@@ -34,42 +35,15 @@ function pxToVw(px) {
   return px * (100 / window.innerWidth)
 }
 
-function requestFullScreen(element) {
-  // Supports most browsers and their versions.
-  var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
 
-  if (requestMethod) { // Native full screen.
-    requestMethod.call(element);
-  } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
-    var wscript = new ActiveXObject("WScript.Shell");
-    if (wscript !== null) {
-      wscript.SendKeys("{F11}");
-    }
+
+function changeHistory(){
+  try {
+      var stateObj = {
+          foo: "bar"
+      };
+      history.pushState(stateObj, "page 2", "https://greenverse.art/artworks/plastic-sarira/");
+  } catch (error) {
+      console.log(error)
   }
-}
-
-function writeName() {
-    swal({
-      text: "What is your Name?",
-      content: "input",
-      button: "Wrote!",
-      closeOnClickOutside: false,
-      content: {
-        element: "input",
-        attributes: {
-          placeholder: "Please Type Your Name",
-        },
-      },
-    }, 
-    ).then(value => {
-      if (value) {
-        var elem = document.documentElement;; // Make the body go full screen.
-        requestFullScreen(elem);
-        start=true;
-        userName=value;
-      }
-      else{
-        writeName()
-      }
-    })
-}
+  }

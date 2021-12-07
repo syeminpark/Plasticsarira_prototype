@@ -62,6 +62,5 @@ class Sarira {
         for (let [index, plastic] of this.plasticList.entries()) {
             plastic.moveWithLife(positionList, this.bufferGeometry, index)
         }
-
     }
 }

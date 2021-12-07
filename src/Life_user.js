@@ -206,6 +206,9 @@ class Life_user extends Life {
         
         this.cam.lookAt( this.life.position );
     }
+    lifeGo(){
+        super.lifeGo(deadAlert)
+    }
 }
 
 var mouseHold = -1;
