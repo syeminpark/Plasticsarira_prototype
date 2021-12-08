@@ -5,15 +5,19 @@ let bodySystemController
 let serverClientCommunication
 let userDead = false;
 
+
 setup()
 draw()
 done()
 
+
+  
 function setup() {
 
     writeName().then(() => {
         serverClientCommunication = new ServerClientCommunication(document.getElementById('userId').textContent)
         serverClientCommunication.createUser()
+      
     })
 
     threeSystemController = new ThreeSystemController();
@@ -45,7 +49,6 @@ function done() {
     if (userDead) {
         serverClientCommunication.postSariraById(bodySystemController.getSariraDataForServer()).then(() => {
             //window.location = `${window.location.href}database.html`;
-           
         })
         userDead = false;
 

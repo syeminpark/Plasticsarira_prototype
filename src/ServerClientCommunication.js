@@ -1,12 +1,21 @@
 class ServerClientCommunication {
     constructor(userName) {
+
         this.url = `https://plasticsariraserver.herokuapp.com`
+        //this.url = "http://localhost:3000"
         this.name = userName
         this.type = this.chooseType()
 
-        if (this.name == "admin")
-            window.addEventListener("beforeunload", this.deleteUserById.bind(this))
-            window.addEventListener("beforeunload", this.deleteSariraById.bind(this))
+        if (this.name == "admin") {
+            document.addEventListener('keydown', (event) => {
+                const keyName = event.key;
+                if (keyName === 'Control') {
+                    serverClientCommunication.deleteUsersByName()
+                    serverClientCommunication.deleteSarirasByName()
+                    return;
+                }
+            })
+        }
     }
 
     async createUser() {
@@ -56,6 +65,20 @@ class ServerClientCommunication {
             }
         })
     }
+
+    async deleteUsersByName() {
+        await $.ajax({
+            type: "DELETE",
+            url: `${this.url}/users/all/${this.name}`,
+            success: function (response) {
+                console.log(response)
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        })
+    }
+
     //Sarira
 
     async postSariraById(object) {
@@ -64,7 +87,7 @@ class ServerClientCommunication {
                 name: this.name,
                 type: this.type,
                 message: JSON.stringify(object)
-       
+
             });
             console.log(response)
 
@@ -109,6 +132,20 @@ class ServerClientCommunication {
             }
         })
     }
+
+    async deleteSarirasByName() {
+        await $.ajax({
+            type: "DELETE",
+            url: `${this.url}/sarira/all/${this.name}`,
+            success: function (response) {
+                console.log(response)
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        })
+    }
+
 
     /////////////////////////////////////
     chooseType() {
