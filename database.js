@@ -4,6 +4,7 @@ setup()
 draw()
 
 
+
 async function setup() {
     checkAccessRoute()
 
@@ -50,3 +51,4 @@ function draw() {
         databaseThreeSystemController.render()
 
 }
+

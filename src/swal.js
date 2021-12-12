@@ -12,6 +12,17 @@ function requestFullScreen(element) {
   }
 }
 
+function chechDeviceType() {
+  const ua = navigator.userAgent;
+  if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+    useComputerAlert()
+
+  } else if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
+    useComputerAlert()
+  }
+
+};
+
 function writeName() {
   swal({
     text: "What is your Name?",
@@ -40,23 +51,33 @@ function writeName() {
   })
 }
 
-function deadAlert() {
-  userDead = true;
+function useComputerAlert() {
+  await swal({
+      text: "Please use a computer to experience our project",
+      closeOnClickOutside: false,
+
+    })
+    .then(() => {
+      window.location.href = 'https://greenverse.art/artworks/plastic-sarira/';
+    })
 }
 
-// async function deadAlert(){
-//     await swal({
-//         text: "You Have Died. You will be automatically moved to the next page",
-//         closeOnClickOutside: false,
-//         timer: 3000,
-//         showCancelButton: false,
-//         showConfirmButton: false
+// function deadAlert() {
+//   userDead = true;
+// }
 
-//     })
-//     .then( ()=> {  
-//       userDead=true; 
+async function deadAlert() {
+  await swal({
+      text: "You Have Died. Now You will be moved to the Arhival. ",
+      closeOnClickOutside: false,
+      timer: 5000,
+      showCancelButton: false,
+      showConfirmButton: false
 
-//     })
+    })
+    .then(() => {
+      userDead = true;
 
+    })
 
-
+}
