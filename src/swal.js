@@ -15,10 +15,16 @@ function requestFullScreen(element) {
 function checkDeviceType() {
   const ua = navigator.userAgent;
   if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+    console.log("tablet")
     useComputerAlert()
 
   } else if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
+    console.log("phone")
     useComputerAlert()
+  }
+  else{
+    
+    writeName()
   }
 
 };
@@ -54,8 +60,8 @@ function writeName() {
 function useComputerAlert() {
   swal({
       text: "Please use a computer to experience our project",
+      content: "input",
       closeOnClickOutside: false,
-
     })
     .then(() => {
       window.location.href = 'https://greenverse.art/artworks/plastic-sarira/';
