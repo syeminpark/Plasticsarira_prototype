@@ -40,7 +40,7 @@ async function setup() {
 
         if (data[i].vertices.length > 3) {
             let convex = new Convex(threeSystemList[i], convexMaterial)
-            convex.updateVertices(buffer.bufferGeometry, data[0].vertices.length)
+            convex.updateVertices(buffer.bufferGeometry, data[i].vertices.length)
             convex.initializeMesh()
         }
     }
