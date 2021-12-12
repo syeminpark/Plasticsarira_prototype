@@ -26,9 +26,7 @@ async function setup() {
     let data = dataOrganizer.getOtherSariraData()
 
 
-
     for (let i = 0; i < threeSystemList.length; i++) {
-
         const geometry = new THREE.BoxGeometry(10, 10, 10);
         const cube = new THREE.Mesh(geometry, glassMaterial);
         threeSystemList[i].scene.add(cube);

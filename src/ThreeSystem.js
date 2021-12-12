@@ -46,7 +46,7 @@ class ThreeSystem {
     setLights(ambientStrength, directionalStrength, hemiStrength) {
         let ambientLight = new THREE.AmbientLight(0xffffff, ambientStrength);
         let directionalLight = new THREE.DirectionalLight(0xffffff, directionalStrength);
-        directionalLight.position.set(.5, 0, 0.866);
+        directionalLight.position.set(0, 1, 0);
         directionalLight.target.position.set(0, 0, 0);
         let hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, hemiStrength);
         this.scene.add(ambientLight, directionalLight, hemiLight, directionalLight.target);

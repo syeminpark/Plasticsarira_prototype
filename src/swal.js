@@ -76,8 +76,9 @@ function useComputerAlert() {
 // }
 
 async function deadAlert() {
+  
   await swal({
-      text: "You Have Died. Now You will be moved to the Arhival. ",
+      text: "You Have Died. Now You will be moved to the Archival. ",
       closeOnClickOutside: false,
       timer: 5000,
       showCancelButton: false,
