@@ -5,7 +5,6 @@ let bodySystemController
 let serverClientCommunication
 let userDead = false;
 
-
 //forwarder
 checkDeviceType()
 writeName() 
