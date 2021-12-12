@@ -12,7 +12,7 @@ function requestFullScreen(element) {
   }
 }
 
-function chechDeviceType() {
+function checkDeviceType() {
   const ua = navigator.userAgent;
   if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
     useComputerAlert()
@@ -52,7 +52,7 @@ function writeName() {
 }
 
 function useComputerAlert() {
-  await swal({
+  swal({
       text: "Please use a computer to experience our project",
       closeOnClickOutside: false,
 
