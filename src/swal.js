@@ -23,6 +23,7 @@ function checkDeviceType(writename) {
     useComputerAlert()
   }
   else{
+    console.log("computer")
     writename()
   }
 
