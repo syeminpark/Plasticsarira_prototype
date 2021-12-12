@@ -7,7 +7,7 @@ let userDead = false;
 
 
 //forwarder
-chechDeviceType()
+checkDeviceType()
 writeName() 
 draw()
 done()
