@@ -58,7 +58,7 @@ class Popup {
 
         let jsonData = JSON.parse(data)
         //get the count of keys inside each popUpData category 
-        for (let i = 0; i < 1; i++) { // Object.keys(jsonData[this.categoryList[0]].length);
+        for (let i = 0; i < 3; i++) { // Object.keys(jsonData[this.categoryList[0]].length);
             let key = 0;
             if (i == 0) {
                 key = jsonData[this.dataList[index]].text

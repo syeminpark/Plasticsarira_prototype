@@ -37,7 +37,7 @@ class Terminal {
         }
 
         //
-        this.popup = new Popup(this.categoryList, this.popupTitleSize, this.splitWordsList,this.popupTextId,this.popupLimitWidth,[40,8])
+        this.popup = new Popup(this.categoryList, this.popupTitleSize, this.splitWordsList,this.popupTextId,this.popupLimitWidth,[40,20])
     }
 
     initializeCategory() {

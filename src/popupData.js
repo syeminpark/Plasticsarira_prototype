@@ -6,7 +6,7 @@ let data = `{
     },
 
     "Made_In" : {
-    "quote":"Quote: The ideal plastic material – one which remainsdurable during usage but decomposes after disposal – remains a utopic dream.",
+    "quote":"Quote: The ideal plastic material – one which remains durable during usage but decomposes after disposal – remains a utopic dream.",
     "src": "Source: Plastics and the curse of durability, [Friedrich Widde]",
     "text": "Explaination: The year of manufacture of the original form(source) of this microplastic. Will this durable fragment exceed the time of your bodily existence? "
     },
@@ -23,8 +23,8 @@ let data = `{
 
     },
     "Absorbed_By" : {
-        "quote": "Quote: 1.Microplastics are able to enter the human body through food chains, ... and inhalation of microplastics in the air. 2. Microplastics have been found for the first time in the human placenta, which provides oxygen and nutrients to the foetus.",
-        "src": "Source: 1. Detection of Exposure to Microplastics in Humans: A Systematic Review, [Basri K S, et al], 2. Plasticenta: First evidence of microplastics in human placenta, [Antonio Ragusa et al]",
+        "quote": "Quote: Microplastics are able to enter the human body through food chains, ... and inhalation of microplastics in the air.",
+        "src": "Source: Detection of Exposure to Microplastics in Humans: A Systematic Review, [Basri K S, et al]",
         "text":"Explaination: Method of Absorption of this microplastic in your body. What is your main type of abosorption?"
     },
     "Date_Retrieved" : {
