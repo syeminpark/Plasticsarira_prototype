@@ -12,7 +12,7 @@ function requestFullScreen(element) {
   }
 }
 
-function checkDeviceType() {
+function checkDeviceType(writename) {
   const ua = navigator.userAgent;
   if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
     console.log("tablet")
@@ -23,8 +23,7 @@ function checkDeviceType() {
     useComputerAlert()
   }
   else{
-    
-    writeName()
+    writename()
   }
 
 };
