@@ -58,4 +58,8 @@ class DataOrganizer {
         }
         console.log(this.otherSariraData)
     }
+
+    deleteNamefromDom(){
+        
+    }
 }

@@ -19,19 +19,23 @@ function checkDeviceType(writename) {
 
   } else if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
     useComputerAlert()
-  }
-  else{
+  } else {
     writename()
   }
 
 };
 
 function writeName() {
+
+  //check if userName Dom already exists. if it does. erase content
+
+
   swal({
     text: "What is your Name?",
     content: "input",
     button: "Wrote!",
     closeOnClickOutside: false,
+
     content: {
       element: "input",
       attributes: {
@@ -45,6 +49,7 @@ function writeName() {
         var elem = document.documentElement;; // Make the body go full screen.a
         requestFullScreen(elem);
       }
+      document.querySelector("input").value = ""
       createDomElement("div", false, "userName", value, document.body)
       setup()
     } else {
