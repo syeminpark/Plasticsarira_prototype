@@ -6,36 +6,31 @@ let serverClientCommunication
 let userDead = false;
 
 
-setup()
+//forwarder
+writeName() 
 draw()
 done()
 
 
-  
 function setup() {
 
-    writeName().then(() => {
-        serverClientCommunication = new ServerClientCommunication(document.getElementById('userId').textContent)
-        serverClientCommunication.createUser()
-      
-    })
+    let dataOrganizer= new DataOrganizer(document.getElementById('userName').textContent)
+    serverClientCommunication = new ServerClientCommunication(dataOrganizer)
+    serverClientCommunication.createUser()
 
     threeSystemController = new ThreeSystemController();
     lifeSystem = new LifeSystem();
     particleSystem_microPlastic = new ParticleSystem(lifeSystem);
     let particleMaterial = particleSystem_microPlastic.display(threeSystemController, 0.3)
-
     //
     bodySystemController = new BodySystemController(threeSystemController, lifeSystem, particleMaterial)
-    bodySystemController.createConvexMaterial()
-    bodySystemController.createConvexWindowMaterial()
     bodySystemController.createWindowBodySystem()
     bodySystemController.createOtherBodySystem()
 }
 
 function draw() {
     requestAnimationFrame(draw);
-    if (document.getElementById('userId')) {
+    if (document.getElementById('userName')) {
         //
         threeSystemController.update()
         particleSystem_microPlastic.update(bodySystemController, threeSystemController.sariraThreeSystem);
@@ -44,13 +39,11 @@ function draw() {
     }
 }
 
-function done() {
+async function done() {
     requestAnimationFrame(done);
     if (userDead) {
-        serverClientCommunication.postSariraById(bodySystemController.getSariraDataForServer()).then(() => {
-            //window.location = `${window.location.href}database.html`;
-        })
         userDead = false;
-
+        await serverClientCommunication.postSariraById(bodySystemController.getSariraDataForServer())
+        window.location = `${window.location.href}database.html`;
     }
 }

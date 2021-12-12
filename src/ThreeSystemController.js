@@ -8,20 +8,25 @@ class ThreeSystemController {
         //카메라가 바라보는 시점  x, y, z
         this.cameraLookPositionList = [0, 0, 0]
 
-        this.init();
-    }
-
-    //---------------------------------------------------------------------------------------
-    init() {
 
         //-----------------------------------------------------------------------------
         //가상현실 생성 장면 시스템 
-        this.worldThreeSystem = new ThreeSystem(document.querySelector('#world'), this.worldCameraPositionList, this.cameraLookPositionList)
+        this.worldThreeSystem = new ThreeSystem(document.querySelector('#world'))
         //사리 생성 장면 시스템 
         //카메라 생성, 렌더러 설정, 마우스 이동 가능(orbitcontrols), 빛 두개(ambient,directional)생성 
-        this.sariraThreeSystem = new ThreeSystem(document.querySelector('#sarira'), this.sariraCameraPositionList, this.cameraLookPositionList)
+        this.sariraThreeSystem = new ThreeSystem(document.querySelector('#sarira'))
         //this.sariraThreeSystem.setFog()
         this.systemList = [this.worldThreeSystem, this.sariraThreeSystem]
+
+        this.worldThreeSystem.setCamera(this.worldCameraPositionList, this.cameraLookPositionList)
+        this.sariraThreeSystem.setCamera(this.sariraCameraPositionList, this.cameraLookPositionList)
+
+        this.worldThreeSystem.setOrbitcontrols();
+        this.sariraThreeSystem.setOrbitcontrols();
+
+        this.worldThreeSystem.setLights(3,5,5)
+        this.sariraThreeSystem.setLights(3,5,5)
+
         //-----------------------------------------------------------------------------
         //css와 연관된, 렌더러가 렌더링하는 캔버스 명 
         this.canvas = document.querySelector('#c');

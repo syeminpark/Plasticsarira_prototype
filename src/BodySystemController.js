@@ -10,12 +10,13 @@ class BodySystemController {
         for (let index = 0; index < this.lifeSystem.num; index++) {
             this.lifePositionList.push(0)
         }
+        this.convexMaterial=createConvexMaterial() 
     }
 
     createWindowBodySystem() {
         let bodySystemWindow = new BodySystem(this.threeSystemController.sariraThreeSystem);
         bodySystemWindow.createBuffer(this.particleMaterial)
-        bodySystemWindow.createSarira(this.convexWindowMaterial)
+        bodySystemWindow.createSarira(this.convexMaterial)
         bodySystemWindow.createTerminal()
         this.bodySystemList.push(bodySystemWindow)
     }
@@ -50,7 +51,7 @@ class BodySystemController {
         let indexLength = 0;
         let originalPositionArray = this.bodySystemList[0].sariraBuffer.bufferGeometry.attributes.position.array
 
-        for (let i = 1; i < 500; i++) {
+        for (let i = 1; i < 300; i++) {
             if (originalPositionArray[i * 3] == 0 && originalPositionArray[(i * 3) + 1] == 0 && originalPositionArray[(i * 3) + 2] == 0) {
                 indexLength = i
                 break;
@@ -64,34 +65,10 @@ class BodySystemController {
             vertices: newPositionArray,
             metaData: this.bodySystemList[0].terminal.metaDataList
         }
-        
+        console.log(message)
         return message
         
+        
     }
-
-    createConvexMaterial() {
-        this.convexMaterial = new THREE.MeshPhysicalMaterial({
-            transmission: 0.95,
-            thickness: 0.1,
-            roughness: 0.2,
-            clearcoat: 1,
-            metalness: 0.06,
-            clearcoatRoughness: 0.4,
-            //envMap: hdrEquirect,
-
-        })
-    }
-
-    createConvexWindowMaterial() {
-        const hdrEquirect = new THREE.RGBELoader().load(
-            "images/empty_warehouse_01_1k.hdr",
-            () => {
-                hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
-            }
-        );
-        this.convexWindowMaterial = this.convexMaterial.clone()
-        // this.convexWindowMaterial.roughness= 0.4
-        // this.convexWindowMaterial.envMap= hdrEquirect
-    }
-
+   
 }

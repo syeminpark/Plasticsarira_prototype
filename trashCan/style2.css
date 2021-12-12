@@ -1,0 +1,89 @@
+
+body {
+    background-color: black;
+
+    font-family: Monospace;
+    font-size: 13px;
+    color: white;
+    background-color: #000;
+    margin: 0px;
+    z-index: 0;
+}
+
+
+.fixedText {
+    position: fixed;
+    text-align: center;
+    width: 100%;
+}
+
+.title {
+    margin-top: 1vh;
+    font-size: 1.5vh;
+}
+
+#content {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    z-index: 1;
+    padding: 5em 0 0 5em;
+}
+
+
+
+.copyRight {
+    bottom: 0;
+    color: grey;
+    font-size: 0.7vw;
+    margin-bottom: 5vh;
+}
+
+
+#c {
+    position: fixed;
+    left: 0vw;
+    top: 0vh;
+    width: 100vw;
+    height: 100vh;
+    display: block;
+    z-index: -1;
+}
+
+
+
+.logo {
+    position: fixed;
+    bottom: 0;
+
+}
+
+.nabi {
+    width: 4vw;
+    margin-left: 1vw;
+    margin-bottom: 2vw;
+}
+
+.watershed {
+    width: 3vw;
+    margin-left: 6vw;
+    margin-bottom: 2vw;
+}
+
+.bangLee {
+    width: 2vw;
+    margin-left: 10vw;
+    margin-bottom: 1vw;
+}
+
+.koreanfoundation {
+    width: 3vw;
+    margin-left: 13vw;
+    margin-bottom: 1.1vw;
+}
+
+.britishcouncil {
+    width: 3vw;
+    margin-left: 17vw;
+    margin-bottom: 1.7vw;
+}

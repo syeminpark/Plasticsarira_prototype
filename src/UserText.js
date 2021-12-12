@@ -27,7 +27,7 @@ class UserText {
     updateLabel(positionVector3, ) {
 
         
-        this.text.innerHTML=="" ?  this.text.innerHTML=document.getElementById("userId").textContent : null;
+        this.text.innerHTML=="" ?  this.text.innerHTML=document.getElementById("userName").textContent : null;
     
         //let tempV = _.cloneDeep(positionVector3)
         let tempV = _.cloneDeep(new THREE.Vector3(positionVector3.x, positionVector3.y + 5, positionVector3.z))

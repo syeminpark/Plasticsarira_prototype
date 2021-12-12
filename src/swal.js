@@ -12,8 +12,8 @@ function requestFullScreen(element) {
   }
 }
 
-async function writeName() {
-  await swal({
+function writeName() {
+  swal({
     text: "What is your Name?",
     content: "input",
     button: "Wrote!",
@@ -26,17 +26,22 @@ async function writeName() {
     },
   }, ).then(value => {
     if (value) {
-      var elem = document.documentElement;; // Make the body go full screen.
-      requestFullScreen(elem);
-      const userId = document.createElement("div");
-      userId.style.display = "none"
-      userId.id = "userId"
-      userId.innerHTML = value
-      document.body.appendChild(userId)
+      //only fullscreen for others
+      if (value != "admin") {
+        var elem = document.documentElement;; // Make the body go full screen.a
+        requestFullScreen(elem);
+      }
+      createDomElement("div", false, "userName", value, document.body)
+      setup()
     } else {
       writeName()
+
     }
   })
+}
+
+function deadAlert() {
+  userDead = true;
 }
 
 // async function deadAlert(){
@@ -53,6 +58,5 @@ async function writeName() {
 
 //     })
 
-function deadAlert() {
-  userDead = true;
-}
+
+

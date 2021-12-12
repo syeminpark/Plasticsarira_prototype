@@ -31,7 +31,6 @@ class Convex {
     }
 
     updateVertices(bufferGeometry, sariraListlength) {
-        this.clearObject()
         this.vertices = []
         const positionAttribute = bufferGeometry.getAttribute('position');
 
@@ -40,9 +39,9 @@ class Convex {
             vertex.fromBufferAttribute(positionAttribute, i);
             this.vertices.push(vertex)
         }
+    
         this.meshGeometry = new THREE.ConvexGeometry(this.vertices);
     }
-
 
 
     initializeMesh() {

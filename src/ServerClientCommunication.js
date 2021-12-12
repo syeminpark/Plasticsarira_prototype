@@ -1,12 +1,11 @@
 class ServerClientCommunication {
-    constructor(userName) {
-
+    constructor(dataOrganizer) {
         this.url = `https://plasticsariraserver.herokuapp.com`
         //this.url = "http://localhost:3000"
-        this.name = userName
-        this.type = this.chooseType()
+        this.dataOrganizer= dataOrganizer
 
-        if (this.name == "admin") {
+
+        if (this.dataOrganizer.getOwner() == "admin") {
             document.addEventListener('keydown', (event) => {
                 const keyName = event.key;
                 if (keyName === 'Control') {
@@ -15,30 +14,34 @@ class ServerClientCommunication {
                     return;
                 }
             })
-        }
+        } 
     }
 
     async createUser() {
-        try {
 
+        try {
             let response = await $.post(`${this.url}/users`, {
-                name: this.name,
-                type: this.type
+                name: this.dataOrganizer.getOwner(),
+                type: this.dataOrganizer.getType()
             });
-            this.id = response.user._id
+            console.log(JSON.stringify(response))
+            
+            this.dataOrganizer.setId(response.user._id)
+            this.dataOrganizer.saveToSessionStorage()
 
         } catch (error) {
-            console.log(JSON.stringify(error))
+            console.log(error)
         }
     }
 
     async getUserById() {
+
         try {
-            await $.get(`${this.url}/${this.id}`, response => {
+            await $.get(`${this.url}/users/${this.dataOrganizer.getId()}`, response => {
                 console.log(response)
             })
         } catch (error) {
-            console.log(JSON.stringify(error))
+            console.log(error)
         }
     }
 
@@ -56,7 +59,7 @@ class ServerClientCommunication {
     async deleteUserById() {
         await $.ajax({
             type: "DELETE",
-            url: `${this.url}/users/${this.id}`,
+            url: `${this.url}/users/${this.dataOrganizer.getId()}`,
             success: function (response) {
                 console.log(response)
             },
@@ -69,7 +72,7 @@ class ServerClientCommunication {
     async deleteUsersByName() {
         await $.ajax({
             type: "DELETE",
-            url: `${this.url}/users/all/${this.name}`,
+            url: `${this.url}/users/all/${this.dataOrganizer.getOwner()}`,
             success: function (response) {
                 console.log(response)
             },
@@ -83,9 +86,9 @@ class ServerClientCommunication {
 
     async postSariraById(object) {
         try {
-            let response = await $.post(`${this.url}/sarira/${this.id}`, {
-                name: this.name,
-                type: this.type,
+            let response = await $.post(`${this.url}/sarira/${this.dataOrganizer.getId()}`, {
+                name: this.dataOrganizer.getOwner(),
+                type: this.dataOrganizer.getType(),
                 message: JSON.stringify(object)
 
             });
@@ -98,8 +101,8 @@ class ServerClientCommunication {
 
     async getSariraById() {
         try {
-            await $.get(`${this.url}/sarira/${this.id}`, response => {
-                console.log(response)
+            await $.get(`${this.url}/sarira/${this.dataOrganizer.getId()}`, response => {
+                this.dataOrganizer.setMySariraData(JSON.parse(response.sariraData.message))
             })
 
         } catch (error) {
@@ -107,15 +110,20 @@ class ServerClientCommunication {
         }
     }
 
-
     async getAllSarira() {
         try {
-            await $.get(`${this.url}/sarira`, response => {
-                console.log(response)
+            await $.get(`${this.url}/sarira`, {
+                page: "0",
+                limit: "20"
+                
+            }, response => {
+     
+               this.dataOrganizer.setOtherSariraData(response.allSariraData)
+               this.dataOrganizer.setTotalSariraCount(response.totalCount)
             })
 
         } catch (error) {
-            console.log(JSON.stringify(error))
+            console.log(error)
         }
     }
 
@@ -123,7 +131,7 @@ class ServerClientCommunication {
     async deleteSariraById() {
         await $.ajax({
             type: "DELETE",
-            url: `${this.url}/sarira/${this.id}`,
+            url: `${this.url}/sarira/${this.dataOrganizer.getId()}`,
             success: function (response) {
                 console.log(response)
             },
@@ -136,7 +144,7 @@ class ServerClientCommunication {
     async deleteSarirasByName() {
         await $.ajax({
             type: "DELETE",
-            url: `${this.url}/sarira/all/${this.name}`,
+            url: `${this.url}/sarira/all/${this.dataOrganizer.getOwner()}`,
             success: function (response) {
                 console.log(response)
             },
@@ -144,14 +152,6 @@ class ServerClientCommunication {
                 console.log(error)
             }
         })
-    }
-
-
-    /////////////////////////////////////
-    chooseType() {
-        let type;
-        this.name == "admin" ? type = "administrator" : type = "audience"
-        return type;
     }
 
 }

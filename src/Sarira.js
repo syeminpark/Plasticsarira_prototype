@@ -46,6 +46,7 @@ class Sarira {
 
     updateConvexAll() {
         if (this.convex != undefined && this.plasticList.length > 3) {
+            this.convex.clearObject()
             this.convex.updateVertices(this.bufferGeometry, this.plasticList.length)
             this.convex.initializeMesh()
         }

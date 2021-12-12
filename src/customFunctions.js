@@ -3,7 +3,6 @@ function constrain(num, min, max) {
   const MAX = max
   const parsed = parseInt(num)
   return Math.min(Math.max(parsed, MIN), MAX)
-  
 }
 
 function print(...args) {
@@ -35,15 +34,21 @@ function pxToVw(px) {
   return px * (100 / window.innerWidth)
 }
 
-
-
-function changeHistory(){
-  try {
-      var stateObj = {
-          foo: "bar"
-      };
-      history.pushState(stateObj, "page 2", "https://greenverse.art/artworks/plastic-sarira/");
-  } catch (error) {
-      console.log(error)
+function createDomElement(type, isDisplay, id, innerHtml, doc) {
+  const dom = document.createElement(type);
+  if (!isDisplay) {
+    dom.style.display = "none"
   }
+  dom.id = id
+  dom.innerHTML = innerHtml
+  doc.appendChild(dom)
+}
+
+function checkAccessRoute() {
+  if (!sessionStorage.getItem("userId")) {
+    window.location.href = 'https://greenverse.art/artworks/plastic-sarira/';
+  } else {
+    createDomElement("div", false, "userId", sessionStorage.getItem("userId"),document.body)
+    createDomElement("div", false, "userName", sessionStorage.getItem("userName"),document.body)
   }
+}

@@ -9,7 +9,7 @@ body {
 }
 
 #c {
-    position: absolute;
+    position: fixed;
     left: 0vw;
     top: 0vh;
     width: 100vw;
@@ -89,7 +89,7 @@ body {
     bottom: 0;
     color: grey;
     font-size: 0.7vw;
-    margin-bottom: 5vh;
+    margin-bottom: 2vh;
 }
 
 .description {
@@ -153,38 +153,44 @@ body {
     transition: 3s;
 }
 
-.logo {
-    position: fixed;
-    bottom: 0;
+#content {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    z-index: 1;
+    padding: 5em 0 0 10em;
+}
+
+.list-item {
+    /*border: 1px solid rgb(88, 88, 88);
+    */
+    display: inline-block;
+    margin: 1em;
+    padding: 1em;
+}
+
+.list-item .scene {
+    width: 300px;
+    height: 300px;
+}
+
+.list-item .description {
+    text-align: center;
+    color: #888;
+    font-size: small;
+    width: 300px;
+    margin-top: 1em;
+    margin-bottom: 1em;
 
 }
 
-.nabi {
-    width: 4vw;
-    margin-left: 1vw;
-    margin-bottom: 2vw;
-}
+#popupBox{
 
-.watershed {
-    width: 3vw;
-    margin-left: 6vw;
-    margin-bottom: 2vw;
-}
+    position : absolute;
+    z-index : 3;
+    background-color : rgba(0,0,0,1);
+    border-color : rgba(100,100,100,1);
+    border-width : 0.001vw;
+    border-style : solid;
 
-.bangLee {
-    width: 2vw;
-    margin-left: 10vw;
-    margin-bottom: 1vw;
-}
-
-.koreanfoundation {
-    width: 3vw;
-    margin-left: 13vw;
-    margin-bottom: 1.1vw;
-}
-
-.britishcouncil {
-    width: 3vw;
-    margin-left: 17vw;
-    margin-bottom: 1.7vw;
 }
