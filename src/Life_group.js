@@ -1,6 +1,6 @@
 class Life_primaryConsumer extends Life {
-    constructor(index, windowSize){
-        super(index, windowSize);
+    constructor(index, windowSize, microPlastic_Material, microPlastic_ConvexMaterial){
+        super(index, windowSize, microPlastic_Material, microPlastic_ConvexMaterial);
     }
 
     init(){
@@ -38,8 +38,8 @@ class Life_primaryConsumer extends Life {
 }
 
 class Life_secondaryConsumer extends Life {
-    constructor(index, windowSize){
-        super(index, windowSize);
+    constructor(index, windowSize, microPlastic_Material, microPlastic_ConvexMaterial){
+        super(index, windowSize, microPlastic_Material, microPlastic_ConvexMaterial);
     }
 
     init(){
@@ -77,8 +77,8 @@ class Life_secondaryConsumer extends Life {
 }
 
 class Life_tertiaryConsumer extends Life {
-    constructor(index, windowSize){
-        super(index, windowSize);
+    constructor(index, windowSize, microPlastic_Material, microPlastic_ConvexMaterial){
+        super(index, windowSize, microPlastic_Material, microPlastic_ConvexMaterial);
     }
 
     init(){

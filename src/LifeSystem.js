@@ -7,20 +7,23 @@ class LifeSystem{
 
         this.windowSize = 300;
 
+        this.microPlastic_Material = createPointMaterial();
+        this.microPlastic_ConvexMaterial = createConvexMaterial();
+
         this.lifes = [];
-        this.life_user = new Life_user();
+        this.life_user = new Life_user(this.microPlastic_Material, this.microPlastic_ConvexMaterial);
 
         this.lifes.push(this.life_user);
 
         for (let i = 1; i < this.num; i++) {
             if (i < 1+this.primaryNum) {
-                const l = new Life_primaryConsumer(i, this.windowSize);
+                const l = new Life_primaryConsumer(i, this.windowSize, this.microPlastic_Material, this.microPlastic_ConvexMaterial);
                 this.lifes.push(l);
             } else if (i < 1+this.primaryNum+this.secondaryNum && i >= 1+this.primaryNum){
-                const l = new Life_secondaryConsumer(i, this.windowSize);
+                const l = new Life_secondaryConsumer(i, this.windowSize, this.microPlastic_Material, this.microPlastic_ConvexMaterial);
                 this.lifes.push(l);
             } else {
-                const l = new Life_tertiaryConsumer(i, this.windowSize);
+                const l = new Life_tertiaryConsumer(i, this.windowSize, this.microPlastic_Material, this.microPlastic_ConvexMaterial);
                 this.lifes.push(l);
             }
         }
@@ -29,7 +32,7 @@ class LifeSystem{
         this.display();     
         
         this.userText= new UserText(threeSystemController.worldThreeSystem,document.querySelector("#world"))
-        this.userText.createLabel()
+        this.userText.createLabel();
     }
 
     update(){
@@ -89,7 +92,7 @@ class LifeSystem{
 class Controller_life{
     constructor(user_life, windowSize){
         this.user = user_life;
-        this.camDis = this.user.size + this.user.sizeMax;
+        this.camDis = (this.user.size + this.user.sizeMax) * 1.5;
 
         this.windowSize = windowSize;
 

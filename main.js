@@ -22,9 +22,9 @@ function setup() {
     particleSystem_microPlastic = new ParticleSystem(lifeSystem);
     let particleMaterial = particleSystem_microPlastic.display(threeSystemController, 0.3)
     //
-    bodySystemController = new BodySystemController(threeSystemController, lifeSystem, particleMaterial)
-    bodySystemController.createWindowBodySystem()
-    bodySystemController.createOtherBodySystem()
+    // bodySystemController = new BodySystemController(threeSystemController, lifeSystem, particleMaterial)
+    // bodySystemController.createWindowBodySystem()
+    // bodySystemController.createOtherBodySystem()
 }
 
 function draw() {
@@ -32,9 +32,9 @@ function draw() {
     if (document.getElementById('userName')) {
         //
         threeSystemController.update()
-        particleSystem_microPlastic.update(bodySystemController, threeSystemController.sariraThreeSystem);
+        particleSystem_microPlastic.update();
         lifeSystem.update();
-        bodySystemController.updateBodySystem()
+        //bodySystemController.updateBodySystem()
     }
 }
 
@@ -42,7 +42,7 @@ async function done() {
     requestAnimationFrame(done);
     if (userDead) {
         userDead = false;
-        await serverClientCommunication.postSariraById(bodySystemController.getSariraDataForServer())
+        await serverClientCommunication.postSariraById(lifeSystem.life_user.getSariraDataForServer())
         window.location = `${window.location.href}database.html`;
     }
 }

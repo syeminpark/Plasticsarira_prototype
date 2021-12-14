@@ -16,6 +16,8 @@ class ParticleSystem{
 
         this.lifes = lifeSystem.lifes; //array
         this.life_user = lifeSystem.lifes[0];
+
+        this.material = createPointMaterial();
     }
 
     update(){
@@ -54,16 +56,11 @@ class ParticleSystem{
     display(threeSystemController,size){
         var geometry = new THREE.BufferGeometry().setFromPoints(this.particles_positions);
         
-        var material = new THREE.PointsMaterial({
-            size: size,
-            color:'white'
-        });
         //var material = new THREE.MeshNormalMaterial({wireframe:false});
 
-        this.points = new THREE.Points(geometry, material);
+        this.points = new THREE.Points(geometry, this.material);
         this.points.position.set(0, 0, 0);
 
         threeSystemController.addToWorldScene(this.points);
-        return material
     }
 }
