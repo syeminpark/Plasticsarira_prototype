@@ -1,12 +1,11 @@
 function createConvexMaterial() {
     return new THREE.MeshPhysicalMaterial({
-        transmission: 0.93,
+        transmission: 0.9,
         thickness: 1,
-        roughness: 0.,
+        roughness: 0.3,
         clearcoat: 1,
-        metalness: 0.06,
-        clearcoatRoughness: 0.4,
-
+        metalness: 0,
+        clearcoatRoughness: 0,
 
     })
 }
