@@ -286,8 +286,6 @@ class Controller_life{
     }
 
     camera_focusOn_update(){
-        this.user.life.rotation.set(this.cam.position.x, this.cam.position.y, this.cam.position.z); 
-
         this.orbitControl.target = this.user.life.position;
         this.camLerp = new THREE.Vector3().subVectors(
             this.user.life.position,
