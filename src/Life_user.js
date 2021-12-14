@@ -1,6 +1,8 @@
 class Life_user extends Life {
-    constructor(){
-        super(0, 0);
+    constructor(microPlastic_Material, microPlastic_ConvexMaterial){
+        super(0, 0, microPlastic_Material, microPlastic_ConvexMaterial);
+
+        this.createWindowBodySystem();
     }
 
     init(){
@@ -29,12 +31,49 @@ class Life_user extends Life {
         this.life.rotation.set(this.angle.x, this.angle.y, this.angle.z);
 
         this.lifeGo();
+
         if (this.isDead == false){
             this.randomWalk(0);
             this.noise_update();
             this.wrap_particles();
             this.add_MicroPlasticToBodySystem();
         }
+
+        this.bodySystem.update();
+        this.bodySystem.getLifePosition(this.position.clone());
+        this.bodySystemWindow.update();
+    }
+
+    createWindowBodySystem() {
+        this.bodySystemWindow = new BodySystem(threeSystemController.sariraThreeSystem);
+        this.bodySystemWindow.createBuffer(this.microPlastic_Material);
+        this.bodySystemWindow.createSarira(this.microPlastic_ConvexMaterial);
+        this.bodySystemWindow.createTerminal();
+    }
+
+    getSariraDataForServer() {
+        //user
+        let newPositionArray = []
+        let indexLength = 0;
+        let originalPositionArray = this.bodySystemWindow.sariraBuffer.bufferGeometry.attributes.position.array;
+
+        for (let i = 1; i < 300; i++) {
+            if (originalPositionArray[i * 3] == 0 && originalPositionArray[(i * 3) + 1] == 0 && originalPositionArray[(i * 3) + 2] == 0) {
+                indexLength = i
+                break;
+            }
+        }
+        for (let i = 0; i < indexLength * 3; i++) {
+            newPositionArray[i] = originalPositionArray[i]
+        }
+
+        let message={
+            vertices: newPositionArray,
+            metaData: this.bodySystemWindow.terminal.metaDataList
+        }
+        console.log(message)
+        return message
+        
     }
 
     add_MicroPlasticToBodySystem(){
@@ -46,8 +85,8 @@ class Life_user extends Life {
             var data = this.sariraParticlesData[this.sariraParticlesData.length-1];
             var send_pos = new THREE.Vector3().subVectors(this.sariraParticles[this.sariraParticlesData.length-1].position, this.position);
 
-            bodySystemController.bodySystemList[1].addFloatingPlastics(send_pos, data);
-            bodySystemController.bodySystemList[0].addFloatingPlastics(send_pos, data);
+            this.bodySystemWindow.addFloatingPlastics(send_pos, data);
+            this.bodySystem.addFloatingPlastics(send_pos, data);
 
             this.isMakeSarira = false;
         }

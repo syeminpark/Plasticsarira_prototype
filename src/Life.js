@@ -1,5 +1,5 @@
 class Life {
-    constructor(index, windowSize) {
+    constructor(index, windowSize, microPlastic_Material, microPlastic_ConvexMaterial) {
         this.index = index;
 
         this.windowSize = windowSize;
@@ -49,6 +49,11 @@ class Life {
 
         this.sarira_amount;
         this.toxicResistance;
+
+        this.microPlastic_Material = microPlastic_Material;
+        this.microPlastic_ConvexMaterial = microPlastic_ConvexMaterial;
+
+        this.createBodySystem();
     }
 
     set_absorbPlasticList(){
@@ -101,6 +106,7 @@ class Life {
 
     update() {
         this.lifeGo();
+
         if (this.isDead == false){
             this.randomWalk((this.size+this.sizeMax) * 0.002);
             this.randomLook();
@@ -109,6 +115,9 @@ class Life {
             this.wrap();
             this.add_MicroPlasticToBodySystem();
         }
+
+        this.bodySystem.update();
+        this.bodySystem.getLifePosition(this.position.clone());
     }
 
     randomWalk(acc) {
@@ -123,8 +132,6 @@ class Life {
         this.position.add(this.velocity);
         if (this.velocity.length() > this.velLimit) this.velocity.multiplyScalar(0.5);
         this.acceleration.multiplyScalar(0);
-
-        bodySystemController.updateLifePosition(this.index, this.position);
     }
 
     randomLook() {
@@ -172,8 +179,12 @@ class Life {
             ((this.size * 2) + this.sizeMax) * 2,
             1.0);
         this.life.add(sprite);
+    }
 
-        //this.make_sarira();
+    createBodySystem(){
+        this.bodySystem = new BodySystem(threeSystemController.worldThreeSystem, this.index);
+        this.bodySystem.createBuffer(this.microPlastic_Material);
+        this.bodySystem.createSarira(this.microPlastic_ConvexMaterial);
     }
 
     noise_init() {
@@ -333,7 +344,7 @@ class Life {
             var data = this.sariraParticlesData[this.sariraParticlesData.length-1];
             var send_pos = new THREE.Vector3().subVectors(this.sariraParticles[this.sariraParticlesData.length-1].position, this.position);
             //print(data)          
-            bodySystemController.bodySystemList[this.index+1].addFloatingPlastics(send_pos, data);
+            this.bodySystem.addFloatingPlastics(send_pos, data);
             
             this.isMakeSarira = false;
         }
@@ -426,18 +437,18 @@ class Life {
             
             var child;
             if (this.lifeName.includes('Plankton') == true) {
-                child = new Life_primaryConsumer(lifes.length, this.windowSize);
+                child = new Life_primaryConsumer(lifes.length, this.windowSize, this.microPlastic_Material, this.microPlastic_ConvexMaterial);
                 lifeSystem.primaryNum ++;
 
                 //console.log('primaryNum' + String(lifeSystem.primaryNum));
             }
             else if (this.lifeName.includes('Herbivores') == true) {
-                child = new Life_secondaryConsumer(lifes.length, this.windowSize);
+                child = new Life_secondaryConsumer(lifes.length, this.windowSize, this.microPlastic_Material, this.microPlastic_ConvexMaterial);
                 lifeSystem.secondaryNum ++;
                 //console.log('secondaryNum' + String(lifeSystem.secondaryNum));
             }
             else if (this.lifeName.includes('Carnivores') == true) {
-                child = new Life_tertiaryConsumer(lifes.length, this.windowSize);
+                child = new Life_tertiaryConsumer(lifes.length, this.windowSize, this.microPlastic_Material, this.microPlastic_ConvexMaterial);
                 lifeSystem.tertiaryNum ++;
                 //console.log('tertiaryNum' + String(lifeSystem.tertiaryNum));
             }
