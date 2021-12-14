@@ -1,6 +1,7 @@
 let threeSystemController
 let lifeSystem
 let particleSystem_microPlastic
+let bodySystemController
 let serverClientCommunication
 let userDead = false;
 
@@ -19,9 +20,11 @@ function setup() {
     threeSystemController = new ThreeSystemController();
     lifeSystem = new LifeSystem();
     particleSystem_microPlastic = new ParticleSystem(lifeSystem);
-    particleSystem_microPlastic.display(threeSystemController, 0.3)
+    let particleMaterial = particleSystem_microPlastic.display(threeSystemController, 0.3)
     //
-
+    bodySystemController = new BodySystemController(threeSystemController, lifeSystem, particleMaterial)
+    bodySystemController.createWindowBodySystem()
+    bodySystemController.createOtherBodySystem()
 }
 
 function draw() {
@@ -29,8 +32,9 @@ function draw() {
     if (document.getElementById('userName')) {
         //
         threeSystemController.update()
-        particleSystem_microPlastic.update();
+        particleSystem_microPlastic.update(bodySystemController, threeSystemController.sariraThreeSystem);
         lifeSystem.update();
+        bodySystemController.updateBodySystem()
     }
 }
 
