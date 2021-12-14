@@ -18,7 +18,7 @@ class ParticleSystem{
         this.life_user = lifeSystem.lifes[0];
     }
 
-    update(bodySystem,threeSystem){
+    update(){
         const positions = this.points.geometry.attributes.position.array; // buffer attribute position array
         
         for (let i = 0; i < positions.length; i += 3) {
@@ -51,7 +51,7 @@ class ParticleSystem{
         this.points.geometry.attributes.position.needsUpdate = true;
     }
 
-    display(threeSystemController,size){
+    display(threeSystemController){
         var geometry = new THREE.BufferGeometry().setFromPoints(this.particles_positions);
         
         var material = new THREE.PointsMaterial({

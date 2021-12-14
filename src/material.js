@@ -21,7 +21,6 @@ function createGlassMaterial() {
         clearcoatRoughness: 1,
         blending: THREE.AdditiveBlending,
         side: THREE.BackSide,
-        
 
     })
 }
