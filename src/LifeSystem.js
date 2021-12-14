@@ -47,15 +47,15 @@ class LifeSystem{
             if (this.lifes[i].isDead == true){
                 if (this.lifes[i].lifeName.includes('Plankton') == true) {
                     this.primaryNum--;
-                    console.log('primaryNum' + this.primaryNum);
+                    //console.log('primaryNum' + this.primaryNum);
                 }
                 if (this.lifes[i].lifeName.includes('Herbivores') == true) {
                     this.secondaryNum--;
-                    console.log('secondaryNum' + this.secondaryNum);
+                    //console.log('secondaryNum' + this.secondaryNum);
                 }
                 if (this.lifes[i].lifeName.includes('Carnivores') == true) {
                     this.tertiaryNum--;
-                    console.log('tertiaryNum' + this.tertiaryNum);
+                    //console.log('tertiaryNum' + this.tertiaryNum);
                 }
 
                 this.lifes.splice(i, 1);

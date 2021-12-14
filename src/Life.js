@@ -429,17 +429,17 @@ class Life {
                 child = new Life_primaryConsumer(lifes.length, this.windowSize);
                 lifeSystem.primaryNum ++;
 
-                console.log('primaryNum' + String(lifeSystem.primaryNum));
+                //console.log('primaryNum' + String(lifeSystem.primaryNum));
             }
             else if (this.lifeName.includes('Herbivores') == true) {
                 child = new Life_secondaryConsumer(lifes.length, this.windowSize);
                 lifeSystem.secondaryNum ++;
-                console.log('secondaryNum' + String(lifeSystem.secondaryNum));
+                //console.log('secondaryNum' + String(lifeSystem.secondaryNum));
             }
             else if (this.lifeName.includes('Carnivores') == true) {
                 child = new Life_tertiaryConsumer(lifes.length, this.windowSize);
                 lifeSystem.tertiaryNum ++;
-                console.log('tertiaryNum' + String(lifeSystem.tertiaryNum));
+                //console.log('tertiaryNum' + String(lifeSystem.tertiaryNum));
             }
             
             if (child != null){
@@ -450,18 +450,18 @@ class Life {
                 
                 lifes.push(child);
 
-                console.log(this.lifeName + 
-                            '\n    - energy : ' + String(this.energy) + 
-                            '\n    - division_energy : ' + String(this.division_energy) +
-                            '\n    - division_term : ' + String(this.division_term) +
-                            '\n    - division_term : ' + String(this.division_term));
+                // console.log(this.lifeName + 
+                //             '\n    - energy : ' + String(this.energy) + 
+                //             '\n    - division_energy : ' + String(this.division_energy) +
+                //             '\n    - division_term : ' + String(this.division_term) +
+                //             '\n    - division_term : ' + String(this.division_term));
 
-                //console.log(child.lifeName + ' is born');
+                console.log(child.lifeName + ' is born');
 
                 this.division_term += this.size;
 
-                console.log(this.lifeName + 
-                    ' - division_term add : ' + String(this.division_term));
+                // console.log(this.lifeName + 
+                //     ' - division_term add : ' + String(this.division_term));
 
                 this.isReadyToDivision = false;
             }
