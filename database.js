@@ -22,7 +22,7 @@ async function setup() {
     let threeSystemList = databaseThreeSystemController.getThreeSystemList()
     let convexMaterial = createConvexMaterial()
     let glassMaterial = createGlassMaterial()
-    let pointMaterial = createPointeMaterial()
+    let pointMaterial = createPointMaterial()
     let data = dataOrganizer.getOtherSariraData()
 
 
