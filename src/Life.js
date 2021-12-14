@@ -332,7 +332,7 @@ class Life {
         if (this.isMakeSarira == true) {
             var data = this.sariraParticlesData[this.sariraParticlesData.length-1];
             var send_pos = new THREE.Vector3().subVectors(this.sariraParticles[this.sariraParticlesData.length-1].position, this.position);
-            //print(data)
+            //print(data)          
             bodySystemController.bodySystemList[this.index+1].addFloatingPlastics(send_pos, data);
             
             this.isMakeSarira = false;
