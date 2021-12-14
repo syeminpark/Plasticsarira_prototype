@@ -18,8 +18,7 @@ class ThreeSystem {
     }
 
     setCamera(cameraPositionList, cameraLookPositionList) {
-        this.cameraPositionList=cameraPositionList
-        this.cameraLookPositionList=cameraLookPositionList
+  
         this.camera = new THREE.PerspectiveCamera(45, 1, 0.01, 10000);
         this.camera.position.set(cameraPositionList[0], cameraPositionList[1], cameraPositionList[2]);
         this.camera.lookAt(cameraLookPositionList[0], cameraLookPositionList[1], cameraLookPositionList[2]);
