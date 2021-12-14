@@ -1,11 +1,11 @@
 class LifeSystem{
     constructor(){
-        this.primaryNum = 15;
-        this.secondaryNum = 8;
-        this.tertiaryNum = 2;
+        this.primaryNum = 10;
+        this.secondaryNum = 5;
+        this.tertiaryNum = 3;
         this.num = 1 + this.primaryNum + this.secondaryNum + this.tertiaryNum;
 
-        this.windowSize = 140;
+        this.windowSize = 300;
 
         this.lifes = [];
         this.life_user = new Life_user();
@@ -23,10 +23,9 @@ class LifeSystem{
                 const l = new Life_tertiaryConsumer(i, this.windowSize);
                 this.lifes.push(l);
             }
-            
         }
 
-        this.control_life = new Controller_life(this.life_user);
+        this.control_life = new Controller_life(this.life_user, this.windowSize);
         this.display();     
         
         this.userText= new UserText(threeSystemController.worldThreeSystem,document.querySelector("#world"))
@@ -36,15 +35,46 @@ class LifeSystem{
     update(){
         for (let i = 0; i < this.lifes.length; i++) {
             if (this.lifes[i].index == 0) this.lifes[i].update_user();
-            if (this.lifes[i].index >= 1) this.lifes[i].update();
+            if (this.lifes[i].index >= 1) {
+                this.lifes[i].update();
+                if (this.primaryNum < 15 && this.lifes[i].lifeName.includes('Plankton') == true) this.lifes[i].division(this.lifes, this);
+                if (this.secondaryNum < 10 && this.lifes[i].lifeName.includes('Herbivores') == true) this.lifes[i].division(this.lifes, this);
+                if (this.tertiaryNum < 5 && this.lifes[i].lifeName.includes('Carnivores') == true) this.lifes[i].division(this.lifes, this);
+            }
         }
         
         for (let i = this.lifes.length-1; i >= 0 ; i--) {
             if (this.lifes[i].isDead == true){
+                if (this.lifes[i].lifeName.includes('Plankton') == true) {
+                    this.primaryNum--;
+                    console.log('primaryNum' + this.primaryNum);
+                }
+                if (this.lifes[i].lifeName.includes('Herbivores') == true) {
+                    this.secondaryNum--;
+                    console.log('secondaryNum' + this.secondaryNum);
+                }
+                if (this.lifes[i].lifeName.includes('Carnivores') == true) {
+                    this.tertiaryNum--;
+                    console.log('tertiaryNum' + this.tertiaryNum);
+                }
+
                 this.lifes.splice(i, 1);
-                //console.log(i + 'delete');
             }
         }
+
+        if (this.primaryNum <= 0) {
+            const l = new Life_primaryConsumer(this.lifes.length, this.windowSize);
+            this.lifes.push(l);
+            console.log('all primaryConsumer dead, add new');
+        }
+        // if (this.secondaryNum <= 0) {
+        //     const l = new Life_secondaryConsumer(this.lifes.length, this.windowSize);
+        //     this.lifes.push(l);
+        // }
+        // if (this.tertiaryNum <= 0) {
+        //     const l = new Life_tertiaryConsumer(this.lifes.length, this.windowSize);
+        //     this.lifes.push(l);
+        // }
 
         this.control_life.update();
 
@@ -57,15 +87,21 @@ class LifeSystem{
 }
 
 class Controller_life{
-    constructor(user_life){
+    constructor(user_life, windowSize){
         this.user = user_life;
+        this.camDis = this.user.size + this.user.sizeMax;
+
+        this.windowSize = windowSize;
+
         //======================================================
+
         this.scene = threeSystemController.worldThreeSystem.scene;
         this.cam = threeSystemController.worldThreeSystem.camera;
         this.orbitControl = threeSystemController.worldThreeSystem.controls;
         this.keyboard = new KeyboardState();
 
         //======================================================
+
         this.newPos = new THREE.Vector3();
         this.matrix = new THREE.Matrix4();
 
@@ -86,26 +122,26 @@ class Controller_life{
         this.camLerp = new THREE.Vector3();
 
         //======================================================
+
         this.isLifeFocusOn = true;
-        //console.log('focus mode : ' + this.isLifeFocusOn);
         
         this.timer = 1;
-
         this.camera_focusOn_init();
     }
 
     update(){
         this.key_check();
+        this.lerpLoad();
         
-        if (this.user.isDead == false){
-            this.lerpLoad();
-        }
-
         if (this.isLifeFocusOn == true){
             this.camera_focusOn_update();
-            //this.key_update();
-            this.mouse_update();
         } 
+
+        if (this.user.isDead == false){
+            this.key_update();
+            this.wrap();
+            //this.mouse_update();
+        }
     }
 
     key_check(){
@@ -124,8 +160,13 @@ class Controller_life{
     }
 
     key_update(){
-        var moveDistance = 500 * this.user.clock.getDelta();
+        var moveDistance = 100 * this.user.clock.getDelta();
         var rotateValue = 500 * this.user.clock.getDelta();
+
+        // var moveDistance = 80 * this.user.clock.getDelta();
+        // //var cameraLook = new THREE.Vector3().subVectors(this.life.position, this.cam.position);
+        // var cameraLook = new THREE.Vector3().subVectors(this.user.life.position, this.orbitControl.object.position);
+        // cameraLook.setLength(moveDistance);
 
         if ( this.keyboard.pressed("W") ){
             this.user.life.translateY( moveDistance );
@@ -152,72 +193,22 @@ class Controller_life{
         }
     }
 
-    camera_focusOff_init(){
-        this.goal = new THREE.Object3D;
-        this.follow = new THREE.Object3D;
+    wrap() {
+        const distance = this.user.life.position.length();
+        var newPos = this.user.position.clone();
 
-        //======================================================
-        //this.cam.position.set(50, 50, 200);
-        this.camLerp = new THREE.Vector3(50, 50, -300);
-        //this.cam.lookAt(0, 0, 0);
-        this.orbitControl.target = new THREE.Vector3(0, 0, 0);
-        this.orbitControl.update();
-        this.orbitControl.enablePan = true;
-    }
-
-    lerpLoad(){
-        if (this.timer > 0){
-            this.orbitControl.enabled = false;
-            this.timer -= 0.015;
-            //this.cam.position.lerp(this.camLerp, 0.05);
-            this.orbitControl.object.position.lerp(this.camLerp, 0.05);
-        } else {
-            this.orbitControl.enabled = true;
+        var newParticlePos = [];
+        for (let i = 0; i < this.user.absorbedParticles.length; i++) {
+            newParticlePos.push(this.user.absorbedParticles[i].position.clone());
         }
-    }
 
-    camera_focusOn_init(){
+        if (distance > this.windowSize * 1.2) {
+            this.user.position = new THREE.Vector3(newPos.x * -1, newPos.y * -1, newPos.z * -1);
 
-        this.user.life.add( this.follow );
-        //this.goal.add( this.cam );
-        this.goal.add( this.orbitControl.object );
-
-        //======================================================
-        // this.cam.position.set(
-        //     this.life.position.x, this.life.position.y, 
-        //     this.life.position.z - 100);
-        this.camLerp = new THREE.Vector3(
-            this.user.life.position.x, this.user.life.position.y, 
-            this.user.life.position.z - 50);
-
-        this.orbitControl.target = this.user.life.position;
-        this.orbitControl.enablePan = false;
-    }
-
-    camera_focusOn_update(){
-        this.orbitControl.target = this.user.life.position;
-        this.camLerp = new THREE.Vector3().subVectors(
-            this.user.life.position,
-            new THREE.Vector3(0, 0, 50));
-
-        this.a.lerp(this.user.life.position, 0.4);
-        this.b.copy(this.goal.position);
-        
-        this.dir.copy( this.a ).sub( this.b ).normalize();
-
-        const dis = this.a.distanceTo( this.b ) - this.safetyDistance;
-        this.goal.position.addScaledVector( this.dir, dis );
-        this.goal.position.lerp(this.temp, 0.02);
-        this.temp.setFromMatrixPosition(this.follow.matrixWorld);
-        
-        //this.cam.lookAt( this.life.position );
-        this.orbitControl.target = this.user.life.position;
-        this.orbitControl.update();
-
-        //console.log(this.cam.position);
-        //console.log(this.orbitControl.object.position);
-        //console.log(this.life.position);
-        //console.log(mouseHold);
+            for (let i = 0; i < this.user.absorbedParticles.length; i++) {
+                this.user.absorbedParticles[i].position = new THREE.Vector3(newParticlePos[i].x * -1, newParticlePos[i].y * -1, newParticlePos[i].z * -1);
+            }
+        }
     }
 
     mouse_update(){
@@ -242,7 +233,77 @@ class Controller_life{
             case -1:
                 
             break;
-          }
+        }
+    }
+
+    camera_focusOff_init(){
+        this.goal = new THREE.Object3D;
+        this.follow = new THREE.Object3D;
+
+        //======================================================
+        //this.cam.position.set(50, 50, 200);
+        this.camLerp = new THREE.Vector3(50, 50, -300);
+        //this.cam.lookAt(0, 0, 0);
+        this.orbitControl.target = new THREE.Vector3(0, 0, 0);
+        this.orbitControl.update();
+        this.orbitControl.enablePan = true;
+        this.orbitControl.enableZoom = true;
+    }
+
+    lerpLoad(){
+        if (this.timer > 0){
+            this.orbitControl.enabled = false;
+            this.timer -= 0.01;
+            //this.cam.position.lerp(this.camLerp, 0.05);
+            this.orbitControl.object.position.lerp(this.camLerp, 0.05);
+        } else {
+            this.orbitControl.enabled = true;
+        }
+    }
+
+    camera_focusOn_init(){
+
+        this.user.life.add( this.follow );
+        //this.goal.add( this.cam );
+        this.goal.add( this.orbitControl.object );
+
+        //======================================================
+        // this.cam.position.set(
+        //     this.life.position.x, this.life.position.y, 
+        //     this.life.position.z - 100);
+        this.camLerp = new THREE.Vector3(
+            this.user.life.position.x, this.user.life.position.y, 
+            this.user.life.position.z - this.camDis);
+
+        this.orbitControl.target = this.user.life.position;
+        this.orbitControl.enablePan = false;
+        this.orbitControl.enableZoom = false;
+    }
+
+    camera_focusOn_update(){
+        this.orbitControl.target = this.user.life.position;
+        this.camLerp = new THREE.Vector3().subVectors(
+            this.user.life.position,
+            new THREE.Vector3(0, 0, this.camDis));
+
+        this.a.lerp(this.user.life.position, 0.4);
+        this.b.copy(this.goal.position);
+        
+        this.dir.copy( this.a ).sub( this.b ).normalize();
+
+        const dis = this.a.distanceTo( this.b ) - this.safetyDistance;
+        this.goal.position.addScaledVector( this.dir, dis );
+        this.goal.position.lerp(this.temp, 0.02);
+        this.temp.setFromMatrixPosition(this.follow.matrixWorld);
+        
+        //this.cam.lookAt( this.life.position );
+        this.orbitControl.target = this.user.life.position;
+        this.orbitControl.update();
+
+        //console.log(this.cam.position);
+        //console.log(this.orbitControl.object.position);
+        //console.log(this.life.position);
+        //console.log(mouseHold);
     }
 }
 

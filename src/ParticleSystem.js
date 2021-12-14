@@ -1,7 +1,7 @@
 class ParticleSystem{
     constructor(lifeSystem){
         this.num = 12000;
-        this.size = 300;
+        this.size = lifeSystem.windowSize;
 
         this.particles = [];
         this.particles_positions = [];

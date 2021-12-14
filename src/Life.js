@@ -5,6 +5,7 @@ class Life {
         this.windowSize = windowSize;
 
         this.init();
+
         this.mass = this.size + this.sizeMax;
 
         this.glowAmount = 0.5;
@@ -30,21 +31,23 @@ class Life {
 
         this.isDead = false;
         this.age = 0;
-        this.lifespan = (this.size + this.sizeMax)*20;
 
         this.display();
         this.noise_init();
 
         //======================================================
         
+        this.isReadyToDivision = false;
+
+        this.energy = random(this.size/2, this.size*3);
+        
+        this.division_energy = this.size;
+        this.division_age = this.lifespan/3;
+        this.division_term = this.size*5;
+
+        //======================================================
+
         this.sarira_amount;
-
-        this.movement;
-
-        this.division_speed;
-
-        this.nutrients;
-
         this.toxicResistance;
     }
 
@@ -71,10 +74,13 @@ class Life {
         if (this.position.length() > this.windowSize) this.position.setLength(this.windowSize);
 
         this.velocity = new THREE.Vector3(
-            random(-0.01, 0.01),
-            random(-0.01, 0.01),
-            random(-0.01, 0.01));
+            random(-0.1, 0.1),
+            random(-0.1, 0.1),
+            random(-0.1, 0.1));
+
         this.acceleration = new THREE.Vector3(0, 0, 0);
+
+        this.velLimit = 0.1;
 
         this.angle = new THREE.Vector3(
             random(0, Math.PI * 2),
@@ -90,12 +96,13 @@ class Life {
         this.noiseAnimSpeed = random(0.1, 0.5);
 
         this.lifeName = 'life' + String(this.index);
+        this.lifespan = (this.size + this.sizeMax)*10;
     }
 
     update() {
         this.lifeGo();
         if (this.isDead == false){
-            this.randomWalk(this.size * 0.01, 0.1);
+            this.randomWalk((this.size+this.sizeMax) * 0.002);
             this.randomLook();
             this.noise_update();
             this.wrap_particles();
@@ -104,7 +111,7 @@ class Life {
         }
     }
 
-    randomWalk(acc, velLimit) {
+    randomWalk(acc) {
         this.life.position.set(this.position.x, this.position.y, this.position.z);
         this.position = this.life.position;
         this.acceleration.add(new THREE.Vector3(
@@ -114,8 +121,8 @@ class Life {
         ));
         this.velocity.add(this.acceleration);
         this.position.add(this.velocity);
-        if (this.velocity.length() > velLimit) this.velocity.multiplyScalar(0.01);
-        this.acceleration.setLength(0);
+        if (this.velocity.length() > this.velLimit) this.velocity.multiplyScalar(0.5);
+        this.acceleration.multiplyScalar(0);
 
         bodySystemController.updateLifePosition(this.index, this.position);
     }
@@ -123,9 +130,9 @@ class Life {
     randomLook() {
         this.life.rotation.set(this.angle.x, this.angle.y, this.angle.z);
         this.angleAcceleration.add(new THREE.Vector3(
-            random(-0.001, 0.001),
-            random(-0.001, 0.001),
-            random(-0.001, 0.001)
+            random(-0.002, 0.002),
+            random(-0.002, 0.002),
+            random(-0.002, 0.002)
         ));
         this.angleVelocity.add(this.angleAcceleration);
         this.angle.add(this.angleVelocity);
@@ -208,7 +215,7 @@ class Life {
     wrap() {
         const distance = this.position.length();
 
-        if (distance > this.windowSize) {
+        if (distance > this.windowSize * 1.2) {
             this.velocity.multiplyScalar(-1);
         }
     }
@@ -257,6 +264,7 @@ class Life {
             //파티클 먹고 파티클 흡수 상태로 변경
             if (distance < this.size * 0.5 && this.absorbedParticles.length < this.microPlastic_eat_maxAmount) {
                 this.absorbedParticles.push(microPlastic);
+                this.energy += 0.1;
                 microPlastic.isEaten = true;
             }
         }
@@ -292,7 +300,7 @@ class Life {
             this.absorbedParticles[i].wrapCenter = this.position;
             this.absorbedParticles[i].wrapSize = this.size;
             //this.absorbedParticles[i].velLimit = 0.5;
-            this.absorbedParticles[i].velLimit = 1.5;
+            this.absorbedParticles[i].velLimit = 5;
             
             const distance = this.position.distanceTo(this.absorbedParticles[i].position);
             var force = new THREE.Vector3().subVectors(sariraPos, this.absorbedParticles[i].position);
@@ -306,6 +314,7 @@ class Life {
             //그중에서 일정 확률로 몇몇 파티클이 사리가 되도록 함
             if (random(0, 10) < this.sariraSpeed && distance < this.size * 0.3 && 
                 this.absorbedParticles[i].becomeSarira == false && this.absorbedParticles.length < this.absorbPlasticNum){
+
                 this.absorbedParticles[i].data.setPassBy('');
 
                 this.absorbedParticles[i].data.setAbsorbedBy(1);
@@ -364,16 +373,31 @@ class Life {
     }
 
     lifeGo(callback){
-        if (this.lifespan > 0){
-            if (this.absorbedParticles.length < this.absorbPlasticNum) this.lifespan -= 0.1;
-            else this.lifespan -= 0.2;
-        } 
+        if (this.age < this.lifespan) {
+            this.age += 0.1;
+            this.energy -= 0.001;
+            if (this.division_term > 0) this.division_term -= 0.05;
+        }
 
-        if (this.age > this.lifespan - 0.1){
+        if (this.age >= this.division_age && this.energy > this.division_energy && 
+            this.division_term <= 0 && this.isReadyToDivision == false) this.isReadyToDivision = true;
+
+        if (this.age > this.lifespan * 0.7) this.velLimit = (this.size+this.sizeMax) * 0.9;
+
+        if (this.age >= this.lifespan - 0.1){
             if (this.life.scale.x > 0.011){
-                this.life.scale.x -= 0.015;
-                this.life.scale.y -= 0.015;
-                this.life.scale.z -= 0.015;
+                // this.velocity.add(new THREE.Vector3(
+                //     random(-0.2, 0.2),
+                //     random(-0.2, 0.2),
+                //     random(-0.2, 0.2)));
+                this.velLimit = 0.01;
+                this.velocity.multiplyScalar(0.1);
+
+                this.life.scale.x -= 0.005;
+                this.life.scale.y -= 0.005;
+                this.life.scale.z -= 0.005;
+
+                if(this.noiseShape < 0.5) this.noiseShape += 0.01;
             }
 
             if (this.life.material.opacity > 0.01){
@@ -386,7 +410,7 @@ class Life {
                     this.absorbedParticles[i].wrap_init();
                 }
 
-                //console.log(this.index + ' is die');
+                console.log(this.lifeName + ' is die');
                 this.isDead = true;
 
                 //make Dead alert if user 
@@ -395,12 +419,53 @@ class Life {
         }
     }
 
-    excrete(){
-        
-    }
+    division(lifes, lifeSystem) {
+        if (this.isReadyToDivision == true){
+            this.energy -= this.size;
+            this.lifespan -= this.size/2;
+            
+            var child;
+            if (this.lifeName.includes('Plankton') == true) {
+                child = new Life_primaryConsumer(lifes.length, this.windowSize);
+                lifeSystem.primaryNum ++;
 
-    divistion() {
+                console.log('primaryNum' + String(lifeSystem.primaryNum));
+            }
+            else if (this.lifeName.includes('Herbivores') == true) {
+                child = new Life_secondaryConsumer(lifes.length, this.windowSize);
+                lifeSystem.secondaryNum ++;
+                console.log('secondaryNum' + String(lifeSystem.secondaryNum));
+            }
+            else if (this.lifeName.includes('Carnivores') == true) {
+                child = new Life_tertiaryConsumer(lifes.length, this.windowSize);
+                lifeSystem.tertiaryNum ++;
+                console.log('tertiaryNum' + String(lifeSystem.tertiaryNum));
+            }
+            
+            if (child != null){
+                child.position = this.position.clone();
+                //child.energy = random(0, (this.size + this.sizeMax)/2);
+                //child.lifeName = '(' + String(this.lifeName) + '\'s-child) ' + this.lifeName.replace(/[0-9]/g,"") + String(lifes.length);
+                //child.lifeName = this.lifeName.replace(/[0-9]/g,"") + String(lifes.length);
+                
+                lifes.push(child);
 
+                console.log(this.lifeName + 
+                            '\n    - energy : ' + String(this.energy) + 
+                            '\n    - division_energy : ' + String(this.division_energy) +
+                            '\n    - division_term : ' + String(this.division_term) +
+                            '\n    - division_term : ' + String(this.division_term));
+
+                //console.log(child.lifeName + ' is born');
+
+                this.division_term += this.size;
+
+                console.log(this.lifeName + 
+                    ' - division_term add : ' + String(this.division_term));
+
+                this.isReadyToDivision = false;
+            }
+        }
     }
 
     eatenBy() {
