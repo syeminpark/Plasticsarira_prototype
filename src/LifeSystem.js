@@ -114,7 +114,7 @@ class Controller_life{
         this.dir = new THREE.Vector3;
         this.a = new THREE.Vector3;
         this.b = new THREE.Vector3;
-        this.safetyDistance = 0.1;
+        this.safetyDistance = this.camDis;
         this.vel = 0.0;
         this.acc = 0.0;
 
@@ -245,8 +245,11 @@ class Controller_life{
 
         //======================================================
         //this.cam.position.set(50, 50, 200);
-        this.camLerp = new THREE.Vector3(50, 50, -300);
         //this.cam.lookAt(0, 0, 0);
+
+        this.camLerp = new THREE.Vector3(50, 50, 300);
+        // this.camLerp = this.user.position.copy().add(new THREE.Vector3()).setLength(300);
+        
         this.orbitControl.target = new THREE.Vector3(0, 0, 0);
         this.orbitControl.update();
         this.orbitControl.enablePan = true;
@@ -265,10 +268,9 @@ class Controller_life{
     }
 
     camera_focusOn_init(){
-
         this.user.life.add( this.follow );
         //this.goal.add( this.cam );
-        this.goal.add( this.orbitControl.object );
+        //this.goal.add( this.orbitControl.object );
 
         //======================================================
         // this.cam.position.set(
@@ -284,6 +286,8 @@ class Controller_life{
     }
 
     camera_focusOn_update(){
+        this.user.life.rotation.set(this.cam.position.x, this.cam.position.y, this.cam.position.z); 
+
         this.orbitControl.target = this.user.life.position;
         this.camLerp = new THREE.Vector3().subVectors(
             this.user.life.position,
@@ -297,6 +301,7 @@ class Controller_life{
         const dis = this.a.distanceTo( this.b ) - this.safetyDistance;
         this.goal.position.addScaledVector( this.dir, dis );
         this.goal.position.lerp(this.temp, 0.02);
+
         this.temp.setFromMatrixPosition(this.follow.matrixWorld);
         
         //this.cam.lookAt( this.life.position );
