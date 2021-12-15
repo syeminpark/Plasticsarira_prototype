@@ -30,10 +30,10 @@ class MicroplasticDatabase {
         this.madeInList = [1979, 1951, 1979, 1931, 1968, 1952, 1920, 1950, 1980]
 
         //마지막 객체에게 미세플라스틱이 전수된 방법. 상속(엄마에게 물려받음=Inheritance) 호흡(Respiration), 먹이 (Food_Consumption)
-        this.absorbedByList = ["Inheritance","Respiration", "Food Consumption"]
+        this.absorbedByList = ["Inheritance", "Respiration", "Food Consumption"]
 
         //지나온 리시트. 빈 배열 반환. 
-        this.passBy = [];
+        this.passBy = new Array(0);
     }
 
     initialize() {
@@ -46,12 +46,12 @@ class MicroplasticDatabase {
         //앞에서 선정한 인덱스를 바탕으로 그 인덱스에 해당하는 날짜부터 2021년까지 랜덤하게 년도 하나를 선정 
         this.madeIn = JSON.stringify(Math.round(random(this.madeInList[index], 2021)));
 
-        this.dataList = [this.originalForm, this.madeIn, this.microType,this.passBy, this.absorbedBy];
+        this.dataList = [this.originalForm, this.madeIn, this.microType, this.passBy, this.absorbedBy];
     }
 
     getDataList() {
         //이차원배열. this.passby가 하나의 배열이라.
-        return this.dataList = [this.originalForm,  this.madeIn, this.microType, this.passBy,this.absorbedBy]
+        return this.dataList = [this.originalForm, this.madeIn, this.microType, this.passBy, this.absorbedBy]
 
     }
 
@@ -63,14 +63,19 @@ class MicroplasticDatabase {
 
     //생물체 지나올때마다 축적시키기 
     setPassBy(organismType) {
+        if(organismType!=""){
+            this.dataList[3].push(organismType)
+        }
+      
         //this.passyBy 인덱스=2
-        this.dataList[3].push(organismType)
+
+     
     }
 
     //하나의 값만 필요하기 때문에. 계속 최신값으로 덮어씌우기 
     setAbsorbedBy(absorbedByIndex) {
-           //this.absorbedBy 인덱스=4
-        this.absorbedBy= this.absorbedByList[absorbedByIndex]
+        //this.absorbedBy 인덱스=4
+        this.absorbedBy = this.absorbedByList[absorbedByIndex]
 
     }
 

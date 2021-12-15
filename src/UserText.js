@@ -19,7 +19,7 @@ class UserText {
 
         this.text.style.border = "0px"
     
-        this.text.style.position = 'absolute';
+        this.text.style.position = 'fixed';
         document.body.appendChild(this.text);
 
     }

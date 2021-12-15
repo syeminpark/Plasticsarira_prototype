@@ -25,7 +25,7 @@ class ThreeSystemController {
         this.sariraThreeSystem.setOrbitcontrols();
 
         this.worldThreeSystem.setLights(3,5,5)
-        this.sariraThreeSystem.setLights(3,5,5)
+        this.sariraThreeSystem.setLights(3,0,5)
 
         //-----------------------------------------------------------------------------
         //css와 연관된, 렌더러가 렌더링하는 캔버스 명 

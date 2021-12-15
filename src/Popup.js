@@ -36,11 +36,12 @@ class Popup {
         box.id = this.popupBoxId
         box.style.height = `${this.boxHeight}vh`
         box.style.width = `${this.boxWidth}vw`
-
+        
+        console.log(mouseYPosition)
         //offset by 1
-        box.style.top = `${pxToVh(mouseYPosition) -this.boxHeight-1 }vh`
+        box.style.top = `${pxToVh(mouseYPosition) -this.boxHeight-1 }%`
         //center frame
-        box.style.left = `${pxToVw(mouseXPosition)-this.boxWidth}vw`
+        box.style.left = `${pxToVw(mouseXPosition)-this.boxWidth}%`
         document.body.appendChild(box)
     }
 

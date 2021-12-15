@@ -54,9 +54,12 @@ class BodySystem {
     }
 
     addFloatingPlastics(positionList, passDataList) {
-
-
         let tempMicro = new Microplastic(this.threeSystem, this.particleMaterial)
+
+        print(passDataList[3])
+        if (passDataList[3][0] == null) {
+            passDataList[3][0] = "none"
+        }
 
         tempMicro.initialize(positionList, this.densityList[this.checkIndex(passDataList)], this.tensileStrengthList[this.checkIndex(passDataList)])
         if (this.terminal != undefined) {

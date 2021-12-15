@@ -228,7 +228,7 @@ class MicroPlastic {
             else if (randomNum_product <= 8 && randomNum_product > 7) originalForm = "first aid blankets";
             else if (randomNum_product <= 7 && randomNum_product > 6) originalForm = "polar fleece";
             else if (randomNum_product <= 6 && randomNum_product > 5) originalForm = "jerry can";
-            else if (randomNum_product <= 5 && randomNum_product > 4) originalForm = "Drum";
+            else if (randomNum_product <= 5 && randomNum_product > 4) originalForm = "drum";
             else if (randomNum_product <= 4 && randomNum_product > 3) originalForm = "ice box";
             else if (randomNum_product <= 3 && randomNum_product > 2) originalForm = "Fishing rope";
             else if (randomNum_product <= 2 && randomNum_product > 1) originalForm = "bulleproof vest";
@@ -246,9 +246,9 @@ class MicroPlastic {
           else if (randomNum_product <= 9 && randomNum_product > 8) originalForm = "crisp bags";
           else if (randomNum_product <= 8 && randomNum_product > 7) originalForm = "lunch box";
           else if (randomNum_product <= 7 && randomNum_product > 6) originalForm = "packing tape";
-          else if (randomNum_product <= 6 && randomNum_product > 5) originalForm = "Tobacco Package";
-          else if (randomNum_product <= 5 && randomNum_product > 4) originalForm = "Beach slipper";
-          else if (randomNum_product <= 4 && randomNum_product > 3) originalForm = "Tote bag";
+          else if (randomNum_product <= 6 && randomNum_product > 5) originalForm = "tobacco Package";
+          else if (randomNum_product <= 5 && randomNum_product > 4) originalForm = "beach slipper";
+          else if (randomNum_product <= 4 && randomNum_product > 3) originalForm = "tote bag";
           else if (randomNum_product <= 3 && randomNum_product > 2) originalForm = "vacuum cleaner";
           else if (randomNum_product <= 2 && randomNum_product > 1) originalForm = "car bumper";
           else originalForm = "door trim";
@@ -343,9 +343,9 @@ class MicroPlastic {
           else if (randomNum_product <= 7 && randomNum_product > 6) originalForm = "control cable";
           else if (randomNum_product <= 6 && randomNum_product > 5) originalForm = "kettle";
           else if (randomNum_product <= 5 && randomNum_product > 4) originalForm = "drawer runner";
-          else if (randomNum_product <= 4 && randomNum_product > 3) originalForm = "Bushings";
-          else if (randomNum_product <= 3 && randomNum_product > 2) originalForm = "Filter housing";
-          else if (randomNum_product <= 2 && randomNum_product > 1) originalForm = "Insulin pen";
+          else if (randomNum_product <= 4 && randomNum_product > 3) originalForm = "bushings";
+          else if (randomNum_product <= 3 && randomNum_product > 2) originalForm = "filter housing";
+          else if (randomNum_product <= 2 && randomNum_product > 1) originalForm = "insulin pen";
           else originalForm = "snap fastening";
 
           break;
@@ -361,8 +361,8 @@ class MicroPlastic {
           else if (randomNum_product <= 8 && randomNum_product > 7) originalForm = "synthetic leather";
           else if (randomNum_product <= 7 && randomNum_product > 6) originalForm = "drainage pipe";
           else if (randomNum_product <= 6 && randomNum_product > 5) originalForm = "window frame";
-          else if (randomNum_product <= 5 && randomNum_product > 4) originalForm = "Artificial skin";
-          else if (randomNum_product <= 4 && randomNum_product > 3) originalForm = "Blood bags";
+          else if (randomNum_product <= 5 && randomNum_product > 4) originalForm = "artificial skin";
+          else if (randomNum_product <= 4 && randomNum_product > 3) originalForm = "blood bags";
           else if (randomNum_product <= 3 && randomNum_product > 2) originalForm = "phonograph record";
           else if (randomNum_product <= 2 && randomNum_product > 1) originalForm = "traffic cone";
           else originalForm = "garden hose";
@@ -374,7 +374,7 @@ class MicroPlastic {
           else if (randomNum_product <= 14 && randomNum_product > 13) originalForm = "sport shoe";
           else if (randomNum_product <= 13 && randomNum_product > 12) originalForm = "rollerblade";
           else if (randomNum_product <= 12 && randomNum_product > 11) originalForm = "tire";
-          else if (randomNum_product <= 11 && randomNum_product > 10) originalForm = "electronic instrument";
+          else if (randomNum_product <= 11 && randomNum_product > 10) originalForm = "electric instrument";
           else if (randomNum_product <= 10 && randomNum_product > 9) originalForm = "cushion floor";
           else if (randomNum_product <= 9 && randomNum_product > 8) originalForm = "engine tubing";
           else if (randomNum_product <= 8 && randomNum_product > 7) originalForm = "composite wood";
@@ -383,7 +383,7 @@ class MicroPlastic {
           else if (randomNum_product <= 5 && randomNum_product > 4) originalForm = "wall insulation";
           else if (randomNum_product <= 4 && randomNum_product > 3) originalForm = "boat deck";
           else if (randomNum_product <= 3 && randomNum_product > 2) originalForm = "water tank";
-          else if (randomNum_product <= 2 && randomNum_product > 1) originalForm = "Watch-band wrapping";
+          else if (randomNum_product <= 2 && randomNum_product > 1) originalForm = "watch-band wrapping";
           else originalForm = "swimsuit";
 
           break;

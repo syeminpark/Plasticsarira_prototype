@@ -57,11 +57,12 @@ class Terminal {
             leftPosition += this.wordSpacingList[i]
             if (i == OWNERS_INDEX) {
                 let ownerVerticalSpace = initialSpace
+                
                 for (let pastOwner of category[category.length - 1]) {
                     this.createText(pastOwner, leftPosition, ownerVerticalSpace, this.metaDataTextSize, true)
                     ownerVerticalSpace += this.space / 2
                 }
-                this.ownerVerticalSpace = ownerVerticalSpace
+                this.ownerVerticalSpace = ownerVerticalSpace 
             } else {
                 this.createText(category[category.length - 1], leftPosition, initialSpace, this.metaDataTextSize, true)
             }
@@ -88,6 +89,7 @@ class Terminal {
         text.style.zIndex = 3;
 
         if (isMetaData) {
+        
             //check leftPosition of text and assign the appropriate html div element among category
             for (let [index, space] of this.wordSpacingList.entries()) {
                 let totalSpace = 0;
@@ -105,6 +107,7 @@ class Terminal {
                 }
             }
         } else {
+            text.style.position = 'fixed';
             text.id = this.popupTextId
             if(textSize==this.popupTitleSize)
             text.style.color = "rgba(200,200,200,1)"
