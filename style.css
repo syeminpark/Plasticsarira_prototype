@@ -9,7 +9,7 @@ body {
 }
 
 #c {
-    position: fixed;
+    position: absolute;
     left: 0vw;
     top: 0vh;
     width: 100vw;
@@ -52,6 +52,7 @@ body {
 }
 
 .right {
+
     float: right;
     width: 28vw;
     height: 30vh;
@@ -131,7 +132,7 @@ body {
 .swal-modal {
     background-color: black;
     border: 1px solid grey;
-    width:300px;
+    width: 300px;
 }
 
 .swal-overlay {
@@ -184,13 +185,37 @@ body {
 
 }
 
-#popupBox{
+#popupBox {
 
-    position : absolute;
-    z-index : 3;
-    background-color : rgba(0,0,0,1);
-    border-color : rgba(100,100,100,1);
-    border-width : 0.001vw;
-    border-style : solid;
+    position: absolute;
+    z-index: 3;
+    background-color: rgba(0, 0, 0, 1);
+    border-color: rgba(100, 100, 100, 1);
+    border-width: 0.001vw;
+    border-style: solid;
 
+}
+
+#loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 10px solid #f3f3f3;
+    /* Light grey */
+    border-top: 10px solid grey;
+    /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }

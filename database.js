@@ -7,11 +7,13 @@ draw()
 
 async function setup() {
     checkAccessRoute()
-
+    createDomElement("div", true, "loader",null,document.body)
+    
     let dataOrganizer = new DataOrganizer(document.getElementById('userName').textContent, document.getElementById('userId').textContent)
     serverClientCommunication = new ServerClientCommunication(dataOrganizer)
     //serverClientCommunication.getSariraById()
     await serverClientCommunication.getAllSarira()
+    document.getElementById('loader').remove()
 
 
     databaseThreeSystemController = new DatabaseThreeSystemController(dataOrganizer.getOtherSariraData())

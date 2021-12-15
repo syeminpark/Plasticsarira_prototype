@@ -40,6 +40,7 @@ function createDomElement(type, isDisplay, id, innerHtml, doc) {
     dom.style.display = "none"
   }
   dom.id = id
+  
   dom.innerHTML = innerHtml
   doc.appendChild(dom)
 }
