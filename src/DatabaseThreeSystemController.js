@@ -2,7 +2,7 @@ class DatabaseThreeSystemController {
     constructor(otherSariraData) {
         this.threeSystemList = []
         this.scenes = []
-        this.canvas = document.getElementById("c");
+        this.canvas = document.getElementById("d");
         this.geometries = [
             new THREE.BoxGeometry(1, 1, 1),
             new THREE.SphereGeometry(0.5, 12, 8),
