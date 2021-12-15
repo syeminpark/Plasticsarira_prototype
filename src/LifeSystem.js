@@ -145,6 +145,7 @@ class Controller_life{
             this.wrap();
             //this.mouse_update();
         }
+        
     }
 
     key_check(){
@@ -173,6 +174,7 @@ class Controller_life{
 
         if ( this.keyboard.pressed("W") ){
             this.user.life.translateY( moveDistance );
+            
         }
 		    
         if ( this.keyboard.pressed("S") ){
@@ -287,6 +289,7 @@ class Controller_life{
 
     camera_focusOn_update(){
         this.orbitControl.target = this.user.life.position;
+        
         this.camLerp = new THREE.Vector3().subVectors(
             this.user.life.position,
             new THREE.Vector3(0, 0, this.camDis));
