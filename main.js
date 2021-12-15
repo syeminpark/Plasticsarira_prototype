@@ -13,6 +13,7 @@ done()
 
 async function setup() {
 
+ 
     userSmallWindowGuide()
 
     let dataOrganizer= new DataOrganizer(document.getElementById('userName').textContent)

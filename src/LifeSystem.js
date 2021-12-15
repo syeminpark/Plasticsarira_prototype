@@ -33,6 +33,9 @@ class LifeSystem{
         
         this.userText= new UserText(threeSystemController.worldThreeSystem,document.querySelector("#world"))
         this.userText.createLabel();
+
+        this.healthbar = new HealthBar('health',threeSystemController.worldThreeSystem,document.querySelector("#world"))
+        this.healthbar.createBar()
     }
 
     update(){
@@ -81,6 +84,8 @@ class LifeSystem{
 
         this.control_life.update();
 
+        this.healthbar.updatePosition(this.life_user.life.position)
+        this.healthbar.updateHealth(this.life_user.lifespan-this.life_user.age)
         this.userText.updateLabel(this.life_user.life.position)
     }
 

@@ -70,7 +70,7 @@ async function deadAlert() {
       text: "You Have Died. Now You Will Be Moved To The Archival. ",
       closeOnClickOutside: false,
       timer: 5000,
-      button
+      button:false,
     })
     .then(() => {
       userDead = true;

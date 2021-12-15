@@ -37,7 +37,7 @@ class Popup {
         box.style.height = `${this.boxHeight}vh`
         box.style.width = `${this.boxWidth}vw`
         
-        console.log(mouseYPosition)
+        //console.log(mouseYPosition)
         //offset by 1
         box.style.top = `${pxToVh(mouseYPosition) -this.boxHeight-1 }%`
         //center frame

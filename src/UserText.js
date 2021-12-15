@@ -24,7 +24,7 @@ class UserText {
 
     }
 
-    updateLabel(positionVector3, ) {
+    updateLabel(positionVector3) {
 
         
         this.text.innerHTML=="" ?  this.text.innerHTML=document.getElementById("userName").textContent : null;
