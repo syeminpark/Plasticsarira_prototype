@@ -67,13 +67,39 @@ function useComputerAlert() {
 
 async function deadAlert() {
   await swal({
-      text: "You Have Died. Now You will be moved to the Archival. ",
+      text: "You Have Died. Now You Will Be Moved To The Archival. ",
       closeOnClickOutside: false,
       timer: 5000,
-      showCancelButton: false,
-      showConfirmButton: false
+      button
     })
     .then(() => {
       userDead = true;
     })
 }
+
+function userHoverGuide(){
+  swal({
+    text: "Hover/Scroll Mouse To Reveal More Information",
+    timer: 4000,
+    closeOnClickOutside: false,
+    className:"hoverGuide",
+    button: false
+  })
+  .then(() => {
+  })
+}
+
+
+function userSmallWindowGuide(){
+  swal({
+    text: "Click Mouse To Rotate Screen",
+    timer: 4000,
+    closeOnClickOutside: false,
+    className:"rotateGuide",
+    button: false
+  })
+  .then(() => {
+    userHoverGuide()
+  })
+}
+

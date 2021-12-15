@@ -11,7 +11,9 @@ draw()
 done()
 
 
-function setup() {
+async function setup() {
+
+    userSmallWindowGuide()
 
     let dataOrganizer= new DataOrganizer(document.getElementById('userName').textContent)
     serverClientCommunication = new ServerClientCommunication(dataOrganizer)
