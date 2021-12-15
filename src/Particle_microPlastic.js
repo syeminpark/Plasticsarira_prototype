@@ -36,6 +36,7 @@ class MicroPlastic {
 
       this.data.initialize();
       this.set_plasticType();
+      this.set_passByArray();
       
       this.color = new THREE.Color('white');
       this.opacity = 1.0;
@@ -47,9 +48,9 @@ class MicroPlastic {
 
     update(){
       this.applyForce(new THREE.Vector3(
-        random(-0.001, 0.001),
-        random(-0.001, 0.001),
-        random(-0.001, 0.001)
+        random(-0.005, 0.005),
+        random(-0.005, 0.005),
+        random(-0.005, 0.005)
       ));
       this.velocity.add(this.acceleration);
       this.position.add(this.velocity);
@@ -108,6 +109,45 @@ class MicroPlastic {
       var steer = new THREE.Vector3().subVectors(desired, this.velocity);
       steer.clampLength(0.1);
       return steer;
+    }
+
+    set_passByArray(){
+      if (random(0, 1) < 0.3) {
+        this.data.setPassBy('Plankton');
+        if (random(0, 1) < 0.15) {
+          this.data.setPassBy('Plankton');
+        }
+        if (random(0, 1) < 0.15) {
+          this.data.setPassBy('Herbivores');
+        }
+        if (random(0, 1) < 0.15) {
+          this.data.setPassBy('Carnivores');
+        }
+      }
+      if (random(0, 1) < 0.3) {
+        this.data.setPassBy('Herbivores');
+        if (random(0, 1) < 0.15) {
+          this.data.setPassBy('Plankton');
+        }
+        if (random(0, 1) < 0.15) {
+          this.data.setPassBy('Herbivores');
+        }
+        if (random(0, 1) < 0.15) {
+          this.data.setPassBy('Carnivores');
+        }
+      }
+      if (random(0, 1) < 0.3) {
+        this.data.setPassBy('Carnivores');
+        if (random(0, 1) < 0.15) {
+          this.data.setPassBy('Plankton');
+        }
+        if (random(0, 1) < 0.15) {
+          this.data.setPassBy('Herbivores');
+        }
+        if (random(0, 1) < 0.15) {
+          this.data.setPassBy('Carnivores');
+        }
+      }
     }
 
     set_plasticType(){

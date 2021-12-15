@@ -5,7 +5,7 @@ class LifeSystem{
         this.tertiaryNum = 3;
         this.num = 1 + this.primaryNum + this.secondaryNum + this.tertiaryNum;
 
-        this.windowSize = 300;
+        this.windowSize = 150;
 
         this.microPlastic_Material = createPointMaterial();
         this.microPlastic_ConvexMaterial = createConvexMaterial();
@@ -208,11 +208,11 @@ class Controller_life{
         }
 
         if (distance > this.windowSize * 1.2) {
-            this.user.position = new THREE.Vector3(newPos.x * -1, newPos.y * -1, newPos.z * -1);
+            // this.user.position = new THREE.Vector3(newPos.x * -1, newPos.y * -1, newPos.z * -1);
 
-            for (let i = 0; i < this.user.absorbedParticles.length; i++) {
-                this.user.absorbedParticles[i].position = new THREE.Vector3(newParticlePos[i].x * -1, newParticlePos[i].y * -1, newParticlePos[i].z * -1);
-            }
+            // for (let i = 0; i < this.user.absorbedParticles.length; i++) {
+            //     this.user.absorbedParticles[i].position = new THREE.Vector3(newParticlePos[i].x * -1, newParticlePos[i].y * -1, newParticlePos[i].z * -1);
+            // }
         }
     }
 
@@ -272,7 +272,7 @@ class Controller_life{
     camera_focusOn_init(){
         this.user.life.add( this.follow );
         //this.goal.add( this.cam );
-        //this.goal.add( this.orbitControl.object );
+        this.goal.add( this.orbitControl.object );
 
         //======================================================
         // this.cam.position.set(
@@ -308,11 +308,13 @@ class Controller_life{
         //this.cam.lookAt( this.life.position );
         this.orbitControl.target = this.user.life.position;
         this.orbitControl.update();
+        
+        //this.follow.position.set(this.user.life.position.clone());
+        this.orbitControl.object.position0 = this.goal.position.clone();
 
-        //console.log(this.cam.position);
-        //console.log(this.orbitControl.object.position);
+        // console.log( 'this.goal ' + String(this.goal.position));
+        // console.log( 'this.orbitControl ' + String(this.orbitControl.object.position));
         //console.log(this.life.position);
-        //console.log(mouseHold);
     }
 }
 

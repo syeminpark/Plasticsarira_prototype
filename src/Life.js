@@ -316,14 +316,21 @@ class Life {
             const distance = this.position.distanceTo(this.absorbedParticles[i].position);
             var force = new THREE.Vector3().subVectors(sariraPos, this.absorbedParticles[i].position);
 
-            if (distance > this.size * 0.5) {
-                force.multiplyScalar(0.02);
+            if (distance > this.size * 1){
+                this.absorbedParticles[i].applyForce(force);
+            }
+            else if (distance <= this.size * 1 && distance > this.size * 0.5){
+                force.multiplyScalar(0.1);
+                this.absorbedParticles[i].applyForce(force);
+            }
+            else {
+                force.multiplyScalar(0.01);
                 this.absorbedParticles[i].applyForce(force);
                 this.absorbedParticles[i].velocity.multiplyScalar(0.8);
             } 
 
             //그중에서 일정 확률로 몇몇 파티클이 사리가 되도록 함
-            if (random(0, 10) < this.sariraSpeed && distance < this.size * 0.3 && 
+            if (random(0, 5) < this.sariraSpeed && distance < this.size * 0.3 && 
                 this.absorbedParticles[i].becomeSarira == false && this.absorbedParticles.length < this.absorbPlasticNum){
 
                 this.absorbedParticles[i].data.setPassBy('');
