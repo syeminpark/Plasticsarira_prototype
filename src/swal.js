@@ -1,7 +1,6 @@
 function requestFullScreen(element) {
   // Supports most browsers and their versions.
   var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
-
   if (requestMethod) { // Native full screen.
     requestMethod.call(element);
   } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
@@ -22,14 +21,10 @@ function checkDeviceType(writename) {
   } else {
     writename()
   }
-
 };
 
 function writeName() {
-
   //check if userName Dom already exists. if it does. erase content
-
-
   swal({
     text: "What is your Name?",
     content: "input",
@@ -61,7 +56,6 @@ function writeName() {
 
 function useComputerAlert() {
   swal({
-
       text: "Please use a computer to fully experience our project",
       buttons: "Return",
       closeOnClickOutside: false,
@@ -71,23 +65,15 @@ function useComputerAlert() {
     })
 }
 
-// function deadAlert() {
-//   userDead = true;
-// }
-
 async function deadAlert() {
-  
   await swal({
       text: "You Have Died. Now You will be moved to the Archival. ",
       closeOnClickOutside: false,
       timer: 5000,
       showCancelButton: false,
       showConfirmButton: false
-
     })
     .then(() => {
       userDead = true;
-
     })
-
 }
