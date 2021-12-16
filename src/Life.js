@@ -407,9 +407,9 @@ class Life {
                 this.velLimit = 0.01;
                 this.velocity.multiplyScalar(0.1);
 
-                this.life.scale.x -= 0.005;
-                this.life.scale.y -= 0.005;
-                this.life.scale.z -= 0.005;
+                this.life.scale.x -= 0.007;
+                this.life.scale.y -= 0.007;
+                this.life.scale.z -= 0.007;
 
                 if(this.noiseShape < 0.5) this.noiseShape += 0.01;
             }
