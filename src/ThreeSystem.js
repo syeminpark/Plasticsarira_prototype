@@ -37,7 +37,7 @@ class ThreeSystem {
         }
     }
     
-    setPointerLockControls{
+    setPointerLockControls(){
         this.controls_pointerLock = new PointerLockControls(this.camera, this.element);
         this.controls_pointerLock.addEventListener( 'lock', function () {
 	    menu.style.display = 'none';
