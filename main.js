@@ -6,7 +6,7 @@ let serverClientCommunication
 let userDead = false;
 
 
-checkDeviceType(writeName)
+checkDeviceType()
 draw()
 done()
 

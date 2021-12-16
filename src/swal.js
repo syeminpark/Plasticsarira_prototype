@@ -11,19 +11,24 @@ function requestFullScreen(element) {
   }
 }
 
-function checkDeviceType(writename) {
-  const ua = navigator.userAgent;
-  if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
-    useComputerAlert()
+function checkDeviceType() {
+  const ua = window.navigator.userAgent;
+  let isTablet = false;
+  if (/(tablet|iPad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+    isTablet = true;
+    writeName(isTablet)
 
   } else if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
     useComputerAlert()
+  } else if (window.navigator.maxTouchPoints && /Macintosh/.test(ua)) {
+    isTablet = true;
+    writeName(isTablet)
   } else {
-    writename()
+    writeName(isTablet)
   }
 };
 
-function writeName() {
+function writeName(isTablet) {
   //check if userName Dom already exists. if it does. erase content
   swal({
     text: "What is your Name?",
@@ -39,12 +44,16 @@ function writeName() {
     },
   }, ).then(value => {
 
-    //for ipad
-    window.scrollTo(0, 80);
+    if (window.innerHeight > window.innerWidth) {
+      window.scrollTo(0, pxToVh(document.querySelector('#sarira').getBoundingClientRect().bottom));
+    } else {
+      window.scrollTo(0, document.querySelector('#sarira').getBoundingClientRect().bottom)
+    }
+
 
     if (value) {
       //only fullscreen for others
-      if (value != "admin") {
+      if (!isTablet ) {
         var elem = document.documentElement;; // Make the body go full screen.a
         requestFullScreen(elem);
       }
