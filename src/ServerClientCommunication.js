@@ -5,7 +5,7 @@ class ServerClientCommunication {
         this.dataOrganizer= dataOrganizer
 
 
-        if (this.dataOrganizer.getOwner() == "admin") {
+        if (this.dataOrganizer.getOwner() == "admin" || this.dataOrganizer.getOwner() == "Admin") {
             document.addEventListener('keydown', (event) => {
                 const keyName = event.key;
                 if (keyName === 'Control') {
