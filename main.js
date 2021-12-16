@@ -32,6 +32,7 @@ function draw() {
     requestAnimationFrame(draw);
     if (document.getElementById('userName')) {
         //
+
         threeSystemController.update()
         particleSystem_microPlastic.update();
         lifeSystem.update();
