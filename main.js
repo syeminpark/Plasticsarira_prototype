@@ -6,7 +6,9 @@ let serverClientCommunication
 let userDead = false;
 
 
+
 checkDeviceType()
+moveToTopWindow()
 draw()
 done()
 

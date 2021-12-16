@@ -12,6 +12,8 @@ function requestFullScreen(element) {
 }
 
 function checkDeviceType() {
+  
+  window.scrollTo(0,0)
   const ua = window.navigator.userAgent;
   let isTablet = false;
   if (/(tablet|iPad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
@@ -29,6 +31,7 @@ function checkDeviceType() {
 };
 
 function writeName(isTablet) {
+ 
   //check if userName Dom already exists. if it does. erase content
   swal({
     text: "What is your Name?",
@@ -43,14 +46,9 @@ function writeName(isTablet) {
       },
     },
   }, ).then(value => {
+    window.scrollTo(0, 0);
 
     document.querySelector("body").style.overflow = "visible"
-    if (window.innerHeight > window.innerWidth) {
-      window.scrollTo(0, pxToVh(document.querySelector('#sarira').getBoundingClientRect().bottom));
-    } else {
-      window.scrollTo(0, document.querySelector('#sarira').getBoundingClientRect().bottom)
-    }
-
     if (value) {
       //only fullscreen for others
       if (!isTablet) {

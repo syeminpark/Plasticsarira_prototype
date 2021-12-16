@@ -63,5 +63,12 @@ function reloadCss()
         if (link.rel === "stylesheet")
             link.href += "";
     }
+}
 
+function moveToTopWindow(){
+let input =document.querySelector("input")
+  input.addEventListener("input", (event)=>{
+    window.scrollTo({top:0, behavior:'smooth'});
+    
+  },true)
 }
