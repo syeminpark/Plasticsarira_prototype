@@ -3,13 +3,14 @@ class HealthBar {
         this.id=id;
         this.system = system
         this.canvas = canvas
+        
     }
 
-    createBar() {
+    createBar(lifeSpan) {
         this.progress = document.createElement("progress");
         this.progress.id = this.id;
-        this.progress.value = "500";
-        this.progress.max = "500";
+        this.progress.value = `${lifeSpan}`;
+        this.progress.max = `${lifeSpan}`;
         this.progress.style.position = 'fixed';
 
         document.body.appendChild(this.progress)

@@ -35,7 +35,7 @@ class LifeSystem{
         this.userText.createLabel();
 
         this.healthbar = new HealthBar('health',threeSystemController.worldThreeSystem,document.querySelector("#world"))
-        this.healthbar.createBar()
+        this.healthbar.createBar(this.life_user.lifespan)
     }
 
     update(){
