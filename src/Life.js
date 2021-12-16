@@ -109,7 +109,7 @@ class Life {
         this.lifeGo();
 
         if (this.isDead == false){
-            this.randomWalk((this.size+this.sizeMax) * 0.002);
+            this.randomWalk(1 / this.mass);
             this.randomLook();
             this.noise_update();
             this.wrap_particles();
