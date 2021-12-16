@@ -53,3 +53,15 @@ function checkAccessRoute() {
     createDomElement("div", false, "userName", sessionStorage.getItem("userName"),document.body)
   }
 }
+
+function reloadCss()
+{
+    let links = document.getElementsByTagName("link");
+    for (var cl in links)
+    {
+        var link = links[cl];
+        if (link.rel === "stylesheet")
+            link.href += "";
+    }
+
+}

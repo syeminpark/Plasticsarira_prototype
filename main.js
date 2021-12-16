@@ -13,8 +13,8 @@ done()
 
 async function setup() {
 
- 
-    userSmallWindowGuide()
+    await userSmallWindowGuide()
+    reloadCss()
 
     let dataOrganizer= new DataOrganizer(document.getElementById('userName').textContent)
     serverClientCommunication = new ServerClientCommunication(dataOrganizer)
@@ -24,10 +24,6 @@ async function setup() {
     lifeSystem = new LifeSystem();
     particleSystem_microPlastic = new ParticleSystem(lifeSystem);
     let particleMaterial = particleSystem_microPlastic.display(threeSystemController, 0.3)
-    //
-    // bodySystemController = new BodySystemController(threeSystemController, lifeSystem, particleMaterial)
-    // bodySystemController.createWindowBodySystem()
-    // bodySystemController.createOtherBodySystem()
 }
 
 function draw() {
@@ -37,12 +33,13 @@ function draw() {
         threeSystemController.update()
         particleSystem_microPlastic.update();
         lifeSystem.update();
-        //bodySystemController.updateBodySystem()
+        
     }
 }
 
 async function done() {
     requestAnimationFrame(done);
+    
     if (userDead) {
         userDead = false;
         await serverClientCommunication.postSariraById(lifeSystem.life_user.getSariraDataForServer())

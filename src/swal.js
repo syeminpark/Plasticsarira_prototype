@@ -51,7 +51,6 @@ function writeName(isTablet) {
       window.scrollTo(0, document.querySelector('#sarira').getBoundingClientRect().bottom)
     }
 
-
     if (value) {
       //only fullscreen for others
       if (!isTablet) {
@@ -65,6 +64,7 @@ function writeName(isTablet) {
       writeName()
 
     }
+
   })
 }
 
