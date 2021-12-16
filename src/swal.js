@@ -38,6 +38,10 @@ function writeName() {
       },
     },
   }, ).then(value => {
+
+    //for ipad
+    window.scrollTo(0, 80);
+
     if (value) {
       //only fullscreen for others
       if (value != "admin") {
@@ -70,36 +74,34 @@ async function deadAlert() {
       text: "You Have Died. Now You Will Be Moved To The Archival. ",
       closeOnClickOutside: false,
       timer: 5000,
-      button:false,
+      button: false,
     })
     .then(() => {
       userDead = true;
     })
 }
 
-function userHoverGuide(){
+function userHoverGuide() {
   swal({
-    text: "Hover/Scroll Mouse To Reveal More Information",
-    timer: 4000,
-    closeOnClickOutside: false,
-    className:"hoverGuide",
-    button: false
-  })
-  .then(() => {
-  })
+      text: "Hover/Scroll Mouse To Reveal More Information",
+      timer: 4000,
+      closeOnClickOutside: false,
+      className: "hoverGuide",
+      button: false
+    })
+    .then(() => {})
 }
 
 
-function userSmallWindowGuide(){
+function userSmallWindowGuide() {
   swal({
-    text: "Click Mouse To Rotate Screen",
-    timer: 4000,
-    closeOnClickOutside: false,
-    className:"rotateGuide",
-    button: false
-  })
-  .then(() => {
-    userHoverGuide()
-  })
+      text: "Click Mouse To Rotate Screen",
+      timer: 4000,
+      closeOnClickOutside: false,
+      className: "rotateGuide",
+      button: false
+    })
+    .then(() => {
+      userHoverGuide()
+    })
 }
-
