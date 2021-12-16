@@ -23,7 +23,7 @@ async function setup() {
     threeSystemController = new ThreeSystemController();
     lifeSystem = new LifeSystem();
     particleSystem_microPlastic = new ParticleSystem(lifeSystem);
-    let particleMaterial = particleSystem_microPlastic.display(threeSystemController, 0.3)
+    particleSystem_microPlastic.display(threeSystemController, 0.3)
 }
 
 function draw() {
