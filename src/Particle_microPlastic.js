@@ -48,9 +48,9 @@ class MicroPlastic {
 
     update(){
       this.applyForce(new THREE.Vector3(
-        random(-0.005, 0.005),
-        random(-0.005, 0.005),
-        random(-0.005, 0.005)
+        random(-0.002, 0.002),
+        random(-0.002, 0.002),
+        random(-0.002, 0.002)
       ));
       this.velocity.add(this.acceleration);
       this.position.add(this.velocity);

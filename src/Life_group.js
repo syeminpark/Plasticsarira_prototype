@@ -83,9 +83,9 @@ class Life_tertiaryConsumer extends Life {
 
     init(){
         this.position = new THREE.Vector3(
-            random(-this.windowSize*0.9, this.windowSize*0.9),
-            random(-this.windowSize*0.9, this.windowSize*0.9),
-            random(-this.windowSize*0.9, this.windowSize*0.9));
+            random(-this.windowSize*0.5, this.windowSize*0.5),
+            random(-this.windowSize*0.5, this.windowSize*0.5),
+            random(-this.windowSize*0.5, this.windowSize*0.5));
 
         if (this.position.length() > this.windowSize) this.position.setLength(this.windowSize);
 

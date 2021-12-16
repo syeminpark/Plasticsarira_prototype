@@ -46,6 +46,10 @@ class LifeSystem{
                 if (this.primaryNum < 15 && this.lifes[i].lifeName.includes('Plankton') == true) this.lifes[i].division(this.lifes, this);
                 if (this.secondaryNum < 10 && this.lifes[i].lifeName.includes('Herbivores') == true) this.lifes[i].division(this.lifes, this);
                 if (this.tertiaryNum < 5 && this.lifes[i].lifeName.includes('Carnivores') == true) this.lifes[i].division(this.lifes, this);
+
+                // for (let j = 0; j < this.lifes.length; j++){
+                //     this.lifes[i].eatLife(this.lifes[j]);
+                // }
             }
         }
         

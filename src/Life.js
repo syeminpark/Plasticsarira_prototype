@@ -53,6 +53,7 @@ class Life {
         this.microPlastic_Material = microPlastic_Material;
         this.microPlastic_ConvexMaterial = microPlastic_ConvexMaterial;
 
+        this.sarira_position;
         this.createBodySystem();
     }
 
@@ -114,10 +115,12 @@ class Life {
             this.wrap_particles();
             this.wrap();
             this.add_MicroPlasticToBodySystem();
+            this.eatenByOther();
+            this.sarira_position = this.position.clone()
         }
 
+        this.bodySystem.getLifePosition(this.sarira_position);
         this.bodySystem.update();
-        this.bodySystem.getLifePosition(this.position.clone());
     }
 
     randomWalk(acc) {
@@ -313,21 +316,14 @@ class Life {
             //this.absorbedParticles[i].velLimit = 0.5;
             this.absorbedParticles[i].velLimit = 5;
             
-            const distance = this.position.distanceTo(this.absorbedParticles[i].position);
+            var distance = this.position.distanceTo(this.absorbedParticles[i].position);
             var force = new THREE.Vector3().subVectors(sariraPos, this.absorbedParticles[i].position);
 
-            if (distance > this.size * 1){
-                this.absorbedParticles[i].applyForce(force);
-            }
-            else if (distance <= this.size * 1 && distance > this.size * 0.5){
-                force.multiplyScalar(0.1);
-                this.absorbedParticles[i].applyForce(force);
-            }
-            else {
+            if (distance > this.size * 0.5){
                 force.multiplyScalar(0.01);
                 this.absorbedParticles[i].applyForce(force);
                 this.absorbedParticles[i].velocity.multiplyScalar(0.8);
-            } 
+            }
 
             //그중에서 일정 확률로 몇몇 파티클이 사리가 되도록 함
             if (random(0, 5) < this.sariraSpeed && distance < this.size * 0.3 && 
@@ -486,7 +482,35 @@ class Life {
         }
     }
 
-    eatenBy() {
+    eatLife(otherLife){
+        var position = this.position.clone();
+        var distance = position.distanceTo(otherLife.position);
+        if (this.mass > otherLife.mass && distance < this.size * 1.5 && random(0, 1) < 0.3){
+            var force = new THREE.Vector3().subVectors(position, otherLife.position);
+            
+            force.multiplyScalar(0.01);
+            otherLife.acceleration.add(force);
+            otherLife.velocity.multiplyScalar(0.8);
 
+            if (otherLife.isDead == true){
+                this.absorbedParticles.concat(otherLife.absorbedParticles);
+                otherLife.sarira_position = this.position.clone();
+            }
+
+            this.energy += otherLife.size;
+            otherLife.isEaten = true;
+
+            console.log(this.lifeName + ' eat ' + otherLife.lifeName);
+        }
+    }
+
+    eatenByOther() {
+        if (this.isEaten == true && this.mass > 0){
+            this.mass -= 0.1;
+        } 
+        
+        if (this.mass <= 0){
+            this.isDead = true;
+        }
     }
 }
