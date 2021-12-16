@@ -36,6 +36,19 @@ class ThreeSystem {
             this.controls.enableZoom = false;
         }
     }
+    
+    setPointerLockControls{
+        this.controls_pointerLock = new PointerLockControls(this.camera, this.element);
+        this.controls_pointerLock.addEventListener( 'lock', function () {
+	    menu.style.display = 'none';
+        } );
+
+        this.controls_pointerLock.addEventListener( 'unlock', function () {
+	    menu.style.display = 'block';
+        } );
+        
+        this.controls_pointerLock.enabled = false;
+    }
 
     setFog() {
         const near = 10
