@@ -44,6 +44,7 @@ function writeName(isTablet) {
     },
   }, ).then(value => {
 
+    document.querySelector("body").style.overflow = "visible"
     if (window.innerHeight > window.innerWidth) {
       window.scrollTo(0, pxToVh(document.querySelector('#sarira').getBoundingClientRect().bottom));
     } else {
@@ -53,7 +54,7 @@ function writeName(isTablet) {
 
     if (value) {
       //only fullscreen for others
-      if (!isTablet ) {
+      if (!isTablet) {
         var elem = document.documentElement;; // Make the body go full screen.a
         requestFullScreen(elem);
       }

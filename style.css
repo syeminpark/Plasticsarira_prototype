@@ -2,7 +2,7 @@ body {
     background-color: black;
     margin: 0px;
     /* overflow: 요소의 콘텐츠가 너무 커서 요소의 블록 서식 맥락에 맞출 수 없을 때의 처리법 */
-    /* overflow: hidden; */
+    overflow: hidden;
     color: white;
     font-family: Monospace;
     z-index: 0;

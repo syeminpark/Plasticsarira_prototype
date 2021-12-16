@@ -27,7 +27,17 @@ class Popup {
                 this.createBackgroundBox(mouseXPosition, mouseYPosition)
                 this.createPopupText(data.id, index, createText)
             }.bind(this))
+            data.addEventListener("touchstart", function (e) {
+                e.preventDefault()
+                let mouseXPosition = e.touches[0].clientX;
+                let mouseYPosition = e.touches[0].clientY;
+
+                this.createBackgroundBox(mouseXPosition, mouseYPosition)
+                this.createPopupText(data.id, index, createText)
+            }.bind(this))
+            
             data.addEventListener("mouseleave", this.deletePopup.bind(this))
+            data.addEventListener("touchend", this.deletePopup.bind(this))
         }
     }
 
@@ -39,9 +49,9 @@ class Popup {
         
         //console.log(mouseYPosition)
         //offset by 1
-        box.style.top = `${pxToVh(mouseYPosition) -this.boxHeight-1 }%`
+        box.style.top = `${pxToVh(mouseYPosition) -this.boxHeight-1 }vh`
         //center frame
-        box.style.left = `${pxToVw(mouseXPosition)-this.boxWidth}%`
+        box.style.left = `${pxToVw(mouseXPosition)-this.boxWidth}vw`
         document.body.appendChild(box)
     }
 
