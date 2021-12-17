@@ -16,7 +16,7 @@ done()
 
 async function setup() {
 
- 
+
     await userHoverGuide()
     await userSmallWindowGuide()
 
@@ -30,6 +30,7 @@ async function setup() {
     lifeSystem = new LifeSystem(virtualKeyboard);
     particleSystem_microPlastic = new ParticleSystem(lifeSystem);
     particleSystem_microPlastic.display(threeSystemController, 0.3)
+    reloadCss()
 }
 
 function draw() {
