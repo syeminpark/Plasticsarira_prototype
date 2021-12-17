@@ -88,27 +88,24 @@ async function deadAlert() {
     })
 }
 
-function userHoverGuide() {
-  swal({
+async function userHoverGuide() {
+  await swal({
       text: "Hover/Scroll Mouse To Reveal More Information",
       timer: 4000,
-      closeOnClickOutside: false,
+
       className: "hoverGuide",
       button: false
     })
-    .then(() => {})
+
 }
 
 
-function userSmallWindowGuide() {
-  swal({
+async function userSmallWindowGuide() {
+ await swal({
       text: "Click Mouse To Rotate Screen",
       timer: 4000,
-      closeOnClickOutside: false,
+
       className: "rotateGuide",
       button: false
-    })
-    .then(() => {
-      userHoverGuide()
     })
 }

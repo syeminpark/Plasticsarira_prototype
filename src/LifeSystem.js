@@ -1,5 +1,5 @@
 class LifeSystem{
-    constructor(){
+    constructor(virtualKeyboard){
         this.primaryNum = 10;
         this.secondaryNum = 5;
         this.tertiaryNum = 3;
@@ -28,7 +28,7 @@ class LifeSystem{
             }
         }
 
-        this.control_life = new Controller_life(this.life_user, this.windowSize);
+        this.control_life = new Controller_life(this.life_user, this.windowSize,virtualKeyboard);
         this.display();     
         
         this.userText= new UserText(threeSystemController.worldThreeSystem,document.querySelector("#world"))
@@ -36,6 +36,7 @@ class LifeSystem{
 
         this.healthbar = new HealthBar('health',threeSystemController.worldThreeSystem,document.querySelector("#world"))
         this.healthbar.createBar(this.life_user.lifespan)
+        
 
 
     }
@@ -101,7 +102,7 @@ class LifeSystem{
 }
 
 class Controller_life{
-    constructor(user_life, windowSize){
+    constructor(user_life, windowSize,virtualKeyboard){
         this.user = user_life;
         this.camDis = (this.user.size + this.user.sizeMax) * 1.5;
 
@@ -142,13 +143,8 @@ class Controller_life{
         this.timer = 1;
         this.camera_focusOn_init();
 
-        this.keyList=["up","down","left","right","forward","back","zoom"]
-        this.myKeyList=[this.up,this.down,this.left,this.right,this.forward,this.back,this.zoom]
-        for(let key of this.keyList){
-            document.getElementById(key).addEventListener('touchstart', this.touch.bind(this))
-            document.getElementById(key).addEventListener('touchend', this.unTouch.bind(this))
-        }
-        document.getElementById("up").addEventListener('click', this.touch.bind(this))
+        this.virtualKeyboard=virtualKeyboard;
+
     }
    
     update(){
@@ -170,7 +166,7 @@ class Controller_life{
     key_check(){
         this.keyboard.update();
 
-        if ( this.keyboard.down("Z") ||this.myKeyList[6] ) {
+        if ( this.keyboard.down("Z") || this.virtualKeyboard.getKeyValue()=="Z" ) {
             this.isLifeFocusOn = !this.isLifeFocusOn;
             console.log('focus mode : ' + this.isLifeFocusOn);
             this.timer = 1;
@@ -192,28 +188,28 @@ class Controller_life{
         // var cameraLook = new THREE.Vector3().subVectors(this.user.life.position, this.orbitControl.object.position);
         // cameraLook.setLength(moveDistance);
 
-        if ( this.keyboard.pressed("W")||  this.myKeyList[0] ){
+        if ( this.keyboard.pressed("W")||  this.virtualKeyboard.getKeyValue()=="W" ){
             this.user.life.translateY( moveDistance );
          
         }
 		    
-        if ( this.keyboard.pressed("S" ||this.myKeyList[1] ) ){
+        if ( this.keyboard.pressed("S") || this.virtualKeyboard.getKeyValue()=="S" ){
             this.user.life.translateY(  -moveDistance );
         }
 
-        if ( this.keyboard.pressed("A") ||this.myKeyList[2]){
+        if ( this.keyboard.pressed("A") || this.virtualKeyboard.getKeyValue()=="A"){
             this.user.life.translateX(  moveDistance );
         }
 		    
-        if ( this.keyboard.pressed("D")  || this.myKeyList[3]){
+        if ( this.keyboard.pressed("D")  ||  this.virtualKeyboard.getKeyValue()=="D"){
             this.user.life.translateX(  -moveDistance );
         }
 
-        if ( this.keyboard.pressed("Q")  || this.myKeyList[4]){
+        if ( this.keyboard.pressed("Q")  || this.virtualKeyboard.getKeyValue()=="Q"){
             this.user.life.translateZ(  moveDistance );
         }
 		    
-        if ( this.keyboard.pressed("E")||this.myKeyList[5] ){
+        if ( this.keyboard.pressed("E")|| this.virtualKeyboard.getKeyValue()=="E" ){
             this.user.life.translateZ(  -moveDistance );
         }
 
@@ -338,16 +334,6 @@ class Controller_life{
         // console.log( 'this.goal ' + String(this.goal.position));
         // console.log( 'this.orbitControl ' + String(this.orbitControl.object.position));
         //console.log(this.life.position);
-    }
-    touch(event){
-        event.preventDefault()
-      
-        this.myKeyList[this.keyList.findIndex((element) => element ==  event.path[0].id +"")]=true;
-       
-    }
-    unTouch(event){
-        event.preventDefault()
-        this.myKeyList[this.keyList.findIndex((element) => element ==  event.path[0].id +"")]=false;
     }
 }
 

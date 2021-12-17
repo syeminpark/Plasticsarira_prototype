@@ -271,3 +271,36 @@ progress {
 ::-webkit-progress-value {
     background-color: white
 }
+
+
+.simple-keyboard {
+
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 77vh;
+    left: 0%;
+}
+
+.simple-keyboard.myTheme1 {
+    z-index: 11;
+    border-radius: 0;
+    background: none;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.simple-keyboard.myTheme1 .hg-button {
+    display: flex;
+    justify-content: center;
+    max-width: 30px;
+    max-height: 30px;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+.simple-keyboard.myTheme1 .hg-button:active {
+    background: white;
+    color: black;
+}
