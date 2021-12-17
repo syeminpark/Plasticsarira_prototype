@@ -36,6 +36,8 @@ class LifeSystem{
 
         this.healthbar = new HealthBar('health',threeSystemController.worldThreeSystem,document.querySelector("#world"))
         this.healthbar.createBar(this.life_user.lifespan)
+
+
     }
 
     update(){
@@ -139,8 +141,16 @@ class Controller_life{
         
         this.timer = 1;
         this.camera_focusOn_init();
-    }
 
+        this.keyList=["up","down","left","right","forward","back","zoom"]
+        this.myKeyList=[this.up,this.down,this.left,this.right,this.forward,this.back,this.zoom]
+        for(let key of this.keyList){
+            document.getElementById(key).addEventListener('touchstart', this.touch.bind(this))
+            document.getElementById(key).addEventListener('touchend', this.unTouch.bind(this))
+        }
+        document.getElementById("up").addEventListener('click', this.touch.bind(this))
+    }
+   
     update(){
         this.key_check();
         this.lerpLoad();
@@ -160,7 +170,7 @@ class Controller_life{
     key_check(){
         this.keyboard.update();
 
-        if ( this.keyboard.down("Z") ) {
+        if ( this.keyboard.down("Z") ||this.myKeyList[6] ) {
             this.isLifeFocusOn = !this.isLifeFocusOn;
             console.log('focus mode : ' + this.isLifeFocusOn);
             this.timer = 1;
@@ -173,6 +183,7 @@ class Controller_life{
     }
 
     key_update(){
+
         var moveDistance = 100 * this.user.clock.getDelta();
         var rotateValue = 500 * this.user.clock.getDelta();
 
@@ -181,30 +192,33 @@ class Controller_life{
         // var cameraLook = new THREE.Vector3().subVectors(this.user.life.position, this.orbitControl.object.position);
         // cameraLook.setLength(moveDistance);
 
-        if ( this.keyboard.pressed("W") ){
+        if ( this.keyboard.pressed("W")||  this.myKeyList[0] ){
             this.user.life.translateY( moveDistance );
-            
+         
         }
 		    
-        if ( this.keyboard.pressed("S") ){
+        if ( this.keyboard.pressed("S" ||this.myKeyList[1] ) ){
             this.user.life.translateY(  -moveDistance );
         }
 
-        if ( this.keyboard.pressed("A") ){
+        if ( this.keyboard.pressed("A") ||this.myKeyList[2]){
             this.user.life.translateX(  moveDistance );
         }
 		    
-        if ( this.keyboard.pressed("D") ){
+        if ( this.keyboard.pressed("D")  || this.myKeyList[3]){
             this.user.life.translateX(  -moveDistance );
         }
 
-        if ( this.keyboard.pressed("Q") ){
+        if ( this.keyboard.pressed("Q")  || this.myKeyList[4]){
             this.user.life.translateZ(  moveDistance );
         }
 		    
-        if ( this.keyboard.pressed("E") ){
+        if ( this.keyboard.pressed("E")||this.myKeyList[5] ){
             this.user.life.translateZ(  -moveDistance );
         }
+
+        
+       
     }
 
     wrap() {
@@ -324,6 +338,16 @@ class Controller_life{
         // console.log( 'this.goal ' + String(this.goal.position));
         // console.log( 'this.orbitControl ' + String(this.orbitControl.object.position));
         //console.log(this.life.position);
+    }
+    touch(event){
+        event.preventDefault()
+      
+        this.myKeyList[this.keyList.findIndex((element) => element ==  event.path[0].id +"")]=true;
+       
+    }
+    unTouch(event){
+        event.preventDefault()
+        this.myKeyList[this.keyList.findIndex((element) => element ==  event.path[0].id +"")]=false;
     }
 }
 

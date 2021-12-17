@@ -125,7 +125,7 @@ class Life_user extends Life {
         var moveDistance = 500 * this.clock.getDelta();
         var rotateValue = 500 * this.clock.getDelta();
 
-        if ( this.keyboard.pressed("W") ){
+        if ( this.keyboard.pressed("W") || document.getElementById){
             this.life.translateY( moveDistance );
         }
 		    

@@ -38,7 +38,7 @@ async function setup() {
         buffer.render(threeSystemList[i])
         buffer.bufferGeometry.setDrawRange(0, data[i].vertices.length)
 
-        if (data[i].vertices.length > 3) {
+        if (data[i].vertices.length > 9) {
             let convex = new Convex(threeSystemList[i], convexMaterial)
             convex.updateVertices(buffer.bufferGeometry, data[i].vertices.length)
             convex.initializeMesh()

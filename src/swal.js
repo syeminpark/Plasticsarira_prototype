@@ -46,9 +46,8 @@ function writeName(isTablet) {
       },
     },
   }, ).then(value => {
-    window.scrollTo(0, 0);
+    window.scrollTo({top:0, behavior:'smooth'});
 
-    document.querySelector("body").style.overflow = "visible"
     if (value) {
       //only fullscreen for others
       if (!isTablet) {

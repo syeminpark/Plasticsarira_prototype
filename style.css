@@ -2,7 +2,7 @@ body {
     background-color: black;
     margin: 0px;
     /* overflow: 요소의 콘텐츠가 너무 커서 요소의 블록 서식 맥락에 맞출 수 없을 때의 처리법 */
-    overflow: hidden;
+
     color: white;
     font-family: Monospace;
     z-index: 0;
@@ -76,6 +76,7 @@ body {
     margin-left: 1.5vw;
     color: grey;
     font-size: 1.5vh;
+    z-index: 5;
 }
 
 .fixedText {
@@ -177,16 +178,17 @@ body {
     position: absolute;
     top: 0px;
     width: 100%;
+    height: 100%;
     z-index: 1;
-    padding: 5em 0 0 10em;
+    text-align: center;
 }
 
 .list-item {
     /*border: 1px solid rgb(88, 88, 88);
     */
     display: inline-block;
-    margin: 1em;
-    padding: 1em;
+    margin: 1%;
+    padding: 1%;
 }
 
 .list-item .scene {
