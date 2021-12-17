@@ -67,7 +67,7 @@ function writeName(isTablet) {
 
 function useComputerAlert() {
   swal({
-      text: "Please use a computer to fully experience our project",
+      text: "Please use a computer/tablet to fully experience our project",
       buttons: "Return",
       closeOnClickOutside: false,
     })
