@@ -40,7 +40,7 @@ class Life_user extends Life {
         }
 
         this.bodySystem.update();
-        this.bodySystem.getLifePosition(this.position.clone());
+        this.bodySystem.getLifePosition(_.cloneDeep(this.position));
         this.bodySystemWindow.update();
     }
 
