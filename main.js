@@ -8,11 +8,14 @@ let virtualKeyboard
 
 checkDeviceType()
 moveToTopWindow()
-draw()
+
 done()
 
 
 async function setup() {
+    await userHoverGuide()
+    await userSmallWindowGuide()
+
     let dataOrganizer= new DataOrganizer(document.getElementById('userName').textContent)
     serverClientCommunication = new ServerClientCommunication(dataOrganizer)
     serverClientCommunication.createUser()
@@ -22,9 +25,7 @@ async function setup() {
     particleSystem_microPlastic = new ParticleSystem(lifeSystem);
     particleSystem_microPlastic.display(threeSystemController, 0.3)
 
-    await userHoverGuide()
-    await userSmallWindowGuide()
-    reloadCss()
+    draw()
 }
 
 function draw() {
