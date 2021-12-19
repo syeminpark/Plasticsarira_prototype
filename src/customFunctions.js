@@ -45,6 +45,7 @@ function createDomElement(type, isDisplay, id, innerHtml, doc) {
   doc.appendChild(dom)
 }
 
+
 function checkAccessRoute() {
   if (!sessionStorage.getItem("userId")) {
     window.location.href = 'https://greenverse.art/artworks/plastic-sarira/';
