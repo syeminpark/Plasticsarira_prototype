@@ -118,9 +118,10 @@ class Life {
             this.eatenByOther();
             this.sarira_position = this.position.clone()
         }
-
-        this.bodySystem.getLifePosition(this.sarira_position);
+        
         this.bodySystem.update();
+        this.bodySystem.getLifePosition(this.sarira_position);
+     
     }
 
     randomWalk(acc) {
