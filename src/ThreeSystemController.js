@@ -22,6 +22,7 @@ class ThreeSystemController {
         this.sariraThreeSystem.setCamera(this.sariraCameraPositionList, this.cameraLookPositionList)
 
         this.worldThreeSystem.setOrbitcontrols();
+        this.worldThreeSystem.setPointerLockControls();
         this.sariraThreeSystem.setOrbitcontrols();
 
         this.worldThreeSystem.setLights(3,5,5)
@@ -118,6 +119,7 @@ class ThreeSystemController {
 
             //worldThreeSystem 거리제한 
             this.worldThreeSystem.controls.maxDistance = 800;
+            this.worldThreeSystem.controls.enabled = false;
 
             const positiveYUpBottom = this.canvas.clientHeight - rect.bottom;
             this.renderer.setScissor(rect.left, positiveYUpBottom, rect.width, rect.height);

@@ -17,7 +17,7 @@ class Life_primaryConsumer extends Life {
             random(-0.1, 0.1));
         this.acceleration = new THREE.Vector3(0, 0, 0);
 
-        this.velLimit = 3;
+        this.velLimit = 1;
 
         this.angle = new THREE.Vector3(
             random(0, Math.PI * 2),
@@ -56,7 +56,7 @@ class Life_secondaryConsumer extends Life {
             random(-0.1, 0.1));
         this.acceleration = new THREE.Vector3(0, 0, 0);
 
-        this.velLimit = 1;
+        this.velLimit = 1.25;
 
         this.angle = new THREE.Vector3(
             random(0, Math.PI * 2),
@@ -95,7 +95,7 @@ class Life_tertiaryConsumer extends Life {
             random(-0.1, 0.1));
         this.acceleration = new THREE.Vector3(0, 0, 0);
 
-        this.velLimit = 1;
+        this.velLimit = 1.5;
 
         this.angle = new THREE.Vector3(
             random(0, Math.PI * 2),

@@ -54,7 +54,7 @@ class MicroPlastic {
       ));
       this.velocity.add(this.acceleration);
       this.position.add(this.velocity);
-      if (this.velocity.length() > this.velLimit) this.velocity.multiplyScalar(0.01);
+      if (this.velocity.length() > this.velLimit) this.velocity.multiplyScalar(0.1);
       this.acceleration.setLength(0);
 
       this.wrap();
@@ -66,7 +66,7 @@ class MicroPlastic {
 
     wrap_init(){
       this.wrapCenter = new THREE.Vector3(0, 0, 0);
-      this.wrapSize = this.spaceSize * 1.2;
+      this.wrapSize = this.spaceSize;
       this.velLimit = 0.1;
     }
   

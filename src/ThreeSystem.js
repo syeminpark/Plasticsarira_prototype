@@ -10,7 +10,7 @@ class ThreeSystem {
     }
 
     update() {
-        this.controls.update();
+        if (this.controls.enable == true) this.controls.update();
         if (this.stats != undefined) {
             this.stats.update()
         }
@@ -32,23 +32,15 @@ class ThreeSystem {
         this.controls.dampingFactor = 0.05;
 
         if (restrictDistance) {
-
             this.controls.enableZoom = false;
         }
     }
     
-    
     setPointerLockControls(){
-        this.controls_pointerLock = new PointerLockControls(this.camera, this.element);
-        this.controls_pointerLock.addEventListener( 'lock', function () {
-	    menu.style.display = 'none';
+        this.controls_pointerLock = new THREE.PointerLockControls(this.camera, this.element);
+        document.getElementById('world').addEventListener('click', function () {
+            //this.controls_pointerLock.lock();
         } );
-
-        this.controls_pointerLock.addEventListener( 'unlock', function () {
-	    menu.style.display = 'block';
-        } );
-        
-        this.controls_pointerLock.enabled = false;
     }
 
     setFog() {
@@ -73,6 +65,4 @@ class ThreeSystem {
         this.element.appendChild(this.stats.dom)
         this.stats.dom.style.left = this.element.style.left
     }
-
-
 }
