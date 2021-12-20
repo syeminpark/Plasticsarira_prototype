@@ -6,6 +6,7 @@ let serverClientCommunication
 let userDead = false;
 let virtualKeyboard 
 
+
 checkDeviceType()
 moveToTopWindow()
 
@@ -13,8 +14,11 @@ done()
 
 
 async function setup() {
+
+
+
     await userHoverGuide()
-    await userSmallWindowGuide()
+    await userSmallWindowGuide()  
 
     let dataOrganizer= new DataOrganizer(document.getElementById('userName').textContent)
     serverClientCommunication = new ServerClientCommunication(dataOrganizer)

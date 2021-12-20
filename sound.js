@@ -1,1 +1,0 @@
-const osc= new TouchEvent.Oscillator(440, "sine").toDestionation().start()
