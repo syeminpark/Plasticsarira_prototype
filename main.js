@@ -13,7 +13,6 @@ done()
 
 
 async function setup() {
-    reloadCss()
     await userHoverGuide()
     await userSmallWindowGuide()  
 
