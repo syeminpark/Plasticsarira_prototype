@@ -9,14 +9,11 @@ let virtualKeyboard
 
 checkDeviceType()
 moveToTopWindow()
-
 done()
 
 
 async function setup() {
-
-
-
+    reloadCss()
     await userHoverGuide()
     await userSmallWindowGuide()  
 
