@@ -334,18 +334,14 @@ class Life {
         for (let i = 0; i < this.absorbedParticles.length; i++) {
             this.absorbedParticles[i].wrapCenter = this.position;
             this.absorbedParticles[i].wrapSize = this.size/2;
-            //this.absorbedParticles[i].velLimit = 0.5;
             this.absorbedParticles[i].velLimit = 0.25;
             
             var distance = this.position.distanceTo(this.absorbedParticles[i].position);
             const force = new THREE.Vector3().subVectors(sariraPos, this.absorbedParticles[i].position);
-            const wrapPos = new THREE.Vector3().addVectors(sariraPos, force.setLength(this.size * 0.699));
-
-            if (distance > this.size * 0.7){
-                this.absorbedParticles[i].position = wrapPos;
-            } 
+            const wrapPos = new THREE.Vector3().addVectors(sariraPos, force.setLength(this.size * 0.5));
             
-            force.multiplyScalar(0.01);
+            if (distance < this.size*0.7) force.multiplyScalar(((distance*distance*distance)/150));
+            force.multiplyScalar(((distance*distance*distance)/100));
             this.absorbedParticles[i].applyForce(force);
 
             //그중에서 일정 확률로 몇몇 파티클이 사리가 되도록 함
