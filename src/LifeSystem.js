@@ -5,7 +5,7 @@ class LifeSystem{
         this.tertiaryNum = 3;
         this.num = 1 + this.primaryNum + this.secondaryNum + this.tertiaryNum;
 
-        this.windowSize = 150;
+        this.windowSize = 300;
 
         this.microPlastic_Material = createPointMaterial();
         this.microPlastic_ConvexMaterial = createConvexMaterial();
@@ -384,20 +384,17 @@ class Controller2{
         
         if (this.isLifeFocusOn == true){
             this.camera_focusOn_update();
+            if (this.user.isDead == false){
+                this.wrap();
+                if (this.isDuringLerp == false) {
+                    this.key_update();
+                    this.mouse_update();
+                }
+            }
         } 
         else {
-            this.cam.lookAt(0, 0, 0);
             this.orbitControl.target = new THREE.Vector3(0, 0, 0);
         }
-
-        if (this.user.isDead == false){
-            this.wrap();
-            if (this.isDuringLerp == false) {
-                this.key_update();
-                this.mouse_update();
-            }
-        }
-        
     }
 
     key_check(){
