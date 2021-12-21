@@ -1,5 +1,5 @@
 class LifeSystem{
-    constructor(){
+    constructor(virtualKeyboard){
         this.primaryNum = 10;
         this.secondaryNum = 5;
         this.tertiaryNum = 3;
@@ -28,7 +28,7 @@ class LifeSystem{
             }
         }
 
-        this.control_life = new Controller2(this.life_user, this.windowSize);
+        this.control_life = new Controller2(this.life_user, this.windowSize,virtualKeyboard);
         
         this.userText= new UserText(threeSystemController.worldThreeSystem,document.querySelector("#world"))
         this.userText.createLabel();
@@ -344,7 +344,7 @@ function onMouseUp(event) {
 
 //이걸 씀
 class Controller2{
-    constructor(user_life, windowSize){
+    constructor(user_life, windowSize,virtualKeyboard){
         this.user = user_life;
         this.camDis = (this.user.size + this.user.sizeMax) * 1.5;
 
@@ -375,6 +375,8 @@ class Controller2{
         this.direction = new THREE.Vector3();
 
         this.camera_focusOn_init();
+
+        this.virtualKeyboard=virtualKeyboard;
     }
 
     update(){
@@ -413,19 +415,19 @@ class Controller2{
     key_update(){
         var moveDistance = 100 * this.user.clock.getDelta();
 
-        if ( this.keyboard.pressed("W") ){
+        if ( this.keyboard.pressed("W") || this.virtualKeyboard.getKeyValue()=="W" ){
             this.cam.translateZ( -moveDistance );
         }
 		    
-        if ( this.keyboard.pressed("S") ){
+        if ( this.keyboard.pressed("S")|| this.virtualKeyboard.getKeyValue()=="S"  ){
             this.cam.translateZ( moveDistance );
         }
 
-        if ( this.keyboard.pressed("A") ){
+        if ( this.keyboard.pressed("A") || this.virtualKeyboard.getKeyValue()=="A" ){
             this.cam.translateX( -moveDistance );
         }
 		    
-        if ( this.keyboard.pressed("D") ){
+        if ( this.keyboard.pressed("D")|| this.virtualKeyboard.getKeyValue()=="Z" ){
             this.cam.translateX( moveDistance );
         }
 
