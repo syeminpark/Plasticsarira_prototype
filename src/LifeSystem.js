@@ -399,7 +399,7 @@ class Controller2{
     key_check(){
         this.keyboard.update();
 
-        if ( this.keyboard.down("Z") ) {
+        if ( this.keyboard.down("Z") || this.virtualKeyboard.getKeyValue()=="Z" ) {
             this.isLifeFocusOn = !this.isLifeFocusOn;
             console.log('focus mode : ' + this.isLifeFocusOn);
             this.timer = 1;
@@ -427,7 +427,7 @@ class Controller2{
             this.cam.translateX( -moveDistance );
         }
 		    
-        if ( this.keyboard.pressed("D")|| this.virtualKeyboard.getKeyValue()=="Z" ){
+        if ( this.keyboard.pressed("D")|| this.virtualKeyboard.getKeyValue()=="D" ){
             this.cam.translateX( moveDistance );
         }
 

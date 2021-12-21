@@ -18,7 +18,7 @@ class VirtualKeyboard {
             theme: "hg-theme-default myTheme1",
             layout: {
                 'default': [
-                    'Q W E',
+                    ' W ',
                     'A S D',
                     ' Z '
                 ]
