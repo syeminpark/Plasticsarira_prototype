@@ -150,7 +150,6 @@ class Controller1{
             this.wrap();
             //this.mouse_update();
         }
-        
     }
 
     key_check(){
@@ -386,11 +385,16 @@ class Controller2{
         if (this.isLifeFocusOn == true){
             this.camera_focusOn_update();
         } 
+        else {
+            this.cam.lookAt(0, 0, 0);
+            this.orbitControl.target = new THREE.Vector3(0, 0, 0);
+        }
 
         if (this.user.isDead == false){
             this.wrap();
-            if (this.isInWorld == true) {
+            if (this.isDuringLerp == false) {
                 this.key_update();
+                this.mouse_update();
             }
         }
         
@@ -415,41 +419,63 @@ class Controller2{
     key_update(){
         var moveDistance = 100 * this.user.clock.getDelta();
 
-        if ( this.keyboard.pressed("W") || this.virtualKeyboard.getKeyValue()=="W" ){
+        if (this.keyboard.pressed("W") || this.virtualKeyboard.getKeyValue()=="W"){
             this.cam.translateZ( -moveDistance );
         }
 		    
-        if ( this.keyboard.pressed("S")|| this.virtualKeyboard.getKeyValue()=="S"  ){
+        if (this.keyboard.pressed("S")|| this.virtualKeyboard.getKeyValue()=="S"){
             this.cam.translateZ( moveDistance );
         }
 
-        if ( this.keyboard.pressed("A") || this.virtualKeyboard.getKeyValue()=="A" ){
+        if (this.keyboard.pressed("A") || this.virtualKeyboard.getKeyValue()=="A"){
             this.cam.translateX( -moveDistance );
         }
 		    
-        if ( this.keyboard.pressed("D")|| this.virtualKeyboard.getKeyValue()=="D" ){
+        if (this.keyboard.pressed("D")|| this.virtualKeyboard.getKeyValue()=="D"){
             this.cam.translateX( moveDistance );
         }
 
         // if ( this.keyboard.pressed("Q") ){
-        //     this.user.life.translateZ(  moveDistance );
+        //     this.user.life.translateY( moveDistance );
         // }
 		    
         // if ( this.keyboard.pressed("E") ){
-        //     this.user.life.translateZ(  -moveDistance );
+        //     this.user.life.translateY( -moveDistance );
         // }
+    }
+
+    mouse_update(){
+        document.addEventListener('contextmenu', onContextMenu, false);
+        document.addEventListener('mousedown', onMouseDown, false);
+        document.addEventListener('mouseup', onMouseUp, false);
+        document.addEventListener('mousemove', onMouseMove, false);
+
+        switch(mouseHold) {
+            case 1:
+                this.pointerLockControl.lock();
+                console.log('mousePressed');
+            case -1:
+                this.pointerLockControl.isLocked = false;
+            break;
+        }
     }
 
     wrap() {
         const distance = this.user.life.position.length();
+        const wrapLength = this.windowSize - (this.camDis*2);
 
         // var newParticlePos = [];
         // for (let i = 0; i < this.user.absorbedParticles.length; i++) {
         //     newParticlePos.push(this.user.absorbedParticles[i].position.clone());
         // }
 
-        if (distance > this.windowSize - this.camDis ) this.isInWorld = false;
-        else this.isInWorld = true;
+        if (distance > wrapLength) {
+            this.isInWorld = false;
+            this.cam.position.setLength(wrapLength);
+        }
+        else {
+            this.isInWorld = true;
+        }
     }
 
     lerpLoad(){
@@ -484,11 +510,12 @@ class Controller2{
     camera_focusOff_init(){
         //this.cam.position.set(50, 50, 200);
         this.cam.lookAt(0, 0, 0);
-        this.camLerp = new THREE.Vector3(0, 0, -200);
+        this.camLerp = this.cam.position.clone().setLength(200);
         // this.camLerp = this.user.position.copy().add(new THREE.Vector3()).setLength(300);
 
         //this.pointerLockControl.unlock();
         this.pointerLockControl.isLocked = false;
+        this.pointerLockControl.enabled  = false;
         
         this.orbitControl.target = new THREE.Vector3(0, 0, 0);
         this.orbitControl.enablePan = true;
@@ -505,6 +532,7 @@ class Controller2{
         
         //this.pointerLockControl.lock();
         this.pointerLockControl.isLocked = true;
+        this.pointerLockControl.enabled  = true;
     }
 
     camera_focusOn_update(){
