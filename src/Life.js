@@ -126,7 +126,7 @@ class Life {
         this.lifeGo();
 
         if (this.isDead == false){
-            this.randomWalk(1 / this.mass);
+            this.randomWalk(1 / (this.size + this.sizeMax));
             this.randomLook();
             this.noise_update();
             this.wrap_particles();
@@ -511,10 +511,8 @@ class Life {
             otherLife.acceleration.add(force);
             otherLife.velocity.multiplyScalar(0.8);
 
-            if (otherLife.isDead == true){
-                this.absorbedParticles.concat(otherLife.absorbedParticles);
-                otherLife.sarira_position = this.position.clone();
-            }
+            this.absorbedParticles.concat(otherLife.absorbedParticles);
+            otherLife.sarira_position = this.position.clone();
 
             this.energy += otherLife.size;
             otherLife.isEaten = true;
