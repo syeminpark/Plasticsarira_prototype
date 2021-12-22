@@ -307,11 +307,7 @@ class Controller2{
         //const userPos = new THREE.Vector3().addVectors(this.cam.position.clone(), new THREE.Vector3(0, 0, this.camDis));
         const camDir = this.pointerLockControl.getDirection(this.cam.position.clone()).multiplyScalar(this.camDis);
         const userPos = new THREE.Vector3().addVectors(this.cam.position.clone(), camDir);
-        var lerpSpeed = 0.1;
-        if (this.timer <= 0 && this.isFirst == true){
-            lerpSpeed = 0.5;
-            this.isFirst = false;
-        }
+        var lerpSpeed = 0.5;
         if (this.isDuringLerp == false) this.user.position.lerp(userPos, lerpSpeed);
     }
 }
