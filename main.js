@@ -4,7 +4,7 @@ let particleSystem_microPlastic
 let bodySystemController
 let serverClientCommunication
 let userDead = false;
-let virtualKeyboard 
+let virtualKeyboard
 
 
 checkDeviceType()
@@ -14,10 +14,15 @@ done()
 
 async function setup() {
 
-    await userHoverGuide()
-    await userSmallWindowGuide()  
 
-    let dataOrganizer= new DataOrganizer(document.getElementById('userName').textContent)
+
+
+
+
+    await userHoverGuide()
+    await userSmallWindowGuide()
+
+    let dataOrganizer = new DataOrganizer(document.getElementById('userName').textContent)
     serverClientCommunication = new ServerClientCommunication(dataOrganizer)
     serverClientCommunication.createUser()
     threeSystemController = new ThreeSystemController();
@@ -27,6 +32,8 @@ async function setup() {
     particleSystem_microPlastic.display(threeSystemController, 0.3)
 
     draw()
+
+
 }
 
 function draw() {
