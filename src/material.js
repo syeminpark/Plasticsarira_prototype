@@ -27,6 +27,7 @@ function createGlassMaterial() {
 function createPointMaterial() {
     return new THREE.PointsMaterial({
         color: 'white',
-        size: 0.3
+        size: 0.3,
+        side: THREE.DoubleSide
     });
 }

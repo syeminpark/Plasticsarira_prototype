@@ -29,7 +29,7 @@ async function setup() {
 
 
     for (let i = 0; i < threeSystemList.length; i++) {
-        const geometry = new THREE.BoxGeometry(10, 10, 10);
+        const geometry = new THREE.BoxGeometry(8, 8, 8);
         const cube = new THREE.Mesh(geometry, glassMaterial);
         threeSystemList[i].scene.add(cube);
 

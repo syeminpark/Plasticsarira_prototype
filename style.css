@@ -99,7 +99,7 @@ body {
     color: grey;
     font-size: 0.43vw;
     bottom: 0;
-    margin-bottom: 8vh;
+    margin-bottom: 5vh;
 }
 
 .copyRight {
@@ -107,17 +107,15 @@ body {
     bottom: 0;
     color: grey;
     font-size: 0.7vw;
-    margin-bottom: 5vh;
+    margin-bottom: 2.5vh;
 }
 
 #license {
     position: fixed;
     bottom: 0;
-    margin-bottom: 2vh;
-    text-align: center;
-    left: 50%;
-    transform: translateX(-50%);
 
+    text-align: center;
+    width: 100%;
     z-index: 30;
 
 }

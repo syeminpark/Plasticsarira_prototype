@@ -19,7 +19,7 @@ class DatabaseThreeSystemController {
             let threeSystem = new DataBaseThreeSystem()
           
             threeSystem.createElement(this.otherSariraData[i].name)
-            threeSystem.setCamera([0, 0, 20], [0, 0, 0])
+            threeSystem.setCamera([0, 0, 15], [0, 0, 0])
             threeSystem.setOrbitcontrols(true)
             threeSystem.setLights(3,0,5)
             
