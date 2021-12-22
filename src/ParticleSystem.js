@@ -4,6 +4,7 @@ class ParticleSystem{
         this.size = lifeSystem.windowSize;
         this.num = lifeSystem.windowSize * 80;
 
+
         this.particles = [];
         this.particles_positions = [];
         
@@ -31,7 +32,10 @@ class ParticleSystem{
             positions[i+1] = this.particles[index].position.y;
             positions[i+2] = this.particles[index].position.z;
 
+            
+
             this.particles[index].update();
+
 
             this.lifes.forEach(life => {
                 life.breath(this.particles[index]);
@@ -41,6 +45,7 @@ class ParticleSystem{
             this.life_user.eat(this.particles[index]);
             this.life_user.breath(this.particles[index]);
         }
+
 
         // for (let j = positions.length - 1; j >= 0; j-= 3) {
         //     const index = Math.floor(j/3);
