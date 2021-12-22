@@ -38,7 +38,7 @@ class ParticleSystem{
 
 
             this.lifes.forEach(life => {
-                life.breath(this.particles[index]);
+               life.breath(this.particles[index]);
                 if (life.energy < life.hungryValue) life.eat(this.particles[index]);  
             });
 
