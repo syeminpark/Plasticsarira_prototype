@@ -116,7 +116,7 @@ body {
     margin-bottom: 2vh;
     text-align: center;
     width: 100%;
-    z-index: 10;
+    z-index: 30;
    
   }
 
@@ -131,11 +131,16 @@ body {
     margin-top: 82vh;
     color: grey;
     font-size: 0.63vw;
+    z-index: 30;
+
 }
+
 a:link {
+    cursor: alias;
   color: green;
   background-color: transparent;
   text-decoration: none;
+  
 }
 
 #metaData {
