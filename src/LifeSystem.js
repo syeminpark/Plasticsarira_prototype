@@ -223,7 +223,9 @@ class Controller2{
         switch(mouseHold) {
             case 1:
                 this.pointerLockControl.lock();
+            break;
             case -1:
+                this.pointerLockControl.unlock();
                 this.pointerLockControl.isLocked = false;
             break;
         }
@@ -282,9 +284,9 @@ class Controller2{
         this.camLerp = this.cam.position.clone().setLength(this.windowSize);
         // this.camLerp = this.user.position.copy().add(new THREE.Vector3()).setLength(300);
 
-        //this.pointerLockControl.unlock();
-        this.pointerLockControl.isLocked = false;
-        this.pointerLockControl.enabled  = false;
+        this.pointerLockControl.unlock();
+        // this.pointerLockControl.isLocked = false;
+        // this.pointerLockControl.enabled  = false;
         
         this.orbitControl.target = new THREE.Vector3(0, 0, 0);
         this.orbitControl.enablePan = true;
@@ -299,8 +301,8 @@ class Controller2{
         this.orbitControl.enabled = false;
         
         //this.pointerLockControl.lock();
-        this.pointerLockControl.isLocked = true;
-        this.pointerLockControl.enabled  = true;
+        // this.pointerLockControl.isLocked = true;
+        // this.pointerLockControl.enabled  = true;
     }
 
     camera_focusOn_update(){
