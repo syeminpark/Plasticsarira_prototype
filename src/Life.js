@@ -296,6 +296,7 @@ class Life {
 
             //파티클 먹고 파티클 흡수 상태로 변경
             if (distance <= this.size * 0.45) {
+                microPlastic.data.setAbsorbedBy(2);
                 this.absorbedParticles.push(microPlastic);
                 this.energy += 0.1;
                 microPlastic.isEaten = true;
@@ -321,6 +322,7 @@ class Life {
 
             //파티클 먹고 파티클 흡수 상태로 변경
             if (distance <= this.size * 0.55) {
+                microPlastic.data.setAbsorbedBy(1);
                 this.absorbedParticles.push(microPlastic);
                 microPlastic.isEaten = true;
             }
@@ -350,7 +352,6 @@ class Life {
 
                 this.absorbedParticles[i].data.setPassBy('');
 
-                this.absorbedParticles[i].data.setAbsorbedBy(1);
                 this.absorbedParticles[i].becomeSarira = true;
 
                 this.sariraParticles.push(this.absorbedParticles[i]);

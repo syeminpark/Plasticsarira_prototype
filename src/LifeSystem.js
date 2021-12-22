@@ -166,7 +166,8 @@ class Controller2{
             }
         } 
         else {
-            this.orbitControl.target = new THREE.Vector3(0, 0, 0);
+            if (this.user.isDead == false) this.orbitControl.enabled = false;
+            else this.orbitControl.target = new THREE.Vector3(0, 0, 0);
         }
     }
 
@@ -219,6 +220,11 @@ class Controller2{
         document.getElementById('world').addEventListener('mousedown', onMouseDown, false);
         document.getElementById('world').addEventListener('mouseup', onMouseUp, false);
         document.getElementById('world').addEventListener('mousemove', onMouseMove, false);
+
+        document.getElementById('world').addEventListener('touchstart', onMouseDown, false);
+        document.getElementById('world').addEventListener('touchend', onMouseUp, false);
+        document.getElementById('world').addEventListener('touchmove', onMouseMove, false);
+
 
         switch(mouseHold) {
             case 1:
