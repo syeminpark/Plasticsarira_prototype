@@ -5,7 +5,7 @@ class LifeSystem {
         this.tertiaryNum = 3;
         this.num = 1 + this.primaryNum + this.secondaryNum + this.tertiaryNum;
 
-        this.windowSize = 300;
+        this.windowSize = 200;
 
         this.microPlastic_Material = createPointMaterial();
         this.microPlastic_ConvexMaterial = createConvexMaterial();
@@ -147,19 +147,9 @@ class Controller2 {
         this.direction = new THREE.Vector3();
 
         this.camera_focusOn_init();
+        this.mouse_init();
 
         this.virtualKeyboard = virtualKeyboard;
-
-        document.getElementById('world').addEventListener('contextmenu', onContextMenu, false);
-        document.getElementById('world').addEventListener('mousedown', onMouseDown, false);
-        document.getElementById('world').addEventListener('mouseup', onMouseUp, false);
-        document.getElementById('world').addEventListener('mousemove', onMouseMove, false);
-
-        document.getElementById('world').addEventListener('touchstart', onMouseDown, false);
-        document.getElementById('world').addEventListener('touchend', onMouseUp, false);
-        document.getElementById('world').addEventListener('touchmove', onMouseMove, false);
-
-
     }
 
     update() {
@@ -223,9 +213,19 @@ class Controller2 {
         // }
     }
 
-    mouse_update() {
+    mouse_init(){
+        document.getElementById('world').addEventListener('contextmenu', onContextMenu, false);
+        document.getElementById('world').addEventListener('mousedown', onMouseDown, false);
+        document.getElementById('world').addEventListener('mouseup', onMouseUp, false);
+        document.getElementById('world').addEventListener('mousemove', onMouseMove, false);
 
-        switch (mouseHold) {
+        // document.getElementById('world').addEventListener('touchstart', onMouseDown, false);
+        // document.getElementById('world').addEventListener('touchend', onMouseUp, false);
+        // document.getElementById('world').addEventListener('touchmove', onMouseMove, false);
+    }
+
+    mouse_update(){
+        switch(mouseHold) {
             case 1:
                 if (this.user.isDead == false) this.pointerLockControl.lock();
                 break;
@@ -284,7 +284,7 @@ class Controller2 {
     camera_focusOff_init() {
         //this.cam.position.set(50, 50, 200);
         this.cam.lookAt(0, 0, 0);
-        this.camLerp = this.cam.position.clone().setLength(this.windowSize);
+        this.camLerp = this.cam.position.clone().setLength(this.windowSize * 1.7);
         // this.camLerp = this.user.position.copy().add(new THREE.Vector3()).setLength(300);
 
         this.pointerLockControl.unlock();

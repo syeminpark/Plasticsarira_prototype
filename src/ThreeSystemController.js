@@ -89,7 +89,6 @@ class ThreeSystemController {
         
         this.renderer.setSize(window.innerWidth, window.innerHeight, false);
 
-     
     }
 
     render() {

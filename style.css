@@ -110,8 +110,8 @@ body {
     margin-bottom: 5vh;
 }
 
-#license{
-    position:fixed;
+#license {
+    position: fixed;
     bottom: 0;
     margin-bottom: 2vh;
     text-align: center;
@@ -119,8 +119,8 @@ body {
     transform: translateX(-50%);
 
     z-index: 30;
-   
-  }
+
+}
 
 .description {
     margin-top: 79vh;
@@ -139,10 +139,10 @@ body {
 
 a:link {
     cursor: alias;
-  color: green;
-  background-color: transparent;
-  text-decoration: none;
-  
+    color: green;
+    background-color: transparent;
+    text-decoration: none;
+
 }
 
 #metaData {
