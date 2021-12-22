@@ -5,7 +5,7 @@ class LifeSystem {
         this.tertiaryNum = 3;
         this.num = 1 + this.primaryNum + this.secondaryNum + this.tertiaryNum;
 
-        this.windowSize = 300;
+        this.windowSize = 200;
 
         this.microPlastic_Material = createPointMaterial();
         this.microPlastic_ConvexMaterial = createConvexMaterial();
@@ -46,9 +46,9 @@ class LifeSystem {
                 if (this.secondaryNum < 10 && this.lifes[i].lifeName.includes('Herbivores') == true) this.lifes[i].division(this.lifes, this);
                 if (this.tertiaryNum < 5 && this.lifes[i].lifeName.includes('Carnivores') == true) this.lifes[i].division(this.lifes, this);
 
-                for (let j = 0; j < this.lifes.length; j++){
-                    this.lifes[i].eatLife(this.lifes[j]);
-                }
+                // for (let j = 0; j < this.lifes.length; j++){
+                //     this.lifes[i].eatLife(this.lifes[j]);
+                // }
             }
         }
 
@@ -284,7 +284,7 @@ class Controller2 {
     camera_focusOff_init() {
         //this.cam.position.set(50, 50, 200);
         this.cam.lookAt(0, 0, 0);
-        this.camLerp = this.cam.position.clone().setLength(this.windowSize);
+        this.camLerp = this.cam.position.clone().setLength(this.windowSize * 1.7);
         // this.camLerp = this.user.position.copy().add(new THREE.Vector3()).setLength(300);
 
         this.pointerLockControl.unlock();

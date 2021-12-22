@@ -126,7 +126,7 @@ class Life {
         this.lifeGo();
 
         if (this.isDead == false){
-            this.randomWalk(1 / (this.size + this.sizeMax));
+            this.randomWalk((1 / (this.size + this.sizeMax))*0.6);
             this.randomLook();
             this.noise_update();
             this.wrap_particles();
@@ -158,9 +158,9 @@ class Life {
     randomLook() {
         this.life.rotation.set(this.angle.x, this.angle.y, this.angle.z);
         this.angleAcceleration.add(new THREE.Vector3(
-            random(-0.002, 0.002),
-            random(-0.002, 0.002),
-            random(-0.002, 0.002)
+            random(-0.01, 0.01),
+            random(-0.01, 0.01),
+            random(-0.01, 0.01)
         ));
         this.angleVelocity.add(this.angleAcceleration);
         this.angle.add(this.angleVelocity);
@@ -247,7 +247,7 @@ class Life {
     wrap() {
         const distance = this.position.length();
 
-        if (distance > this.windowSize) {
+        if (distance > this.windowSize - this.mass/2) {
             this.velocity.multiplyScalar(-1);
         }
     }
@@ -512,28 +512,30 @@ class Life {
     }
 
     eatLife(otherLife){
-        var position = this.position.clone();
-        var distance = position.distanceTo(otherLife.position);
-        if (this.mass > otherLife.mass && distance < this.size * 1.5 && random(0, 1) < 0.3){
-            var force = new THREE.Vector3().subVectors(position, otherLife.position);
+        var distance = this.position.clone().distanceTo(otherLife.position);
+        if (this.mass > otherLife.mass*1.5 && distance < this.size * 1.5 && otherLife.isEaten == false){
+
+            const force = new THREE.Vector3().subVectors(this.position.clone(), otherLife.position);
+            const EatenLifePos = new THREE.Vector3().addVectors(this.position.clone(), force.setLength(otherLife.size));
             
-            force.multiplyScalar(0.01);
-            otherLife.acceleration.add(force);
-            otherLife.velocity.multiplyScalar(0.8);
+            EatenLifePos.multiplyScalar(0.01);
+            otherLife.acceleration.add(EatenLifePos);
 
+            otherLife.sarira_position = EatenLifePos;
             this.absorbedParticles.concat(otherLife.absorbedParticles);
-            otherLife.sarira_position = this.position.clone();
-
+            
             this.energy += otherLife.energy;
-            otherLife.isEaten = true;
 
-            //console.log(this.lifeName + ' eat ' + otherLife.lifeName);
+            //if (otherLife.isEaten == false) {
+                console.log(this.lifeName + ' eat ' + otherLife.lifeName);
+                otherLife.isEaten = true;
+            //}
         }
     }
 
     eatenByOther() {
         if (this.isEaten == true && this.energy > 0){
-            this.energy -= 0.1;
+            this.energy -= 0.5;
         } 
     }
 }
