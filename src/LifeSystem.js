@@ -5,7 +5,7 @@ class LifeSystem {
         this.tertiaryNum = 3;
         this.num = 1 + this.primaryNum + this.secondaryNum + this.tertiaryNum;
 
-        this.windowSize = 100;
+        this.windowSize = 200;
 
         this.microPlastic_Material = createPointMaterial();
         this.microPlastic_ConvexMaterial = createConvexMaterial();
