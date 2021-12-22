@@ -149,6 +149,12 @@ class Controller2{
         this.camera_focusOn_init();
 
         this.virtualKeyboard=virtualKeyboard;
+
+        document.getElementById('world').addEventListener('contextmenu', onContextMenu, false);
+        document.getElementById('world').addEventListener('mousedown', onMouseDown, false);
+        document.getElementById('world').addEventListener('mouseup', onMouseUp, false);
+        document.getElementById('world').addEventListener('mousemove', onMouseMove, false);
+
     }
 
     update(){
@@ -198,15 +204,15 @@ class Controller2{
             this.cam.translateZ( -moveDistance );
         }
 		    
-        if (this.keyboard.pressed("S")|| this.virtualKeyboard.getKeyValue()=="S"){
+        else if (this.keyboard.pressed("S")|| this.virtualKeyboard.getKeyValue()=="S"){
             this.cam.translateZ( moveDistance );
         }
 
-        if (this.keyboard.pressed("A") || this.virtualKeyboard.getKeyValue()=="A"){
+        else if (this.keyboard.pressed("A") || this.virtualKeyboard.getKeyValue()=="A"){
             this.cam.translateX( -moveDistance );
         }
 		    
-        if (this.keyboard.pressed("D")|| this.virtualKeyboard.getKeyValue()=="D"){
+        else if (this.keyboard.pressed("D")|| this.virtualKeyboard.getKeyValue()=="D"){
             this.cam.translateX( moveDistance );
         }
 
@@ -220,15 +226,6 @@ class Controller2{
     }
 
     mouse_update(){
-        document.getElementById('world').addEventListener('contextmenu', onContextMenu, false);
-        document.getElementById('world').addEventListener('mousedown', onMouseDown, false);
-        document.getElementById('world').addEventListener('mouseup', onMouseUp, false);
-        document.getElementById('world').addEventListener('mousemove', onMouseMove, false);
-
-        document.getElementById('world').addEventListener('touchstart', onMouseDown, false);
-        document.getElementById('world').addEventListener('touchend', onMouseUp, false);
-        document.getElementById('world').addEventListener('touchmove', onMouseMove, false);
-
 
         switch(mouseHold) {
             case 1:

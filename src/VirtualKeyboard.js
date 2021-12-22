@@ -5,6 +5,8 @@ class VirtualKeyboard {
         this.element = document.getElementById("buttonInput")
         this.element.innerHTML=null;
 
+
+
         const Keyboard = window.SimpleKeyboard.default;
         const myKeyboard = new Keyboard({
             onKeyPress: (function (button) {
