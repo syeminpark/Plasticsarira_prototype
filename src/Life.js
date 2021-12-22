@@ -340,7 +340,7 @@ class Life {
             const force = new THREE.Vector3().subVectors(sariraPos, this.absorbedParticles[i].position);
             const wrapPos = new THREE.Vector3().addVectors(sariraPos, force.setLength(this.size * 0.5));
             
-            if (distance < this.size*0.7) force.multiplyScalar(((distance*distance*distance)/150));
+            //if (distance < this.size*0.7) force.multiplyScalar(((distance*distance*distance)/150));
             force.multiplyScalar(((distance*distance*distance)/100));
             this.absorbedParticles[i].applyForce(force);
 
