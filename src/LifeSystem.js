@@ -74,7 +74,7 @@ class LifeSystem{
         if (this.primaryNum <= 0) {
             const l = new Life_primaryConsumer(this.lifes.length, this.windowSize);
             this.lifes.push(l);
-            console.log('all primaryConsumer dead, add new');
+            //console.log('all primaryConsumer dead, add new');
         }
         // if (this.secondaryNum <= 0) {
         //     const l = new Life_secondaryConsumer(this.lifes.length, this.windowSize);
@@ -175,14 +175,15 @@ class Controller2{
         this.keyboard.update();
 
         if ( this.keyboard.down("Z") || this.virtualKeyboard.getKeyValue()=="Z" ) {
-            this.isLifeFocusOn = !this.isLifeFocusOn;s
-            console.log('focus mode : ' + this.isLifeFocusOn);
+          
+            this.isLifeFocusOn = !this.isLifeFocusOn;
+            //console.log('focus mode : ' + this.isLifeFocusOn);
             this.timer = 1;
             if (this.isLifeFocusOn == true){
                 this.camera_focusOn_init();
             } else {
                 this.camera_focusOff_init();
-                console.log('orbit control on' + this.orbitControl.enabled);
+                //console.log('orbit control on' + this.orbitControl.enabled);
             }
         }
     }
@@ -385,7 +386,7 @@ class Controller1{
 
         if ( this.keyboard.down("Z") ) {
             this.isLifeFocusOn = !this.isLifeFocusOn;
-            console.log('focus mode : ' + this.isLifeFocusOn);
+            //console.log('focus mode : ' + this.isLifeFocusOn);
             this.timer = 1;
             if (this.isLifeFocusOn == true){
                 this.camera_focusOn_init();

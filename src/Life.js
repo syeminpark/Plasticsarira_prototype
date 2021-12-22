@@ -444,7 +444,7 @@ class Life {
                     this.absorbedParticles[i].wrap_init();
                 }
 
-                console.log(this.lifeName + ' is die');
+                //console.log(this.lifeName + ' is die');
                 this.isDead = true;
 
                 //make Dead alert if user 
@@ -490,7 +490,7 @@ class Life {
                 //             '\n    - division_term : ' + String(this.division_term) +
                 //             '\n    - division_term : ' + String(this.division_term));
 
-                console.log(child.lifeName + ' is born');
+                //console.log(child.lifeName + ' is born');
 
                 this.division_term += this.size;
 
@@ -518,7 +518,7 @@ class Life {
             this.energy += otherLife.size;
             otherLife.isEaten = true;
 
-            console.log(this.lifeName + ' eat ' + otherLife.lifeName);
+            //console.log(this.lifeName + ' eat ' + otherLife.lifeName);
         }
     }
 
