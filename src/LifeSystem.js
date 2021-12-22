@@ -155,6 +155,9 @@ class Controller2{
         document.getElementById('world').addEventListener('mouseup', onMouseUp, false);
         document.getElementById('world').addEventListener('mousemove', onMouseMove, false);
 
+        this.hammer = new Hammer(document.getElementById('world'));
+        this.hammer.on('pan',  onMouseMove)
+
     }
 
     update(){
