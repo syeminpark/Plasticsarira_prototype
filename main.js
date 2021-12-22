@@ -13,6 +13,7 @@ done()
 
 
 async function setup() {
+
     await userHoverGuide()
     await userSmallWindowGuide()  
 

@@ -134,7 +134,10 @@ class ThreeSystemController {
         let needResize = this.canvas.width !== width || this.canvas.height !== height;
         if (needResize) {
             this.renderer.setSize(width, height, false);
+    
+
         }
+
         return needResize;
     }
 

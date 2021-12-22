@@ -132,7 +132,11 @@ body {
     color: grey;
     font-size: 0.63vw;
 }
-
+a:link {
+  color: green;
+  background-color: transparent;
+  text-decoration: none;
+}
 
 #metaData {
     cursor: help;
