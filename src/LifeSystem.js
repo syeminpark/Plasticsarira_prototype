@@ -174,7 +174,7 @@ class Controller2{
         this.keyboard.update();
 
         if ( this.keyboard.down("Z") || this.virtualKeyboard.getKeyValue()=="Z" ) {
-            this.isLifeFocusOn = !this.isLifeFocusOn;
+            this.isLifeFocusOn = !this.isLifeFocusOn;s
             console.log('focus mode : ' + this.isLifeFocusOn);
             this.timer = 1;
             if (this.isLifeFocusOn == true){
