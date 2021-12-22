@@ -46,9 +46,9 @@ class LifeSystem {
                 if (this.secondaryNum < 10 && this.lifes[i].lifeName.includes('Herbivores') == true) this.lifes[i].division(this.lifes, this);
                 if (this.tertiaryNum < 5 && this.lifes[i].lifeName.includes('Carnivores') == true) this.lifes[i].division(this.lifes, this);
 
-                // for (let j = 0; j < this.lifes.length; j++){
-                //     this.lifes[i].eatLife(this.lifes[j]);
-                // }
+                for (let j = 0; j < this.lifes.length; j++){
+                    this.lifes[i].eatLife(this.lifes[j]);
+                }
             }
         }
 
@@ -147,6 +147,7 @@ class Controller2 {
         this.direction = new THREE.Vector3();
 
         this.camera_focusOn_init();
+        this.mouse_init();
 
         this.virtualKeyboard = virtualKeyboard;
 
@@ -223,9 +224,18 @@ class Controller2 {
         // }
     }
 
-    mouse_update() {
+    mouse_update(){
+        document.getElementById('world').addEventListener('contextmenu', onContextMenu, false);
+        document.getElementById('world').addEventListener('mousedown', onMouseDown, false);
+        document.getElementById('world').addEventListener('mouseup', onMouseUp, false);
+        document.getElementById('world').addEventListener('mousemove', onMouseMove, false);
 
-        switch (mouseHold) {
+        document.getElementById('world').addEventListener('touchstart', onMouseDown, false);
+        document.getElementById('world').addEventListener('touchend', onMouseUp, false);
+        document.getElementById('world').addEventListener('touchmove', onMouseMove, false);
+
+
+        switch(mouseHold) {
             case 1:
                 if (this.user.isDead == false) this.pointerLockControl.lock();
                 break;

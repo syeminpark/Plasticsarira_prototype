@@ -515,7 +515,7 @@ class Life {
             this.absorbedParticles.concat(otherLife.absorbedParticles);
             otherLife.sarira_position = this.position.clone();
 
-            this.energy += otherLife.size;
+            this.energy += otherLife.energy;
             otherLife.isEaten = true;
 
             //console.log(this.lifeName + ' eat ' + otherLife.lifeName);
@@ -523,12 +523,8 @@ class Life {
     }
 
     eatenByOther() {
-        if (this.isEaten == true && this.mass > 0){
-            this.mass -= 0.1;
+        if (this.isEaten == true && this.energy > 0){
+            this.energy -= 0.1;
         } 
-        
-        if (this.mass <= 0){
-            this.isDead = true;
-        }
     }
 }
