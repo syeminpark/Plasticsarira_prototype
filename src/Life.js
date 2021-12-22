@@ -518,7 +518,7 @@ class Life {
             this.energy += otherLife.energy;
             otherLife.isEaten = true;
 
-            //console.log(this.lifeName + ' eat ' + otherLife.lifeName);
+            console.log(this.lifeName + ' eat ' + otherLife.lifeName);
         }
     }
 
