@@ -1,18 +1,14 @@
 class VirtualKeyboard {
     constructor() {
 
-
         createDomElement("div", false, "buttonInput", null, document.body)
         this.element = document.getElementById("buttonInput")
         this.element.innerHTML=null;
-
-
 
         const Keyboard = window.SimpleKeyboard.default;
         const myKeyboard = new Keyboard({
             onKeyPress: (function (button) {
                     this.element.innerHTML = button
-
 
             }).bind(this),
             onKeyReleased: (function () {
@@ -38,5 +34,8 @@ class VirtualKeyboard {
 
     getKeyValue() {
         return this.element.innerHTML
+    }
+    resetKeyValue(){
+        this.element.innerHTML=null
     }
 }

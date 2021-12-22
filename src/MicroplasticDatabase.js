@@ -30,7 +30,7 @@ class MicroplasticDatabase {
         this.madeInList = [1979, 1951, 1979, 1931, 1968, 1952, 1920, 1950, 1980]
 
         //마지막 객체에게 미세플라스틱이 전수된 방법. 상속(엄마에게 물려받음=Inheritance) 호흡(Respiration), 먹이 (Food_Consumption)
-        this.absorbedByList = ["Inheritance", "Respiration", "Food Consumption"]
+        this.absorbedByList = ["Inheritance", "Respiration", "Food Intake"]
 
         //지나온 리시트. 빈 배열 반환. 
         this.passBy = new Array(0);

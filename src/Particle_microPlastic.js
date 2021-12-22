@@ -224,8 +224,8 @@ class MicroPlastic {
             else if (randomNum_product <= 12 && randomNum_product > 11) originalForm = "garbage bins";
             else if (randomNum_product <= 11 && randomNum_product > 10) originalForm = "sandwich bag";
             else if (randomNum_product <= 10 && randomNum_product > 9) originalForm = "ready-meal tray";
-            else if (randomNum_product <= 9 && randomNum_product > 8) originalForm = "cooking oil bottles";
-            else if (randomNum_product <= 8 && randomNum_product > 7) originalForm = "first aid blankets";
+            else if (randomNum_product <= 9 && randomNum_product > 8) originalForm = "cooking oil bottle";
+            else if (randomNum_product <= 8 && randomNum_product > 7) originalForm = "first aid blanket";
             else if (randomNum_product <= 7 && randomNum_product > 6) originalForm = "polar fleece";
             else if (randomNum_product <= 6 && randomNum_product > 5) originalForm = "jerry can";
             else if (randomNum_product <= 5 && randomNum_product > 4) originalForm = "drum";
@@ -239,7 +239,7 @@ class MicroPlastic {
         case "Polypropylene": 
           if (randomNum_product > 14) originalForm = "syringes";
           else if (randomNum_product <= 14 && randomNum_product > 13) originalForm = "chip bag";
-          else if (randomNum_product <= 13 && randomNum_product > 12) originalForm = "specimen bottles";
+          else if (randomNum_product <= 13 && randomNum_product > 12) originalForm = "specimen bottle";
           else if (randomNum_product <= 12 && randomNum_product > 11) originalForm = "car battery case";
           else if (randomNum_product <= 11 && randomNum_product > 10) originalForm = "instrument panel";
           else if (randomNum_product <= 10 && randomNum_product > 9) originalForm = "rugs";

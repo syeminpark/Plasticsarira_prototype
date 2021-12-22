@@ -175,7 +175,7 @@ class Controller2{
         this.keyboard.update();
 
         if ( this.keyboard.down("Z") || this.virtualKeyboard.getKeyValue()=="Z" ) {
-          
+          this.virtualKeyboard.resetKeyValue()
             this.isLifeFocusOn = !this.isLifeFocusOn;
             //console.log('focus mode : ' + this.isLifeFocusOn);
             this.timer = 1;
@@ -185,7 +185,10 @@ class Controller2{
                 this.camera_focusOff_init();
                 //console.log('orbit control on' + this.orbitControl.enabled);
             }
+
         }
+        
+
     }
 
     key_update(){
@@ -257,7 +260,7 @@ class Controller2{
     }
 
     lerpLoad(){
-        if (this.timer > 0){
+        if (this.timer > 0 ){
             this.isDuringLerp = true;
             this.timer -= 0.01;
 
@@ -273,6 +276,7 @@ class Controller2{
             this.orbitControl.object.position.lerp(this.camLerp, 0.05);
         } else {
             this.isDuringLerp = false;
+
 
             if (this.isLifeFocusOn == true) {
                 //this.pointerLockControl.lock();
