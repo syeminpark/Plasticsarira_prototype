@@ -166,7 +166,7 @@ class Controller2{
             }
         } 
         else {
-            if (this.user.isDead == false) this.orbitControl.enabled = false;
+            if (this.user.isDead == true) this.orbitControl.enabled = false;
             else this.orbitControl.target = new THREE.Vector3(0, 0, 0);
         }
     }
@@ -228,7 +228,7 @@ class Controller2{
 
         switch(mouseHold) {
             case 1:
-                this.pointerLockControl.lock();
+                if (this.user.isDead == false) this.pointerLockControl.lock();
             break;
             case -1:
                 this.pointerLockControl.unlock();
