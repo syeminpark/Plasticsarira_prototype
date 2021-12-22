@@ -38,7 +38,7 @@ class ThreeSystem {
     
     setPointerLockControls(){
         this.controls_pointerLock = new THREE.PointerLockControls(this.camera, this.element);
-        document.getElementById('world').addEventListener('click', function () {
+        document.querySelector('#world').addEventListener('click', function () {
             //this.controls_pointerLock.lock();
         } );
     }
