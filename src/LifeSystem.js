@@ -150,17 +150,6 @@ class Controller2 {
         this.mouse_init();
 
         this.virtualKeyboard = virtualKeyboard;
-
-        document.getElementById('world').addEventListener('contextmenu', onContextMenu, false);
-        document.getElementById('world').addEventListener('mousedown', onMouseDown, false);
-        document.getElementById('world').addEventListener('mouseup', onMouseUp, false);
-        document.getElementById('world').addEventListener('mousemove', onMouseMove, false);
-
-        document.getElementById('world').addEventListener('touchstart', onMouseDown, false);
-        document.getElementById('world').addEventListener('touchend', onMouseUp, false);
-        document.getElementById('world').addEventListener('touchmove', onMouseMove, false);
-
-
     }
 
     update() {
@@ -224,17 +213,18 @@ class Controller2 {
         // }
     }
 
-    mouse_update(){
+    mouse_init(){
         document.getElementById('world').addEventListener('contextmenu', onContextMenu, false);
         document.getElementById('world').addEventListener('mousedown', onMouseDown, false);
         document.getElementById('world').addEventListener('mouseup', onMouseUp, false);
         document.getElementById('world').addEventListener('mousemove', onMouseMove, false);
 
-        document.getElementById('world').addEventListener('touchstart', onMouseDown, false);
-        document.getElementById('world').addEventListener('touchend', onMouseUp, false);
-        document.getElementById('world').addEventListener('touchmove', onMouseMove, false);
+        // document.getElementById('world').addEventListener('touchstart', onMouseDown, false);
+        // document.getElementById('world').addEventListener('touchend', onMouseUp, false);
+        // document.getElementById('world').addEventListener('touchmove', onMouseMove, false);
+    }
 
-
+    mouse_update(){
         switch(mouseHold) {
             case 1:
                 if (this.user.isDead == false) this.pointerLockControl.lock();
