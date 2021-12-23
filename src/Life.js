@@ -20,8 +20,8 @@ class Life {
         this.sariraPosition = new THREE.Vector3();
         this.sariraType = Math.floor(random(1, 4));
 
-        this.microPlastic_eat_maxAmount = Math.floor(mapRange(this.mass, 0, 50, 20, 150));
-        this.microPlastic_breath_maxAmount = Math.floor(mapRange(this.mass, 0, 50, 20, 100));
+        this.microPlastic_eat_maxAmount = Math.floor(mapRange(this.mass, 0, 50, 30, 150));
+        this.microPlastic_breath_maxAmount = Math.floor(mapRange(this.mass, 0, 50, 30, 100));
         this.sariraSpeed = (this.size+this.sizeMax)*(1/10000);
 
         this.ableToBreathPlasticList = [];
@@ -118,7 +118,7 @@ class Life {
         this.life.position.set(this.position.x, this.position.y, this.position.z);
         this.position = this.life.position;
 
-        const speed = mapRange(this.mass, 50, 0, 0.001, 0.01); 
+        const speed = mapRange(this.mass, 50, 0, 0.001, 0.04); 
         this.acceleration.add(new THREE.Vector3(
             random(-speed, speed),
             random(-speed, speed),
@@ -267,7 +267,7 @@ class Life {
             this.isDead == false && this.absorbedParticles.length < this.microPlastic_eat_maxAmount) {
 
                 const distance = this.position.distanceTo(microPlastic.position);
-                const lifeSize = (this.size + this.sizeMax) * 1;
+                const lifeSize = (this.size + this.sizeMax) * 1.5;
                 
             //아직 먹히지 않은 상태의 파티클 끌어당기기
             if (distance < lifeSize && distance > this.size * 0.45) {
