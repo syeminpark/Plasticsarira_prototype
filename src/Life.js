@@ -20,9 +20,9 @@ class Life {
         this.sariraPosition = new THREE.Vector3();
         this.sariraType = Math.floor(random(1, 4));
 
-        this.microPlastic_eat_maxAmount = (this.size + this.sizeMax) * 2;
-        this.microPlastic_breath_maxAmount = (this.size + this.sizeMax) * 1;
-        this.sariraSpeed = (this.size+this.sizeMax)*(1/1000);
+        this.microPlastic_eat_maxAmount = Math.floor(mapRange(this.mass, 0, 50, 20, 150));
+        this.microPlastic_breath_maxAmount = Math.floor(mapRange(this.mass, 0, 50, 20, 100));
+        this.sariraSpeed = (this.size+this.sizeMax)*(1/10000);
 
         this.ableToBreathPlasticList = [];
         this.set_ableToBreathPlasticList();
@@ -58,34 +58,6 @@ class Life {
 
         this.sarira_position;
         this.createBodySystem();
-    }
-
-    set_ableToBreathPlasticList(){
-        const percente = this.size / 25;
-
-        if (random(0, 1) < percente) this.ableToBreathPlasticList.push("Polyethylene");
-        if (random(0, 1) < percente) this.ableToBreathPlasticList.push("Polypropylene");
-        if (random(0, 1) < percente) this.ableToBreathPlasticList.push("Polystyrene");
-        if (random(0, 1) < percente) this.ableToBreathPlasticList.push("Polyamide");
-        if (random(0, 1) < percente) this.ableToBreathPlasticList.push("Polyester");
-        if (random(0, 1) < percente) this.ableToBreathPlasticList.push("Acrylic");
-        if (random(0, 1) < percente) this.ableToBreathPlasticList.push("Polyacetal");
-        if (random(0, 1) < percente) this.ableToBreathPlasticList.push("PolyvinylChloride");
-        if (random(0, 1) < percente) this.ableToBreathPlasticList.push("Polyurethane");
-    }
-
-    set_ableToEatPlasticList(){
-        const percente = this.size / 10;
-
-        if (random(0, 1) < 0.5) this.ableToEatPlasticList.push("Polyethylene");
-        if (random(0, 1) < 0.5) this.ableToEatPlasticList.push("Polypropylene");
-        if (random(0, 1) < percente) this.ableToEatPlasticList.push("Polystyrene");
-        if (random(0, 1) < percente) this.ableToEatPlasticList.push("Polyamide");
-        if (random(0, 1) < percente) this.ableToEatPlasticList.push("Polyester");
-        if (random(0, 1) < percente) this.ableToEatPlasticList.push("Acrylic");
-        if (random(0, 1) < percente) this.ableToEatPlasticList.push("Polyacetal");
-        if (random(0, 1) < percente) this.ableToEatPlasticList.push("PolyvinylChloride");
-        if (random(0, 1) < percente) this.ableToEatPlasticList.push("Polyurethane");
     }
 
     init(){
@@ -126,8 +98,9 @@ class Life {
         this.lifeGo();
 
         if (this.isDead == false){
-            this.randomWalk((1 / (this.size + this.sizeMax))*0.6);
+            this.randomWalk();
             this.randomLook();
+
             this.noise_update();
             this.wrap_particles();
             this.wrap();
@@ -141,14 +114,17 @@ class Life {
      
     }
 
-    randomWalk(acc) {
+    randomWalk() {
         this.life.position.set(this.position.x, this.position.y, this.position.z);
         this.position = this.life.position;
+
+        const speed = mapRange(this.mass, 50, 0, 0.001, 0.01); 
         this.acceleration.add(new THREE.Vector3(
-            random(-acc, acc),
-            random(-acc, acc),
-            random(-acc, acc)
+            random(-speed, speed),
+            random(-speed, speed),
+            random(-speed, speed)
         ));
+
         this.velocity.add(this.acceleration);
         this.position.add(this.velocity);
         if (this.velocity.length() > this.velLimit) this.velocity.multiplyScalar(0.1);
@@ -187,7 +163,10 @@ class Life {
 
         threeSystemController.addToWorldScene(this.life);
 
-        //glow
+        this.glow_sprite();
+    }
+
+    glow_sprite(){
         var map = new THREE.TextureLoader().load('images/glow.png')
         var spriteMaterial = new THREE.SpriteMaterial({
             map: map,
@@ -200,6 +179,10 @@ class Life {
             ((this.size * 2) + this.sizeMax) * 2,
             1.0);
         this.life.add(sprite);
+    }
+
+    glow_shader(){
+
     }
 
     createBodySystem(){
@@ -248,7 +231,7 @@ class Life {
         const distance = this.position.length();
 
         if (distance > this.windowSize - this.mass/2) {
-            this.velocity.multiplyScalar(-1);
+            this.velocity.multiplyScalar(-0.9);
         }
     }
 
@@ -262,7 +245,7 @@ class Life {
 
         if (microPlastic.isEaten == false && this.absorbedParticles.length < this.microPlastic_maxAmount) {
             //아직 먹히지 않은 상태의 파티클 끌어당기기
-            if (distance < lifeSize && distance > this.size / 2) {
+            if (distance < lifeSize) {
                 force.multiplyScalar(0.02);
                 microPlastic.applyForce(force);
             }
@@ -280,15 +263,11 @@ class Life {
     }
 
     eat(microPlastic){
-      
-
         if (microPlastic.isEaten == false && this.ableToEatPlasticList.includes(microPlastic.data.microType) == true && 
             this.isDead == false && this.absorbedParticles.length < this.microPlastic_eat_maxAmount) {
 
                 const distance = this.position.distanceTo(microPlastic.position);
                 const lifeSize = (this.size + this.sizeMax) * 1;
-
-       
                 
             //아직 먹히지 않은 상태의 파티클 끌어당기기
             if (distance < lifeSize && distance > this.size * 0.45) {
@@ -296,13 +275,14 @@ class Life {
                 var sariraPos = this.position;
                 var force = new THREE.Vector3().subVectors(sariraPos, microPlastic.position);
 
-                force.multiplyScalar(0.02);
+                force.multiplyScalar(0.1);
                 microPlastic.applyForce(force);
+                microPlastic.velocity.multiplyScalar(0.9);
             }
 
             //파티클 먹고 파티클 흡수 상태로 변경
            else if (distance <= this.size * 0.45) {
-                microPlastic.data.setAbsorbedBy(2);
+                microPlastic.data.setAbsorbedBy(1);
                 this.absorbedParticles.push(microPlastic);
                 this.energy += 0.1;
                 microPlastic.isEaten = true;
@@ -311,26 +291,22 @@ class Life {
     }
 
     breath(microPlastic) {
-        
-   
         //아직 먹히지 않은 상태의 파티클 끌어당기기
         if (microPlastic.isEaten == false && this.ableToBreathPlasticList.includes(microPlastic.data.microType) == true && 
             this.isDead == false && this.absorbedParticles.length < this.microPlastic_breath_maxAmount) {
                 const distance = this.position.distanceTo(microPlastic.position);
                 const lifeSize = (this.size + this.sizeMax) * 1;
 
-                
-                
             if (distance < lifeSize && distance > this.size * 0.55) {
-                var sariraPos = this.position;
-                var force = new THREE.Vector3().subVectors(sariraPos, microPlastic.position); 
+                var force = new THREE.Vector3().subVectors(this.position.clone(), microPlastic.position); 
 
-                force.multiplyScalar(0.02);
+                force.multiplyScalar(0.1);
                 microPlastic.applyForce(force);
+                microPlastic.velocity.multiplyScalar(0.9);
             }
 
             //파티클 먹고 파티클 흡수 상태로 변경
-             else if (distance <= this.size * 0.55) {
+             else if (distance <= this.size * 0.55 && random(0, 1) < 0.55) {
                 microPlastic.data.setAbsorbedBy(1);
                 this.absorbedParticles.push(microPlastic);
                 microPlastic.isEaten = true;
@@ -340,6 +316,7 @@ class Life {
 
     wrap_particles() {
         var sariraPos = this.position.clone();
+        var sariraSpace = this.size * 0.3;
 
         //흡수된 파티클 몸안에 가둠
         for (let i = 0; i < this.absorbedParticles.length; i++) {
@@ -352,11 +329,11 @@ class Life {
             const wrapPos = new THREE.Vector3().addVectors(sariraPos, force.setLength(this.size * 0.5));
             
             //if (distance < this.size*0.7) force.multiplyScalar(((distance*distance*distance)/150));
-            force.multiplyScalar(((distance*distance*distance)/100));
+            force.multiplyScalar(((distance*distance*distance)/900));
             this.absorbedParticles[i].applyForce(force);
 
             //그중에서 일정 확률로 몇몇 파티클이 사리가 되도록 함
-            if (random(0, 5) < this.sariraSpeed && distance < this.size * 0.3 && 
+            if (random(0, 5) < this.sariraSpeed && distance < sariraSpace && 
                 this.absorbedParticles[i].becomeSarira == false && this.absorbedParticles.length < this.absorbPlasticNum){
 
                 this.absorbedParticles[i].data.setPassBy('');
@@ -365,7 +342,8 @@ class Life {
 
                 this.sariraParticles.push(this.absorbedParticles[i]);
                 this.sariraParticlesData.push(this.absorbedParticles[i].data.getDataList());
-
+                
+                if (sariraSpace < this.size) sariraSpace += 0.01;
                 this.isMakeSarira = true;
             }
         }
@@ -537,5 +515,33 @@ class Life {
         if (this.isEaten == true && this.energy > 0){
             this.energy -= 0.5;
         } 
+    }
+
+    set_ableToBreathPlasticList(){
+        const percente = this.size / 25;
+
+        if (random(0, 1) < percente * 4) this.ableToBreathPlasticList.push("Polyethylene");
+        if (random(0, 1) < percente * 3) this.ableToBreathPlasticList.push("Polypropylene");
+        if (random(0, 1) < percente * 2) this.ableToBreathPlasticList.push("Polystyrene");
+        if (random(0, 1) < percente) this.ableToBreathPlasticList.push("Polyamide");
+        if (random(0, 1) < percente) this.ableToBreathPlasticList.push("Polyester");
+        if (random(0, 1) < percente) this.ableToBreathPlasticList.push("Acrylic");
+        if (random(0, 1) < percente) this.ableToBreathPlasticList.push("Polyacetal");
+        if (random(0, 1) < percente) this.ableToBreathPlasticList.push("PolyvinylChloride");
+        if (random(0, 1) < percente) this.ableToBreathPlasticList.push("Polyurethane");
+    }
+
+    set_ableToEatPlasticList(){
+        const percente = this.size / 10;
+
+        if (random(0, 1) < 0.5) this.ableToEatPlasticList.push("Polyethylene");
+        if (random(0, 1) < 0.5) this.ableToEatPlasticList.push("Polypropylene");
+        if (random(0, 1) < percente) this.ableToEatPlasticList.push("Polystyrene");
+        if (random(0, 1) < percente) this.ableToEatPlasticList.push("Polyamide");
+        if (random(0, 1) < percente) this.ableToEatPlasticList.push("Polyester");
+        if (random(0, 1) < percente) this.ableToEatPlasticList.push("Acrylic");
+        if (random(0, 1) < percente) this.ableToEatPlasticList.push("Polyacetal");
+        if (random(0, 1) < percente) this.ableToEatPlasticList.push("PolyvinylChloride");
+        if (random(0, 1) < percente) this.ableToEatPlasticList.push("Polyurethane");
     }
 }

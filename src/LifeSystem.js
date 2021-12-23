@@ -1,11 +1,19 @@
 class LifeSystem {
     constructor(virtualKeyboard) {
-        this.primaryNum = 10;
-        this.secondaryNum = 5;
-        this.tertiaryNum = 3;
-        this.num = 1 + this.primaryNum + this.secondaryNum + this.tertiaryNum;
+        this.windowSize = 100;
 
-        this.windowSize = 200;
+        const minNum_p = Math.floor(this.windowSize/20);
+        const minNum_s = Math.floor(this.windowSize/40);
+        const minNum_t = Math.floor(this.windowSize/50);
+
+        this.maxNum_p = Math.floor(this.windowSize/8);
+        this.maxNum_s = Math.floor(this.windowSize/16);
+        this.maxNum_t = Math.floor(this.windowSize/32);
+
+        this.primaryNum = minNum_p;
+        this.secondaryNum = minNum_s;
+        this.tertiaryNum = minNum_t;
+        this.num = 1 + this.primaryNum + this.secondaryNum + this.tertiaryNum;
 
         this.microPlastic_Material = createPointMaterial();
         this.microPlastic_ConvexMaterial = createConvexMaterial();
@@ -42,9 +50,9 @@ class LifeSystem {
             if (this.lifes[i].index == 0) this.lifes[i].update_user();
             if (this.lifes[i].index >= 1) {
                 this.lifes[i].update();
-                if (this.primaryNum < 15 && this.lifes[i].lifeName.includes('Plankton') == true) this.lifes[i].division(this.lifes, this);
-                if (this.secondaryNum < 10 && this.lifes[i].lifeName.includes('Herbivores') == true) this.lifes[i].division(this.lifes, this);
-                if (this.tertiaryNum < 5 && this.lifes[i].lifeName.includes('Carnivores') == true) this.lifes[i].division(this.lifes, this);
+                if (this.primaryNum < this.maxNum_p && this.lifes[i].lifeName.includes('Plankton') == true) this.lifes[i].division(this.lifes, this);
+                if (this.secondaryNum < this.maxNum_s && this.lifes[i].lifeName.includes('Herbivores') == true) this.lifes[i].division(this.lifes, this);
+                if (this.tertiaryNum < this.maxNum_t && this.lifes[i].lifeName.includes('Carnivores') == true) this.lifes[i].division(this.lifes, this);
 
                 // for (let j = 0; j < this.lifes.length; j++){
                 //     this.lifes[i].eatLife(this.lifes[j]);
@@ -185,10 +193,7 @@ class Controller2 {
                 this.camera_focusOff_init();
                 //console.log('orbit control on' + this.orbitControl.enabled);
             }
-
         }
-
-
     }
 
     key_update() {
@@ -284,7 +289,7 @@ class Controller2 {
     camera_focusOff_init() {
         //this.cam.position.set(50, 50, 200);
         this.cam.lookAt(0, 0, 0);
-        this.camLerp = this.cam.position.clone().setLength(this.windowSize * 1.7);
+        this.camLerp = this.cam.position.clone().setLength(this.windowSize * 1.6);
         // this.camLerp = this.user.position.copy().add(new THREE.Vector3()).setLength(300);
 
         this.pointerLockControl.unlock();

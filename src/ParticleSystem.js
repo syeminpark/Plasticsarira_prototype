@@ -32,10 +32,7 @@ class ParticleSystem{
             positions[i+1] = this.particles[index].position.y;
             positions[i+2] = this.particles[index].position.z;
 
-            
-
             this.particles[index].update();
-
 
             this.lifes.forEach(life => {
                life.breath(this.particles[index]);

@@ -33,7 +33,7 @@ class Life_user extends Life {
         this.lifeGo();
 
         if (this.isDead == false){
-            this.randomWalk(0);
+            //this.randomWalk();
             this.noise_update();
             this.wrap_particles();
             this.add_MicroPlasticToBodySystem();
@@ -98,7 +98,6 @@ class Life_user extends Life {
 
     lifeGo(){
         super.lifeGo(deadAlert)
-       
     }
 }
 

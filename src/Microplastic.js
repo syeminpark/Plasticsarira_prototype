@@ -6,7 +6,8 @@ class Microplastic {
         this.acceleration = new THREE.Vector3(0, 0, 0)
         this.positionVector3 = new THREE.Vector3(0, 0, 0)
         // this.color = [1, 1, 1] // [Math.random(), Math.random(), Math.random()]
-        this.size = particleMaterial.size
+        //this.size = particleMaterial.size
+        this.size = 0.3;
 
         this.threeSystem = threeSystem
     }
@@ -38,7 +39,6 @@ class Microplastic {
         bufferGeometry.attributes.position.array[(index * 3) + 1] += this.velocity.y
         bufferGeometry.attributes.position.array[(index * 3) + 2] += this.velocity.z
 
-     
         this.acceleration.multiplyScalar(0)
          
     }
