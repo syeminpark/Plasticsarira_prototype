@@ -1,6 +1,6 @@
 class LifeSystem {
     constructor(virtualKeyboard) {
-        this.windowSize = 100;
+        this.windowSize = 200;
 
         const minNum_p = Math.floor(this.windowSize/20);
         const minNum_s = Math.floor(this.windowSize/40);
