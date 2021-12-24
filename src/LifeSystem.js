@@ -317,8 +317,13 @@ class Controller2 {
         //const userPos = new THREE.Vector3().addVectors(this.cam.position.clone(), new THREE.Vector3(0, 0, this.camDis));
         const camDir = this.pointerLockControl.getDirection(this.cam.position.clone()).multiplyScalar(this.camDis);
         const userPos = new THREE.Vector3().addVectors(this.cam.position.clone(), camDir);
+        const camPos = new THREE.Vector3().addVectors(this.cam.position.clone(), camDir.multiplyScalar(2));
         var lerpSpeed = 0.5;
-        if (this.isDuringLerp == false) this.user.position.lerp(userPos, lerpSpeed);
+        var lerpSpeed = 0.5;
+        if (this.isDuringLerp == false) {
+            this.user.position.lerp(userPos, lerpSpeed);
+            this.user.life.lookAt(camPos);
+        }
     }
 }
 
@@ -486,9 +491,9 @@ class Controller1 {
         // this.camLerp = this.user.position.copy().add(new THREE.Vector3()).setLength(300);
 
         this.orbitControl.target = new THREE.Vector3(0, 0, 0);
-        this.orbitControl.update();
         this.orbitControl.enablePan = true;
         this.orbitControl.enableZoom = true;
+        this.orbitControl.update();
     }
 
     lerpLoad() {

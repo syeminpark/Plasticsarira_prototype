@@ -8,7 +8,7 @@ class Life {
 
         this.mass = this.size + this.sizeMax;
 
-        this.glowAmount = 0.5;
+        this.glowAmount = 0.25;
 
         const { Perlin } = THREE_Noise;
         this.perlin = new Perlin(Math.random());
@@ -99,14 +99,16 @@ class Life {
 
         if (this.isDead == false){
             this.randomWalk();
-            this.randomLook();
+            //this.randomLook();
 
             this.noise_update();
+            this.glow_shader_update();
+
             this.wrap_particles();
             this.wrap();
             this.add_MicroPlasticToBodySystem();
             this.eatenByOther();
-            this.sarira_position = this.position.clone()
+            this.sarira_position = this.position.clone();
         }
         
         this.bodySystem.update();
@@ -147,19 +149,30 @@ class Life {
 
     display() {
         var geometry = new THREE.SphereGeometry(this.size, 32, 32);
-        // var material = new THREE.MeshNormalMaterial({
-        //     transparent:true,
-        //     opacity:0.8,
-        //     depthTest:false,
-        //     shadowSide:3
+
+        // var material = new THREE.MeshDepthMaterial({
+        //     transparent: true,
+        //     opacity: 0.5,
         // });
-        var material = new THREE.MeshDepthMaterial({
-            transparent: true,
-            opacity: 0.5,
-        });
+        var material = new THREE.ShaderMaterial({
+            uniforms: 
+            { 
+                "c":   { type: "f", value: 1.0 },
+                "p":   { type: "f", value: 1.4 },
+                glowColor: { type: "c", value: new THREE.Color(0xffffff) },
+                viewVector: { type: "v3", value: threeSystemController.worldThreeSystem.camera.position }
+            },
+            vertexShader:   document.getElementById( 'vertexShader'   ).textContent,
+            fragmentShader: document.getElementById( 'fragmentShader' ).textContent,
+            side: THREE.FrontSide,
+            blending: THREE.AdditiveBlending,
+            transparent: true
+
+        }   );
+
         this.life = new THREE.Mesh(geometry, material);
         this.life.position.set(this.position.x, this.position.y, this.position.z);
-        this.life.rotation.set(this.angle.x, this.angle.y, this.angle.z);
+        //this.life.rotation.set(this.angle.x, this.angle.y, this.angle.z);
 
         threeSystemController.addToWorldScene(this.life);
 
@@ -181,8 +194,9 @@ class Life {
         this.life.add(sprite);
     }
 
-    glow_shader(){
-
+    glow_shader_update(){
+        this.life.material.uniforms.viewVector.value = 
+			new THREE.Vector3().subVectors( threeSystemController.worldThreeSystem.camera.position, this.position );
     }
 
     createBodySystem(){

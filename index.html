@@ -79,6 +79,33 @@
 		</img>
 	</a>
 
+	<!-- ---------------- Custom Shader Code ------------------------ -->
+	<script id="vertexShader" type="x-shader/x-vertex">
+		uniform vec3 viewVector;
+		uniform float c;
+		uniform float p;
+		varying float intensity;
+		void main() 
+		{
+			vec3 vNormal = normalize( normalMatrix * normal );
+			vec3 vNormel = normalize( normalMatrix * viewVector );
+			intensity = pow( c - dot(vNormal, vNormel), p );
+			
+			gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+		}
+	</script>
+		
+	<!-- fragment shader a.k.a. pixel shader -->
+	<script id="fragmentShader" type="x-shader/x-vertex"> 
+		uniform vec3 glowColor;
+		varying float intensity;
+		void main() 
+		{
+			vec3 glow = glowColor * intensity;
+			gl_FragColor = vec4( glow, 1.0 );
+		}
+	</script>
+
 	<!-- 라이브러리 영역 -->
 	<script src="library/three.js"></script>
 	<script src="library/OrbitControls.js"></script>
@@ -95,7 +122,6 @@
 		integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/index.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
-
 
 
 	<!-- 커스텀 스크립트 영역 -->
@@ -122,19 +148,17 @@
 	<script src="/src/Life_group.js"></script>
 	<script src="/src/Life_user.js"></script>
 	<script src="/src/LifeSystem.js"></script>
+
 	<script src="/src/material.js"></script>
 	<script src="/src/Popup.js"></script>
 	<script src="/src/HealthBar.js"></script>
 	<script src="/src/VirtualKeyboard.js"></script>
 
-
 	<script src="/src/customFunctions.js"></script>
 	<script src="/src/ThreeSystem.js"></script>
 	<script src="/src/ThreeSystemController.js"></script>
 
-
 	<script src="main.js "></script>
-
 
 </body>
 
