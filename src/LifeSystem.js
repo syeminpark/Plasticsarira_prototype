@@ -177,6 +177,9 @@ class Controller2 {
             if (this.user.isDead == true) this.orbitControl.enabled = false;
             else this.orbitControl.target = new THREE.Vector3(0, 0, 0);
         }
+
+        this.user.life.material.uniforms.viewVector.value = 
+			new THREE.Vector3().subVectors( this.cam.position, this.user.position );
     }
 
     key_check() {
@@ -317,13 +320,16 @@ class Controller2 {
         //const userPos = new THREE.Vector3().addVectors(this.cam.position.clone(), new THREE.Vector3(0, 0, this.camDis));
         const camDir = this.pointerLockControl.getDirection(this.cam.position.clone()).multiplyScalar(this.camDis);
         const userPos = new THREE.Vector3().addVectors(this.cam.position.clone(), camDir);
-        const camPos = new THREE.Vector3().addVectors(this.cam.position.clone(), camDir.multiplyScalar(2));
         var lerpSpeed = 0.5;
         var lerpSpeed = 0.5;
         if (this.isDuringLerp == false) {
             this.user.position.lerp(userPos, lerpSpeed);
-            this.user.life.lookAt(camPos);
         }
+
+        //const camPos = new THREE.Vector3().addVectors(this.cam.position.clone(), camDir.multiplyScalar(2));
+        //this.user.life.lookAt(camPos);
+        // this.user.life.material.uniforms.viewVector.value = 
+		// 	new THREE.Vector3().subVectors( this.cam.position, this.user.position );
     }
 }
 

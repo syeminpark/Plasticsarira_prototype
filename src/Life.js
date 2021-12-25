@@ -165,10 +165,9 @@ class Life {
             vertexShader:   document.getElementById( 'vertexShader'   ).textContent,
             fragmentShader: document.getElementById( 'fragmentShader' ).textContent,
             side: THREE.FrontSide,
-            blending: THREE.AdditiveBlending,
-            transparent: true
-
-        }   );
+            blending: THREE.AdditiveBlending
+        });
+        material.transparent = true;
 
         this.life = new THREE.Mesh(geometry, material);
         this.life.position.set(this.position.x, this.position.y, this.position.z);
@@ -176,7 +175,7 @@ class Life {
 
         threeSystemController.addToWorldScene(this.life);
 
-        this.glow_sprite();
+        //this.glow_sprite();
     }
 
     glow_sprite(){
