@@ -25,7 +25,7 @@ class ThreeSystemController {
         this.worldThreeSystem.setPointerLockControls();
         this.sariraThreeSystem.setOrbitcontrols();
 
-        this.worldThreeSystem.setLights(3,5,5)
+        this.worldThreeSystem.setLights(3,0,5)
         this.sariraThreeSystem.setLights(3,0,5)
 
         //-----------------------------------------------------------------------------
