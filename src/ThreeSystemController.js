@@ -44,6 +44,7 @@ class ThreeSystemController {
         //orbit controls, renderer, frame rate 업데이트 
         this.sariraThreeSystem.update()
         this.worldThreeSystem.update()
+
     
 
         //매 프레임 렌더링하기 
