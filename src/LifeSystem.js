@@ -164,15 +164,13 @@ class Controller2 {
         this.key_check();
         this.lerpLoad();
 
-        if (this.isLifeFocusOn == true) {
+        if (this.isLifeFocusOn == true && this.user.isDead == false) {
             this.camera_focusOn_update();
-            if (this.user.isDead == false) {
                 this.wrap();
                 if (this.isDuringLerp == false) {
                     this.key_update();
                     this.mouse_update();
                 }
-            }
         } else {
             if (this.user.isDead == true) this.orbitControl.enabled = false;
             else this.orbitControl.target = new THREE.Vector3(0, 0, 0);
