@@ -141,7 +141,7 @@ class Controller2 {
         this.isDuringLerp = false;
 
         this.timer = 1;
-        this.isFirst = true;
+        this.checkFirst = 0;
 
         //=================================================================================
         this.pointerLockControl = threeSystemController.worldThreeSystem.controls_pointerLock;
@@ -172,7 +172,11 @@ class Controller2 {
                     this.mouse_update();
                 }
         } else {
-            if (this.user.isDead == true) this.orbitControl.enabled = false;
+            if (this.user.isDead == true) {
+                this.orbitControl.enabled = false;
+                this.pointerLockControl.unlock();
+                this.pointerLockControl.isLocked = false;
+            }
             else this.orbitControl.target = new THREE.Vector3(0, 0, 0);
         }
 
@@ -264,6 +268,9 @@ class Controller2 {
             this.isDuringLerp = true;
             this.timer -= 0.01;
 
+            if (this.checkFirst < 1) this.checkFirst += 0.01;
+
+
             if (this.isLifeFocusOn == true) {
                 //this.pointerLockControl.unlock();
                 this.pointerLockControl.isLocked = false;
@@ -272,10 +279,9 @@ class Controller2 {
             }
 
             //this.cam.position.lerp(this.camLerp, 0.05);
-            this.orbitControl.object.position.lerp(this.camLerp, 0.05);
+            this.orbitControl.object.position.lerp(this.camLerpPos, 0.05);
         } else {
             this.isDuringLerp = false;
-
 
             if (this.isLifeFocusOn == true) {
                 //this.pointerLockControl.lock();
@@ -283,14 +289,13 @@ class Controller2 {
             } else {
                 this.orbitControl.enabled = true;
             }
-
         }
     }
 
     camera_focusOff_init() {
         //this.cam.position.set(50, 50, 200);
         this.cam.lookAt(0, 0, 0);
-        this.camLerp = this.cam.position.clone().setLength(this.windowSize * 1.6);
+        this.camLerpPos = this.cam.position.clone().setLength(this.windowSize * 1.6);
         // this.camLerp = this.user.position.copy().add(new THREE.Vector3()).setLength(300);
 
         this.pointerLockControl.unlock();
@@ -305,7 +310,7 @@ class Controller2 {
 
     camera_focusOn_init() {
         const camDis = new THREE.Vector3().subVectors(this.user.position.clone(), this.cam.position.clone()).setLength(this.camDis);
-        this.camLerp = new THREE.Vector3().subVectors(this.user.life.position.clone(), camDis);
+        this.camLerpPos = new THREE.Vector3().subVectors(this.user.position.clone(), camDis);
 
         this.orbitControl.enabled = false;
 
@@ -320,9 +325,9 @@ class Controller2 {
         const userPos = new THREE.Vector3().addVectors(this.cam.position.clone(), camDir);
         var lerpSpeed = 0.5;
         var lerpSpeed = 0.5;
-        if (this.isDuringLerp == false) {
-            this.user.position.lerp(userPos, lerpSpeed);
-        }
+
+        //if (this.checkFirst >= 1) this.user.position.lerp(userPos, lerpSpeed);
+        if (this.isDuringLerp == false) this.user.position.lerp(userPos, lerpSpeed);
 
         //const camPos = new THREE.Vector3().addVectors(this.cam.position.clone(), camDir.multiplyScalar(2));
         //this.user.life.lookAt(camPos);
