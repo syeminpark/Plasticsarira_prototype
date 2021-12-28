@@ -255,7 +255,7 @@ class Controller2 {
         //     newParticlePos.push(this.user.absorbedParticles[i].position.clone());
         // }
 
-        if (distance > wrapLength) {
+        if (distance > wrapLength){
             this.isInWorld = false;
             this.cam.position.setLength(wrapLength);
         } else {
@@ -270,10 +270,10 @@ class Controller2 {
 
             if (this.checkFirst < 1) this.checkFirst += 0.01;
 
-
             if (this.isLifeFocusOn == true) {
                 //this.pointerLockControl.unlock();
                 this.pointerLockControl.isLocked = false;
+                this.cam.lookAt(this.user.position.clone());
             } else {
                 this.orbitControl.enabled = false;
             }
@@ -295,12 +295,9 @@ class Controller2 {
     camera_focusOff_init() {
         //this.cam.position.set(50, 50, 200);
         this.cam.lookAt(0, 0, 0);
-        this.camLerpPos = this.cam.position.clone().setLength(this.windowSize * 1.6);
-        // this.camLerp = this.user.position.copy().add(new THREE.Vector3()).setLength(300);
+        this.camLerpPos = this.cam.position.clone().setLength(this.windowSize * 1.5);
 
         this.pointerLockControl.unlock();
-        // this.pointerLockControl.isLocked = false;
-        // this.pointerLockControl.enabled  = false;
 
         this.orbitControl.target = new THREE.Vector3(0, 0, 0);
         this.orbitControl.enablePan = true;
@@ -309,30 +306,21 @@ class Controller2 {
     }
 
     camera_focusOn_init() {
+        const camDir = this.pointerLockControl.getDirection(this.cam.position.clone()).multiplyScalar(this.camDis);
         const camDis = new THREE.Vector3().subVectors(this.user.position.clone(), this.cam.position.clone()).setLength(this.camDis);
+
+        this.cam.lookAt(this.user.position.clone());
         this.camLerpPos = new THREE.Vector3().subVectors(this.user.position.clone(), camDis);
 
         this.orbitControl.enabled = false;
-
-        //this.pointerLockControl.lock();
-        // this.pointerLockControl.isLocked = true;
-        // this.pointerLockControl.enabled  = true;
     }
 
     camera_focusOn_update() {
-        //const userPos = new THREE.Vector3().addVectors(this.cam.position.clone(), new THREE.Vector3(0, 0, this.camDis));
         const camDir = this.pointerLockControl.getDirection(this.cam.position.clone()).multiplyScalar(this.camDis);
         const userPos = new THREE.Vector3().addVectors(this.cam.position.clone(), camDir);
         var lerpSpeed = 0.5;
-        var lerpSpeed = 0.5;
 
-        //if (this.checkFirst >= 1) this.user.position.lerp(userPos, lerpSpeed);
         if (this.isDuringLerp == false) this.user.position.lerp(userPos, lerpSpeed);
-
-        //const camPos = new THREE.Vector3().addVectors(this.cam.position.clone(), camDir.multiplyScalar(2));
-        //this.user.life.lookAt(camPos);
-        // this.user.life.material.uniforms.viewVector.value = 
-		// 	new THREE.Vector3().subVectors( this.cam.position, this.user.position );
     }
 }
 
