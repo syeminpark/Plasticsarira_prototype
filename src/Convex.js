@@ -1,15 +1,18 @@
 class Convex {
 
-    constructor(threeSystem,material) {
+    constructor(threeSystem, material) {
         this.vertices = []
         this.meshObject = {}
         this.group = new THREE.Object3D
         this.groupName = Symbol()
         this.threeSystem = threeSystem
-        this.materialBack=material
-       // print(material)
-     
-        this.materialFront= _.cloneDeep(this.materialBack)
+        this.materialBack = material
+        this.meshGeometry;
+
+
+        this.convexMeshBack;
+        this.convexMeshFront;
+        this.materialFront = _.cloneDeep(this.materialBack)
     }
 
     //must be at least three points. 
@@ -39,13 +42,13 @@ class Convex {
             vertex.fromBufferAttribute(positionAttribute, i);
             this.vertices.push(vertex)
         }
-    
+
         this.meshGeometry = new THREE.ConvexGeometry(this.vertices);
     }
 
 
     initializeMesh() {
-        this.convexMeshBack = new THREE.Mesh(this.meshGeometry,this. materialBack);
+        this.convexMeshBack = new THREE.Mesh(this.meshGeometry, this.materialBack);
         this.convexMeshBack.material.side = THREE.BackSide; // back faces
         this.convexMeshBack.renderOrder = 0;
         this.convexMeshFront = new THREE.Mesh(this.meshGeometry, this.materialFront);

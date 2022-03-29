@@ -3,6 +3,7 @@ class Sarira {
         this.plasticList = []
         this.threeSystem = threeSystem
         this.particleMaterial = particleMaterial
+        this.convex;
         this.convexMaterial=convexMaterial
         this.bufferGeometry=bufferGeometry
 
@@ -18,7 +19,7 @@ class Sarira {
     initializeConvex() {
 
         if (this.convex == undefined && this.plasticList.length > 3) {
-            //print("made")
+    
             this.convex = new Convex(this.threeSystem,this.convexMaterial)
             this.convex.initializeBuffer(this.bufferGeometry)
             this.convex.initializeMesh()
@@ -43,6 +44,15 @@ class Sarira {
             plastic.getPosition(this.bufferGeometry, index);
         }
     }
+
+    getPlasticList(){
+        return this.plasticList;
+    }
+
+    getPlasticListLength(){
+        return this.plasticList.length;
+    }
+
 
     updateConvexAll() {
         if (this.convex != undefined && this.plasticList.length > 3) {
