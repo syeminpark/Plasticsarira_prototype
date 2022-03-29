@@ -4,9 +4,9 @@ class MicroPlastic {
       this.spaceSize = spaceSize;
 
       this.position = new THREE.Vector3(
-        random(-spaceSize, spaceSize), 
-        random(-spaceSize, spaceSize), 
-        random(-spaceSize, spaceSize));
+        myMath.random(-spaceSize, spaceSize), 
+        myMath.random(-spaceSize, spaceSize), 
+        myMath.random(-spaceSize, spaceSize));
 
       if (this.position.length() > spaceSize) this.position.setLength(spaceSize);
       
@@ -14,9 +14,9 @@ class MicroPlastic {
       this.velLimit = 0.1;
 
       this.velocity = new THREE.Vector3(
-        random(-this.velV, this.velV),
-        random(-this.velV, this.velV),
-        random(-this.velV, this.velV));
+        myMath.random(-this.velV, this.velV),
+        myMath.random(-this.velV, this.velV),
+        myMath.random(-this.velV, this.velV));
       this.acceleration = new THREE.Vector3(0, 0, 0);
   
       this.angle = new THREE.Vector3(0, 0, 0);
@@ -48,9 +48,9 @@ class MicroPlastic {
 
     update(){
       this.applyForce(new THREE.Vector3(
-        random(-0.002, 0.002),
-        random(-0.002, 0.002),
-        random(-0.002, 0.002)
+        myMath.random(-0.002, 0.002),
+        myMath.random(-0.002, 0.002),
+        myMath.random(-0.002, 0.002)
       ));
       this.velocity.add(this.acceleration);
       this.position.add(this.velocity);
@@ -112,39 +112,39 @@ class MicroPlastic {
     }
 
     set_passByArray(){
-      if (random(0, 1) < 0.3) {
+      if (myMath.random(0, 1) < 0.3) {
         this.data.setPassBy('Plankton');
-        if (random(0, 1) < 0.15) {
+        if (myMath.random(0, 1) < 0.15) {
           this.data.setPassBy('Plankton');
         }
-        if (random(0, 1) < 0.15) {
+        if (myMath.random(0, 1) < 0.15) {
           this.data.setPassBy('Herbivores');
         }
-        if (random(0, 1) < 0.15) {
+        if (myMath.random(0, 1) < 0.15) {
           this.data.setPassBy('Carnivores');
         }
       }
-      if (random(0, 1) < 0.3) {
+      if (myMath.random(0, 1) < 0.3) {
         this.data.setPassBy('Herbivores');
-        if (random(0, 1) < 0.15) {
+        if (myMath.random(0, 1) < 0.15) {
           this.data.setPassBy('Plankton');
         }
-        if (random(0, 1) < 0.15) {
+        if (myMath.random(0, 1) < 0.15) {
           this.data.setPassBy('Herbivores');
         }
-        if (random(0, 1) < 0.15) {
+        if (myMath.random(0, 1) < 0.15) {
           this.data.setPassBy('Carnivores');
         }
       }
-      if (random(0, 1) < 0.3) {
+      if (myMath.random(0, 1) < 0.3) {
         this.data.setPassBy('Carnivores');
-        if (random(0, 1) < 0.15) {
+        if (myMath.random(0, 1) < 0.15) {
           this.data.setPassBy('Plankton');
         }
-        if (random(0, 1) < 0.15) {
+        if (myMath.random(0, 1) < 0.15) {
           this.data.setPassBy('Herbivores');
         }
-        if (random(0, 1) < 0.15) {
+        if (myMath.random(0, 1) < 0.15) {
           this.data.setPassBy('Carnivores');
         }
       }
@@ -157,7 +157,7 @@ class MicroPlastic {
       if (this.position.x <= 0 && this.position.y > 0) this.area = 3;
       if (this.position.x <= 0 && this.position.y <= 0) this.area = 4;
 
-      const randomNum_plastic = random(0, 100);
+      const randomNum_plastic = myMath.random(0, 100);
       var microType = "";
 
       switch(this.area) {
@@ -213,7 +213,7 @@ class MicroPlastic {
           break;
       }
 
-      const randomNum_product = random(0, 15);
+      const randomNum_product = myMath.random(0, 15);
       var originalForm = "";
 
       switch (microType) {

@@ -31,3 +31,4 @@ function createPointMaterial() {
         side: THREE.DoubleSide
     });
 }
+

@@ -7,7 +7,11 @@ class Microplastic {
         this.positionVector3 = new THREE.Vector3(0, 0, 0)
         // this.color = [1, 1, 1] // [Math.random(), Math.random(), Math.random()]
         //this.size = particleMaterial.size
+        this.positionList;
+        this.mass;
+        this.tensileStrength;
         this.size = 0.3;
+        this.passDataList;
 
         this.threeSystem = threeSystem
     }
@@ -16,7 +20,7 @@ class Microplastic {
 
         this.positionList = [positionList.x, positionList.y, positionList.z]
         this.mass = density * this.size *2
-        this.tensileStrength = map(tensileStrength, 2596, 12400, 0, 0.1)
+        this.tensileStrength = myMath.map(tensileStrength, 2596, 12400, 0, 0.1)
     }
 
     initializePassDataList(passDataList) {
@@ -55,6 +59,7 @@ class Microplastic {
     }
 
     updateBuffer(bufferGeometry, indexLength) {
+
         
         for (let i = 0; i < 3; i++) {
             bufferGeometry.attributes.position.array[((indexLength - 1) * 3) + i] = this.positionList[i]
@@ -77,6 +82,7 @@ class Microplastic {
 
         list[index] = list[lastIndex]
         list.splice(lastIndex, 1)
+
         bufferGeometry.setDrawRange(0, lastIndex);
     }
 
@@ -125,5 +131,13 @@ class Microplastic {
 
     getAmPm(today) {
         return today.getHours() >= 12 ? 'PM' : 'AM';
+    }
+
+    getMass(){
+        return this.mass;
+    }
+    
+    getPositionVector(){
+        return this.positionVector3;
     }
 }

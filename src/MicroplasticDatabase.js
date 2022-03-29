@@ -38,13 +38,13 @@ class MicroplasticDatabase {
 
     initialize() {
         //랜덤하게 하나의 미세플라스틱 선정 
-        let index = Math.round(random(0, this.microTypeList.length - 1))
+        let index = Math.round(myMath.random(0, this.microTypeList.length - 1))
         this.microType = this.microTypeList[index]
         this.absorbedBy = ""
         //앞에서 선정한 인덱스를 바탕으로 그 인덱스에 해당하는 원래 목적 리스트 중 하나를 랜덤하게 선정 
-        this.originalForm = this.originalFormList[index][Math.round(random(0, this.originalFormList[index].length - 1))]
+        this.originalForm = this.originalFormList[index][Math.round(myMath.random(0, this.originalFormList[index].length - 1))]
         //앞에서 선정한 인덱스를 바탕으로 그 인덱스에 해당하는 날짜부터 2021년까지 랜덤하게 년도 하나를 선정 
-        this.madeIn = JSON.stringify(Math.round(random(this.madeInList[index], 2021)));
+        this.madeIn = JSON.stringify(Math.round(myMath.random(this.madeInList[index], 2021)));
 
         this.dataList = [this.originalForm, this.madeIn, this.microType, this.passBy, this.absorbedBy];
     }

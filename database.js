@@ -35,7 +35,7 @@ async function setup() {
 
         let buffer = new Buffer(data[i].vertices)
         buffer.initialize(pointMaterial)
-        buffer.render(threeSystemList[i])
+       buffer.render(threeSystemList[i])
         buffer.bufferGeometry.setDrawRange(0, data[i].vertices.length)
 
         if (data[i].vertices.length > 9) {

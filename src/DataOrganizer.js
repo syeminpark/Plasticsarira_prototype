@@ -1,12 +1,12 @@
 class DataOrganizer {
     constructor(userName, userId) {
-        this.owner = userName
+        this.owner = userName;
         this.owner == "admin" ? this.type = "administrator" : this.type = "audience"
-        this.id = userId
-        this.totalSariraCount
-
-        this.mySariraData
-        this.otherSariraData = []
+        this.id = userId;
+        this.totalSariraCount;
+        this.type;
+        this.mySariraData;
+        this.otherSariraData = [];
         
     }
 

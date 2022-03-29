@@ -3,9 +3,12 @@ class ThreeSystem {
     constructor(element = null) {
 
         this.element = element;
-        //createScene
-        this.scene = new THREE.Scene()
+        this.scene = new THREE.Scene();
+        this.controls;
+        this.camera;
+        this.controls_pointerLock;
 
+        //this.stats;
         //this.setStats()
     }
 
@@ -16,7 +19,21 @@ class ThreeSystem {
         }
      
     }
+    
+////setters
+    setControlMaxDistance(distance){
+        this.controls.maxDistance=distance;
+    }
 
+
+    setControls(state){
+        this.controls.enabled=state;
+    }
+
+    setCameraAspectRatio(ratio){
+        this.camera.aspect=ratio;
+        this.camera.updateProjectionMatrix();
+    }
     setCamera(cameraPositionList, cameraLookPositionList) {
   
         this.camera = new THREE.PerspectiveCamera(45, 1, 0.001, 10000);
@@ -65,4 +82,25 @@ class ThreeSystem {
         this.element.appendChild(this.stats.dom)
         this.stats.dom.style.left = this.element.style.left
     }
+
+////getters
+    getElementBoundingRect(){
+        return this.element.getBoundingClientRect();
+    }
+    getScene(){
+        return this.scene;
+    }
+    getCamera(){
+        return this.camera;
+    }
+    getControlsPosition(){
+        return this.controls.object.position
+    }
+
+
+    addToScreen(...args){
+        this.scene.add(...args)
+    }
+
+    
 }

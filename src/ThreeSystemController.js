@@ -2,6 +2,10 @@ class ThreeSystemController {
 
     //매개변수들 설정 
     constructor() {
+
+
+        this.renderer;
+
         //초기 카메라 위치값 x,y,z
         this.worldCameraPositionList = [50, 50, -400]
         this.sariraCameraPositionList = [0, 0, -10]
@@ -52,19 +56,19 @@ class ThreeSystemController {
     }
 
     stopOrbit() {
-        let rect = this.sariraThreeSystem.element.getBoundingClientRect()
+        let rect = this.sariraThreeSystem.getElementBoundingRect();
 
         if (event.clientX > rect.left && event.clientY < rect.bottom) {
-            this.worldThreeSystem.controls.enabled = false;
+            this.worldThreeSystem.setControls(false);
         } else {
-            this.worldThreeSystem.controls.enabled = true;
+            this.worldThreeSystem.setControls(true);
         }
     }
 
     //장면에 요소를 추가하기 위한 메서드 
 
     addToWorldScene(...args) {
-        this.worldThreeSystem.scene.add(...args)
+        this.worldThreeSystem.addToScreen(...args);
     }
 
     //화면 크기 조정 
@@ -72,8 +76,7 @@ class ThreeSystemController {
 
     refreshWindowSize() {
         for (let system of this.systemList) {
-            system.camera.aspect = window.innerWidth / window.innerHeight;
-            system.camera.updateProjectionMatrix();
+            system.setCameraAspectRatio( window.innerWidth / window.innerHeight)
         }
         this.renderer.setSize(window.innerWidth, window.innerHeight);
     }
@@ -105,7 +108,7 @@ class ThreeSystemController {
 
     renderSceneInfo() {
         for (let system of this.systemList) {
-            const rect = system.element.getBoundingClientRect();
+            const rect = system.getElementBoundingRect();
             const isOffscreen =
                 rect.bottom < 0 ||
                 rect.top > this.canvas.clientHeight ||
@@ -114,17 +117,16 @@ class ThreeSystemController {
             if (isOffscreen) {
                 return;
             }
-            system.camera.aspect = rect.width / rect.height;
-            system.camera.updateProjectionMatrix();
+            system.setCameraAspectRatio( rect.width / rect.height)
 
             //worldThreeSystem 거리제한 
-            this.worldThreeSystem.controls.maxDistance = 800;
-            this.worldThreeSystem.controls.enabled = false;
+            this.worldThreeSystem.setControlMaxDistance(800);
+            this.worldThreeSystem.setControls(false);
 
             const positiveYUpBottom = this.canvas.clientHeight - rect.bottom;
             this.renderer.setScissor(rect.left, positiveYUpBottom, rect.width, rect.height);
             this.renderer.setViewport(rect.left, positiveYUpBottom, rect.width, rect.height);
-            this.renderer.render(system.scene, system.camera);
+            this.renderer.render(system.getScene(), system.getCamera());
         }
     }
 

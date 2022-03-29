@@ -3,7 +3,7 @@ class HealthBar {
         this.id=id;
         this.system = system
         this.canvas = canvas
-        
+        this.progres;
     }
 
     createBar(lifeSpan) {

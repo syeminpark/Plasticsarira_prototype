@@ -19,20 +19,22 @@ class Core extends Microplastic {
     }
 
     initializePassDataList() {
-        this.originalForm = this.originalFormList[Math.round(random(0, this.originalFormList.length - 1))]
-        this.madeIn = JSON.stringify(Math.round(random(this.madeIn, 2021)));
+        this.originalForm = this.originalFormList[Math.round(myMath.random(0, this.originalFormList.length - 1))]
+        this.madeIn = JSON.stringify(Math.round(myMath.random(this.madeIn, 2021)));
         this.passDataList = [this.originalForm, this.madeIn, this.microType, this.passedByList, this.absorbedBy, this.dateRetrieved]
     }
 
     attract(floatingMicro) {
         // Calculate direction of force
         let force = new THREE.Vector3(0, 0, 0)
-        force.subVectors(this.positionVector3, floatingMicro.positionVector3);
+        force.subVectors(this.positionVector3, floatingMicro.getPositionVector());
         // Distance between objects
 
-        let distance = constrain(force.length(), 5, 20);
+        let distance = myMath.constrain(force.length(), 5, 20);
         // Calculate gravitional force magnitude
-        let strength = ( 2*this.mass*floatingMicro.mass) / (distance * distance);
+
+        //!!! mass is the same
+        let strength = ( 2*this.mass*floatingMicro.getMass()) / (distance * distance);
         // Get force vector --> magnitude * direction
         force.setLength(strength);
         return force;

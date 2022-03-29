@@ -4,6 +4,8 @@ class Buffer {
         this.maxPoints = maxPoints
         positionList != undefined ? this.positionList=positionList : this.positionList = new Float32Array(this.maxPoints * 3)
         //colorList != undefined ? this.colorList=colorList : this.colorList = new Float32Array(this.maxPoints * 3)
+
+        this.bufferGeometry
     }
 
     
@@ -26,5 +28,9 @@ class Buffer {
 
     render(threeSystem) {
         threeSystem.scene.add(this.point)
+    }
+
+    getBufferGeometry(){
+        return this.bufferGeometry;
     }
 }
