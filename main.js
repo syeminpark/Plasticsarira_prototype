@@ -1,42 +1,45 @@
-let threeSystemController
-let lifeSystem
-let particleSystem_microPlastic
-let bodySystemController
-let serverClientCommunication
+let threeSystemController;
+let bodySystemController;
+let serverClientCommunication;
+
+let userController;
+let virtualKeyboard;
+let myMath;
+
+let world;
 let userDead = false;
-let virtualKeyboard
-let myMath
 
-
-checkDeviceType()
-moveToTopWindow()
-done()
+checkDeviceType();
+moveToTopWindow();
+done();
 
 
 async function setup() {
-    await userHoverGuide()
-    await userSmallWindowGuide()
+    //await userHoverGuide();
+    //await userSmallWindowGuide();
 
-    myMath=new MyMath();
+    myMath = new MyMath();
 
-    let dataOrganizer = new DataOrganizer(document.getElementById('userName').textContent)
-    serverClientCommunication = new ServerClientCommunication(dataOrganizer)
-    serverClientCommunication.createUser()
+    let dataOrganizer = new DataOrganizer(document.getElementById('userName').textContent);
+    serverClientCommunication = new ServerClientCommunication(dataOrganizer);
+    serverClientCommunication.createUser();
+
     threeSystemController = new ThreeSystemController();
-    virtualKeyboard = new VirtualKeyboard()
-    lifeSystem = new LifeSystem(virtualKeyboard);
-    particleSystem_microPlastic = new ParticleSystem(lifeSystem);
-    particleSystem_microPlastic.display(threeSystemController, 0.3)
+    virtualKeyboard = new VirtualKeyboard();
 
-    draw()
+    world = new World(200);
+
+    userController = new UserController(world, virtualKeyboard);
+
+    draw();
 }
 
 function draw() {
     requestAnimationFrame(draw);
     if (document.getElementById('userName')) {
-        threeSystemController.update()
-        particleSystem_microPlastic.update();
-        lifeSystem.update();
+        threeSystemController.update();
+        world.update();
+        userController.update();
     }
 }
 
@@ -44,7 +47,7 @@ async function done() {
     requestAnimationFrame(done);
     if (userDead) {
         userDead = false;
-        await serverClientCommunication.postSariraById(lifeSystem.life_user.getSariraDataForServer())
+        await serverClientCommunication.postSariraById(lifeSystem.life_user.getSariraDataForServer());
         window.location = `${window.location.href}database.html`;
     }
 }

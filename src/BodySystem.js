@@ -1,18 +1,17 @@
 class BodySystem {
 
-    constructor(threeSystem, index = 0) {
+    constructor(index = 0) {
         index == 0 ? this.isUser = true : this.isUser = false;
-        this.threeSystem = threeSystem
+        this.threeSystem = threeSystemController.sariraThreeSystem
         this.threeSystem.element == document.querySelector("#sarira") ? this.isWindow = true : this.isWindow = false
 
-
-        this.floatingPlasticsList = new Array(0)
+        this.floatingPlasticsList = new Array(0);
 
         this.microType = ["Polyethylene", "Polypropylene", "Polystyrene", "Polyamide", "Polyester", "Acrylic", "Polyacetal", "PolyvinylChloride", "Polyurethane"]
-        this.densityList = [0.94, 0.92, 1.05, 1.14, 1.4, 1.2, 1.42, 1.38, 0.425]
-        this.tensileStrengthList = [4554, 5440, 7700, 12400, 11500, 9400, 10007, 7500, 2596]
+        this.densityList = [0.94, 0.92, 1.05, 1.14, 1.4, 1.2, 1.42, 1.38, 0.425];
+        this.tensileStrengthList = [4554, 5440, 7700, 12400, 11500, 9400, 10007, 7500, 2596];
 
-        this.positionVector3 = new THREE.Vector3(0, 0, 0)
+        this.positionVector3 = new THREE.Vector3(0, 0, 0);
 
         this.sarira;
         this.floatingBuffer;
@@ -20,8 +19,6 @@ class BodySystem {
         this.particleMaterial;
         this.convexMaterial;
         this.terminal;
-
-        
     }
 
     getLifePosition(positionList) {

@@ -1,20 +1,10 @@
-class Life_user extends Life {
-    constructor(microPlastic_Material, microPlastic_ConvexMaterial){
-        super(0, 0, microPlastic_Material, microPlastic_ConvexMaterial);
-
-        this.createWindowBodySystem();
+class Life_user extends Life_Sarira {
+    constructor(worldSize, Sarira_Material, Sarira_ConvexMaterial){
+        super(0, worldSize, Sarira_Material, Sarira_ConvexMaterial);
     }
 
     init(){
-        this.position = new THREE.Vector3();
-        this.velocity = new THREE.Vector3();
-        this.acceleration = new THREE.Vector3();
-
         this.velLimit = 1;
-
-        this.angle = new THREE.Vector3();
-        this.angleVelocity = new THREE.Vector3();
-        this.angleAcceleration = new THREE.Vector3();
 
         this.size = myMath.random(3, 10);
         this.sizeMax = myMath.random(10, 20);
@@ -26,16 +16,16 @@ class Life_user extends Life {
         this.lifespan = 250;
     }
 
-    update_user(){
-        this.life.position.set(this.position.x, this.position.y, this.position.z);
-        this.life.rotation.set(this.angle.x, this.angle.y, this.angle.z);
+    update(){
+        this.lifeMesh.position.set(this.position.x, this.position.y, this.position.z);
+        this.lifeMesh.rotation.set(this.angle.x, this.angle.y, this.angle.z);
 
         this.lifeGo();
 
         if (this.isDead == false){
             //this.myMath.randomWalk();
-            this.noise_update();
-            this.wrap_particles();
+            this.updateNoise();
+            this.wrapParticles();
             this.add_MicroPlasticToBodySystem();
         }
 
@@ -44,22 +34,22 @@ class Life_user extends Life {
         this.bodySystemWindow.update();
     }
 
-    createWindowBodySystem() {
-        this.bodySystemWindow = new BodySystem(threeSystemController.sariraThreeSystem);
-        this.bodySystemWindow.createBuffer(this.microPlastic_Material);
-        this.bodySystemWindow.createSarira(this.microPlastic_ConvexMaterial);
+    createWindowBodySystem(microPlastic_Material, microPlastic_ConvexMaterial) {
+        this.bodySystemWindow = new BodySystem();
+        this.bodySystemWindow.createBuffer(microPlastic_Material);
+        this.bodySystemWindow.createSarira(microPlastic_ConvexMaterial);
         this.bodySystemWindow.createTerminal();
     }
 
     getSariraDataForServer() {
         //user
-        let newPositionArray = []
+        let newPositionArray = [];
         let indexLength = 0;
         let originalPositionArray = this.bodySystemWindow.sariraBuffer.bufferGeometry.attributes.position.array;
 
         for (let i = 1; i < 300; i++) {
             if (originalPositionArray[i * 3] == 0 && originalPositionArray[(i * 3) + 1] == 0 && originalPositionArray[(i * 3) + 2] == 0) {
-                indexLength = i
+                indexLength = i;
                 break;
             }
         }
@@ -71,9 +61,8 @@ class Life_user extends Life {
             vertices: newPositionArray,
             metaData: this.bodySystemWindow.terminal.metaDataList
         }
-        console.log(message)
-        return message
-        
+        console.log(message);
+        return message;
     }
 
     add_MicroPlasticToBodySystem(){
@@ -97,7 +86,7 @@ class Life_user extends Life {
     }
 
     lifeGo(){
-        super.lifeGo(deadAlert)
+        super.lifeGo(deadAlert);
     }
 }
 

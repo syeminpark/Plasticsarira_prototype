@@ -1,9 +1,7 @@
 class ParticleSystem{
     constructor(lifeSystem){
-        
         this.size = lifeSystem.windowSize;
         this.num = lifeSystem.windowSize * 80;
-
 
         this.particles = [];
         this.particles_positions = [];
@@ -14,9 +12,7 @@ class ParticleSystem{
             this.particles_positions.push(p.position);
         }
 
-        //this.positionAttributes = new THREE.BufferAttribute();
-
-        this.lifes = lifeSystem.lifes; //array
+        this.lifes = lifeSystem.lifes; 
         this.life_user = lifeSystem.lifes[0];
 
         this.material = createPointMaterial();
@@ -32,7 +28,7 @@ class ParticleSystem{
             positions[i+1] = this.particles[index].position.y;
             positions[i+2] = this.particles[index].position.z;
 
-            this.particles[index].update();
+            //this.particles[index].update();
 
             this.lifes.forEach(life => {
                life.breath(this.particles[index]);
@@ -43,24 +39,12 @@ class ParticleSystem{
             this.life_user.breath(this.particles[index]);
         }
 
-
-        // for (let j = positions.length - 1; j >= 0; j-= 3) {
-        //     const index = Math.floor(j/3);
-        //     if (this.particles[index].becomeSarira == true) {
-        //         this.particles.splice(index, 1);
-        //         this.particles_positions.splice(index, 1);
-        //         console.log(positions.length);
-        //     }
-        // }
-
         this.points.geometry.attributes.position.needsUpdate = true;
     }
 
-    display(threeSystemController,size){
+    display(threeSystemController){
         var geometry = new THREE.BufferGeometry().setFromPoints(this.particles_positions);
         
-        //var material = new THREE.MeshNormalMaterial({wireframe:false});
-
         this.points = new THREE.Points(geometry, this.material);
         this.points.position.set(0, 0, 0);
 
