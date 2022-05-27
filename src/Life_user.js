@@ -17,13 +17,13 @@ class Life_user extends Life_Sarira {
     }
 
     update(){
-        this.lifeMesh.position.set(this.position.x, this.position.y, this.position.z);
-        this.lifeMesh.rotation.set(this.angle.x, this.angle.y, this.angle.z);
-
         this.lifeGo();
 
         if (this.isDead == false){
             //this.myMath.randomWalk();
+            this.lifeMesh.position.set(this.position.x, this.position.y, this.position.z);
+            this.lifeMesh.rotation.set(this.angle.x, this.angle.y, this.angle.z);
+
             this.updateNoise();
             this.wrapParticles();
             this.add_MicroPlasticToBodySystem();

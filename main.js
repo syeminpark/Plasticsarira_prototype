@@ -15,8 +15,8 @@ done();
 
 
 async function setup() {
-    //await userHoverGuide();
-    //await userSmallWindowGuide();
+    await userHoverGuide();
+    await userSmallWindowGuide();
 
     myMath = new MyMath();
 
@@ -47,7 +47,7 @@ async function done() {
     requestAnimationFrame(done);
     if (userDead) {
         userDead = false;
-        await serverClientCommunication.postSariraById(lifeSystem.life_user.getSariraDataForServer());
+        await serverClientCommunication.postSariraById(world.life_user.getSariraDataForServer());
         window.location = `${window.location.href}database.html`;
     }
 }

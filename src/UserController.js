@@ -1,5 +1,5 @@
-var mouseHold = -1;
-var isMouseMoving = false;
+let mouseHold = -1;
+let isMouseMoving = false;
 
 function onContextMenu(event) { // Prevent right click
     event.preventDefault();

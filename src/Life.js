@@ -86,7 +86,7 @@ class Life {
 
         this.lifeMesh = new THREE.Mesh(geometry, material);
         this.lifeMesh.position.set(this.position.x, this.position.y, this.position.z);
-        //this.life.rotation.set(this.angle.x, this.angle.y, this.angle.z);
+        this.lifeMesh.rotation.set(this.angle.x, this.angle.y, this.angle.z);
                
         //this.setGlow_2D();
 
@@ -171,6 +171,7 @@ class Life {
 			new THREE.Vector3().subVectors( threeSystemController.worldThreeSystem.camera.position, this.position );
     }
 
+    //life 표면이 꿀렁거리게 하는 함수
     updateNoise() {
         const position = this.lifeMesh.geometry.attributes.position;
         const normal = this.lifeMesh.geometry.attributes.normal;
