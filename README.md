@@ -1,7 +1,7 @@
 # Plastic Sarira
 
 A project by the Water-Dweller Team(Choi Seung Hee, Park Syemin)  
-Prototype for the project, Gathering Moss.
+Interactive Web artwork for the project Gathering Moss.
 
 ### Gathering Moss
 https://gatheringmoss.art/main/
