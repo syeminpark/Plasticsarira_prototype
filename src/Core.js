@@ -19,8 +19,8 @@ class Core extends Microplastic {
     }
 
     initializePassDataList() {
-        this.originalForm = this.originalFormList[Math.round(myMath.random(0, this.originalFormList.length - 1))]
-        this.madeIn = JSON.stringify(Math.round(myMath.random(this.madeIn, 2021)));
+        this.originalForm = this.originalFormList[Math.round(MyMath.random(0, this.originalFormList.length - 1))]
+        this.madeIn = JSON.stringify(Math.round(MyMath.random(this.madeIn, 2021)));
         this.passDataList = [this.originalForm, this.madeIn, this.microType, this.passedByList, this.absorbedBy, this.dateRetrieved]
     }
 
@@ -30,7 +30,7 @@ class Core extends Microplastic {
         force.subVectors(this.positionVector3, floatingMicro.getPositionVector());
         // Distance between objects
 
-        let distance = myMath.constrain(force.length(), 5, 20);
+        let distance = MyMath.constrain(force.length(), 5, 20);
         // Calculate gravitional force magnitude
 
         //!!! mass is the same

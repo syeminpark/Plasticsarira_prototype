@@ -15,7 +15,7 @@ class PE extends Microplastic {
     }
 
     initializePassDataList(){
-        super.initializePassDataList([this.originalFormList[Math.round(myMath.random(0,this.originalFormList.length-1))],Math.round(myMath.random(this.madeIn,2021)),this.microType,["empty"],"empty"])
+        super.initializePassDataList([this.originalFormList[Math.round(MyMath.random(0,this.originalFormList.length-1))],Math.round(MyMath.random(this.madeIn,2021)),this.microType,["empty"],"empty"])
     }
         
     

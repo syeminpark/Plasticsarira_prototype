@@ -16,11 +16,11 @@ class Life_user extends Life {
         this.angleVelocity = new THREE.Vector3();
         this.angleAcceleration = new THREE.Vector3();
 
-        this.size = myMath.random(3, 10);
-        this.sizeMax = myMath.random(10, 20);
+        this.size = MyMath.random(3, 10);
+        this.sizeMax = MyMath.random(10, 20);
 
-        this.noiseShape = myMath.random(0.05, 0.1);
-        this.noiseAnimSpeed = myMath.random(0.1, 0.7);
+        this.noiseShape = MyMath.random(0.05, 0.1);
+        this.noiseAnimSpeed = MyMath.random(0.1, 0.7);
 
         this.lifeName = 'user';
         this.lifespan = 250;
@@ -33,7 +33,7 @@ class Life_user extends Life {
         this.lifeGo();
 
         if (this.isDead == false){
-            //this.myMath.randomWalk();
+            //this.MyMath.randomWalk();
             this.noise_update();
             this.wrap_particles();
             this.add_MicroPlasticToBodySystem();

@@ -18,10 +18,10 @@ class Life {
         this.sariraParticlesData = [];
         this.sariraParticles = [];
         this.sariraPosition = new THREE.Vector3();
-        this.sariraType = Math.floor(myMath.random(1, 4));
+        this.sariraType = Math.floor(MyMath.random(1, 4));
 
-        this.microPlastic_eat_maxAmount = Math.floor(myMath.mapRange(this.mass, 0, 50, 30, 150));
-        this.microPlastic_breath_maxAmount = Math.floor(myMath.mapRange(this.mass, 0, 50, 30, 100));
+        this.microPlastic_eat_maxAmount = Math.floor(MyMath.mapRange(this.mass, 0, 50, 30, 150));
+        this.microPlastic_breath_maxAmount = Math.floor(MyMath.mapRange(this.mass, 0, 50, 30, 100));
         this.sariraSpeed = (this.size+this.sizeMax)*(1/10000);
 
         this.ableToBreathPlasticList = [];
@@ -41,7 +41,7 @@ class Life {
         
         this.isReadyToDivision = false;
 
-        this.energy = myMath.random(this.size/2, this.size*3);
+        this.energy = MyMath.random(this.size/2, this.size*3);
         this.hungryValue = this.size*0.7;
         
         this.division_energy = this.size;
@@ -62,33 +62,33 @@ class Life {
 
     init(){
         this.position = new THREE.Vector3(
-            myMath.random(-this.windowSize, this.windowSize),
-            myMath.random(-this.windowSize, this.windowSize),
-            myMath.random(-this.windowSize, this.windowSize));
+            MyMath.random(-this.windowSize, this.windowSize),
+            MyMath.random(-this.windowSize, this.windowSize),
+            MyMath.random(-this.windowSize, this.windowSize));
 
         if (this.position.length() > this.windowSize) this.position.setLength(this.windowSize);
 
         this.velocity = new THREE.Vector3(
-            myMath.random(-0.1, 0.1),
-            myMath.random(-0.1, 0.1),
-            myMath.random(-0.1, 0.1));
+            MyMath.random(-0.1, 0.1),
+            MyMath.random(-0.1, 0.1),
+            MyMath.random(-0.1, 0.1));
 
         this.acceleration = new THREE.Vector3(0, 0, 0);
 
         this.velLimit = 0.1;
 
         this.angle = new THREE.Vector3(
-            myMath.random(0, Math.PI * 2),
-            myMath.random(0, Math.PI * 2),
-            myMath.random(0, Math.PI * 2));
+            MyMath.random(0, Math.PI * 2),
+            MyMath.random(0, Math.PI * 2),
+            MyMath.random(0, Math.PI * 2));
         this.angleVelocity = this.velocity.clone();
         this.angleAcceleration = this.acceleration.clone();
 
-        this.size = myMath.random(2, 5);
-        this.sizeMax = myMath.random(0, 20);
+        this.size = MyMath.random(2, 5);
+        this.sizeMax = MyMath.random(0, 20);
 
-        this.noiseShape = myMath.random(0.05, 0.3);
-        this.noiseAnimSpeed = myMath.random(0.1, 0.5);
+        this.noiseShape = MyMath.random(0.05, 0.3);
+        this.noiseAnimSpeed = MyMath.random(0.1, 0.5);
 
         this.lifeName = 'life' + String(this.index);
         this.lifespan = (this.size + this.sizeMax)*10;
@@ -120,11 +120,11 @@ class Life {
         this.life.position.set(this.position.x, this.position.y, this.position.z);
         this.position = this.life.position;
 
-        const speed = myMath.mapRange(this.mass, 50, 0, 0.001, 0.04); 
+        const speed = MyMath.mapRange(this.mass, 50, 0, 0.001, 0.04); 
         this.acceleration.add(new THREE.Vector3(
-            myMath.random(-speed, speed),
-            myMath.random(-speed, speed),
-            myMath.random(-speed, speed)
+            MyMath.random(-speed, speed),
+            MyMath.random(-speed, speed),
+            MyMath.random(-speed, speed)
         ));
 
         this.velocity.add(this.acceleration);
@@ -136,9 +136,9 @@ class Life {
     randomLook() {
         this.life.rotation.set(this.angle.x, this.angle.y, this.angle.z);
         this.angleAcceleration.add(new THREE.Vector3(
-            myMath.random(-0.01, 0.01),
-            myMath.random(-0.01, 0.01),
-            myMath.random(-0.01, 0.01)
+            MyMath.random(-0.01, 0.01),
+            MyMath.random(-0.01, 0.01),
+            MyMath.random(-0.01, 0.01)
         ));
         this.angleVelocity.add(this.angleAcceleration);
         this.angle.add(this.angleVelocity);
@@ -234,7 +234,7 @@ class Life {
 
         position.copyVector3sArray(noise);
 
-        this.sariraPosition = noise[Math.floor(myMath.random(0, 1089))];
+        this.sariraPosition = noise[Math.floor(MyMath.random(0, 1089))];
 
         this.life.geometry.computeVertexNormals();
         this.life.geometry.attributes.position.needsUpdate = true;
@@ -319,7 +319,7 @@ class Life {
             }
 
             //파티클 먹고 파티클 흡수 상태로 변경
-             else if (distance <= this.size * 0.55 && myMath.random(0, 1) < 0.55) {
+             else if (distance <= this.size * 0.55 && MyMath.random(0, 1) < 0.55) {
                 microPlastic.data.setAbsorbedBy(1);
                 this.absorbedParticles.push(microPlastic);
                 microPlastic.isEaten = true;
@@ -346,7 +346,7 @@ class Life {
             this.absorbedParticles[i].applyForce(force);
 
             //그중에서 일정 확률로 몇몇 파티클이 사리가 되도록 함
-            if (myMath.random(0, 5) < this.sariraSpeed && distance < sariraSpace && 
+            if (MyMath.random(0, 5) < this.sariraSpeed && distance < sariraSpace && 
                 this.absorbedParticles[i].becomeSarira == false && this.absorbedParticles.length < this.absorbPlasticNum){
 
                 this.absorbedParticles[i].data.setPassBy('');
@@ -382,18 +382,18 @@ class Life {
         if (this.sariraType == 1) {
             var sariraGeometry = new THREE.SphereGeometry(
                 sariraSize, 
-                Math.floor(myMath.random(3, 5)), 
-                Math.floor(myMath.random(2, 5)));
+                Math.floor(MyMath.random(3, 5)), 
+                Math.floor(MyMath.random(2, 5)));
         } else if (this.sariraType == 2){
             var sariraGeometry = new THREE.TetrahedronGeometry(
                 sariraSize, 
-                Math.floor(myMath.random(0, 5)));
+                Math.floor(MyMath.random(0, 5)));
         } else {
             var sariraGeometry = new THREE.CircleGeometry(
                 sariraSize, 
-                Math.floor(myMath.random(0, 24)),
+                Math.floor(MyMath.random(0, 24)),
                 0,
-                myMath.random(0, 6.3));
+                MyMath.random(0, 6.3));
         }
         
         var sariraMaterial = new THREE.MeshBasicMaterial({
@@ -421,9 +421,9 @@ class Life {
         if (this.age >= this.lifespan - 0.1){
             if (this.life.scale.x > 0.011){
                 // this.velocity.add(new THREE.Vector3(
-                //     myMath.random(-0.2, 0.2),
-                //     myMath.random(-0.2, 0.2),
-                //     myMath.random(-0.2, 0.2)));
+                //     MyMath.random(-0.2, 0.2),
+                //     MyMath.random(-0.2, 0.2),
+                //     MyMath.random(-0.2, 0.2)));
                 this.velLimit = 0.01;
                 this.velocity.multiplyScalar(0.1);
 
@@ -478,7 +478,7 @@ class Life {
             
             if (child != null){
                 child.position = this.position.clone();
-                //child.energy = myMath.random(0, (this.size + this.sizeMax)/2);
+                //child.energy = MyMath.random(0, (this.size + this.sizeMax)/2);
                 //child.lifeName = '(' + String(this.lifeName) + '\'s-child) ' + this.lifeName.replace(/[0-9]/g,"") + String(lifes.length);
                 //child.lifeName = this.lifeName.replace(/[0-9]/g,"") + String(lifes.length);
                 
@@ -533,28 +533,28 @@ class Life {
     set_ableToBreathPlasticList(){
         const percente = this.size / 25;
 
-        if (myMath.random(0, 1) < percente * 4) this.ableToBreathPlasticList.push("Polyethylene");
-        if (myMath.random(0, 1) < percente * 3) this.ableToBreathPlasticList.push("Polypropylene");
-        if (myMath.random(0, 1) < percente * 2) this.ableToBreathPlasticList.push("Polystyrene");
-        if (myMath.random(0, 1) < percente) this.ableToBreathPlasticList.push("Polyamide");
-        if (myMath.random(0, 1) < percente) this.ableToBreathPlasticList.push("Polyester");
-        if (myMath.random(0, 1) < percente) this.ableToBreathPlasticList.push("Acrylic");
-        if (myMath.random(0, 1) < percente) this.ableToBreathPlasticList.push("Polyacetal");
-        if (myMath.random(0, 1) < percente) this.ableToBreathPlasticList.push("PolyvinylChloride");
-        if (myMath.random(0, 1) < percente) this.ableToBreathPlasticList.push("Polyurethane");
+        if (MyMath.random(0, 1) < percente * 4) this.ableToBreathPlasticList.push("Polyethylene");
+        if (MyMath.random(0, 1) < percente * 3) this.ableToBreathPlasticList.push("Polypropylene");
+        if (MyMath.random(0, 1) < percente * 2) this.ableToBreathPlasticList.push("Polystyrene");
+        if (MyMath.random(0, 1) < percente) this.ableToBreathPlasticList.push("Polyamide");
+        if (MyMath.random(0, 1) < percente) this.ableToBreathPlasticList.push("Polyester");
+        if (MyMath.random(0, 1) < percente) this.ableToBreathPlasticList.push("Acrylic");
+        if (MyMath.random(0, 1) < percente) this.ableToBreathPlasticList.push("Polyacetal");
+        if (MyMath.random(0, 1) < percente) this.ableToBreathPlasticList.push("PolyvinylChloride");
+        if (MyMath.random(0, 1) < percente) this.ableToBreathPlasticList.push("Polyurethane");
     }
 
     set_ableToEatPlasticList(){
         const percente = this.size / 10;
 
-        if (myMath.random(0, 1) < 0.5) this.ableToEatPlasticList.push("Polyethylene");
-        if (myMath.random(0, 1) < 0.5) this.ableToEatPlasticList.push("Polypropylene");
-        if (myMath.random(0, 1) < percente) this.ableToEatPlasticList.push("Polystyrene");
-        if (myMath.random(0, 1) < percente) this.ableToEatPlasticList.push("Polyamide");
-        if (myMath.random(0, 1) < percente) this.ableToEatPlasticList.push("Polyester");
-        if (myMath.random(0, 1) < percente) this.ableToEatPlasticList.push("Acrylic");
-        if (myMath.random(0, 1) < percente) this.ableToEatPlasticList.push("Polyacetal");
-        if (myMath.random(0, 1) < percente) this.ableToEatPlasticList.push("PolyvinylChloride");
-        if (myMath.random(0, 1) < percente) this.ableToEatPlasticList.push("Polyurethane");
+        if (MyMath.random(0, 1) < 0.5) this.ableToEatPlasticList.push("Polyethylene");
+        if (MyMath.random(0, 1) < 0.5) this.ableToEatPlasticList.push("Polypropylene");
+        if (MyMath.random(0, 1) < percente) this.ableToEatPlasticList.push("Polystyrene");
+        if (MyMath.random(0, 1) < percente) this.ableToEatPlasticList.push("Polyamide");
+        if (MyMath.random(0, 1) < percente) this.ableToEatPlasticList.push("Polyester");
+        if (MyMath.random(0, 1) < percente) this.ableToEatPlasticList.push("Acrylic");
+        if (MyMath.random(0, 1) < percente) this.ableToEatPlasticList.push("Polyacetal");
+        if (MyMath.random(0, 1) < percente) this.ableToEatPlasticList.push("PolyvinylChloride");
+        if (MyMath.random(0, 1) < percente) this.ableToEatPlasticList.push("Polyurethane");
     }
 }

@@ -58,7 +58,7 @@ class BodySystem {
     update() {
         this.moveFloatingPlastics()
         this.updateSarira() //micro.getposition-microupdateBuffer-micro.switch
-        this.sarira.getPosition()
+        this.sarira.setPosition()
 
     }
 
@@ -82,7 +82,7 @@ class BodySystem {
 
         for (let [index, micro] of this.floatingPlasticsList.entries()) {
             let force = this.sarira.plasticList[0].attract(micro);
-            micro.getPosition(this.floatingBuffer.getBufferGeometry(), index);
+            micro.setPosition(this.floatingBuffer.getBufferGeometry(), index);
             micro.applyForce(force);
             micro.walk(this.floatingBuffer.getBufferGeometry(), index)
         }

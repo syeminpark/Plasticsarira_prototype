@@ -33,7 +33,7 @@ class Slider {
         this.mouseYPosition = e.clientY;
         let offset = this.sliderElement.offsetTop - this.mouseYPositionDifference
         // set the element's new position:
-        let constrainedOffset = myMath.constrain(offset, this.sliderBoundary.top, window.inner - this.sliderRect.height)
+        let constrainedOffset = MyMath.constrain(offset, this.sliderBoundary.top, window.inner - this.sliderRect.height)
         this.sliderElement.style.top = constrainedOffset+ "px";
     }
 
@@ -46,8 +46,8 @@ class Slider {
     adjustSize(metaDataLength) {
         this.sliderRect = this.sliderElement.getBoundingClientRect()
        
-        if (myMath.vhToPx(metaDataLength) > this.sliderBoundary.bottom  && this.sliderRect.height>10) {
-            this.sliderElement.style.height = myMath.pxToVh((this.sliderBoundary.height - (metaDataLength-this.overflowLength))) + "vh"
+        if (MyMath.vhToPx(metaDataLength) > this.sliderBoundary.bottom  && this.sliderRect.height>10) {
+            this.sliderElement.style.height = MyMath.pxToVh((this.sliderBoundary.height - (metaDataLength-this.overflowLength))) + "vh"
         }
         else{
             this.overflowLength=metaDataLength

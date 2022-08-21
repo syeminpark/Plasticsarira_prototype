@@ -5,7 +5,6 @@ let bodySystemController
 let serverClientCommunication
 let userDead = false;
 let virtualKeyboard
-let myMath
 
 
 checkDeviceType()
@@ -16,8 +15,6 @@ done()
 async function setup() {
     await userHoverGuide()
     await userSmallWindowGuide()
-
-    myMath=new MyMath();
 
     let dataOrganizer = new DataOrganizer(document.getElementById('userName').textContent)
     serverClientCommunication = new ServerClientCommunication(dataOrganizer)

@@ -39,9 +39,9 @@ class Sarira {
         }
     }
 
-    getPosition() {
+    setPosition() {
         for (let [index, plastic] of this.plasticList.entries()) {
-            plastic.getPosition(this.bufferGeometry, index);
+            plastic.setPosition(this.bufferGeometry, index);
         }
     }
 

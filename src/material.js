@@ -6,7 +6,6 @@ function createConvexMaterial() {
         clearcoat: 1,
         metalness: 0,
         clearcoatRoughness: 0,
-
     })
 }
 
