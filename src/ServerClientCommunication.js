@@ -2,7 +2,7 @@ class ServerClientCommunication {
     constructor(dataOrganizer) {
         this.url = `https://plasticsariraserver.herokuapp.com`
         //this.url = "http://localhost:3000"
-        this.dataOrganizer= dataOrganizer
+        this.dataOrganizer = dataOrganizer
 
 
         if (this.dataOrganizer.getOwner() == "admin" || this.dataOrganizer.getOwner() == "Admin") {
@@ -14,7 +14,7 @@ class ServerClientCommunication {
                     return;
                 }
             })
-        } 
+        }
     }
 
     async createUser() {
@@ -25,7 +25,7 @@ class ServerClientCommunication {
                 type: this.dataOrganizer.getType()
             });
             console.log(JSON.stringify(response))
-            
+
             this.dataOrganizer.setId(response.user._id)
             this.dataOrganizer.saveToSessionStorage()
 
@@ -114,12 +114,12 @@ class ServerClientCommunication {
         try {
             await $.get(`${this.url}/sarira`, {
                 page: "0",
-                limit: "20"
-                
+                limit: "100"
+
             }, response => {
-     
-               this.dataOrganizer.setOtherSariraData(response.allSariraData)
-               this.dataOrganizer.setTotalSariraCount(response.totalCount)
+
+                this.dataOrganizer.setOtherSariraData(response.allSariraData)
+                this.dataOrganizer.setTotalSariraCount(response.totalCount)
             })
 
         } catch (error) {
