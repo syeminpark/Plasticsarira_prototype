@@ -26,6 +26,7 @@ async function setup() {
     particleSystem_microPlastic.display(threeSystemController, 0.3)
 
     draw()
+
 }
 
 function draw() {
