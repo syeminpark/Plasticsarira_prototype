@@ -27,7 +27,21 @@ function createPointMaterial() {
     return new THREE.PointsMaterial({
         color: 'white',
         size: 0.3,
-        side: THREE.DoubleSide
+        side: THREE.DoubleSide,
+
     });
 }
 
+
+function createStandardMaterial() {
+    return new THREE.MeshStandardMaterial({
+        color: 'white',
+        transparent: true,
+        depthWrite:true,
+        depthTest:true,
+        opacity: 0.5,
+        metalness: 0.3,
+        roughness: 0.1,
+        side: THREE.DoubleSide,
+    });
+}

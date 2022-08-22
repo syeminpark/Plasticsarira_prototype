@@ -8,8 +8,6 @@ class Convex {
         this.threeSystem = threeSystem
         this.materialBack = material
         this.meshGeometry;
-
-
         this.convexMeshBack;
         this.convexMeshFront;
         this.materialFront = _.cloneDeep(this.materialBack)
@@ -42,7 +40,6 @@ class Convex {
             vertex.fromBufferAttribute(positionAttribute, i);
             this.vertices.push(vertex)
         }
-
         this.meshGeometry = new THREE.ConvexGeometry(this.vertices);
     }
 

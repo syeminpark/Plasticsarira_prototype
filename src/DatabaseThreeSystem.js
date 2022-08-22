@@ -2,14 +2,16 @@ class DataBaseThreeSystem extends ThreeSystem {
     constructor() {
         super()
         this.template = document.getElementById("template").text;
-        this.content= document.getElementById("content");
+        this.content = document.getElementById("content");
 
     }
 
     createElement(i) {
         let element = document.createElement("div");
         element.className = "list-item";
+
         element.innerHTML = this.template.replace('$', i);
+        this.elementName = element.querySelector(".description").innerHTML
         // Look up the element that represents the area
         // we want to render the scene
         this.element = element.querySelector(".scene");
@@ -21,6 +23,10 @@ class DataBaseThreeSystem extends ThreeSystem {
         this.scene.userData.camera = this.camera;
         this.scene.userData.controls = this.controls;
         this.scene.userData.element = this.element
+    }
+
+    getElementName() {
+        return this.elementName
     }
 
 }
