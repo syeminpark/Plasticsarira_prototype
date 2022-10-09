@@ -1,6 +1,15 @@
 class Life_user extends Life_Sarira {
     constructor(worldSize, Sarira_Material, Sarira_ConvexMaterial){
         super(0, worldSize, Sarira_Material, Sarira_ConvexMaterial);
+
+        this.position = new THREE.Vector3(); 
+        this.velocity = new THREE.Vector3(); 
+        this.acceleration = new THREE.Vector3(); 
+
+        this.angle = new THREE.Vector3(); 
+        this.angleVelocity = new THREE.Vector3(); 
+        this.angleAcceleration = new THREE.Vector3(); 
+ 
     }
 
     init(){
