@@ -28,21 +28,35 @@
 	</p>
 
 
+
 	<p class="fixedText copyRight"> © 2021 Water Dwellers </p>
-	<a id ="license" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License"
-		style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png">
-</img>
-</a>
+	<a id="license" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img
+			alt="Creative Commons License" style="border-width:0"
+			src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png">
+		</img>
+	</a>
 
 	<script id="template" type="notjs">
 		<div class="scene"></div>
 		<div class="description"> $</div>
 	</script>
 
+	<div id="contextMenu" class="context-menu" style="display: none">
+		<ul>
+			<li><a id="GLTF">Export GLTF</a></li>
+			<li><a id="OBJ">Export OBJ</a></li>
+			
+		</ul>
+	</div>
+
+
 
 
 	<!-- 라이브러리 영역 -->
+	
 	<script src="library/three.js"></script>
+	<script src="library/GLTFExporter.js"></script>
+	<script src="library/OBJExporter.js"></script>
 	<script src="library/OrbitControls.js"></script>
 	<script src="library/stats.min.js"></script>
 	<script src="library/KeyboardState.js"></script>
@@ -54,6 +68,7 @@
 		integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
 	<!-- 커스텀 스크립트 영역 -->
+	<script src="/src/SavedSarira.js"></script>
 	<script src="/src/DataOrganizer.js"></script>
 	<script src="/src/ServerClientCommunication.js"></script>
 

@@ -7,8 +7,8 @@ draw()
 
 async function setup() {
     checkAccessRoute()
-    createDomElement("div", true, "loader",null,document.body)
-    
+    createDomElement("div", true, "loader", null, document.body)
+
     let dataOrganizer = new DataOrganizer(document.getElementById('userName').textContent, document.getElementById('userId').textContent)
     serverClientCommunication = new ServerClientCommunication(dataOrganizer)
     //serverClientCommunication.getSariraById()
@@ -25,28 +25,19 @@ async function setup() {
     let convexMaterial = createConvexMaterial()
     let glassMaterial = createGlassMaterial()
     let pointMaterial = createPointMaterial()
+    let standardMaterial = createStandardMaterial()
     let data = dataOrganizer.getOtherSariraData()
 
+    let savedSariraList = []
 
     for (let i = 0; i < threeSystemList.length; i++) {
-        const geometry = new THREE.BoxGeometry(8, 8, 8);
-        const cube = new THREE.Mesh(geometry, glassMaterial);
-        threeSystemList[i].scene.add(cube);
-
-        let buffer = new Buffer(data[i].vertices)
-        buffer.initialize(pointMaterial)
-       buffer.render(threeSystemList[i])
-        buffer.bufferGeometry.setDrawRange(0, data[i].vertices.length)
-
-        if (data[i].vertices.length > 9) {
-            let convex = new Convex(threeSystemList[i], convexMaterial)
-            convex.updateVertices(buffer.bufferGeometry, data[i].vertices.length)
-            convex.initializeMesh()
-        }
+        let savedSarira = new SavedSarira(threeSystemList[i], data[i].vertices);
+        savedSarira.setGLTFExportMaterial(standardMaterial)
+        savedSarira.createCube(8, glassMaterial)
+        savedSarira.createSarira(pointMaterial, convexMaterial)
+        savedSariraList.push(savedSarira)
     }
-
     //add a function that cheks the num of vertices. if under 4 then only show the particls. 
-
 }
 
 

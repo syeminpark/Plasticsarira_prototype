@@ -1,7 +1,7 @@
 class Microplastic {
 
     //later create size and color parameter
-    constructor(threeSystem,particleMaterial) {
+    constructor(threeSystem) {
         this.velocity = new THREE.Vector3(1, 0, 0)
         this.acceleration = new THREE.Vector3(0, 0, 0)
         this.positionVector3 = new THREE.Vector3(0, 0, 0)
@@ -20,7 +20,7 @@ class Microplastic {
 
         this.positionList = [positionList.x, positionList.y, positionList.z]
         this.mass = density * this.size *2
-        this.tensileStrength = myMath.map(tensileStrength, 2596, 12400, 0, 0.1)
+        this.tensileStrength = MyMath.map(tensileStrength, 2596, 12400, 0, 0.1)
     }
 
     initializePassDataList(passDataList) {
@@ -47,7 +47,7 @@ class Microplastic {
          
     }
 
-    getPosition(bufferGeometry, index) {
+    setPosition(bufferGeometry, index) {
         bufferGeometry.attributes.position.needsUpdate = true
         //  bufferGeometry.attributes.color.needsUpdate = true
         let positionList = []

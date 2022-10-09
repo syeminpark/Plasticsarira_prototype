@@ -55,7 +55,7 @@ class Life {
 
         this.isReadyToDivision = false;
 
-        this.energy = myMath.random(this.size/2, this.size*3);
+        this.energy = MyMath.random(this.size/2, this.size*3);
         this.hungryValue = this.size*0.7;
         
         this.division_energy = this.size;
@@ -139,11 +139,11 @@ class Life {
         this.lifeMesh.position.set(this.position.x, this.position.y, this.position.z);
         this.position = this.lifeMesh.position;
 
-        const speed = myMath.mapRange(this.mass, 50, 0, 0.001, 0.04); 
+        const speed = MyMath.mapRange(this.mass, 50, 0, 0.001, 0.04); 
         this.acceleration.add(new THREE.Vector3(
-            myMath.random(-speed, speed),
-            myMath.random(-speed, speed),
-            myMath.random(-speed, speed)
+            MyMath.random(-speed, speed),
+            MyMath.random(-speed, speed),
+            MyMath.random(-speed, speed)
         ));
 
         this.velocity.add(this.acceleration);
@@ -155,9 +155,9 @@ class Life {
     randomLook() {
         this.lifeMesh.rotation.set(this.angle.x, this.angle.y, this.angle.z);
         this.angleAcceleration.add(new THREE.Vector3(
-            myMath.random(-0.01, 0.01),
-            myMath.random(-0.01, 0.01),
-            myMath.random(-0.01, 0.01)
+            MyMath.random(-0.01, 0.01),
+            MyMath.random(-0.01, 0.01),
+            MyMath.random(-0.01, 0.01)
         ));
         this.angleVelocity.add(this.angleAcceleration);
         this.angle.add(this.angleVelocity);
@@ -192,7 +192,7 @@ class Life {
 
         position.copyVector3sArray(noise);
 
-        this.sariraPosition = noise[Math.floor(myMath.random(0, 1089))];
+        this.sariraPosition = noise[Math.floor(MyMath.random(0, 1089))];
 
         this.lifeMesh.geometry.computeVertexNormals();
         this.lifeMesh.geometry.attributes.position.needsUpdate = true;
@@ -220,9 +220,9 @@ class Life {
         if (this.age >= this.lifespan - 0.1){
             if (this.lifeMesh.scale.x > 0.011){
                 // this.velocity.add(new THREE.Vector3(
-                //     myMath.random(-0.2, 0.2),
-                //     myMath.random(-0.2, 0.2),
-                //     myMath.random(-0.2, 0.2)));
+                //     MyMath.random(-0.2, 0.2),
+                //     MyMath.random(-0.2, 0.2),
+                //     MyMath.random(-0.2, 0.2)));
                 this.velLimit = 0.01;
                 this.velocity.multiplyScalar(0.1);
 
@@ -277,7 +277,7 @@ class Life {
             
             if (child != null){
                 child.position = this.position.clone();
-                //child.energy = myMath.random(0, (this.size + this.sizeMax)/2);
+                //child.energy = MyMath.random(0, (this.size + this.sizeMax)/2);
                 //child.lifeName = '(' + String(this.lifeName) + '\'s-child) ' + this.lifeName.replace(/[0-9]/g,"") + String(lifes.length);
                 //child.lifeName = this.lifeName.replace(/[0-9]/g,"") + String(lifes.length);
                 

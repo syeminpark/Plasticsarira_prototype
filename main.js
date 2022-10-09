@@ -8,6 +8,7 @@ let myMath;
 
 let world;
 let userDead = false;
+let virtualKeyboard
 
 checkDeviceType();
 moveToTopWindow();
@@ -18,12 +19,9 @@ async function setup() {
     //await userHoverGuide();
     //await userSmallWindowGuide();
 
-    myMath = new MyMath();
-
-    let dataOrganizer = new DataOrganizer(document.getElementById('userName').textContent);
-    serverClientCommunication = new ServerClientCommunication(dataOrganizer);
-    serverClientCommunication.createUser();
-
+    let dataOrganizer = new DataOrganizer(document.getElementById('userName').textContent)
+    serverClientCommunication = new ServerClientCommunication(dataOrganizer)
+    serverClientCommunication.createUser()
     threeSystemController = new ThreeSystemController();
     virtualKeyboard = new VirtualKeyboard();
 

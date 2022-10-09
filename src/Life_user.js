@@ -18,8 +18,8 @@ class Life_user extends Life_Sarira {
         this.size = myMath.random(3, 10);
         this.sizeMax = myMath.random(10, 20);
 
-        this.noiseShape = myMath.random(0.05, 0.1);
-        this.noiseAnimSpeed = myMath.random(0.1, 0.7);
+        this.noiseShape = MyMath.random(0.05, 0.1);
+        this.noiseAnimSpeed = MyMath.random(0.1, 0.7);
 
         this.lifeName = 'user';
         this.lifespan = 250;

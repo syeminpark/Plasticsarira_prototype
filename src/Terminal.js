@@ -22,8 +22,8 @@ class Terminal {
         this.popupTitleSize= "0.8"
 
         this.canvas = document.querySelector('#sarira')
-        this.initialSpace = myMath.pxToVh(this.canvas.getBoundingClientRect().bottom) + this.space
-        this.leftPosition = myMath.pxToVw(this.canvas.getBoundingClientRect().left)
+        this.initialSpace = MyMath.pxToVh(this.canvas.getBoundingClientRect().bottom) + this.space
+        this.leftPosition = MyMath.pxToVw(this.canvas.getBoundingClientRect().left)
 
         //Get Names Of index.html div Elements
         this.categoryList = []
