@@ -103,7 +103,7 @@ class UserController {
             if (this.isLifeFocusOn == true) {
                 this.camera_focusOn_init();
             } else {
-                this.camera_focusOff_init();
+                this.camera_focusOff_init2();
                 //console.log('orbit control on' + this.orbitControl.enabled);
             }
         }
@@ -211,6 +211,14 @@ class UserController {
         this.orbitControl.enablePan = true;
         this.orbitControl.enableZoom = true;
         this.orbitControl.enabled = true;
+    }
+
+    camera_focusOff_init2() {
+        const camDir = this.pointerLockControl.getDirection(this.cam.position.clone()).multiplyScalar(this.camDis);
+        const camDis = new THREE.Vector3().subVectors(this.user.position.clone(), this.cam.position.clone()).setLength(this.worldSize * 1.5);
+
+        this.cam.lookAt(this.user.position.clone());
+        this.camLerpPos = new THREE.Vector3().subVectors(this.user.position.clone(), camDis);
     }
 
     camera_focusOn_init() {
