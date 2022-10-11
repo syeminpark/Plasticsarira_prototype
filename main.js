@@ -4,11 +4,9 @@ let serverClientCommunication;
 
 let userController;
 let virtualKeyboard;
-let myMath;
 
 let world;
 let userDead = false;
-let virtualKeyboard
 
 checkDeviceType();
 moveToTopWindow();

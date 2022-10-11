@@ -16,9 +16,9 @@ class World {
 
     updateWolrdData() {
         this.flow = new THREE.Vector3(
-            myMath.random(-this.velMin, this.velMin),
-            myMath.random(-this.velMin, this.velMin),
-            myMath.random(-this.velMin, this.velMin));
+            MyMath.random(-this.velMin, this.velMin),
+            MyMath.random(-this.velMin, this.velMin),
+            MyMath.random(-this.velMin, this.velMin));
     }
 
     createParticle() {
