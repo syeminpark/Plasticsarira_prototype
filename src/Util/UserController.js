@@ -215,7 +215,7 @@ class UserController {
 
     camera_focusOff_init2() {
         const camDir = this.pointerLockControl.getDirection(this.cam.position.clone()).multiplyScalar(this.camDis);
-        const camDis = new THREE.Vector3().subVectors(this.user.position.clone(), this.cam.position.clone()).setLength(this.worldSize * 1.5);
+        const camDis = new THREE.Vector3().subVectors(this.user.position.clone(), this.cam.position.clone()).setLength(this.worldSize * 2);
 
         this.cam.lookAt(this.user.position.clone());
         this.camLerpPos = new THREE.Vector3().subVectors(this.user.position.clone(), camDis);

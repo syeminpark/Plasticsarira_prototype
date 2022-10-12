@@ -2,7 +2,6 @@ var particleShader = {
     vertexShader: [
         // 전역변수
         'uniform float uScale;',
-        'uniform int isActivate',
 
         // 속성 (변화값)
         'attribute vec3 positionStart;',
@@ -10,12 +9,15 @@ var particleShader = {
         'attribute vec3 acceleration;',
         'attribute vec3 color;',
         'attribute float size;',
+        'attribute float activate;',
 
         // fragment 셰이더에 넣는 값
         'varing vec4 vColor;',
+        'varying float isActivate;',
 
         'void main(){',
             'vColor = vec4(color, 1.0);',
+            'isActivate = activate;',
             
             'vec3 newPosition;',
             'vec3 vel;',
@@ -44,7 +46,7 @@ var particleShader = {
     ].join('\n'),
     fragmentShader:[
         'varying vec4 vColor;',
-        'varying int isActivate;',
+        'varying float isActivate;',
 
         'void main() {',
             'float alpha = 0.;',

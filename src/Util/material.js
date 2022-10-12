@@ -46,3 +46,36 @@ function createStandardMaterial() {
     });
 }
 
+function createParticleMaterial(){
+    return new THREE.ShaderMaterial( {
+		transparent: true,
+		depthWrite: false,
+		uniforms: {
+			'uScale': {
+				value: 1.0
+			},
+			'isActivate': {
+				value: 1
+			}
+		},
+		blending: THREE.AdditiveBlending,
+		vertexShader: particleShader.vertexShader,
+		fragmentShader: particleShader.fragmentShader
+	} );
+}
+
+function createLifeMaterial(){
+    return new THREE.ShaderMaterial({
+        uniforms:
+        {
+            "c": { type: "f", value: 1.0 },
+            "p": { type: "f", value: 1.4 },
+            glowColor: { type: "c", value: new THREE.Color(0xffffff) },
+            viewVector: { type: "v3", value: threeSystemController.worldThreeSystem.camera.position }
+        },
+        vertexShader: lifeShader.vertexShader, 
+        fragmentShader: lifeShader.fragmentShader, 
+        side: THREE.FrontSide,
+        blending: THREE.AdditiveBlending
+    });
+}

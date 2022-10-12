@@ -68,19 +68,7 @@ class Life {
         //     transparent: true,
         //     opacity: 0.5,
         // });
-        let material = new THREE.ShaderMaterial({
-            uniforms:
-            {
-                "c": { type: "f", value: 1.0 },
-                "p": { type: "f", value: 1.4 },
-                glowColor: { type: "c", value: new THREE.Color(0xffffff) },
-                viewVector: { type: "v3", value: threeSystemController.worldThreeSystem.camera.position }
-            },
-            vertexShader: lifeShader.vertexShader, //document.getElementById('vertexShader').textContent,
-            fragmentShader: lifeShader.fragmentShader, //document.getElementById('fragmentShader').textContent,
-            side: THREE.FrontSide,
-            blending: THREE.AdditiveBlending
-        });
+        let material = createLifeMaterial();
         material.transparent = true;
         let geometry = new THREE.SphereGeometry(this.size, 32, 32);
 

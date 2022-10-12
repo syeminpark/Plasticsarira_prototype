@@ -23,7 +23,7 @@ async function setup() {
     threeSystemController = new ThreeSystemController();
     virtualKeyboard = new VirtualKeyboard();
 
-    world = new World(200);
+    world = new World(300);
 
     userController = new UserController(world, virtualKeyboard);
 

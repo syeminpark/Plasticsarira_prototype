@@ -70,8 +70,16 @@ class Food extends Particle {
 }
 
 class MicroPlastic extends Particle {
-  constructor(index, worldSize) {
+  constructor(index, worldSize, plasticPos) {
     super(index, worldSize);
+
+    if (plasticPos != null){
+      this.position = new THREE.Vector3(
+        plasticPos.x,
+        plasticPos.y,
+        plasticPos.z);
+    }
+
     this.type = 1; //plastic
     this.data = new MicroplasticDatabase();
 

@@ -2,6 +2,9 @@
 class World {
     constructor(worldSize) {
         this.worldSize = worldSize;
+        this.maxParticleCount = 100000;
+
+        this.plastic = new PlasticSpawner();
 
         //흐름(속력+방향)
         this.velMin = 0.002;
@@ -9,6 +12,10 @@ class World {
         //파티클, 라이프 초기화
         this.createParticle();
         this.createLife();
+
+        //플라스틱 넣기
+        this.plastic.loadFile();
+        this.addPlastic();
 
         //파티클, 라이프 그리기
         this.drawParticles();
@@ -23,7 +30,8 @@ class World {
 
     createParticle() {
         //생성
-        let plasticNum = this.worldSize * 80;
+        //let plasticNum = this.worldSize * 80;
+        let plasticNum = 100;
         let foodNum = this.worldSize * 40;
 
         this.particles = [];
@@ -33,7 +41,6 @@ class World {
             let p = new MicroPlastic(i, this.worldSize);
             this.particles.push(p);
             this.particlePositions.push(p.position);
-
         }
 
         // for (let i = plasticNum; i < foodNum + plasticNum; i++) {
@@ -41,6 +48,17 @@ class World {
         //     this.particles.push(p);
         //     this.particlePositions.push(p.position);
         // }
+    }
+
+    addPlastic(){
+        let plasticNum = this.plastic.particleCount;
+        let plasticPosArray = this.plastic.particlePosArray;
+
+        for (let i = 0; i < plasticNum; i++) {
+            let p = new MicroPlastic(this.particles.length + i, this.worldSize, plasticPosArray[i]);
+            this.particles.push(p);
+            this.particlePositions.push(p.position);
+        }
     }
 
     createLife() {
