@@ -45,3 +45,4 @@ function createStandardMaterial() {
         side: THREE.DoubleSide,
     });
 }
+
