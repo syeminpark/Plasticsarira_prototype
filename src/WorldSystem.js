@@ -2,9 +2,7 @@
 class World {
     constructor(worldSize) {
         this.worldSize = worldSize;
-        this.maxParticleCount = 100000;
-
-        this.plastic = new PlasticSpawner();
+        this.maxParticleCount = 1000;
 
         //흐름(속력+방향)
         this.velMin = 0.002;
@@ -13,49 +11,21 @@ class World {
         this.createParticle();
         this.createLife();
 
-        //플라스틱 넣기
-        this.plastic.loadFile();
-        this.addPlastic();
-
         //파티클, 라이프 그리기
         this.drawParticles();
-    }
-
-    updateWolrdData() {
-        this.flow = new THREE.Vector3(
-            MyMath.random(-this.velMin, this.velMin),
-            MyMath.random(-this.velMin, this.velMin),
-            MyMath.random(-this.velMin, this.velMin));
+        
+        //플라스틱 넣기
+        this.loader_gltf = new THREE.GLTFLoader();
+        //this.addPlastic();
     }
 
     createParticle() {
         //생성
-        //let plasticNum = this.worldSize * 80;
-        let plasticNum = 100;
-        let foodNum = this.worldSize * 40;
-
         this.particles = [];
         this.particlePositions = [];
 
-        for (let i = 0; i < plasticNum; i++) {
+        for (let i = 0; i < this.maxParticleCount; i++) {
             let p = new MicroPlastic(i, this.worldSize);
-            this.particles.push(p);
-            this.particlePositions.push(p.position);
-        }
-
-        // for (let i = plasticNum; i < foodNum + plasticNum; i++) {
-        //     let p = new Food(i, this.worldSize);
-        //     this.particles.push(p);
-        //     this.particlePositions.push(p.position);
-        // }
-    }
-
-    addPlastic(){
-        let plasticNum = this.plastic.particleCount;
-        let plasticPosArray = this.plastic.particlePosArray;
-
-        for (let i = 0; i < plasticNum; i++) {
-            let p = new MicroPlastic(this.particles.length + i, this.worldSize, plasticPosArray[i]);
             this.particles.push(p);
             this.particlePositions.push(p.position);
         }
@@ -100,11 +70,17 @@ class World {
     }
 
     drawParticles() {
+        // let geometry = new THREE.BufferGeometry();
         let geometry = new THREE.BufferGeometry().setFromPoints(this.particlePositions);
-        let material = createPointMaterial();
+        // geometry.setAttribute( 'position', new THREE.BufferAttribute( new Float32Array( this.maxParticleCount * 3 ), 3));
+        geometry.setAttribute( 'color', new THREE.BufferAttribute( new Float32Array( this.maxParticleCount * 3 ), 3));
+        geometry.setDrawRange(0, this.maxParticleCount);
+
+        let material = createParticleMaterial();
 
         this.particleAppearence = new THREE.Points(geometry, material);
         this.particleAppearence.position.set(0, 0, 0);
+        console.log(this.particleAppearence.geometry);
 
         threeSystemController.addToWorldScene(this.particleAppearence);
     }
@@ -116,12 +92,105 @@ class World {
         this.updateLifes();
     }
 
-    updateParticles() {
-        const particlePos = this.particleAppearence.geometry.attributes.position.array; 
-        // buffer attribute position array
+    addPlastic(){
+        // 1. 파일 로드
+        // 2. 생성할 파티클 갯수 확인
+        // 3. isActive == false 인 파티클 갯수 확인
+        // 4. 2, 3번 비교하여 2 < 3 이면 isActive == false인 파티클에만 위치, 색상 적용
+        
+        let canAddPlastic = false;
 
+        let plasticPos_arr = [];
+        let plasticColor_arr = [];
+        let activableParticle = [];
+
+        this.loader_gltf.load(
+            // resource URL
+            '../models/plasticTest.gltf',
+            // called when the resource is loaded
+            function ( gltf ) {
+
+                gltf.scene.traverse( function ( child ) {
+                    if ( child.isObject3D ) {
+                        //child.material.envMap = envMap;
+                        //Setting the buffer geometry
+
+                        //child.geometry;
+                        console.log(child);
+                        if (child.geometry != null){
+                            let posAttribute = child.geometry.getAttribute( 'position' ).array;
+                            for (let i = 0; i < posAttribute.length; i+=3) {
+                                plasticPos_arr.push(
+                                    new THREE.Vector3(
+                                        posAttribute[i + 0], 
+                                        posAttribute[i + 1], 
+                                        posAttribute[i + 2]));
+                            }
+                            
+                            let colorAttribute = child.geometry.getAttribute( 'color' ).array;
+                            for (let i = 0; i < colorAttribute.length; i+=3) {
+                                plasticColor_arr.push(
+                                    new THREE.Color(
+                                        colorAttribute[i + 0], 
+                                        colorAttribute[i + 1], 
+                                        colorAttribute[i + 2]));
+                            }
+                        }
+                    }
+                } );
+
+                for (let i = 0; i < this.particles.length; i++) {
+                    if (this.particles[i].isActive){
+                        activableParticle.push(this.particles[i]);
+                    }
+                }
+
+                if (activableParticleCount >= plasticPos_arr.length){
+                    canAddPlastic = true;
+                }
+
+                if (canAddPlastic){
+                    for (let i = 0; i < plasticPos_arr.length; i++) {
+                        activableParticle[i].isActive = true;
+                        activableParticle[i].setPos(plasticPos_arr[i]);
+                        activableParticle[i].setColor(plasticColor_arr[i]);
+                    }
+
+                    plasticPos_arr = [];
+                    plasticColor_arr = [];
+                    activableParticle = [];
+                    canAddPlastic = false;
+                }
+            }, 
+            // called while loading is progressing
+            function ( xhr ) {
+                console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+            },
+            // called when loading has errors
+            function ( error ) {
+                console.log( 'An error happened' );
+                console.log( error );
+            }
+        );
+    }
+
+    updateWolrdData() {
+        this.flow = new THREE.Vector3(
+            MyMath.random(-this.velMin, this.velMin),
+            MyMath.random(-this.velMin, this.velMin),
+            MyMath.random(-this.velMin, this.velMin));
+    }
+
+    updateParticles() {
+        //const particlePos = this.particleAppearence.geometry.attributes.position.array; 
+        var particlePos = this.particleAppearence.geometry.getAttribute( 'position' ).array;
         for (let i = 0; i < particlePos.length; i += 3) {
             const index = i / 3;
+
+            if (this.particles[index].isActive == false){
+                this.particles[index].position = new THREE.Vector3(0,0,0);
+                continue;
+            }
 
             particlePos[i + 0] = this.particles[index].position.x;
             particlePos[i + 1] = this.particles[index].position.y;
@@ -138,8 +207,27 @@ class World {
             this.life_user.eat(this.particles[index]);
             this.life_user.breath(this.particles[index]);
         }
+        this.particleAppearence.geometry.attributes.position.needsUpdate = true; 
 
-        this.particleAppearence.geometry.attributes.position.needsUpdate = true;
+        var particleColor = this.particleAppearence.geometry.getAttribute( 'color' ).array;
+        for (let i = 0; i < particleColor.length; i += 3) {
+            const index = i / 3;
+
+            if (this.particles[index].isActive == false){
+                this.particles[index].setColor = new THREE.Color(0,0,0);
+                continue;
+            }
+
+            particleColor[i + 0] = this.particles[index].color.r;
+            particleColor[i + 1] = this.particles[index].color.g;
+            particleColor[i + 2] = this.particles[index].color.b;
+
+            //파티클이 사리가 됐으면 색을 검정색으로 바꿈 (안보이게)
+            
+        }        
+        this.particleAppearence.geometry.attributes.color.needsUpdate = true;
+
+        //console.log(this.particleAppearence.geometry);
     }
 
     updateLifes() {

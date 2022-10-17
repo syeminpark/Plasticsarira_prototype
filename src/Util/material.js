@@ -47,21 +47,14 @@ function createStandardMaterial() {
 }
 
 function createParticleMaterial(){
-    return new THREE.ShaderMaterial( {
-		transparent: true,
-		depthWrite: false,
-		uniforms: {
-			'uScale': {
-				value: 1.0
-			},
-			'isActivate': {
-				value: 1
-			}
-		},
-		blending: THREE.AdditiveBlending,
-		vertexShader: particleShader.vertexShader,
-		fragmentShader: particleShader.fragmentShader
-	} );
+    return new THREE.PointsMaterial({
+        color: 'white',
+        size: 1.,
+        side: THREE.DoubleSide,
+        opacity: 1.,
+        transparent: true,
+        vertexColors: true,
+    });
 }
 
 function createLifeMaterial(){

@@ -131,11 +131,11 @@ class Life_Absorb extends Life {
 
             //그중에서 일정 확률로 몇몇 파티클이 사리가 되도록 함
             if (MyMath.random(0, 5) < this.sariraSpeed && distance < sariraSpace &&
-                this.absorbedParticles[i].becomeSarira == false && this.absorbedParticles.length < this.absorbPlasticNum) {
+                this.absorbedParticles[i].isSarira == false && this.absorbedParticles.length < this.absorbPlasticNum) {
 
                 this.absorbedParticles[i].data.setPassBy('');
 
-                this.absorbedParticles[i].becomeSarira = true;
+                this.absorbedParticles[i].isSarira = true;
 
                 this.sariraParticles.push(this.absorbedParticles[i]);
                 this.sariraParticlesData.push(this.absorbedParticles[i].data.getDataList());

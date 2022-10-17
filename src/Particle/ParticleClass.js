@@ -18,6 +18,7 @@ class Particle {
     this.opacity = 1.0;
 
     this.isEaten = false;
+    this.isActive = false;
   }
 
   initPos(){
@@ -27,6 +28,14 @@ class Particle {
       MyMath.random(-this.worldSize, this.worldSize));
 
     if (this.position.length() > this.worldSize) this.position.setLength(this.worldSize);
+  }
+
+  setPos(newPos){
+    this.position = newPos;
+  }
+
+  setColor(newColor){
+    this.color = newColor;
   }
 
   applyForce(force) {
@@ -87,7 +96,7 @@ class MicroPlastic extends Particle {
     this.set_plasticType();
     this.set_passByArray();
 
-    this.becomeSarira = false;
+    this.isSarira = false;
     this.toxicity = false;
 
     this.area = 0;
