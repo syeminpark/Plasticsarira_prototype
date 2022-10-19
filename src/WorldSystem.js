@@ -111,12 +111,16 @@ class World {
 
         this.canAddPlastic = false;
 
-        this.plasticPos = new THREE.Vector3(
-            MyMath.random(-this.worldSize * 0.5, this.worldSize * 0.5), 
-            MyMath.random(-this.worldSize * 0.5, this.worldSize * 0.5), 
-            MyMath.random(-this.worldSize * 0.5, this.worldSize * 0.5));
-        console.log("plastic position = ");
-        console.log(this.plasticPos);
+        this.plasticOffsetPosition = new THREE.Vector3(
+            MyMath.random(-this.worldSize * 0.2, this.worldSize * 0.2), 
+            MyMath.random(-this.worldSize * 0.2, this.worldSize * 0.2), 
+            MyMath.random(0, this.worldSize * 0.2));
+
+        this.plasticRotation = new THREE.Vector3(
+            Math.PI * MyMath.random(0, 2), 
+            Math.PI * MyMath.random(0, 2), 
+            Math.PI * MyMath.random(0, 2));
+
         this.plasticScale = 3;
 
         this.plasticPositions = [];
@@ -139,11 +143,22 @@ class World {
             var colors = new Float32Array(this.fileData.count);
         
             for (let i = 0; i < positions.length; i+=3) {
-                this.plasticPositions.push(
-                    new THREE.Vector3(
-                        (this.fileData.position[i + 0] * this.plasticScale) + this.plasticPos.x, 
-                        (this.fileData.position[i + 1] * this.plasticScale) + this.plasticPos.y, 
-                        (this.fileData.position[i + 2] * this.plasticScale) + this.plasticPos.z));
+                let newPos = new THREE.Vector3( 
+                    this.fileData.position[i + 0],
+                    this.fileData.position[i + 1],
+                    this.fileData.position[i + 2]);
+                console.log(newPos);
+
+                newPos.multiplyScalar(this.plasticScale);
+
+                let quaternion = new THREE.Quaternion();
+                quaternion.setFromAxisAngle( new THREE.Vector3( 0, 0, 1 ), this.plasticRotation.z );
+                newPos.applyQuaternion( quaternion );
+
+                newPos.add(this.plasticOffsetPosition);
+                console.log(newPos);
+
+                this.plasticPositions.push(newPos);
             }
             for (let i = 0; i < colors.length; i+=3) {
                 this.plasticColors.push(
