@@ -4,7 +4,7 @@ class Particle {
 
     this.worldSize = worldSize;
 
-    this.initPos();
+    this.initPos(false);
     this.initWrap();
     this.mass = MyMath.random(0, 1);
 
@@ -21,13 +21,16 @@ class Particle {
     this.isActive = false;
   }
 
-  initPos(){
-    this.position = new THREE.Vector3(
-      MyMath.random(-this.worldSize, this.worldSize),
-      MyMath.random(-this.worldSize, this.worldSize),
-      MyMath.random(-this.worldSize, this.worldSize));
-
-    if (this.position.length() > this.worldSize) this.position.setLength(this.worldSize);
+  initPos(isRandomPos){
+    if (isRandomPos == true){
+      this.position = new THREE.Vector3(
+        MyMath.random(-this.worldSize, this.worldSize),
+        MyMath.random(-this.worldSize, this.worldSize),
+        MyMath.random(-this.worldSize, this.worldSize));
+      if (this.position.length() > this.worldSize) this.position.setLength(this.worldSize);
+    } else {
+      this.position = new THREE.Vector3( 0, this.worldSize - 1, 0);
+    }
   }
 
   setPos(newPos){
@@ -73,7 +76,7 @@ class Food extends Particle {
   Eaten(){
     //먹히면 사라지고 World 어딘가에 리스폰
     if (this.isEaten == true){
-      super.initPos();
+      super.initPos(true);
     }
   }
 }

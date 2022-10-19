@@ -49,7 +49,7 @@ function createStandardMaterial() {
 function createParticleMaterial(){
     return new THREE.PointsMaterial({
         color: 'white',
-        size: 1.,
+        size: .3,
         side: THREE.DoubleSide,
         opacity: 1.,
         transparent: true,
