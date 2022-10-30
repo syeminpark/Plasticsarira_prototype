@@ -9,7 +9,6 @@ class Life_user extends Life_Sarira {
         this.angle = new THREE.Vector3(); 
         this.angleVelocity = new THREE.Vector3(); 
         this.angleAcceleration = new THREE.Vector3(); 
- 
     }
 
     init(){
@@ -17,9 +16,6 @@ class Life_user extends Life_Sarira {
 
         this.size = MyMath.random(3, 10);
         this.sizeMax = MyMath.random(10, 20);
-
-        this.noiseShape = MyMath.random(0.05, 0.1);
-        this.noiseAnimSpeed = MyMath.random(0.1, 0.7);
 
         this.lifeName = 'user';
         this.lifespan = 250;
@@ -29,11 +25,9 @@ class Life_user extends Life_Sarira {
         this.lifeMesh.position.set(this.position.x, this.position.y, this.position.z);
         this.lifeMesh.rotation.set(this.angle.x, this.angle.y, this.angle.z);
 
-        this.lifeGo();
-
         if (this.isDead == false){
             //this.MyMath.randomWalk();
-            this.updateNoise();
+            this.updateShaderMat();
             this.wrapParticles();
             this.add_MicroPlasticToBodySystem();
         }
@@ -41,6 +35,17 @@ class Life_user extends Life_Sarira {
         this.bodySystem.update();
         this.bodySystem.getLifePosition(_.cloneDeep(this.position));
         this.bodySystemWindow.update();
+    }
+
+    lifeGo(){
+        super.lifeGo(deadAlert);
+    }
+
+    shaderCalculate(camPos){
+        if (this.lifeMesh.material.uniforms.viewVector.value){
+            this.lifeMesh.material.uniforms.viewVector.value = 
+                new THREE.Vector3().subVectors( camPos, this.position );
+        }
     }
 
     createWindowBodySystem(microPlastic_Material, microPlastic_ConvexMaterial) {
@@ -92,10 +97,6 @@ class Life_user extends Life_Sarira {
         for (let j = 0; j < this.sariraParticles.length; j++) {
             this.sariraParticles[j].position = this.position.clone();
         }
-    }
-
-    lifeGo(){
-        super.lifeGo(deadAlert);
     }
 }
 

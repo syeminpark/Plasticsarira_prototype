@@ -5,7 +5,7 @@ class World {
         this.maxParticleCount = 10000;
 
         //흐름(속력+방향)
-        this.velMin = 0.02;
+        this.velMin = 0.001;
 
         //파티클, 라이프 초기화
         this.createParticle();
@@ -76,23 +76,26 @@ class World {
         this.tertiaryNum = minNum_t;
         this.lifeNum = 1 + this.primaryNum + this.secondaryNum + this.tertiaryNum;
 
-        let Sarira_Material = createPointMaterial();
-        let Sarira_ConvexMaterial = createConvexMaterial();
+        let options = {
+            worldSize: this.worldSize, 
+            Sarira_Material: createPointMaterial(), 
+            Sarira_ConvexMaterial: createConvexMaterial()
+        }
 
         this.lifes = [];
-        this.life_user = new Life_user(this.worldSize, Sarira_Material, Sarira_ConvexMaterial);
+        this.life_user = new Life_user(options);
         this.lifes.push(this.life_user);
         this.lifes[0].createWindowBodySystem();
 
         for (let i = 1; i < this.lifeNum; i++) {
             if (i < 1 + this.primaryNum) {
-                const l = new Life_primaryConsumer(i, this.worldSize, Sarira_Material, Sarira_ConvexMaterial);
+                const l = new Life_primaryConsumer(i, options);
                 this.lifes.push(l);
             } else if (i < 1 + this.primaryNum + this.secondaryNum && i >= 1 + this.primaryNum) {
-                const l = new Life_secondaryConsumer(i, this.worldSize, Sarira_Material, Sarira_ConvexMaterial);
+                const l = new Life_secondaryConsumer(i, options);
                 this.lifes.push(l);
             } else {
-                const l = new Life_tertiaryConsumer(i, this.worldSize, Sarira_Material, Sarira_ConvexMaterial);
+                const l = new Life_tertiaryConsumer(i, options);
                 this.lifes.push(l);
             }
         }
@@ -112,9 +115,9 @@ class World {
         this.canAddPlastic = false;
 
         this.plasticOffsetPosition = new THREE.Vector3(
-            MyMath.random(-this.worldSize * 0.2, this.worldSize * 0.2), 
-            MyMath.random(-this.worldSize * 0.2, this.worldSize * 0.2), 
-            MyMath.random(0, this.worldSize * 0.2));
+            MyMath.random(-this.worldSize * 0.4, this.worldSize * 0.4), 
+            MyMath.random(-this.worldSize * 0.4, this.worldSize * 0.4), 
+            MyMath.random(0, this.worldSize * 0.4));
 
         this.plasticRotation = new THREE.Vector3(
             Math.PI * MyMath.random(0, 2), 
@@ -147,7 +150,7 @@ class World {
                     this.fileData.position[i + 0],
                     this.fileData.position[i + 1],
                     this.fileData.position[i + 2]);
-                console.log(newPos);
+                //console.log(newPos);
 
                 newPos.multiplyScalar(this.plasticScale);
 
@@ -156,7 +159,7 @@ class World {
                 newPos.applyQuaternion( quaternion );
 
                 newPos.add(this.plasticOffsetPosition);
-                console.log(newPos);
+                //console.log(newPos);
 
                 this.plasticPositions.push(newPos);
             }
@@ -214,18 +217,12 @@ class World {
     }
 
     update() {
-        this.updateWolrdData();
-        
         if (this.fileLoaded == true){
             this.addPlastic();
         }
 
         this.updateParticles();
         this.updateLifes();
-    }
-
-    updateWolrdData() {
-        
     }
 
     updateParticles() {
@@ -284,17 +281,9 @@ class World {
 
     updateLifes() {
         for (let i = 0; i < this.lifes.length; i++) {
-            this.lifes[i].update();
-            if (this.primaryNum < this.maxNum_p && this.lifes[i].lifeName.includes('Plankton') == true) this.lifes[i].division(this.lifes, this);
-            if (this.secondaryNum < this.maxNum_s && this.lifes[i].lifeName.includes('Herbivores') == true) this.lifes[i].division(this.lifes, this);
-            if (this.tertiaryNum < this.maxNum_t && this.lifes[i].lifeName.includes('Carnivores') == true) this.lifes[i].division(this.lifes, this);
 
-            // for (let j = 0; j < this.lifes.length; j++){
-            //     this.lifes[i].eatLife(this.lifes[j]);
-            // }
-        }
+            this.lifes[i].lifeGo();
 
-        for (let i = this.lifes.length - 1; i >= 0; i--) {
             if (this.lifes[i].isDead == true) {
                 if (this.lifes[i].lifeName.includes('Plankton') == true) {
                     this.primaryNum--;
@@ -310,14 +299,36 @@ class World {
                 }
 
                 this.lifes.splice(i, 1);
+                continue;
+            }
+
+            this.lifes[i].update();
+
+            if (this.tertiaryNum < this.maxNum_t && this.lifes[i].lifeName.includes('Carnivores') == true) {
+                this.lifes[i].division(this.lifes, this);
+                continue;
+            }
+            if (this.secondaryNum < this.maxNum_s && this.lifes[i].lifeName.includes('Herbivores') == true) {
+                this.lifes[i].division(this.lifes, this);
+                continue;
+            }
+            if (this.primaryNum < this.maxNum_p && this.lifes[i].lifeName.includes('Plankton') == true) {
+                this.lifes[i].division(this.lifes, this);
+                continue;
+            }
+
+            for (let j = 0; j < this.lifes.length; j++){
+                this.lifes[i].pushOtherLife(this.lifes[j]);
+                //this.lifes[i].eatLife(this.lifes[j]);
             }
         }
 
         if (this.primaryNum <= 0) {
-            const l = new Life_primaryConsumer(this.lifes.length, this.worldSize);
+            const l = new Life_primaryConsumer(this.lifes.length, this.worldSize, createPointMaterial(), createConvexMaterial());
             this.lifes.push(l);
             //console.log('all primaryConsumer dead, add new');
         }
+
         // if (this.secondaryNum <= 0) {
         //     const l = new Life_secondaryConsumer(this.lifes.length, this.worldSize);
         //     this.lifes.push(l);

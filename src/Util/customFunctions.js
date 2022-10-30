@@ -48,6 +48,9 @@ function readTextFile(file, callback, thisObj) {
   rawFile.open("GET", file, true);
   rawFile.onreadystatechange = function() {
       if (rawFile.readyState === 4 && rawFile.status == "200") {
+        // .call 붙인 이유 - class에서 사용하는 this.를 콜백에선 다른 것으로 인식. 
+        // 때문에 this가 나타내는 객체를 지정해줌.
+        // class에서 사용하지 않을 경우 null
           callback.call(thisObj, rawFile.responseText);
       }
   }

@@ -1,7 +1,7 @@
 // 파티클 흡수하는 Life
 class Life_Absorb extends Life {
-    constructor(index, worldSize) {
-        super(index, worldSize);
+    constructor(index, worldSize, setPos) {
+        super(index, worldSize, setPos);
 
         this.setMicroPlastic();
     }
@@ -177,8 +177,8 @@ class Life_Absorb extends Life {
 
 // 사리 만드는 Life
 class Life_Sarira extends Life_Absorb {
-    constructor(index, worldSize, Sarira_Material, Sarira_ConvexMaterial) {
-        super(index, worldSize);
+    constructor(index, worldSize, setPos, Sarira_Material, Sarira_ConvexMaterial) {
+        super(index, worldSize, setPos);
 
         this.bodySystem = new BodySystem(this.index);
 

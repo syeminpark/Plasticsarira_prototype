@@ -71,6 +71,10 @@ class ThreeSystemController {
         this.worldThreeSystem.addToScreen(...args);
     }
 
+    removeFromWorldScene(...args){
+        this.worldThreeSystem.removeFromScene(...args);
+    }
+
     //화면 크기 조정 
     //---------------------------------------------------------------------------------------
 

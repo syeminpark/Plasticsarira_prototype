@@ -43,7 +43,7 @@ async function done() {
     requestAnimationFrame(done);
     if (userDead) {
         userDead = false;
-        await serverClientCommunication.postSariraById(lifeSystem.life_user.getSariraDataForServer());
+        await serverClientCommunication.postSariraById(world.life_user.getSariraDataForServer());
         window.location = `${window.location.href}database.html`;
     }
 }

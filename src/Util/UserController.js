@@ -84,8 +84,7 @@ class UserController {
             else this.orbitControl.target = new THREE.Vector3(0, 0, 0);
         }
 
-        this.user.lifeMesh.material.uniforms.viewVector.value = 
-			new THREE.Vector3().subVectors( this.cam.position, this.user.position );
+        this.user.shaderCalculate( this.cam.position );
 
         this.healthbar.updatePosition(this.user.lifeMesh.position);
         this.healthbar.updateHealth(this.user.lifespan - this.user.age);
@@ -110,7 +109,7 @@ class UserController {
     }
 
     key_update() {
-        var moveDistance = 100 * this.user.clock.getDelta();
+        var moveDistance = 1000 * this.user.clock.getDelta();
 
         if (this.keyboard.pressed("W") || this.virtualKeyboard.getKeyValue() == "W") {
             this.cam.translateZ(-moveDistance);

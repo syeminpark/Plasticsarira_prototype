@@ -49,7 +49,7 @@ function createStandardMaterial() {
 function createParticleMaterial(){
     return new THREE.PointsMaterial({
         color: 'white',
-        size: .3,
+        size: 0.4,
         side: THREE.DoubleSide,
         opacity: 1.,
         transparent: true,
@@ -68,6 +68,26 @@ function createLifeMaterial(){
         },
         vertexShader: lifeShader.vertexShader, 
         fragmentShader: lifeShader.fragmentShader, 
+        side: THREE.FrontSide,
+        blending: THREE.AdditiveBlending
+    });
+}
+
+function createLifeNoiseMaterial(count, gap){
+    return new THREE.ShaderMaterial({
+        uniforms: { 
+            // float initialized to 0
+            time: { type: "f", value: 0.0 },
+            noiseCount:{type: "f", value: count},
+            noiseGap:{type: "f", value: gap},
+
+            "c": { type: "f", value: 1.0 },
+            "p": { type: "f", value: 1.4 },
+            glowColor: { type: "c", value: new THREE.Color(0xffffff) },
+            viewVector: { type: "v3", value: threeSystemController.worldThreeSystem.camera.position }
+        },
+        vertexShader: lifeShader_noise.vertexShader, 
+        fragmentShader: lifeShader_noise.fragmentShader,
         side: THREE.FrontSide,
         blending: THREE.AdditiveBlending
     });

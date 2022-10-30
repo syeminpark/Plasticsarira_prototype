@@ -102,5 +102,7 @@ class ThreeSystem {
         this.scene.add(...args)
     }
 
-    
+    removeFromScene(...args){
+        this.scene.remove(...args)
+    }
 }

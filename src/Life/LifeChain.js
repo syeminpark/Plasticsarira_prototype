@@ -1,6 +1,7 @@
 class Life_primaryConsumer extends Life_Sarira {
-    constructor(index, worldSize, Sarira_Material, Sarira_ConvexMaterial){
-        super(index, worldSize, Sarira_Material, Sarira_ConvexMaterial);
+    constructor(index, options, setPos){
+        super(index, options.worldSize, setPos, options.Sarira_Material, options.Sarira_ConvexMaterial);
+        this.options = options;
     }
 
     init(){
@@ -15,11 +16,29 @@ class Life_primaryConsumer extends Life_Sarira {
         this.lifeName = 'Plankton' + String(this.index);
         this.lifespan = (this.size + this.sizeMax)*10;
     }
+
+    division(lifes, lifeSystem){
+        if (this.isReadyToDivision == true){
+            this.energy -= this.size;
+            this.lifespan -= this.size/2;
+            
+            let child = new Life_primaryConsumer(lifeSystem.lifeNum, this.options, this.position.clone());
+            if (child == null) return;
+            lifeSystem.primaryNum ++;
+            lifeSystem.lifeNum ++;
+            lifes.push(child);
+            this.division_term += this.size;
+            this.isReadyToDivision = false;
+
+            console.log("create life_" + child.index);
+        }
+    }
 }
 
 class Life_secondaryConsumer extends Life_Sarira {
-    constructor(index, worldSize, Sarira_Material, Sarira_ConvexMaterial){
-        super(index, worldSize, Sarira_Material, Sarira_ConvexMaterial);
+    constructor(index, options, setPos){
+        super(index, options.worldSize, setPos, options.Sarira_Material, options.Sarira_ConvexMaterial);
+        this.options = options;
     }
 
     init(){
@@ -34,11 +53,30 @@ class Life_secondaryConsumer extends Life_Sarira {
         this.lifeName = 'Herbivores' + String(this.index);
         this.lifespan = (this.size + this.sizeMax)*5;
     }
+
+    division(lifes, lifeSystem){
+        if (this.isReadyToDivision == true){
+            this.energy -= this.size;
+            this.lifespan -= this.size/2;
+            
+            let child = new Life_secondaryConsumer(lifeSystem.lifeNum, this.options, this.position.clone());
+            if (child == null) return;
+            lifeSystem.secondaryNum ++;
+            lifeSystem.lifeNum ++;
+            child.position = this.position.clone();
+            lifes.push(child);
+            this.division_term += this.size;
+            this.isReadyToDivision = false;
+
+            console.log("create life_" + child.index);
+        }
+    }
 }
 
 class Life_tertiaryConsumer extends Life_Sarira {
-    constructor(index, worldSize, Sarira_Material, Sarira_ConvexMaterial){
-        super(index, worldSize, Sarira_Material, Sarira_ConvexMaterial);
+    constructor(index, options, setPos){
+        super(index, options.worldSize, setPos, options.Sarira_Material, options.Sarira_ConvexMaterial);
+        this.options = options;
     }
 
     init(){
@@ -52,5 +90,23 @@ class Life_tertiaryConsumer extends Life_Sarira {
 
         this.lifeName = 'Carnivores' + String(this.index);
         this.lifespan = (this.size + this.sizeMax)*5;
+    }
+
+    division(lifes, lifeSystem){
+        if (this.isReadyToDivision == true){
+            this.energy -= this.size;
+            this.lifespan -= this.size/2;
+            
+            let child = new Life_tertiaryConsumer(lifeSystem.lifeNum, this.options, this.position.clone());
+            if (child == null) return;
+            lifeSystem.tertiaryNum ++;
+            lifeSystem.lifeNum ++;
+            child.position = this.position.clone();
+            lifes.push(child);
+            this.division_term += this.size;
+            this.isReadyToDivision = false;
+
+            console.log("create life_" + child.index);
+        }
     }
 }
