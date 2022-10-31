@@ -192,6 +192,9 @@ class Life {
 
     division(lifes, lifeSystem) {
         if (this.isReadyToDivision == true){
+            
+            this.isReadyToDivision = false;
+
             this.energy -= this.size;
             this.lifespan -= this.size/2;
             
@@ -201,7 +204,6 @@ class Life {
             lifeSystem.lifeNum++;
             lifes.push(child);
             this.division_term += this.size;
-            this.isReadyToDivision = false;
         }
     }
 
